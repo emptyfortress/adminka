@@ -1,6 +1,6 @@
-# Admin console
+# Admin console new
 
-Переделка админской консоли houston на основе quasar
+Переделка админской консоли из карточек в дерево
 
 - vite
 - typescript
