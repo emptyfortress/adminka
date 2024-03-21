@@ -6,10 +6,6 @@ import path from 'path'
 
 // https://vitejs.dev/config/
 export default defineConfig({
-	// define: {
-	// 	// enable hydration mismatch details in production build
-	// 	__VUE_PROD_HYDRATION_MISMATCH_DETAILS__: 'false',
-	// },
 	plugins: [
 		vue({
 			template: {
@@ -51,8 +47,5 @@ export default defineConfig({
 		alias: {
 			'@': path.resolve(__dirname, '/src'),
 		},
-	},
-	build: {
-		sourcemap: 'hidden',
 	},
 })
