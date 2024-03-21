@@ -32,7 +32,7 @@ q-form.all
 		legend Свойства базы данных
 		.form
 			label Имя базы данных:
-			MyInput
+			MyInput(v-model="test")
 			// q-input(v-model="test" dense lazy-rules :rules="req" @blur="myform.validate()").inp
 
 	.arch

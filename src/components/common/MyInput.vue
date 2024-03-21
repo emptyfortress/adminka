@@ -3,7 +3,7 @@ const modelValue = defineModel()
 </script>
 
 <template lang="pug">
-q-input(v-model="modelValue" dense outined bg-color="white").inp
+q-input.inp(v-model="modelValue" dense outlined bg-color="white")
 </template>
 
 <style scoped lang="scss"></style>
