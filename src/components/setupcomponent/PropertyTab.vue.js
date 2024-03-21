@@ -111,10 +111,10 @@ function __VLS_template() {
                 }
                 {
                     const __VLS_25 = {}.MyInput;
-                    const __VLS_26 = __VLS_asFunctionalComponent(__VLS_25, new __VLS_25({ ...{}, }));
+                    const __VLS_26 = __VLS_asFunctionalComponent(__VLS_25, new __VLS_25({ ...{}, modelValue: ((__VLS_ctx.test)), }));
                     ({}.MyInput);
-                    const __VLS_27 = __VLS_26({ ...{}, }, ...__VLS_functionalComponentArgsRest(__VLS_26));
-                    ({}({ ...{}, }));
+                    const __VLS_27 = __VLS_26({ ...{}, modelValue: ((__VLS_ctx.test)), }, ...__VLS_functionalComponentArgsRest(__VLS_26));
+                    ({}({ ...{}, modelValue: ((__VLS_ctx.test)), }));
                     const __VLS_28 = __VLS_pickFunctionalComponentCtx(__VLS_25, __VLS_27);
                 }
                 (__VLS_18.slots).default;
@@ -302,7 +302,7 @@ function __VLS_template() {
                         const __VLS_138 = __VLS_pickFunctionalComponentCtx(__VLS_135, __VLS_137);
                     }
                     // @ts-ignore
-                    [tables, options, options, options,];
+                    [test, test, test, tables, options, options, options,];
                 }
                 (__VLS_128.slots).default;
                 const __VLS_128 = __VLS_pickFunctionalComponentCtx(__VLS_125, __VLS_127);
@@ -339,6 +339,7 @@ const __VLS_internalComponent = (await import('vue')).defineComponent({
             MyInput: MyInput,
             options: options,
             tables: tables,
+            test: test,
         };
     },
     props: {

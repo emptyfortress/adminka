@@ -1,21 +1,21 @@
 /* __placeholder__ */
-import { ref } from 'vue';
+import { ref, reactive } from 'vue';
 import GreyBlock from '@/components/GreyBlock.vue';
 import AddDialogCommon from '@/components/AddDialogCommon.vue';
 const { defineProps, defineSlots, defineEmits, defineExpose, defineModel, defineOptions, withDefaults, } = await import('vue');
 const type = ref('Почтовый сервер');
-const connections = ref([{ name: 'd6d224' }]);
+const connections = reactive([{ name: 'd6d224' }]);
 const dialog = ref(false);
 const add = () => {
     dialog.value = !dialog.value;
 };
 const addConnection = (e) => {
-    connections.value.push({ name: e });
+    connections.push({ name: e });
     dialog.value = false;
 };
 const del = (e) => {
-    let index = connections.value.indexOf((item) => item.name === e);
-    connections.value.splice(index, 1);
+    let index = connections.indexOf((item) => item.name === e);
+    connections.splice(index, 1);
 };
 let __VLS_modelEmitsType;
 const __VLS_componentsOption = {};

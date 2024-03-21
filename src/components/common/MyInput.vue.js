@@ -22,10 +22,10 @@ function __VLS_template() {
     [QInput,];
     {
         const __VLS_0 = {}.QInput;
-        const __VLS_1 = __VLS_asFunctionalComponent(__VLS_0, new __VLS_0({ ...{}, class: (" inp"), modelValue: ((__VLS_ctx.modelValue)), dense: (true), outined: (true), bgColor: ("white"), }));
+        const __VLS_1 = __VLS_asFunctionalComponent(__VLS_0, new __VLS_0({ ...{}, class: (" inp"), modelValue: ((__VLS_ctx.modelValue)), dense: (true), outlined: (true), bgColor: ("white"), }));
         ({}.QInput);
-        const __VLS_2 = __VLS_1({ ...{}, class: (" inp"), modelValue: ((__VLS_ctx.modelValue)), dense: (true), outined: (true), bgColor: ("white"), }, ...__VLS_functionalComponentArgsRest(__VLS_1));
-        ({}({ ...{}, class: (" inp"), modelValue: ((__VLS_ctx.modelValue)), dense: (true), outined: (true), bgColor: ("white"), }));
+        const __VLS_2 = __VLS_1({ ...{}, class: (" inp"), modelValue: ((__VLS_ctx.modelValue)), dense: (true), outlined: (true), bgColor: ("white"), }, ...__VLS_functionalComponentArgsRest(__VLS_1));
+        ({}({ ...{}, class: (" inp"), modelValue: ((__VLS_ctx.modelValue)), dense: (true), outlined: (true), bgColor: ("white"), }));
         const __VLS_3 = __VLS_pickFunctionalComponentCtx(__VLS_0, __VLS_2);
     }
     if (typeof __VLS_styleScopedClasses === 'object' && !Array.isArray(__VLS_styleScopedClasses)) {
