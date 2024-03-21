@@ -1,30 +1,91 @@
 <script setup lang="ts">
-import HelloWorld from './components/HelloWorld.vue'
+import { ref } from "vue";
+import { useQuasar } from "quasar";
+import Drawer from "@/components/Drawer.vue";
+import RDrawer from "@/components/RDrawer.vue";
+
+const rightDrawer = ref(false);
+const ru = ref(true);
+// const toggleRightDrawer = () => {
+// 	rightDrawer.value = !rightDrawer.value
+// }
+
+const $q = useQuasar();
+const dark = () => {
+  $q.dark.toggle();
+};
 </script>
 
-<template>
-  <div>
-    <a href="https://vitejs.dev" target="_blank">
-      <img src="/vite.svg" class="logo" alt="Vite logo" />
-    </a>
-    <a href="https://vuejs.org/" target="_blank">
-      <img src="./assets/vue.svg" class="logo vue" alt="Vue logo" />
-    </a>
-  </div>
-  <HelloWorld msg="Vite + Vue" />
+<template lang="pug">
+q-layout(view="hHh LpR lFr")
+	q-header(reveal).head
+		q-toolbar
+			img(src="@/assets/img/adm-logo.svg")
+			q-toolbar-title.text-uppercase Docsvision 5 консоль управления
+			//- q-btn(flat round icon="mdi-brightness-4" @click="dark").q-mr-md
+			q-btn(dense flat round  @click="ru = !ru").q-mr-md
+				img(v-if="ru" src="@/assets/img/russia.svg" width="26")
+				img(v-else src="@/assets/img/us.svg" width="26")
+			q-avatar(color="blue-2" size="32px")
+				img(src="@/assets/img/user0.svg")
+				q-menu
+					q-item(clickable v-close-popup)
+						q-item-section(side).name
+						q-item-section Орлов&nbsp;П.С.
+					q-item(clickable v-close-popup)
+						q-item-section О программе
+					q-item(clickable v-close-popup)
+						q-item-section Выход
+			//- q-btn(dense flat round icon="mdi-menu" @click="toggleRightDrawer")
+
+	// component(:is="Drawer")
+	Drawer
+	component(:is="RDrawer" :show="rightDrawer")
+
+	q-page-container
+		q-page
+			router-view(v-slot="{ Component, route }")
+				transition(name="fade")
+					component(:is="Component")
+
+	q-footer(bordered).footer
+		div .dv admin panel
+		div memory 80%
+		div v.0.43.1
 </template>
 
-<style scoped>
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
+<style scoped lang="scss">
+.head {
+  background-color: var(--bg-header);
+  height: 64px;
+  color: var(--text-color);
+  padding-left: 1rem;
+  padding-right: 1rem;
+  line-height: 64px;
+  border-bottom: 1px solid #fff;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+  @media screen and (max-width: 1024px) {
+    height: 48px;
+    line-height: 48px;
+  }
 }
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
+.name::before {
+  content: "";
+  width: 8px;
+  height: 8px;
+  border-radius: 8px;
+  background: teal;
+  display: inline-block;
 }
-.logo.vue:hover {
-  filter: drop-shadow(0 0 2em #42b883aa);
+.footer {
+  height: 32px;
+  line-height: 32px;
+  background: var(--bg-drawer);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: var(--text-color);
+  padding: 0 1rem;
+  font-size: 0.8rem;
 }
 </style>
