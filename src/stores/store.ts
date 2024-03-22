@@ -17,7 +17,7 @@ export const useStore = defineStore({
 			{ id: 'SOL2016', name: 'SOL2016' },
 			{ id: 'SOL2017', name: 'SOL2017' },
 		],
-		conputer: [
+		computer: [
 			{ id: 0, name: 'AGSupport' },
 			{ id: 1, name: 'test' },
 		],
