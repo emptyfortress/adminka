@@ -35,6 +35,7 @@ q-form.all
 			MyInput(v-model="test")
 			label Псевдоним:
 			MyInput(v-model="test")
+			label Псевдоним:
 
 	.arch
 		.title Свойства базы данных
