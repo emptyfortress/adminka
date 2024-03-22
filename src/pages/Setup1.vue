@@ -17,9 +17,11 @@ const route = useRoute()
 const goto = (e: Config) => {
 	selected.value = e.id
 	let ind = expanded.value.findIndex(item => item == e.id)
-	if (e.children.length && ind > -1) {
+	if (!!e.children && ind > -1) {
 		expanded.value.splice(ind, 1)
 	} else expanded.value.push(e.id)
+
+	router.push(e.url)
 }
 router.afterEach(to => {
 	if (!!to.hash) {
@@ -59,7 +61,7 @@ q-page.q-px-md.q-pt-sm
 								label {{ prop.node.label }}
 
 			div
-				q-tabs(v-model="tabs" inline-label align="left" active-color="primary")
+				q-tabs(v-model="tabs" inline-label align="left" active-color="primary" v-if="route.path !== '/setup1/appserver/configurations'")
 					template(v-for="item in store.config" :key="item.id")
 						q-tab(:name="item.id" icon="mdi-cog" :label="item.name")
 					q-btn(flat round dense icon="mdi-plus-circle" color="primary") 
@@ -87,7 +89,7 @@ q-page.q-px-md.q-pt-sm
 	display: grid;
 	grid-template-columns: auto 1fr;
 	align-items: start;
-	column-gap: 4rem;
+	column-gap: 1rem;
 	row-gap: 0.5rem;
 }
 :deep(.q-tree__node--selected) {
@@ -96,8 +98,10 @@ q-page.q-px-md.q-pt-sm
 }
 .left {
 	height: calc(100vh - 175px);
-	width: 220px;
-	padding-top: 1rem;
+	width: 230px;
+	padding-top: 0.5rem;
+	padding-right: 1rem;
+	border-right: 1px solid #ccc;
 }
 .right {
 	height: calc(100vh - 175px);

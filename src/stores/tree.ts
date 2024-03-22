@@ -8,19 +8,19 @@ export const useTree = defineStore({
 			{
 				id: 'appserver',
 				label: 'Сервер приложений',
-				url: '/setup1/appserver',
+				url: '/setup1/appserver/configurations',
 				children: [
 					{
 						id: 'configs',
 						label: 'Конфигурации',
 						save: true,
-						url: '/setup1/appserver/configurations/SOL2016#bd',
+						url: '/setup1/appserver/configurations',
 					},
 					{
 						id: 'db',
 						label: 'Базы данных',
 						save: true,
-						url: '/setup1/appserver/configurations/SOL2016#bd',
+						url: '/setup1/appserver/database',
 					},
 					{
 						id: 'common',

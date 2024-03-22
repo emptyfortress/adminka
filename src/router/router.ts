@@ -57,20 +57,20 @@ export const router = createRouter({
 					},
 				},
 				{
-					path: 'appserver',
-					component: () => import('@/components/tree/Module.vue'),
-					meta: {
-						title: 'Модули',
-					},
-				},
-				{
 					path: 'appserver/configurations',
 					component: () => import('@/components/tree/Configurations.vue'),
 				},
 				{
-					path: 'appserver/configurations/:id',
-					component: () => import('@/components/tree/AppConfig.vue'),
+					path: 'appserver/database',
+					component: () => import('@/components/setupcomponent/Database.vue'),
+					meta: {
+						title: 'Модули',
+					},
 				},
+				// {
+				// 	path: 'appserver/configurations/:id',
+				// 	component: () => import('@/components/tree/AppConfig.vue'),
+				// },
 			],
 		},
 		{
