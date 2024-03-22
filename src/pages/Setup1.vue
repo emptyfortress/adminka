@@ -13,43 +13,44 @@ const router = useRouter()
 const route = useRoute()
 
 const goto = (e: Config) => {
-	if (!!e.url) {
-		router.push(e.url)
-	}
+	selected.value = e.id
+	let ind = expanded.value.findIndex(item => item == e.id)
+	if (e.children.length && ind > -1) {
+		expanded.value.splice(ind, 1)
+	} else expanded.value.push(e.id)
 }
 router.afterEach(to => {
 	if (!!to.hash) {
-		// document.querySelector(to.hash)?.scrollIntoView({ behavior: 'smooth' })
-		// setTimeout(() => {
-		// 	document.querySelector(to.hash)?.scrollIntoView({ behavior: 'smooth' })
-		// }, 300)
 		nextTick(() => {
 			document.querySelector(to.hash)?.scrollIntoView({ behavior: 'smooth' })
 		})
 	}
 })
 const save = ref(false)
+const calcClass = (e: any) => {
+	return e.children.length > 0 ? 'text-weight-bold' : ''
+}
 </script>
 
 <template lang="pug">
 q-page(padding)
 	.container
+		q-input.q-mb-md(v-model="query" dense standout clearable placeholder="Найти настройку")
+			template(v-slot:prepend)
+				q-icon(name="mdi-magnify")
 		.grid
 			div
-				q-input.q-mb-md(v-model="query" dense)
-					template(v-slot:prepend)
-						q-icon(name="mdi-magnify")
 				q-scroll-area.left
 					q-tree(:nodes="tree.tree"
 						v-model:selected="selected"
 						v-model:expanded="expanded"
 						selected-color="blue-10"
 						no-selection-unset
-						default-expand-all
+						no-connectors
 						node-key="id")
 
 						template(v-slot:default-header="prop")
-							.node(@click="goto(prop.node)")
+							.node(@click="goto(prop.node)" :class="calcClass(prop.node)")
 								label {{ prop.node.label }}
 
 			div
@@ -59,15 +60,13 @@ q-page(padding)
 				q-scroll-area.right(:class="{save: save}")
 					router-view(v-slot="{ Component, route }")
 						component(:is="Component")
-						// transition(name="page")
-						// 	component(:is="Component")
 
 	</template>
 
 <style scoped lang="scss">
 .container {
-	// max-width: 1280px;
-	// margin: 0 auto;
+	max-width: 1440px;
+	margin: 0 auto;
 }
 .grid {
 	width: 100%;
@@ -78,19 +77,28 @@ q-page(padding)
 	row-gap: 0.5rem;
 }
 :deep(.q-tree__node--selected) {
+	border: 1px solid hsl(221 41% 73% / 1);
 	background: var(--tree-selection);
+	// background: $secondary;
+	// color: white;
 }
 .left {
 	height: calc(100vh - 200px);
-	width: 300px;
+	width: 200px;
 }
 .right {
-	height: calc(100vh - 145px);
+	height: calc(100vh - 175px);
 	&.save {
 		height: calc(100vh - 145px - 32px);
 	}
 }
 .q-tree {
 	font-size: 0.8rem;
+}
+:deep(.q-tree__node) {
+	padding-bottom: 0;
+}
+:deep(.q-tree__children) {
+	padding-left: 0px;
 }
 </style>

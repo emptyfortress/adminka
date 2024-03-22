@@ -47,7 +47,7 @@ q-layout(view="hHh LpR lFr")
 				transition(name="fade")
 					component(:is="Component")
 
-	q-footer(bordered).footer
+	// q-footer(bordered).footer
 		div .dv admin panel
 		div memory 80%
 		div v.0.43.1
