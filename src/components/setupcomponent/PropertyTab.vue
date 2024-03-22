@@ -33,7 +33,8 @@ q-form.all
 		.form
 			label Имя базы данных:
 			MyInput(v-model="test")
-			// q-input(v-model="test" dense lazy-rules :rules="req" @blur="myform.validate()").inp
+			label Псевдоним:
+			MyInput(v-model="test")
 
 	.arch
 		.title Свойства базы данных
@@ -68,6 +69,7 @@ q-form.all
 legend {
 	text-transform: uppercase;
 	color: $secondary;
+	font-size: 0.72rem;
 }
 .all {
 	// width: 750px;
