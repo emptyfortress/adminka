@@ -15,8 +15,8 @@ const cols: QTableColumn[] = [
 		label: 'Название',
 		align: 'left',
 		sortable: true,
-		name: 'label',
-		field: 'label',
+		name: 'name',
+		field: 'name',
 	},
 	{
 		label: 'Модуль',
@@ -68,26 +68,24 @@ const goto = (evt: Event, row: any, idx: number) => {
 
 <template lang="pug">
 .treepage
-	.mainzag
-		q-icon.q-mr-md(name="mdi-hammer-wrench" color="secondary" size="md")
-		span Конфигурации
-		q-space
-		q-chip(color="warning") {{ store.config.length }}
+	.mainzag Шаблоны настроек
 	q-table(:columns="cols"
-		:rows="tree.configs"
+		:rows="store.config"
 		hide-pagination
 		@row-click="goto"
 		row-key="id")
+
 		template(v-slot:body-cell-action="props")
-			q-td.text-right(:props="props")
+			q-td.text-right.q-gutter-x-md(:props="props")
+				q-btn(:props="props" round flat icon='mdi-pencil' size='sm' dense)
+				q-btn(:props="props" round flat icon='mdi-content-duplicate' size='sm' dense)
 				q-btn.q-mr-md(flat dense round icon="mdi-trash-can-outline" size="sm" @click.stop) 
 					q-menu
 						q-list
 							q-item(clickable v-close-popup @click="remove(props.row.id)").pink
 								q-item-section Удалить
-				q-btn(:props="props" round flat icon='mdi-chevron-right' size='md' dense)
 	br
-	q-btn(unelevated color="primary" label="Добавить конфигурацию" @click="add") 
+	q-btn(unelevated color="primary" label="Добавить шаблон" @click="add") 
 
 	AddDialogCommon(v-model="dialog" @add="addConfig" dv )
 </template>
@@ -104,5 +102,8 @@ const goto = (evt: Event, row: any, idx: number) => {
 	font-weight: normal;
 	color: hsl(0, 0%, 40%);
 	padding: 5px 8px;
+}
+.q-table__container {
+	width: auto;
 }
 </style>

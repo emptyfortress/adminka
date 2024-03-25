@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, nextTick } from 'vue'
+import { ref, nextTick, computed } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import { useTree } from '@/stores/tree'
 import { useStore } from '@/stores/store'
@@ -35,6 +35,9 @@ const calcClass = (e: any) => {
 	return e.children?.length > 0 ? 'text-weight-bold' : ''
 }
 const tabs = ref('one')
+const sel = computed(() => {
+	return 'дфлоыдлво'
+})
 </script>
 
 <template lang="pug">
@@ -52,6 +55,7 @@ q-page.q-px-md.q-pt-sm
 						v-model:selected="selected"
 						v-model:expanded="expanded"
 						selected-color="blue-10"
+						icon="mdi-chevron-right"
 						no-selection-unset
 						no-connectors
 						node-key="id")
@@ -59,18 +63,23 @@ q-page.q-px-md.q-pt-sm
 						template(v-slot:default-header="prop")
 							.node(@click="goto(prop.node)" :class="calcClass(prop.node)")
 								label {{ prop.node.label }}
-
 			div
-				q-tabs(v-model="tabs" inline-label align="left" active-color="primary" v-if="route.path !== '/setup1/appserver/configurations'")
-					template(v-for="item in store.config" :key="item.id")
-						q-tab(:name="item.id" icon="mdi-cog" :label="item.name")
-					q-btn(flat round dense icon="mdi-plus-circle" color="primary") 
-					// .divider
-					// template(v-for="item in store.computer" :key="item.id")
-					// 	q-tab(:name="item.id" icon="mdi-penguin" :label="item.name")
-					q-space
-					q-btn(flat color="primary" label="Отмена" @click="action") 
-					q-btn(unelevated color="primary" label="Сохранить" @click="action") 
+				.selector(v-if="route.path !== '/setup1/appserver/configurations'")
+					q-select(v-model="sel" dense outlined bg-color="white")
+					div
+						q-btn(flat color="primary" label="Отмена" @click="action")
+						q-btn(unelevated color="primary" label="Сохранить" @click="action")
+				// q-tabs(v-model="tabs" inline-label align="left" active-color="primary" v-if="route.path !== '/setup1/appserver/configurations'")
+				// 	template(v-for="item in store.computer" :key="item.id")
+				// 		q-tab(:name="item.id" icon="mdi-penguin" :label="item.name")
+				// 	.divider
+				// 	template(v-for="item in store.config" :key="item.id")
+				// 		q-tab(:name="item.id" icon="mdi-code-braces" :label="item.name")
+				// 	// label Выберите шаблон
+				// 	q-select(v-model="sel" dense outlined bg-color="white")
+				// 	q-space
+				// 	q-btn(flat color="primary" label="Отмена" @click="action") 
+				// 	q-btn(unelevated color="primary" label="Сохранить" @click="action") 
 				q-separator
 
 				q-scroll-area.right(:class="{save: save}")
@@ -105,7 +114,7 @@ q-page.q-px-md.q-pt-sm
 }
 .right {
 	height: calc(100vh - 175px);
-	padding-top: 1rem;
+	// padding-top: 1rem;
 	&.save {
 		height: calc(100vh - 145px - 32px);
 	}
@@ -124,5 +133,13 @@ q-page.q-px-md.q-pt-sm
 	height: 100%;
 	border-left: 2px dotted grey;
 	// background: $secondary;
+}
+.selector {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	// background: pink;
+	margin-top: 0.5rem;
+	margin-bottom: 0.5rem;
 }
 </style>

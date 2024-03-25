@@ -2,14 +2,14 @@
 q-dialog(:model-value="props.modelValue")
 	q-card(style="min-width: 400px; padding: 1rem;")
 		.row.items-center.q-pb-none
-			.text-h6(v-if="props.dv") Добавить конфигурацию
+			.text-h6(v-if="props.dv") Добавить шаблон
 			.text-h6(v-if="props.worker") Добавить процесс
 			.text-h6(v-if="props.connection") Добавить экземпляр
 			q-space
 			q-btn(icon="close" flat round dense @click="close")
 		q-form(@submit="addConnection(newname)")
 			q-card-section
-				q-input(autofocus v-model="newname" v-if="props.dv" label="Название конфигурации" @submit="addConnection(newname)")
+				q-input(autofocus v-model="newname" v-if="props.dv" label="Название" @submit="addConnection(newname)")
 				q-input(autofocus v-model="newname" v-if="props.worker" label="Имя процесса" @submit="addConnection(newname)")
 				q-input(autofocus v-model="newname" v-if="props.connection" label="Имя соединения")
 				template(v-if="props.worker")

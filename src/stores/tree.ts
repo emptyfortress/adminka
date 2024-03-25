@@ -6,16 +6,22 @@ export const useTree = defineStore({
 	state: () => ({
 		tree: [
 			{
+				id: 'configs',
+				label: 'Шаблоны настроек',
+				save: true,
+				url: '/setup1/appserver/configurations',
+				// children: [
+				// 	{ id: 'SOL2016', label: 'SOL2016' },
+				// 	{ id: 'SOL2017', label: 'SOL2017' },
+				// 	{ id: 'Config 1', label: 'Config 1' },
+				// 	{ id: 'Config 2', label: 'Config 2' },
+				// ],
+			},
+			{
 				id: 'appserver',
 				label: 'Сервер приложений',
 				url: '/setup1/appserver/configurations',
 				children: [
-					{
-						id: 'configs',
-						label: 'Конфигурации',
-						save: true,
-						url: '/setup1/appserver/configurations',
-					},
 					{
 						id: 'db',
 						label: 'Базы данных',
