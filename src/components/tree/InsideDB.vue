@@ -23,6 +23,7 @@ const bd = ref({
 	psevdo: 'AGSupport',
 	name: 'AGSupport_1',
 	server: 'Docsvision 1',
+	servertype: 'SQL Server',
 	index: 'yes',
 	version: 4373,
 	date: '20.10.2021',
@@ -47,18 +48,19 @@ q-page(padding)
 					q-item-label {{ item.label }}
 
 		q-scroll-area.right
-			#prop.zg Свойства
-			component(:is="PropertyTab" :bd="bd")
-			#control.zg Обслуживание
-			component(:is="ControlTab" :bd="bd")
-			#outer.zg Внешние хранилища
-			component(:is="Outer")
-			#arch.zg Архивирование
-			component(:is="ArchTab" :bd="bd")
-			#cache.zg Кэширование
-			component(:is="CacheTab" :bd="bd")
-			#module.zg Доп.настройки
-			component(:is="ModuleTab" :bd="bd")
+			.q-ml-lg
+				#prop.zg Свойства базы данных
+				component(:is="PropertyTab" :bd="bd")
+				#control.zg Обслуживание
+				// component(:is="ControlTab" :bd="bd")
+				#outer.zg Внешние хранилища
+				// component(:is="Outer")
+				#arch.zg Архивирование
+				// component(:is="ArchTab" :bd="bd")
+				#cache.zg Кэширование
+				// component(:is="CacheTab" :bd="bd")
+				#module.zg Доп.настройки
+				// component(:is="ModuleTab" :bd="bd")
 
 </template>
 
@@ -94,6 +96,7 @@ q-page(padding)
 	font-weight: 300;
 	text-transform: uppercase;
 	margin-top: 2rem;
+	margin-left: 2rem;
 	&:first-child {
 		margin-top: 0;
 	}
