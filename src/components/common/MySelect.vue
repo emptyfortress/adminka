@@ -5,6 +5,7 @@ interface Props {
 	filled: boolean
 	bg: string
 	options: string[]
+	disable?: boolean
 }
 
 const props = withDefaults(defineProps<Props>(), {
@@ -27,6 +28,7 @@ q-select(ref="select"
 	:outlined="!props.filled"
 	bg-color="white"
 	:options="props.options"
+	:disable="props.disable"
 	hide-bottom-space
 	lazy-rules
 	:rules="req"
@@ -41,7 +43,6 @@ q-select(ref="select"
 }
 :deep(.q-field__native) {
 	min-height: 28px;
-	// line-height: 20px;
 }
 :deep(.q-field__marginal) {
 	height: inherit;

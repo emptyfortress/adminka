@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { ref, watch } from 'vue'
 import MyInput from '@/components/common/MyInput.vue'
 import MySelect from '@/components/common/MySelect.vue'
 
@@ -10,6 +11,7 @@ interface Props {
 	type: string
 	label: string
 	descr?: string
+	disable?: boolean
 }
 
 const props = withDefaults(defineProps<Props>(), {
@@ -18,20 +20,25 @@ const props = withDefaults(defineProps<Props>(), {
 	select: false,
 	type: 'text',
 	label: 'Label',
-	descr: 'This is description',
 })
 
 const modelValue = defineModel<string>()
+const changed = ref(false)
+watch(modelValue, val => {
+	if (val) {
+		changed.value = true
+	}
+})
 </script>
 
 <template lang="pug">
 .data
 	q-btn(flat icon="mdi-restore" color="secondary" dense) 
 		q-tooltip Вернуть значения по умолчанию
-	.inner
+	.inner(v-if="changed")
 	label {{ props.label }}
 	.descr(v-if="props.descr") {{ props.descr }}
-	MyInput(v-model="modelValue" v-if="!props.select" :bg="props.bg" :filled="props.filled" :type="props.type")
+	MyInput(v-model="modelValue" v-if="!props.select" :bg="props.bg" :filled="props.filled" :type="props.type" :disable="props.disable")
 	MySelect(v-model="modelValue" v-else :bg="props.bg" :filled="props.filled")
 </template>
 
