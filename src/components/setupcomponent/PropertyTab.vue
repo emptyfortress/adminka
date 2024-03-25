@@ -14,39 +14,46 @@ const props = defineProps({
 const commonProp = ref([
 	{
 		id: 0,
-		model: props.bd.name,
+		main: props.bd.name,
 		label: 'Имя базы данных',
 		descr: 'This is description',
 		disable: true,
 	},
 	{
 		id: 1,
-		model: props.bd.psevdo,
+		main: props.bd.psevdo,
 		label: 'Псевдоним',
 		descr: 'This is description',
 	},
 	{
 		id: 2,
-		model: props.bd.server,
+		main: props.bd.server,
 		label: 'Server SQL',
 		descr: 'This is description',
 	},
 	{
 		id: 3,
-		model: props.bd.servertype,
+		main: props.bd.servertype,
 		label: 'Тип сервера',
 		descr: 'This is description',
 	},
 	{
 		id: 4,
-		model: props.bd.version,
+		main: props.bd.version,
 		label: 'Версия',
 		descr: 'This is description',
 	},
 	{
 		id: 5,
-		model: props.bd.date,
+		main: props.bd.date,
 		label: 'Дата последнего обновления',
+	},
+	{
+		id: 6,
+		label: 'Использовать по умолчанию',
+		checkbox: true,
+		check: false,
+		descr: 'Данная база используется по умолчанию',
 	},
 ])
 
@@ -71,7 +78,15 @@ const test = ref('fuck')
 q-form
 	.section Общие свойства
 	q-list
-		MyField(v-model="item.model" v-for="item in commonProp" :key="item.id" :label="item.label" :descr="item.descr" :disable="item.disable")
+		MyField(
+			v-model:main="item.main" 
+			v-model:check="item.check" 
+			v-for="item in commonProp" 
+			:key="item.id" 
+			:label="item.label" 
+			:descr="item.descr" 
+			:disable="item.disable" 
+			:checkbox="item.checkbox")
 		
 
 // q-form.all

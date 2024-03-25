@@ -25,8 +25,8 @@ const bd = ref({
 	server: 'Docsvision 1',
 	servertype: 'SQL Server',
 	index: 'yes',
-	version: 4373,
-	date: '20.10.2021',
+	version: '4373',
+	date: '20.10.2021 10:34',
 	def: true,
 })
 </script>
@@ -76,8 +76,6 @@ q-page(padding)
 		cursor: pointer;
 	}
 }
-.left {
-}
 .grid {
 	display: grid;
 	grid-template-columns: auto 1fr;
@@ -101,8 +99,10 @@ q-page(padding)
 		margin-top: 0;
 	}
 }
-.right {
-	height: calc(100vh - 300px);
+.right,
+.left {
+	height: calc(100vh - 165px);
 	width: 100%;
+	// background: pink;
 }
 </style>

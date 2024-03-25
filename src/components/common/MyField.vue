@@ -1,17 +1,19 @@
 <script setup lang="ts">
-import { ref, watch } from 'vue'
+import { ref, watch, onMounted, nextTick } from 'vue'
 import MyInput from '@/components/common/MyInput.vue'
 import MySelect from '@/components/common/MySelect.vue'
 
 interface Props {
-	filled: boolean
-	bg: string
+	filled?: boolean
+	bg?: string
 	options?: string[]
-	select: boolean
-	type: string
+	select?: boolean
+	type?: string
 	label: string
 	descr?: string
 	disable?: boolean
+	checkbox?: boolean
+	checkvalue?: boolean
 }
 
 const props = withDefaults(defineProps<Props>(), {
@@ -22,24 +24,48 @@ const props = withDefaults(defineProps<Props>(), {
 	label: 'Label',
 })
 
-const modelValue = defineModel<string>()
+const main = defineModel<string>('main')
+const check = defineModel<boolean>('check')
+
 const changed = ref(false)
-watch(modelValue, val => {
+
+const old = ref()
+const oldcheck = ref()
+
+onMounted(() => {
+	old.value = main.value
+	oldcheck.value = check.value
+})
+watch(main, (val, oldval) => {
 	if (val) {
 		changed.value = true
 	}
 })
+watch(check, (val, oldval) => {
+	if (val) {
+		changed.value = true
+	}
+})
+const reset = () => {
+	main.value = old.value
+	check.value = oldcheck.value
+	nextTick(() => {
+		changed.value = false
+	})
+}
+const item = ref(false)
 </script>
 
 <template lang="pug">
 .data
-	q-btn(flat icon="mdi-restore" color="secondary" dense) 
-		q-tooltip Вернуть значения по умолчанию
+	q-btn(v-if="changed" flat icon="mdi-restore" color="secondary" dense @click="reset") 
 	.inner(v-if="changed")
 	label {{ props.label }}
-	.descr(v-if="props.descr") {{ props.descr }}
-	MyInput(v-model="modelValue" v-if="!props.select" :bg="props.bg" :filled="props.filled" :type="props.type" :disable="props.disable")
-	MySelect(v-model="modelValue" v-else :bg="props.bg" :filled="props.filled")
+	.descr(v-if="props.descr && !props.checkbox") {{ props.descr }}
+	div
+		q-checkbox(v-model="check" dense :label="props.descr" v-if="checkbox")
+	MyInput(v-model="main" v-if="!props.select && !props.checkbox" :bg="props.bg" :filled="props.filled" :type="props.type" :disable="props.disable")
+	MySelect(v-model="main" v-if="props.select && !props.checkbox" :bg="props.bg" :filled="props.filled")
 </template>
 
 <style scoped lang="scss">
@@ -83,6 +109,9 @@ watch(modelValue, val => {
 		left: -2rem;
 		top: 0.1rem;
 		display: none;
+	}
+	.q-checkbox {
+		// display: block;
 	}
 }
 </style>
