@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, reactive } from 'vue'
 import MyInput from '@/components/common/MyInput.vue'
 import MySelect from '@/components/common/MySelect.vue'
 import MyField from '@/components/common/MyField.vue'
@@ -59,22 +59,50 @@ const commonProp = ref([
 	},
 ])
 
-// const options = [
-// 	'UseDefaultOrCurrent',
-// 	'UseOwnDatabase',
-// 	'UseOuterDatabase',
-// 	'UseTemporaryDatabase',
-// ]
-// const tables = [
-// 	{ id: 0, label: 'ChangeObjectDataBaseType', val: 'UseTemporaryDatabase' },
-// 	{ id: 1, label: 'CursorDataBaseType', val: 'UseTemporaryDatabase' },
-// 	{ id: 2, label: 'FileCursorDataBaseType', val: 'UseOwnDatabase' },
-// 	{ id: 3, label: 'IconDataBaseType', val: 'UseTemporaryDatabase' },
-// 	{ id: 4, label: 'KeysetDataBaseType', val: 'UseTemporaryDatabase' },
-// 	{ id: 5, label: 'SearchDataBaseType', val: 'UseTemporaryDatabase' },
-// ]
-const test = ref('fuck')
-console.log('test ', props.id)
+const options = [
+	'UseDefaultOrCurrent',
+	'UseOwnDatabase',
+	'UseOuterDatabase',
+	'UseTemporaryDatabase',
+]
+const tables = reactive([
+	{
+		id: 0,
+		select: true,
+		label: 'ChangeObjectDataBaseType',
+		val: 'UseTemporaryDatabase',
+	},
+	{
+		id: 1,
+		select: true,
+		label: 'CursorDataBaseType',
+		val: 'UseTemporaryDatabase',
+	},
+	{
+		id: 2,
+		select: true,
+		label: 'FileCursorDataBaseType',
+		val: 'UseOwnDatabase',
+	},
+	{
+		id: 3,
+		select: true,
+		label: 'IconDataBaseType',
+		val: 'UseTemporaryDatabase',
+	},
+	{
+		id: 4,
+		select: true,
+		label: 'KeysetDataBaseType',
+		val: 'UseTemporaryDatabase',
+	},
+	{
+		id: 5,
+		select: true,
+		label: 'SearchDataBaseType',
+		val: 'UseTemporaryDatabase',
+	},
+])
 </script>
 
 <template lang="pug">
@@ -91,6 +119,19 @@ q-form
 			:disable="item.disable" 
 			:checkbox="item.checkbox")
 		
+	.section Расположение таблиц
+	q-list
+		MyField(
+			v-model:main="item.val" 
+			v-model:check="item.check" 
+			v-for="item in tables" 
+			:key="item.id" 
+			:label="item.label" 
+			:select="item.select"
+			:options="options"
+			descr="This is description" 
+			:disable="item.disable" 
+			)
 
 
 
@@ -127,6 +168,8 @@ q-form
 	margin-top: 1rem;
 	color: #666;
 	margin-left: 2rem;
+	// border-bottom: 2px solid black;
+	// font-weight: 600;
 }
 .node {
 	display: flex;

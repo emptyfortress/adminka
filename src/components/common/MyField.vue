@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, watch, onMounted, nextTick } from 'vue'
+import { ref, computed, watch, onMounted, nextTick } from 'vue'
 import MyInput from '@/components/common/MyInput.vue'
 import MySelect from '@/components/common/MySelect.vue'
 
@@ -22,6 +22,7 @@ const props = withDefaults(defineProps<Props>(), {
 	select: false,
 	type: 'text',
 	label: 'Label',
+	bg: 'white',
 })
 
 const main = defineModel<string>('main')
@@ -65,7 +66,7 @@ const item = ref(false)
 	div
 		q-checkbox(v-model="check" dense :label="props.descr" v-if="checkbox" :disable="props.disable")
 	MyInput(v-model="main" v-if="!props.select && !props.checkbox" :bg="props.bg" :filled="props.filled" :type="props.type" :disable="props.disable")
-	MySelect(v-model="main" v-if="props.select && !props.checkbox" :bg="props.bg" :filled="props.filled")
+	MySelect(v-model="main" v-if="props.select && !props.checkbox" :bg="props.bg" :filled="props.filled" :options="props.options")
 </template>
 
 <style scoped lang="scss">
