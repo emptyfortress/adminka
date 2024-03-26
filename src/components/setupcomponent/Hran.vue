@@ -2,8 +2,9 @@
 import { ref, reactive } from 'vue'
 import { Draggable } from '@he-tree/vue'
 import '@he-tree/vue/style/default.css'
-// import { useHran } from '@/stores/hran'
-// import { useTabs } from '@/stores/tabs'
+import { useHran } from '@/stores/hran'
+
+const hran = useHran()
 
 // interface Hran {
 // 	id: number
@@ -74,33 +75,28 @@ const showAdd = ref(false)
 
 const toggleAdd = () => {
 	showAdd.value = !showAdd.value
+	name.value = null
+	type.value = null
+	state.value = null
+	size.value = null
+	main.value = false
+	arch.value = false
+	temp.value = false
+	showAdd.value = true
 }
 
-// const clearAdd = () => {
-// 	name.value = null
-// 	type.value = null
-// 	state.value = null
-// 	currentItemIndex.value = null
-// 	size.value = 0
-// 	main.value = false
-// 	arch.value = false
-// 	temp.value = false
-// 	showAdd.value = true
-// }
+//TODO: доделать редактирование хранилища без создания нового
 
-// const currentItemIndex = ref()
-
-// const edit = (index: number) => {
-// 	name.value = list1[index].name
-// 	type.value = list1[index].type
-// 	state.value = list1[index].state
-// 	size.value = list1[index].size
-// 	main.value = list1[index].main
-// 	arch.value = list1[index].arch
-// 	temp.value = list1[index].temp
-// 	currentItemIndex.value = index
-// 	showAdd.value = true
-// }
+const edit = (node: any) => {
+	name.value = node.text
+	type.value = node.type
+	state.value = node.state
+	size.value = node.size
+	main.value = node.main
+	arch.value = node.arch
+	temp.value = node.temp
+	showAdd.value = true
+}
 
 const date = new Date()
 
@@ -146,53 +142,55 @@ const isDrop = (e: any) => {
 	if (e.data.drop) return true
 	else return false
 }
+const dragstart = node => {
+	hran.setCurrent(node)
+}
+const test = () => {
+	console.log('fck')
+}
 </script>
 
 <template lang="pug">
-q-page(padding)
-	.div
-		Draggable(ref="tree"
-			treeLine
-			v-model="treeData"
-			:eachDroppable="isDrop"
-			:eachDraggable="isDrag"
-			:watermark="false" )
+div
+	Draggable(ref="tree"
+		treeLine
+		v-model="treeData"
+		:eachDroppable="isDrop"
+		:eachDraggable="isDrag"
+		:watermark="false" )
 
-			template(#default="{ node, stat }")
-				.zero(v-if="node.id == 0")
-					div
-						q-icon.trig(name="mdi-chevron-down" @click.stop="toggle(stat)" :class="{ 'closed': !stat.open }")
-						span {{node.text}} ({{treeData[0].children.length}})
-					q-btn(flat round icon="mdi-plus-circle" dense color="primary" @click="toggleAdd") 
-				.node(v-else)
-					div
-						q-icon.q-mr-sm(name="mdi-database-outline" color="secondary" size="16px")
-						span {{ node.text }}
-					div
-						q-btn.q-ml-sm(flat round dense icon="mdi-information-outline" size="sm" color="secondary" )
-							q-menu
-								q-card.hrinfo
-									.label Название:
-									div {{ node.text}}
-									.label Тип:
-									div {{ node.type}}
-									.label Состояние:
-									div {{ node.state}}
-									.label Размер:
-									div {{ node.size}} Gb
-									.label Раздел:
-									div
-										span(v-if="node.main") основной,
-										span(v-if="node.arch") архивный,
-										span(v-if="node.temp") временный
-						q-btn(flat round dense icon="mdi-pencil" size="sm" @click="edit(index)" color="secondary")
-						q-btn(flat round dense icon="mdi-trash-can-outline" size="sm" color="secondary")
-							q-menu(cover anchor="top left")
-								q-list(dense)
-									q-item(clickable v-close-popup @click="remove(stat)").pink
-										q-item-section Удалить
-
-	
+		template(#default="{ node, stat }")
+			.zero(v-if="node.id == 0")
+				div
+					q-icon.trig(name="mdi-chevron-down" @click.stop="toggle(stat)" :class="{ 'closed': !stat.open }")
+					span {{node.text}} ({{treeData[0].children.length}})
+				q-btn(flat round icon="mdi-plus-circle" dense color="primary" @click="") 
+			.node(v-else )
+				div
+					q-icon.q-mr-sm(name="mdi-database-outline" color="secondary" size="16px")
+						q-menu
+							q-card.hrinfo
+								.label Название:
+								div {{ node.text}}
+								.label Тип:
+								div {{ node.type}}
+								.label Состояние:
+								div {{ node.state}}
+								.label Размер:
+								div {{ node.size}} Gb
+								.label Раздел:
+								div
+									span(v-if="node.main") основной,
+									span(v-if="node.arch") архивный,
+									span(v-if="node.temp") временный
+					span(@click="edit(node)") {{ node.text }}
+				div
+					q-btn(flat round dense icon="mdi-trash-can-outline" size="sm" color="secondary" @click="remove(stat)")
+					q-icon(name="mdi-drag" size="sm" color="secondary" draggable="true" @dragstart.stop="dragstart(node.text)")
+						// q-menu(cover anchor="top left")
+							q-list(dense)
+								q-item(clickable v-close-popup @click="remove(stat)").pink
+									q-item-section Удалить
 
 	q-dialog(v-model="showAdd")
 		q-card(padding)
@@ -226,11 +224,6 @@ q-page(padding)
 		transform: rotate(-90deg);
 	}
 }
-.div {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-}
 .zero {
 	font-size: 1rem;
 	display: flex;
@@ -238,7 +231,6 @@ q-page(padding)
 	justify-content: space-between;
 }
 .node {
-	min-width: 220px;
 	font-size: 0.9rem;
 	display: flex;
 	align-items: center;
@@ -254,19 +246,12 @@ q-page(padding)
 			visibility: visible;
 		}
 	}
+	.hdd {
+		width: 20px;
+		height: 20px;
+		background: pink;
+	}
 }
-// .zg {
-// 	font-size: 1.1rem;
-// 	color: $secondary;
-// }
-//
-// .hran {
-// 	margin-top: 0;
-// 	margin-bottom: 1rem;
-// 	position: relative;
-// 	padding-top: 1.3rem;
-// }
-//
 .hrinfo {
 	padding: 1rem;
 	display: grid;
@@ -280,24 +265,7 @@ q-page(padding)
 		justify-self: end;
 	}
 }
-//
-// .tabel {
-// 	width: 100%;
-// 	display: grid;
-// 	grid-template-columns: 1fr 90px;
-// 	justify-items: start;
-// 	column-gap: 1rem;
-// 	row-gap: 0.2rem;
-// 	// background: var(--bg-light);
-// }
-//
-// .edittable {
-// 	min-width: 400px;
-// 	.fl {
-// 		display: flex;
-// 	}
-// }
-// .ghost {
-// 	background: var(--bg-selected);
-// }
+[draggable='true'] {
+	cursor: move;
+}
 </style>

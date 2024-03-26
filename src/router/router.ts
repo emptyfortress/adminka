@@ -27,8 +27,8 @@ export const router = createRouter({
 			},
 		},
 		{
-			path: '/hran',
-			component: () => import('@/components/setupcomponent/Hran.vue'),
+			path: '/outer',
+			component: () => import('@/components/setupcomponent/Outer.vue'),
 		},
 		{
 			path: '/calendar',

@@ -1,21 +1,21 @@
 <template lang="pug">
-.change Изменения, выполняемые на этой вкладке, применяются сразу.
-.outer
-	q-splitter.spl(v-model="split1")
-		template(#before)
-			Hran
-			// div Hran
+div
+	.change Изменения, выполняемые на этой вкладке, применяются сразу.
+	.outer
+		q-splitter.spl(v-model="split1")
+			template(#before)
+				Hran
+				// div Hran
 
-		template(#after)
-			q-splitter.spl(v-model="split2")
+			template(#after)
+				q-splitter.spl(v-model="split2")
 
-				template(#before)
-					div Group
-					// Group
+					template(#before)
+						Group
 
-				template(#after)
-					div Rule
-					// Rule
+					template(#after)
+						div Rule
+						// Rule
 </template>
 
 <script setup lang="ts">
@@ -30,7 +30,7 @@ const split2 = ref(42)
 
 <style scoped lang="scss">
 .spl {
-	height: 600px;
+	height: 300px;
 }
 
 .outer {
