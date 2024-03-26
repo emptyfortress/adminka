@@ -3,7 +3,8 @@
 .outer
 	q-splitter.spl(v-model="split1")
 		template(#before)
-			div Hran
+			Hran
+			// div Hran
 
 		template(#after)
 			q-splitter.spl(v-model="split2")
@@ -29,7 +30,7 @@ const split2 = ref(42)
 
 <style scoped lang="scss">
 .spl {
-	height: calc(100vh - 390px);
+	height: 300px;
 }
 
 .outer {
