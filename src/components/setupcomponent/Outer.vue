@@ -30,7 +30,7 @@ const split2 = ref(42)
 
 <style scoped lang="scss">
 .spl {
-	height: 300px;
+	height: 600px;
 }
 
 .outer {

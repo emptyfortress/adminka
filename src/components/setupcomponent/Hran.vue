@@ -2,13 +2,12 @@
 import { ref, reactive } from 'vue'
 import { Draggable } from '@he-tree/vue'
 import '@he-tree/vue/style/default.css'
-// import draggable from 'vuedraggable'
 // import { useHran } from '@/stores/hran'
 // import { useTabs } from '@/stores/tabs'
 
 // interface Hran {
 // 	id: number
-// 	name: string
+// 	text: string
 // 	type: string
 // 	state: string
 // 	size: number
@@ -17,7 +16,7 @@ import '@he-tree/vue/style/default.css'
 // 	temp: boolean
 // }
 
-const treeData: Hran[] = reactive([
+const treeData = reactive([
 	{
 		id: 0,
 		text: 'Хранилища',
@@ -67,22 +66,15 @@ const treeData: Hran[] = reactive([
 const toggle = (stat: any) => {
 	stat.open = !stat.open
 }
+const remove = (e: any) => {
+	tree.value.remove(e)
+}
 
-// const hran = useHran()
-// const tabs = useTabs()
-// const checkDub = () => {
-// 	hran.unique()
-// 	tabs.setTabMod(2)
-// }
+const showAdd = ref(false)
 
-// const showAdd = ref(false)
-// const remove1 = (n: number) => {
-// 	list1.splice(n, 1)
-// 	tabs.setTabMod(2)
-// }
-// const close = () => {
-// 	showAdd.value = false
-// }
+const toggleAdd = () => {
+	showAdd.value = !showAdd.value
+}
 
 // const clearAdd = () => {
 // 	name.value = null
@@ -110,27 +102,23 @@ const toggle = (stat: any) => {
 // 	showAdd.value = true
 // }
 
-// const date = new Date()
+const date = new Date()
 
-// const add = () => {
-// 	let tmp = {} as Hran
-// 	tmp.id = +date
-// 	tmp.name = name.value
-// 	tmp.type = type.value
-// 	tmp.state = state.value
-// 	tmp.size = size.value
-// 	tmp.main = main.value
-// 	tmp.arch = arch.value
-// 	tmp.temp = temp.value
-// 	if (currentItemIndex.value !== null) {
-// 		list1[currentItemIndex.value] = tmp
-// 	} else {
-// 		list1.push(tmp)
-// 	}
-// 	showAdd.value = false
-// 	currentItemIndex.value = null
-// 	tabs.setTabMod(2)
-// }
+const add = () => {
+	let tmp = {}
+	tmp.id = +date
+	tmp.text = name.value
+	tmp.type = type.value
+	tmp.state = state.value
+	tmp.size = size.value
+	tmp.main = main.value
+	tmp.arch = arch.value
+	tmp.temp = temp.value
+	tmp.drag = true
+	tmp.drop = false
+	tree.value.add(tmp, tree.value.rootChildren[0])
+	showAdd.value = false
+}
 
 const name = ref()
 const type = ref()
@@ -147,6 +135,7 @@ const options = [
 	'Добавить из сборки...',
 ]
 const options1 = ['Online', 'Auto', 'Disabled', 'Read and delete', 'Reserved']
+
 const tree = ref()
 
 const isDrag = (e: any) => {
@@ -171,78 +160,62 @@ q-page(padding)
 
 			template(#default="{ node, stat }")
 				.zero(v-if="node.id == 0")
-					q-icon.trig(name="mdi-chevron-down" @click.stop="toggle(stat)" :class="{ 'closed': !stat.open }")
-					span {{node.text}} ({{treeData[0].children.length}})
-					q-btn.q-ml-lg(flat round icon="mdi-plus-circle" dense color="primary" @click="add") 
+					div
+						q-icon.trig(name="mdi-chevron-down" @click.stop="toggle(stat)" :class="{ 'closed': !stat.open }")
+						span {{node.text}} ({{treeData[0].children.length}})
+					q-btn(flat round icon="mdi-plus-circle" dense color="primary" @click="toggleAdd") 
 				.node(v-else)
-					q-icon.q-mr-sm(name="mdi-database-outline" color="secondary" size="16px")
-					span {{ node.text }}
+					div
+						q-icon.q-mr-sm(name="mdi-database-outline" color="secondary" size="16px")
+						span {{ node.text }}
+					div
+						q-btn.q-ml-sm(flat round dense icon="mdi-information-outline" size="sm" color="secondary" )
+							q-menu
+								q-card.hrinfo
+									.label Название:
+									div {{ node.text}}
+									.label Тип:
+									div {{ node.type}}
+									.label Состояние:
+									div {{ node.state}}
+									.label Размер:
+									div {{ node.size}} Gb
+									.label Раздел:
+									div
+										span(v-if="node.main") основной,
+										span(v-if="node.arch") архивный,
+										span(v-if="node.temp") временный
+						q-btn(flat round dense icon="mdi-pencil" size="sm" @click="edit(index)" color="secondary")
+						q-btn(flat round dense icon="mdi-trash-can-outline" size="sm" color="secondary")
+							q-menu(cover anchor="top left")
+								q-list(dense)
+									q-item(clickable v-close-popup @click="remove(stat)").pink
+										q-item-section Удалить
+
 	
 
-// .row.items-center.justify-between
-// 	.zg Хранилища ({{ list1.length }})
-// 	q-btn(flat round icon="mdi-plus-circle" @click="clearAdd")
-// .hran
-// 	.empt(v-if="list1.length === 0") Добавьте хранилища
-// 	component(:is="draggable" :list="list1"
-// 		item-key="id"
-// 		:group="{ name: 'group', pull: 'clone', put: false }"
-// 		ghost-class='ghost'
-// 		@end="checkDub"
-// 		).list-group
-// 		template(#item="{ element, index }")
-// 			.tabel
-// 				div
-// 					q-icon(name="mdi-database-outline" size="18px" style="vertical-align: top;")
-// 					span.q-ml-sm {{ element.name }}
-//
-// 				div
-// 					q-btn(flat round dense icon="mdi-information-outline" size="sm" ).q-mr-sm
-// 						q-menu
-// 							q-card.hrinfo
-// 								.label Название:
-// 								div {{ element.name}}
-// 								.label Тип:
-// 								div {{ element.type}}
-// 								.label Состояние:
-// 								div {{ element.state}}
-// 								.label Размер:
-// 								div {{ element.size}} Gb
-// 								.label Раздел:
-// 								div
-// 									span(v-if="element.main") основной, 
-// 									span(v-if="element.arch") архивный, 
-// 									span(v-if="element.temp") временный
-//
-// 					q-btn(flat round dense icon="mdi-pencil" size="sm" @click="edit(index)" ).q-mr-sm
-// 					q-btn(flat round dense icon="mdi-trash-can-outline" size="sm" )
-// 						q-menu
-// 							q-list
-// 								q-item(clickable v-close-popup @click="remove1(index)").pink
-// 									q-item-section Удалить
+	q-dialog(v-model="showAdd")
+		q-card(padding)
+			q-form(@submit="add")
+				q-card-section.row.items-center.q-pb-none
+					.text-h6 Настройки хранилища
+					q-space
+					q-btn(icon="mdi-close" flat round dense v-close-popup)
 
-// q-dialog(:model-value="showAdd")
-// 	q-card(padding)
-// 		q-form(@submit="add")
-// 			q-card-section.row.items-center.q-pb-none
-// 				.text-h6 Настройки хранилища
-// 				q-space
-// 				q-btn(icon="mdi-close" flat round dense @click="close")
-//
-// 			q-card-section
-// 				.edittable
-// 					q-input(v-model="name" autofocus label="Название" lazy-rules :rules="[val => val && val.length > 0 || 'Обязательное поле']")
-// 					q-select(v-model="type" label="Тип" :options="options" lasy-rules :rules="[val => val !== null && val !== '' || 'Обязательное поле']")
-// 					q-select(v-model="state" label="Состояние" :options="options1" lasy-rules :rules="[val => val !== null && val !== '' || 'Обязательное поле']")
-// 					q-input(v-model="size" label="Макс.размер, Гб" type="number" style="width:150px; margin: 0 auto;" lasy-rules :rules="[val => val > 0 || 'Укажите размер']")
-// 					br
-// 					q-checkbox(v-model="main" label="Основной раздел")
-// 					q-checkbox(v-model="arch" label="Архивный раздел")
-// 					q-checkbox(v-model="temp" label="Временный раздел")
-// 			q-card-section
-// 				q-card-actions(align="right")
-// 					q-btn(flat color="primary" label="Отмена" @click="close") 
-// 					q-btn(unelevated color="primary" label="Сохранить" type="submit") 
+				q-card-section
+					.edittable
+						q-input(v-model="name" autofocus filled label="Название" dense lazy-rules :rules="[val => val && val.length > 0 || 'Обязательное поле']")
+						q-select(v-model="type" filled label="Тип" :options="options" dense lasy-rules :rules="[val => val !== null && val !== '' || 'Обязательное поле']")
+						q-select(v-model="state" filled label="Состояние" :options="options1" dense lasy-rules :rules="[val => val !== null && val !== '' || 'Обязательное поле']")
+						q-input(v-model="size" filled label="Макс.размер, Гб" type="number" style="width:150px; margin: 0 auto;" dense lasy-rules :rules="[val => val > 0 || 'Укажите размер']")
+						br
+						q-checkbox(v-model="main" label="Основной раздел")
+						q-checkbox(v-model="arch" label="Архивный раздел")
+						q-checkbox(v-model="temp" label="Временный раздел")
+				q-card-section
+					q-card-actions(align="right")
+						q-btn(flat color="primary" label="Отмена" v-close-popup)
+						q-btn(unelevated color="primary" label="Сохранить" type="submit")
 </template>
 
 <style scoped lang="scss">
@@ -260,17 +233,27 @@ q-page(padding)
 }
 .zero {
 	font-size: 1rem;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
 }
 .node {
+	min-width: 220px;
 	font-size: 0.9rem;
 	display: flex;
 	align-items: center;
+	justify-content: space-between;
 	padding: 2px 4px;
 	cursor: pointer;
-	&:hover {
-		background: #fff;
+	.q-btn {
+		visibility: hidden;
 	}
-	// display: flex;
+	&:hover {
+		background: #dedede;
+		.q-btn {
+			visibility: visible;
+		}
+	}
 }
 // .zg {
 // 	font-size: 1.1rem;
@@ -284,20 +267,19 @@ q-page(padding)
 // 	padding-top: 1.3rem;
 // }
 //
-// .hrinfo {
-// 	padding: 1rem;
-// 	display: grid;
-// 	grid-template-columns: auto 1fr;
-// 	justify-items: start;
-// 	align-items: flex-end;
-// 	column-gap: 1rem;
-// 	row-gap: 3px;
-//
-// 	.label {
-// 		color: grey;
-// 		justify-self: end;
-// 	}
-// }
+.hrinfo {
+	padding: 1rem;
+	display: grid;
+	grid-template-columns: auto 1fr;
+	justify-items: start;
+	align-items: flex-end;
+	column-gap: 1rem;
+	row-gap: 3px;
+	.label {
+		color: grey;
+		justify-self: end;
+	}
+}
 //
 // .tabel {
 // 	width: 100%;
