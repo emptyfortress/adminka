@@ -42,7 +42,7 @@ watch(main, (val, oldval) => {
 	}
 })
 watch(check, (val, oldval) => {
-	if (val) {
+	if (val !== oldval) {
 		changed.value = true
 	}
 })
@@ -63,7 +63,7 @@ const item = ref(false)
 	label {{ props.label }}
 	.descr(v-if="props.descr && !props.checkbox") {{ props.descr }}
 	div
-		q-checkbox(v-model="check" dense :label="props.descr" v-if="checkbox")
+		q-checkbox(v-model="check" dense :label="props.descr" v-if="checkbox" :disable="props.disable")
 	MyInput(v-model="main" v-if="!props.select && !props.checkbox" :bg="props.bg" :filled="props.filled" :type="props.type" :disable="props.disable")
 	MySelect(v-model="main" v-if="props.select && !props.checkbox" :bg="props.bg" :filled="props.filled")
 </template>

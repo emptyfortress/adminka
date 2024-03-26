@@ -5,10 +5,7 @@ import MySelect from '@/components/common/MySelect.vue'
 import MyField from '@/components/common/MyField.vue'
 
 const props = defineProps({
-	bd: {
-		type: Object,
-		required: true,
-	},
+	bd: Object,
 })
 
 const commonProp = ref([
@@ -24,35 +21,40 @@ const commonProp = ref([
 		main: props.bd.psevdo,
 		label: 'Псевдоним',
 		descr: 'This is description',
+		disable: true,
 	},
 	{
 		id: 2,
 		main: props.bd.server,
 		label: 'Server SQL',
 		descr: 'This is description',
+		disable: true,
 	},
 	{
 		id: 3,
 		main: props.bd.servertype,
 		label: 'Тип сервера',
 		descr: 'This is description',
+		disable: true,
 	},
 	{
 		id: 4,
 		main: props.bd.version,
 		label: 'Версия',
 		descr: 'This is description',
+		disable: true,
 	},
 	{
 		id: 5,
 		main: props.bd.date,
 		label: 'Дата последнего обновления',
+		disable: true,
 	},
 	{
 		id: 6,
 		label: 'Использовать по умолчанию',
 		checkbox: true,
-		check: false,
+		check: props.bd.def,
 		descr: 'Данная база используется по умолчанию',
 	},
 ])
@@ -72,6 +74,7 @@ const commonProp = ref([
 // 	{ id: 5, label: 'SearchDataBaseType', val: 'UseTemporaryDatabase' },
 // ]
 const test = ref('fuck')
+console.log('test ', props.id)
 </script>
 
 <template lang="pug">
@@ -89,16 +92,6 @@ q-form
 			:checkbox="item.checkbox")
 		
 
-// q-form.all
-// 	fieldset
-// 		legend Общие свойства
-// 		.form
-// 			label Имя базы данных:
-// 			MyInput(v-model="test")
-// 			label Псевдоним:
-// 			MyInput(v-model="test")
-// 			label Псевдоним:
-// 			MySelect(v-model="test")
 
 
 	// .arch

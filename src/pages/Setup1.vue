@@ -67,19 +67,8 @@ q-page.q-px-md.q-pt-sm
 				.selector(v-if="route.path !== '/setup1/appserver/configurations'")
 					q-select(v-model="sel" dense outlined bg-color="white")
 					div
-						q-btn(flat color="primary" label="Отмена" @click="action")
-						q-btn(unelevated color="primary" label="Сохранить" @click="action")
-				// q-tabs(v-model="tabs" inline-label align="left" active-color="primary" v-if="route.path !== '/setup1/appserver/configurations'")
-				// 	template(v-for="item in store.computer" :key="item.id")
-				// 		q-tab(:name="item.id" icon="mdi-penguin" :label="item.name")
-				// 	.divider
-				// 	template(v-for="item in store.config" :key="item.id")
-				// 		q-tab(:name="item.id" icon="mdi-code-braces" :label="item.name")
-				// 	// label Выберите шаблон
-				// 	q-select(v-model="sel" dense outlined bg-color="white")
-				// 	q-space
-				// 	q-btn(flat color="primary" label="Отмена" @click="action") 
-				// 	q-btn(unelevated color="primary" label="Сохранить" @click="action") 
+						q-btn(flat color="primary" label="Отмена" @click="")
+						q-btn(unelevated color="primary" label="Сохранить" @click="")
 				q-separator
 
 				q-scroll-area.right(:class="{save: save}")

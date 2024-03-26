@@ -1,8 +1,5 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
 import Home from '@/pages/Home.vue'
-// import External from '@/components//setupcomponent/External.vue'
-// import EditDatabase from '@/components/setupcomponent/EditDatabase.vue'
-// import CreateBd from '@/components/wizard/CreateBd.vue'
 
 declare module 'vue-router' {
 	interface Bread {
@@ -67,16 +64,13 @@ export const router = createRouter({
 						title: 'Модули',
 					},
 				},
-				// {
-				// 	path: 'appserver/configurations/:id',
-				// 	component: () => import('@/components/tree/AppConfig.vue'),
-				// },
 			],
 		},
 		{
 			path: '/database/:id',
 			name: 'database',
 			component: () => import('@/components/tree/InsideDB.vue'),
+			props: true,
 			meta: {
 				title: 'Модули',
 				bread: [
@@ -87,104 +81,6 @@ export const router = createRouter({
 					},
 				],
 			},
-		},
-		{
-			path: '/setup',
-			component: () => import('@/pages/Setup.vue'),
-			meta: {
-				title: 'Модули',
-			},
-			children: [
-				{
-					path: '',
-					component: () => import('@/components/SetupRoot.vue'),
-					meta: {
-						title: 'Модули',
-					},
-				},
-				{
-					path: 'configuration',
-					name: 'configuration',
-					component: () => import('@/components/Configuration.vue'),
-					meta: {
-						title: 'Модули',
-						nav: true,
-					},
-				},
-				{
-					path: 'bprocess',
-					name: 'bprocess',
-					component: () => import('@/components/Bprocess.vue'),
-					meta: {
-						title: 'Модули',
-						nav: true,
-					},
-				},
-				{
-					path: 'dvserver1',
-					name: 'dvserver1',
-					component: () => import('@/components/Dvserver1.vue'),
-					meta: {
-						title: 'Модули',
-						nav: true,
-					},
-				},
-				{
-					path: 'connection',
-					name: 'connecton',
-					component: () => import('@/components/Connection.vue'),
-					meta: {
-						title: 'Модули',
-						nav: true,
-					},
-				},
-				{
-					path: 'email',
-					name: 'email',
-					component: () => import('@/components/Email.vue'),
-					meta: {
-						title: 'Модули',
-						nav: true,
-					},
-				},
-				{
-					path: 'worker',
-					name: 'worker',
-					component: () => import('@/components/Worker.vue'),
-					meta: {
-						title: 'Модули',
-						nav: true,
-					},
-				},
-				{
-					path: 'webclient',
-					name: 'webclient',
-					component: () => import('@/components/Webclient.vue'),
-					meta: {
-						title: 'Модули',
-						nav: true,
-					},
-				},
-				{
-					path: '/ext',
-					name: 'external',
-					component: () => import('@/components/setupcomponent/External.vue'),
-					// component: External,
-					meta: {
-						title: 'Вкладка',
-						nav: false,
-					},
-				},
-				{
-					path: '/archive',
-					name: 'archive',
-					component: () => import('@/components/setupcomponent/Archive.vue'),
-					meta: {
-						title: 'Вкладка',
-						nav: false,
-					},
-				},
-			],
 		},
 		{
 			path: '/logs',

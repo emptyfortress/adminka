@@ -1,7 +1,8 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useTabs } from '@/stores/tabs'
+import { useStore } from '@/stores/store'
 import PropertyTab from '@/components/setupcomponent/PropertyTab.vue'
 import ControlTab from '@/components/setupcomponent/ControlTab.vue'
 import Outer from '@/components/setupcomponent/Outer.vue'
@@ -9,25 +10,54 @@ import ArchTab from '@/components/setupcomponent/ArchTab.vue'
 import CacheTab from '@/components/setupcomponent/CacheTab.vue'
 import ModuleTab from '@/components/setupcomponent/ModuleTab.vue'
 
+// interface Props {
+// 	psevdo: string
+// 	name: string
+// 	server: string
+// 	servertype: string
+// 	index: string
+// 	version: string
+// 	date: string
+// 	def: boolean
+// }
+//
+// const props = withDefaults(defineProps<Props>(), {
+// })
+
+// const props = defineProps<{
+// 	bd: {
+// 		psevdo: string
+// 		name: string
+// 		server: string
+// 		servertype: string
+// 		index: string
+// 		version: string
+// 		date: string
+// 		def: boolean
+// 	}
+// }>()
+const props = defineProps({
+	id: {
+		type: String,
+		required: true,
+		default: 'one',
+	},
+})
+
+const store = useStore()
 const tabs = useTabs()
 
 const route = useRoute()
 const router = useRouter()
 const selected = ref('Свойства')
+
 const select = (e: any) => {
 	selected.value = e.label
 	router.replace('/database/AGSupport#' + e.field)
 	document.getElementById(e.field)?.scrollIntoView({ behavior: 'smooth' })
 }
-const bd = ref({
-	psevdo: 'AGSupport',
-	name: 'AGSupport_1',
-	server: 'Docsvision 1',
-	servertype: 'SQL Server',
-	index: 'yes',
-	version: '4373',
-	date: '20.10.2021 10:34',
-	def: true,
+const currentDB = computed(() => {
+	return store.databases.find(item => item.psevdo == props.id)
 })
 </script>
 
@@ -50,7 +80,7 @@ q-page(padding)
 		q-scroll-area.right
 			.q-ml-lg
 				#prop.zg Свойства базы данных
-				component(:is="PropertyTab" :bd="bd")
+				PropertyTab(:bd="currentDB")
 				#control.zg Обслуживание
 				// component(:is="ControlTab" :bd="bd")
 				#outer.zg Внешние хранилища
@@ -86,8 +116,9 @@ q-page(padding)
 	// background: green;
 }
 .selected {
-	background: var(--tree-selection);
 	color: $blue-10;
+	border: 1px solid hsl(221 41% 73% / 1);
+	background: var(--tree-selection);
 }
 .zg {
 	font-size: 1.3rem;

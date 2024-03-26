@@ -3,13 +3,16 @@ import { ref, reactive } from 'vue'
 import ChangeDialog from '@/components/setupcomponent/ChangeDialog.vue'
 import MasterDatabase from '@/components/setupcomponent/MasterDatabase.vue'
 import EditDatabase from '@/components/setupcomponent/EditDatabase.vue'
-import { useTabs } from '@/stores/tabs'
+// import { useTabs } from '@/stores/tabs'
 import type { QTableProps } from 'quasar'
 import { useRouter } from 'vue-router'
+import { useStore } from '@/stores/store'
+
+const store = useStore()
 
 const router = useRouter()
-const tabs = useTabs()
-const emit = defineEmits(['change', 'haserror', 'noerror'])
+// const tabs = useTabs()
+// const emit = defineEmits(['change', 'haserror', 'noerror'])
 
 const change = ref(false)
 const bdRow = ref()
@@ -18,10 +21,10 @@ const master = ref(false)
 const edit = ref(false)
 const changename = ref('')
 
-const remove = (row: any) => {
-	const index = rows.indexOf(row)
-	rows.splice(index, 1)
-}
+// const remove = (row: any) => {
+// 	const index = rows.indexOf(row)
+// 	rows.splice(index, 1)
+// }
 const edBD = (row: any, field: string) => {
 	bdRow.value = row
 	bdTab.value = field
@@ -109,54 +112,16 @@ const columns: QTableProps['columns'] = [
 	},
 	{ name: 'action', align: 'right', label: '', field: '' },
 ]
-const rows = reactive([
-	{
-		active: true,
-		psevdo: 'AGSupport',
-		name: 'AGSupport_1',
-		servertype: 'SQL Server',
-		server: 'Docsvision 1',
-		index: 'yes',
-		version: 4373,
-		cache: 'InMemory',
-		date: '20.10.2021',
-		def: true,
-	},
-	{
-		active: true,
-		psevdo: 'DvTest',
-		name: 'AGSupport_2',
-		servertype: 'SQL Server',
-		server: 'Docsvision 1',
-		index: 'yes',
-		cache: 'Redis',
-		version: 4373,
-		date: '04.11.2022',
-		def: false,
-	},
-	{
-		active: false,
-		psevdo: 'DvShowCase',
-		name: 'AGSupport_3',
-		servertype: 'PostgreSQL',
-		server: 'Docsvision 1',
-		cache: 'No cache',
-		index: 'yes',
-		version: 4373,
-		date: '09.07.2021',
-		def: false,
-	},
-])
-const goto = (e: any) => {
-	router.push('/database/' + e.psevdo)
+const goto = (e: string) => {
+	router.push('/database/' + e)
 }
 </script>
 
 <template lang="pug">
 .database
-	q-table.q-mt-sm(:rows='rows' :columns='columns' row-key='name' hide-bottom)
+	q-table.q-mt-sm(:rows='store.databases' :columns='columns' row-key='name' hide-bottom)
 		template(v-slot:body='props')
-			q-tr(:props='props' :class='{ cool: props.row.def }' @click="goto(props.row)")
+			q-tr(:props='props' :class='{ cool: props.row.def }' @click="goto(props.row.psevdo)")
 				q-td(key="active" :props="props" auto-width)
 					q-icon(name="mdi-circle-slice-8" color="green" v-if="props.row.active")
 						q-tooltip Доступна
@@ -187,7 +152,7 @@ const goto = (e: any) => {
 
 component(:is="ChangeDialog" v-model="change" :changename="changename" @changeDef="assignDef")
 component(:is="MasterDatabase" v-model="master")
-component(:is="EditDatabase" v-model="edit" :bd="bdRow" :tab="bdTab")
+// component(:is="EditDatabase" v-model="edit" :bd="bdRow" :tab="bdTab")
 
 </template>
 
