@@ -85,6 +85,7 @@ q-page(padding)
 				ControlTab
 				// component(:is="ControlTab" :bd="bd")
 				#outer.zg Внешние хранилища
+				Outer
 				// component(:is="Outer")
 				#arch.zg Архивирование
 				// component(:is="ArchTab" :bd="bd")
