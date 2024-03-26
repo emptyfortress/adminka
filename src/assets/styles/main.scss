@@ -258,3 +258,21 @@ fieldset {
 		letter-spacing: 2px;
 	}
 }
+
+.section {
+	font-size: 1.1rem;
+	text-transform: uppercase;
+	margin-top: 1rem;
+	color: $secondary;
+	font-weight: 600;
+	margin-left: 2rem;
+	&:before {
+		content: '';
+		width: 15px;
+		height: 15px;
+		background: $secondary;
+		// background: black;
+		display: inline-block;
+		margin-right: 0.5rem;
+	}
+}

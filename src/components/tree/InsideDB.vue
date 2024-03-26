@@ -82,6 +82,7 @@ q-page(padding)
 				#prop.zg Свойства базы данных
 				PropertyTab(:bd="currentDB")
 				#control.zg Обслуживание
+				ControlTab
 				// component(:is="ControlTab" :bd="bd")
 				#outer.zg Внешние хранилища
 				// component(:is="Outer")
@@ -122,8 +123,9 @@ q-page(padding)
 }
 .zg {
 	font-size: 1.3rem;
-	font-weight: 300;
+	font-weight: 600;
 	text-transform: uppercase;
+	color: $secondary;
 	margin-top: 2rem;
 	margin-left: 2rem;
 	&:first-child {

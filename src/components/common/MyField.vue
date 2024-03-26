@@ -14,6 +14,8 @@ interface Props {
 	disable?: boolean
 	checkbox?: boolean
 	checkvalue?: boolean
+	button?: boolean
+	btLabel?: string
 }
 
 const props = withDefaults(defineProps<Props>(), {
@@ -23,6 +25,9 @@ const props = withDefaults(defineProps<Props>(), {
 	type: 'text',
 	label: 'Label',
 	bg: 'white',
+	button: false,
+	btLabel: 'Добавить',
+	descr: 'This is description',
 })
 
 const main = defineModel<string>('main')
@@ -59,7 +64,7 @@ const item = ref(false)
 
 <template lang="pug">
 .data
-	q-btn(v-if="changed" flat icon="mdi-restore" color="secondary" dense @click="reset") 
+	q-btn.refresh(v-if="changed" flat icon="mdi-restore" color="secondary" dense @click="reset") 
 	.inner(v-if="changed")
 	label {{ props.label }}
 	.descr(v-if="props.descr && !props.checkbox") {{ props.descr }}
@@ -67,6 +72,7 @@ const item = ref(false)
 		q-checkbox(v-model="check" dense :label="props.descr" v-if="checkbox" :disable="props.disable")
 	MyInput(v-model="main" v-if="!props.select && !props.checkbox" :bg="props.bg" :filled="props.filled" :type="props.type" :disable="props.disable")
 	MySelect(v-model="main" v-if="props.select && !props.checkbox" :bg="props.bg" :filled="props.filled" :options="props.options")
+	q-btn.add(v-if="props.button" unelevated color="secondary" :label="props.btLabel" size="sm") 
 </template>
 
 <style scoped lang="scss">
@@ -105,14 +111,14 @@ const item = ref(false)
 		left: 0.2rem;
 		border-right: 3px solid $primary;
 	}
-	.q-btn {
+	.refresh {
 		position: absolute;
 		left: -2rem;
 		top: 0.1rem;
 		display: none;
 	}
-	.q-checkbox {
-		// display: block;
+	.add {
+		margin-top: 4px;
 	}
 }
 </style>
