@@ -29,7 +29,8 @@ div
 
 <style scoped lang="scss">
 .spl {
-	height: 300px;
+	height: initial;
+	min-height: 200px;
 }
 
 .outer {
