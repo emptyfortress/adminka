@@ -147,8 +147,10 @@ const isDrop = (e: any) => {
 	else return false
 }
 const dragstart = node => {
-	hran.setCurrent(node)
-	console.log(node)
+	let tmp = { ...node }
+	tmp.id = +date
+	// console.log(tmp)
+	hran.setCurrent(tmp)
 }
 </script>
 

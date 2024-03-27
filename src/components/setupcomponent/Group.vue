@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref, reactive } from 'vue'
-import { Draggable } from '@he-tree/vue'
+import { Draggable, dragContext } from '@he-tree/vue'
 import '@he-tree/vue/style/default.css'
 import { useHran } from '@/stores/hran'
 
@@ -30,12 +30,8 @@ const newGroupRule = ref()
 const showAdd = ref(false)
 
 const toggleAdd = () => {
-	console.log('fuck')
 	showAdd.value = !showAdd.value
 }
-// const currentGroupIndex = ref()
-
-// const dragging = ref(false)
 
 const date = new Date()
 const addGroup = () => {
@@ -52,28 +48,13 @@ const addGroup = () => {
 	showAdd.value = false
 	newGroupName.value = ''
 	newGroupRule.value = ''
-	// currentGroupIndex.value = null
 }
-
-// const addNew = () => {
-// 	newGroupName.value = ''
-// 	newGroupRule.value = ''
-// 	currentGroupIndex.value = null
-// 	showAdd.value = true
-// }
 
 const options = [
 	'Самое заполненное хранилище',
 	'Самое свободное хранилище',
 	'Случайный порядок',
 ]
-
-// const editGroup = (group: Group, index: number) => {
-// 	newGroupName.value = group.name
-// 	newGroupRule.value = group.rule
-// 	currentGroupIndex.value = index
-// 	showAdd.value = true
-// }
 
 const remove = (e: any) => {
 	tree.value.remove(e)
@@ -85,11 +66,6 @@ const toggle = (stat: any) => {
 const tree = ref()
 
 const externalDataHandler = () => {
-	// let dragged = {
-	// 	text: hran.currentNode.text,
-	// 	type: 'storage',
-	// }
-	// return dragged
 	let temp = hran.currentNode
 	return temp
 }
@@ -102,10 +78,10 @@ const isDrag = (e: any) => {
 const isDrop = (e: any) => {
 	if (
 		!e.data.drop ||
-		e.children.some(item => item.data.text == hran.currentNode)
-	) {
+		e.children.some(item => item.data.text == hran.currentNode.text)
+	)
 		return false
-	} else return true
+	else return true
 }
 </script>
 
