@@ -183,7 +183,7 @@ div
 									span(v-if="node.temp") временный
 					span.txt(@click="edit(node)") {{ node.text }}
 				div
-					q-btn(flat round dense icon="mdi-trash-can-outline" size="sm" color="secondary" @click="remove(stat)")
+					q-btn(flat round dense icon="mdi-close" size="sm" color="secondary" @click="remove(stat)")
 					// q-icon(name="mdi-drag" size="sm" color="secondary" draggable="true" @dragstart.stop="dragstart(node.text)")
 						// q-menu(cover anchor="top left")
 							q-list(dense)
