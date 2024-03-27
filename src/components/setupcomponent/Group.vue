@@ -118,7 +118,7 @@ div
 				div
 					q-icon.trig(v-if="node.children" name="mdi-chevron-down" @click.stop="toggle(stat)" :class="{ 'closed': !stat.open }")
 					span {{node.text}} ({{treeData[0].children.length}})
-				q-btn(flat round icon="mdi-plus-circle" dense color="primary" @click="toggleAdd") 
+				q-btn(flat round icon="mdi-plus-circle" dense color="secondary" @click="toggleAdd") 
 
 			.node(v-if="node.type == 'group'" draggable="true" @dragstart.stop="dragstart(node)")
 				div

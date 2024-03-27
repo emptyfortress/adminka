@@ -25,7 +25,7 @@ let treeData = ref([
 			},
 			{
 				id: 2,
-				text: 'second rule',
+				text: 'Second rule',
 				type: 'rule',
 				drag: true,
 				drop: true,
@@ -120,18 +120,24 @@ div
 				div
 					q-icon.trig(v-if="node.children" name="mdi-chevron-down" @click.stop="toggle(stat)" :class="{ 'closed': !stat.open }")
 					span {{node.text}} ({{treeData[0].children.length}})
-				q-btn(flat round icon="mdi-plus-circle" dense color="primary" @click="toggleAdd") 
+				div
+					q-btn(flat round icon="mdi-information" dense color="secondary") 
+						q-menu
+							ol
+								li Правила применяются последовательно, сверху вниз.
+								li Если правило не содержит групп хранилищ, оно просто пропускается.
+					q-btn(flat round icon="mdi-plus-circle" dense color="secondary" @click="toggleAdd") 
 
 			.node(v-if="node.type == 'rule'")
 				div
 					q-icon.trig(v-if="node.children?.length" name="mdi-chevron-down" @click.stop="toggle(stat)" :class="{ 'closed': !stat.open }")
 					q-icon.q-mr-sm(name="mdi-gate-or" color="secondary" size="21px")
-						// q-menu
-						// 	q-card.hrinfo
-						// 		.label Название:
-						// 		div {{ node.text}}
-						// 		.label Режим выбора:
-						// 		div {{ node.rule}}
+						q-menu
+							q-card.hrinfo
+								.label Название:
+								div {{ node.text}}
+								.label Режим выбора:
+								div {{ node.rule}}
 					span {{ node.text }}
 				div
 					q-btn(flat round dense icon="mdi-close" size="sm" color="secondary" @click="remove(stat)")
@@ -146,21 +152,6 @@ div
 								div {{ node.text}}
 								.label Режим выбора:
 								div {{ node.rule}}
-						// q-menu
-						// 	q-card.hrinfo
-						// 		.label Название:
-						// 		div {{ node.text}}
-						// 		.label Тип:
-						// 		div {{ node.typ}}
-						// 		.label Состояние:
-						// 		div {{ node.state}}
-						// 		.label Размер:
-						// 		div {{ node.size}} Gb
-						// 		.label Раздел:
-								div
-									span(v-if="node.main") основной,
-									span(v-if="node.arch") архивный,
-									span(v-if="node.temp") временный
 					span {{ node.text }}
 				div
 					q-btn(flat round dense icon="mdi-close" size="sm" color="secondary" @click="remove(stat)")
@@ -233,10 +224,10 @@ q-dialog(v-model="showAdd")
 				q-input(v-model='name' dense filled autofocus label='Название' lazy-rules :rules="[val => val && val.length > 0 || 'Обязательное поле']")
 				.grid
 					q-select(v-model='typ'  dense filled label='Тип' :options="options").full-width
-					q-input(v-model="ext" dense filled placeholder="*.jpg, *.mp3, *.tiff" label="Расширение" v-if="type === 'По расширению файла'" lazy-rules :rules="[val => val && val.length > 0 || 'Обязательное поле']").full-width
-					q-input(v-model="size1" dense filled label="Размер, kB" v-if="type === 'Размер больше, чем'" type="number" lazy-rules :rules="[val => val !== null && val !== '' || 'Обязательное поле']").full-width
-					q-input(v-model="size2" dense filled label="Размер, kB" v-if="type === 'Размер меньше, чем'" type="number").full-width
-					q-input(v-model="sborka" dense filled label="Сборка" v-if="type === 'Добавить из сборки'").full-width
+					q-input(v-model="ext" dense filled placeholder="*.jpg, *.mp3, *.tiff" label="Расширение" v-if="typ === 'По расширению файла'" lazy-rules :rules="[val => val && val.length > 0 || 'Обязательное поле']").full-width
+					q-input(v-model="size1" dense filled label="Размер, kB" v-if="typ === 'Размер больше, чем'" type="number" lazy-rules :rules="[val => val !== null && val !== '' || 'Обязательное поле']").full-width
+					q-input(v-model="size2" dense filled label="Размер, kB" v-if="typ === 'Размер меньше, чем'" type="number").full-width
+					q-input(v-model="sborka" dense filled label="Сборка" v-if="typ === 'Добавить из сборки'").full-width
 			q-card-section
 				q-card-actions(align="right")
 					q-btn(flat color='primary' label='Отмена' @click='showAdd = false')
@@ -244,6 +235,13 @@ q-dialog(v-model="showAdd")
 </template>
 
 <style scoped lang="scss">
+.grid {
+	display: grid;
+	grid-template-columns: 2fr 1fr;
+	column-gap: 1rem;
+	row-gap: 0.5rem;
+	margin-top: 1rem;
+}
 .trig {
 	font-size: 1.3rem;
 	transform: translateX(-2px);
