@@ -149,7 +149,6 @@ const isDrop = (e: any) => {
 const dragstart = node => {
 	let tmp = { ...node }
 	tmp.id = +date
-	// console.log(tmp)
 	hran.setCurrent(tmp)
 }
 </script>

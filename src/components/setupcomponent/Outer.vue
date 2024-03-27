@@ -1,3 +1,13 @@
+<script setup lang="ts">
+import { ref } from 'vue'
+import Group from '@/components/setupcomponent/Group.vue'
+import Hran from '@/components/setupcomponent/Hran.vue'
+import Rule from '@/components/setupcomponent/Rule.vue'
+
+const split1 = ref(32)
+const split2 = ref(42)
+</script>
+
 <template lang="pug">
 div
 	.change Изменения, выполняемые на этой вкладке, применяются сразу.
@@ -14,19 +24,8 @@ div
 						Group
 
 					template(#after)
-						div Rule
-						// Rule
+						Rule
 </template>
-
-<script setup lang="ts">
-import { ref } from 'vue'
-import Group from '@/components/setupcomponent/Group.vue'
-import Hran from '@/components/setupcomponent/Hran.vue'
-import Rule from '@/components/setupcomponent/Rule.vue'
-
-const split1 = ref(32)
-const split2 = ref(42)
-</script>
 
 <style scoped lang="scss">
 .spl {

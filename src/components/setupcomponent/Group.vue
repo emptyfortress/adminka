@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref, reactive } from 'vue'
-import { Draggable, dragContext } from '@he-tree/vue'
+import { Draggable } from '@he-tree/vue'
 import '@he-tree/vue/style/default.css'
 import { useHran } from '@/stores/hran'
 
@@ -71,17 +71,21 @@ const externalDataHandler = () => {
 }
 
 const isDrag = (e: any) => {
-	if (e.data.drag) return true
-	else return false
+	return false
+	// if (e.data.drag) return true
+	// else return false
 }
 
 const isDrop = (e: any) => {
 	if (
 		!e.data.drop ||
-		e.children.some(item => item.data.text == hran.currentNode.text)
+		e.children.some(item => item.data.text == hran.currentNode?.text)
 	)
 		return false
 	else return true
+}
+const afterDrop = () => {
+	hran.currentNode = null
 }
 </script>
 
@@ -93,10 +97,10 @@ div
 		:eachDroppable="isDrop"
 		:eachDraggable="isDrag"
 		:rootDroppable="false"
+		@afterDrop="afterDrop"
 		:onExternalDragOver="()=> true"
 		:externalDataHandler="externalDataHandler"
 		:watermark="false" )
-		template(#placehoder) drop storage here
 
 		template(#default="{ node, stat }")
 			.zero(v-if="node.id == 0")
@@ -115,6 +119,7 @@ div
 								div {{ node.text}}
 								.label Режим выбора:
 								div {{ node.rule}}
+
 					q-icon.q-mr-sm(v-if="node.type == 'storage'" name="mdi-database-outline" color="secondary" size="16px")
 						q-menu
 							q-card.hrinfo
