@@ -27,7 +27,8 @@ const treeData = reactive([
 			{
 				id: 1,
 				text: 'Storage 1',
-				type: 'Хранилище в базе',
+				type: 'storage',
+				typ: 'Хранилище в базе',
 				state: 'Online',
 				size: 100,
 				main: true,
@@ -39,7 +40,8 @@ const treeData = reactive([
 			{
 				id: 2,
 				text: 'Storage 2',
-				type: 'Хранилище на диске',
+				type: 'storage',
+				typ: 'Хранилище на диске',
 				state: 'Auto',
 				size: 130,
 				main: false,
@@ -51,7 +53,8 @@ const treeData = reactive([
 			{
 				id: 3,
 				text: 'Storage 3',
-				type: 'Хранилище на диске',
+				type: 'storage',
+				typ: 'Хранилище на диске',
 				state: 'Auto',
 				size: 10,
 				main: false,
@@ -76,7 +79,7 @@ const showAdd = ref(false)
 const toggleAdd = () => {
 	showAdd.value = !showAdd.value
 	name.value = null
-	type.value = null
+	typ.value = null
 	state.value = null
 	size.value = null
 	main.value = false
@@ -89,7 +92,7 @@ const toggleAdd = () => {
 
 const edit = (node: any) => {
 	name.value = node.text
-	type.value = node.type
+	typ.value = node.typ
 	state.value = node.state
 	size.value = node.size
 	main.value = node.main
@@ -104,7 +107,8 @@ const add = () => {
 	let tmp = {}
 	tmp.id = +date
 	tmp.text = name.value
-	tmp.type = type.value
+	tmp.type = 'storage'
+	tmp.typ = typ.value
 	tmp.state = state.value
 	tmp.size = size.value
 	tmp.main = main.value
@@ -117,7 +121,7 @@ const add = () => {
 }
 
 const name = ref()
-const type = ref()
+const typ = ref()
 const state = ref()
 const size = ref()
 const main = ref(false)
@@ -144,6 +148,7 @@ const isDrop = (e: any) => {
 }
 const dragstart = node => {
 	hran.setCurrent(node)
+	console.log(node)
 }
 </script>
 
@@ -163,7 +168,7 @@ div
 					span {{node.text}} ({{treeData[0].children.length}})
 				q-btn(flat round icon="mdi-plus-circle" dense color="primary" @click="toggleAdd") 
 
-			.node(v-else  draggable="true" @dragstart.stop="dragstart(node.text)")
+			.node(v-else  draggable="true" @dragstart.stop="dragstart(node)")
 				div
 					q-icon.sec(name="mdi-database-outline" size="16px")
 						q-menu
@@ -171,7 +176,7 @@ div
 								.label Название:
 								div {{ node.text}}
 								.label Тип:
-								div {{ node.type}}
+								div {{ node.typ}}
 								.label Состояние:
 								div {{ node.state}}
 								.label Размер:
@@ -201,7 +206,7 @@ div
 				q-card-section
 					.edittable
 						q-input(v-model="name" autofocus filled label="Название" dense lazy-rules :rules="[val => val && val.length > 0 || 'Обязательное поле']")
-						q-select(v-model="type" filled label="Тип" :options="options" dense lasy-rules :rules="[val => val !== null && val !== '' || 'Обязательное поле']")
+						q-select(v-model="typ" filled label="Тип" :options="options" dense lasy-rules :rules="[val => val !== null && val !== '' || 'Обязательное поле']")
 						q-select(v-model="state" filled label="Состояние" :options="options1" dense lasy-rules :rules="[val => val !== null && val !== '' || 'Обязательное поле']")
 						q-input(v-model="size" filled label="Макс.размер, Гб" type="number" style="width:150px; margin: 0 auto;" dense lasy-rules :rules="[val => val > 0 || 'Укажите размер']")
 						br

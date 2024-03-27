@@ -16,6 +16,7 @@ let treeData = ref([
 				id: 1,
 				text: 'Common',
 				type: 'group',
+				rule: 'Случайный порядок',
 				drag: false,
 				drop: true,
 				children: [],
@@ -42,6 +43,7 @@ const addGroup = () => {
 		id: +date,
 		text: newGroupName.value,
 		type: 'group',
+		rule: newGroupRule.value,
 		drag: false,
 		drop: true,
 		children: [],
@@ -83,11 +85,13 @@ const toggle = (stat: any) => {
 const tree = ref()
 
 const externalDataHandler = () => {
-	let dragged = {
-		text: hran.currentNode,
-		type: 'storage',
-	}
-	return dragged
+	// let dragged = {
+	// 	text: hran.currentNode.text,
+	// 	type: 'storage',
+	// }
+	// return dragged
+	let temp = hran.currentNode
+	return temp
 }
 
 const isDrag = (e: any) => {
@@ -129,7 +133,28 @@ div
 				div
 					q-icon.trig(v-if="node.children?.length" name="mdi-chevron-down" @click.stop="toggle(stat)" :class="{ 'closed': !stat.open }")
 					q-icon.q-mr-sm(v-if="node.type == 'group'" name="mdi-folder-outline" color="secondary" size="21px")
+						q-menu
+							q-card.hrinfo
+								.label Название:
+								div {{ node.text}}
+								.label Режим выбора:
+								div {{ node.rule}}
 					q-icon.q-mr-sm(v-if="node.type == 'storage'" name="mdi-database-outline" color="secondary" size="16px")
+						q-menu
+							q-card.hrinfo
+								.label Название:
+								div {{ node.text}}
+								.label Тип:
+								div {{ node.type}}
+								.label Состояние:
+								div {{ node.state}}
+								.label Размер:
+								div {{ node.size}} Gb
+								.label Раздел:
+								div
+									span(v-if="node.main") основной,
+									span(v-if="node.arch") архивный,
+									span(v-if="node.temp") временный
 					span {{ node.text }}
 				div
 					q-btn(flat round dense icon="mdi-close" size="sm" color="secondary" @click="remove(stat)")
@@ -192,6 +217,19 @@ div
 		.q-btn {
 			visibility: visible;
 		}
+	}
+}
+.hrinfo {
+	padding: 1rem;
+	display: grid;
+	grid-template-columns: auto 1fr;
+	justify-items: start;
+	align-items: flex-end;
+	column-gap: 1rem;
+	row-gap: 3px;
+	.label {
+		color: grey;
+		justify-self: end;
 	}
 }
 </style>

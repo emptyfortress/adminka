@@ -6,7 +6,7 @@ const date = new Date()
 export const useHran = defineStore({
 	id: 'hran',
 	state: () => ({
-		currentNode: null as null | string,
+		currentNode: null as null | Object,
 		// groups: [
 		// 	{
 		// 		id: 0,
@@ -22,7 +22,7 @@ export const useHran = defineStore({
 	}),
 	getters: {},
 	actions: {
-		setCurrent(e: string) {
+		setCurrent(e: any) {
 			this.currentNode = e
 		},
 		// unique() {
