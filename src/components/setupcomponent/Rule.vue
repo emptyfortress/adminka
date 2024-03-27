@@ -23,6 +23,13 @@ let treeData = ref([
 				drag: true,
 				drop: true,
 			},
+			{
+				id: 2,
+				text: 'second rule',
+				type: 'rule',
+				drag: true,
+				drop: true,
+			},
 		],
 	},
 ])
@@ -86,8 +93,12 @@ const isDrop = (e: any) => {
 }
 
 const externalDataHandler = () => {
-	let temp = hran.currentNode
+	let temp = hran.currentGroup
 	return temp
+}
+const afterDrop = () => {
+	hran.setCurrent(null)
+	hran.setCurrentGroup(null)
 }
 </script>
 
@@ -111,28 +122,41 @@ div
 					span {{node.text}} ({{treeData[0].children.length}})
 				q-btn(flat round icon="mdi-plus-circle" dense color="primary" @click="toggleAdd") 
 
-			.node(v-else)
+			.node(v-if="node.type == 'rule'")
 				div
 					q-icon.trig(v-if="node.children?.length" name="mdi-chevron-down" @click.stop="toggle(stat)" :class="{ 'closed': !stat.open }")
-					q-icon.q-mr-sm(v-if="node.type == 'rule'" name="mdi-folder-outline" color="secondary" size="21px")
+					q-icon.q-mr-sm(name="mdi-gate-or" color="secondary" size="21px")
+						// q-menu
+						// 	q-card.hrinfo
+						// 		.label Название:
+						// 		div {{ node.text}}
+						// 		.label Режим выбора:
+						// 		div {{ node.rule}}
+					span {{ node.text }}
+				div
+					q-btn(flat round dense icon="mdi-close" size="sm" color="secondary" @click="remove(stat)")
+
+			.node(v-if="node.type == 'group'" )
+				div
+					q-icon.trig(v-if="node.children?.length" name="mdi-chevron-down" @click.stop="toggle(stat)" :class="{ 'closed': !stat.open }")
+					q-icon.q-mr-sm(name="mdi-folder-outline" color="secondary" size="21px")
 						q-menu
 							q-card.hrinfo
 								.label Название:
 								div {{ node.text}}
 								.label Режим выбора:
 								div {{ node.rule}}
-					q-icon.q-mr-sm(v-if="node.type == 'storage'" name="mdi-database-outline" color="secondary" size="16px")
-						q-menu
-							q-card.hrinfo
-								.label Название:
-								div {{ node.text}}
-								.label Тип:
-								div {{ node.typ}}
-								.label Состояние:
-								div {{ node.state}}
-								.label Размер:
-								div {{ node.size}} Gb
-								.label Раздел:
+						// q-menu
+						// 	q-card.hrinfo
+						// 		.label Название:
+						// 		div {{ node.text}}
+						// 		.label Тип:
+						// 		div {{ node.typ}}
+						// 		.label Состояние:
+						// 		div {{ node.state}}
+						// 		.label Размер:
+						// 		div {{ node.size}} Gb
+						// 		.label Раздел:
 								div
 									span(v-if="node.main") основной,
 									span(v-if="node.arch") архивный,

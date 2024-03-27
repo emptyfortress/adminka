@@ -22,7 +22,7 @@ const treeData = reactive([
 		id: 0,
 		text: 'Хранилища',
 		drag: false,
-		drop: true,
+		drop: false,
 		children: [
 			{
 				id: 1,

@@ -10,7 +10,7 @@ let treeData = ref([
 		id: 0,
 		text: 'Группы хранилищ',
 		drag: false,
-		drop: true,
+		drop: false,
 		children: [
 			{
 				id: 1,
@@ -79,13 +79,24 @@ const isDrag = (e: any) => {
 const isDrop = (e: any) => {
 	if (
 		!e.data.drop ||
+		e.data.type == hran.currentNode?.type ||
 		e.children.some(item => item.data.text == hran.currentNode?.text)
 	)
 		return false
 	else return true
 }
+
+const dragstart = node => {
+	let tmp = { ...node }
+	tmp.id = +date
+	tmp.drop = false
+	tmp.drag = false
+	tmp.children = []
+	hran.setCurrentGroup(tmp)
+}
+
 const afterDrop = () => {
-	hran.currentNode = null
+	hran.setCurrent(null)
 }
 </script>
 
@@ -109,18 +120,23 @@ div
 					span {{node.text}} ({{treeData[0].children.length}})
 				q-btn(flat round icon="mdi-plus-circle" dense color="primary" @click="toggleAdd") 
 
-			.node(v-else)
+			.node(v-if="node.type == 'group'" draggable="true" @dragstart.stop="dragstart(node)")
 				div
 					q-icon.trig(v-if="node.children?.length" name="mdi-chevron-down" @click.stop="toggle(stat)" :class="{ 'closed': !stat.open }")
-					q-icon.q-mr-sm(v-if="node.type == 'group'" name="mdi-folder-outline" color="secondary" size="21px")
+					q-icon.q-mr-sm(name="mdi-folder-outline" color="secondary" size="21px")
 						q-menu
 							q-card.hrinfo
 								.label Название:
 								div {{ node.text}}
 								.label Режим выбора:
 								div {{ node.rule}}
+					span {{ node.text }}
+				div
+					q-btn(flat round dense icon="mdi-close" size="sm" color="secondary" @click="remove(stat)")
 
-					q-icon.q-mr-sm(v-if="node.type == 'storage'" name="mdi-database-outline" color="secondary" size="16px")
+			.node(v-if="node.type == 'storage'")
+				div
+					q-icon.q-mr-sm(name="mdi-database-outline" color="secondary" size="16px")
 						q-menu
 							q-card.hrinfo
 								.label Название:
@@ -139,10 +155,6 @@ div
 					span {{ node.text }}
 				div
 					q-btn(flat round dense icon="mdi-close" size="sm" color="secondary" @click="remove(stat)")
-						// q-menu(cover anchor="top left")
-						// 	q-list(dense)
-						// 		q-item(clickable v-close-popup @click="remove(stat)").pink
-						// 			q-item-section Удалить
 
 	q-dialog(v-model="showAdd")
 		q-card(style="min-width: 400px;")
