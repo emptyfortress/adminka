@@ -156,6 +156,7 @@ div
 				div
 					q-btn(flat round dense icon="mdi-close" size="sm" color="secondary" @click="remove(stat)")
 
+	.empt(v-if="!treeData[0].children.length") Добавьте группу
 	q-dialog(v-model="showAdd")
 		q-card(style="min-width: 400px;")
 			q-form(@submit="addGroup")

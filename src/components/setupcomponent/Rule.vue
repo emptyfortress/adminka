@@ -136,8 +136,13 @@ div
 							q-card.hrinfo
 								.label Название:
 								div {{ node.text}}
-								.label Режим выбора:
-								div {{ node.rule}}
+								.label Тип:
+								div {{ node.typ}}
+								.label(v-if="node.ext") Расширение:
+								div(v-if="node.ext") {{ node.ext}}
+								.label(v-if="node.size1 || node.size2") Размер:
+								div(v-if="node.size1") {{ node.size1}}
+								div(v-if="node.size2") {{ node.size2}}
 					span {{ node.text }}
 				div
 					q-btn(flat round dense icon="mdi-close" size="sm" color="secondary" @click="remove(stat)")
@@ -155,63 +160,7 @@ div
 					span {{ node.text }}
 				div
 					q-btn(flat round dense icon="mdi-close" size="sm" color="secondary" @click="remove(stat)")
-// .row.items-baseline.justify-between
-// 	.zg Правила помещения в хранилище ({{ hran.rules.length }})
-// 	div
-// 		q-btn(flat round icon='mdi-information')
-// 			q-menu
-// 				ol
-// 					li Правила применяются последовательно, сверху вниз.
-// 					li Если правило не содержит групп хранилищ, оно просто пропускается.
-// 		q-btn(flat round icon='mdi-plus-circle' @click="showDialog")
-// .empt(v-if="hran.rules.length === 0") Создайте первое правило
-//
-// component(v-else :is="draggable" :list="hran.rules"
-// 	item-key="id"
-// 	group="rule"
-// 	@end="set"
-// 	ghost-class='ghost'
-// 	).list-group
-//
-// 	template(#item="{ element, index }")
-// 		q-expansion-item(v-model="element.expanded" switch-toggle-side expand-icon-toggle).gro.exp
-// 			template(#header)
-// 				.line
-// 					.title
-// 						q-icon(name="mdi-gate-nor" size="sm").q-mr-sm
-// 						span {{ element.name }}
-//
-// 					.bt
-// 						q-btn(flat round icon="mdi-pencil" @click.stop="edit(index)" size="sm").q-mr-sm
-// 						q-btn(flat round icon="mdi-trash-can-outline" @click.stop="" size="sm")
-// 							q-menu
-// 								q-list
-// 									q-item(clickable v-close-popup @click="removeRule(index)").pink
-// 										q-item-section Удалить&nbsp;правило
-//
-// 					.des
-// 						q-icon(name="mdi-information-outline" size="14px").q-mr-sm
-// 						span.q-mr-xs {{element.type}}
-// 						span.q-mr-xs {{element.ext}}
-// 						span.q-mr-xs {{element.size1}}
-// 						span.q-mr-xs {{element.size2}}
-// 						span.q-mr-xs(v-if="element.size1 || element.size2") Gb
-//
-// 			q-separator
-//
-// 			component(:is="draggable" :list="element.gr" item-key="id" group="last" ghost-class="ghost" @start="dragging = true" @end="dragging = false").list-group
-// 				template(#item="{ element: el, index: ind }")
-// 					.row.justify-between.items-center
-// 						.q-ml-sm
-// 							q-icon(name="mdi-server" size="18px" style="vertical-align: top;")
-// 							span.q-ml-sm {{ el.name }}
-// 						q-btn(flat round dense icon="mdi-close" size="10px" )
-// 							q-menu
-// 								q-list
-// 									q-item(clickable v-close-popup @click="clearGroup(index, ind)").pink
-// 										q-item-section Очистить
-// 				template(#header v-if="element.gr.length == 0")
-// 					.empt Добавьте группу к правилу, перетащив ее сюда.
+	.empt(v-if="!treeData[0].children.length") Добавьте правило
 
 q-dialog(v-model="showAdd")
 	q-card(style="min-width: 500px;")

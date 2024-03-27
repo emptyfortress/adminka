@@ -137,10 +137,11 @@ body.body--dark {
 }
 
 .empt {
-	padding: 1rem;
-	// background: var(--bg-grey);
+	padding: 0.5rem;
+	// background: pink;
 	font-size: 0.8rem;
 	color: #888;
+	border: 1px solid #ccc;
 }
 
 .card {

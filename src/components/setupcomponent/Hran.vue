@@ -196,6 +196,7 @@ div
 								q-item(clickable v-close-popup @click="remove(stat)").pink
 									q-item-section Удалить
 
+	.empt(v-if="!treeData[0].children.length") Добавьте хранилище
 	q-dialog(v-model="showAdd")
 		q-card(padding)
 			q-form(@submit="add")
