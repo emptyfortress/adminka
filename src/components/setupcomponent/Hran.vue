@@ -162,6 +162,7 @@ div
 					q-icon.trig(name="mdi-chevron-down" @click.stop="toggle(stat)" :class="{ 'closed': !stat.open }")
 					span {{node.text}} ({{treeData[0].children.length}})
 				q-btn(flat round icon="mdi-plus-circle" dense color="primary" @click="toggleAdd") 
+
 			.node(v-else  draggable="true" @dragstart.stop="dragstart(node.text)")
 				div
 					q-icon.sec(name="mdi-database-outline" size="16px")
@@ -268,7 +269,7 @@ div
 		justify-self: end;
 	}
 }
-[draggable='true'] {
-	// cursor: move;
+:deep(.drag-placeholder) {
+	height: 32px;
 }
 </style>

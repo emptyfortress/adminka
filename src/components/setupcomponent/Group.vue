@@ -140,6 +140,8 @@ div
 		:externalDataHandler="externalDataHandler"
 		@afterDrop="test"
 		:watermark="false" )
+		template(#placehoder) drop storage here
+
 		template(#default="{ node, stat }")
 			.zero(v-if="node.id == 0")
 				div
@@ -242,13 +244,17 @@ div
 	align-items: center;
 	justify-content: space-between;
 }
+:deep(.drag-placeholder) {
+	height: 32px;
+}
 .node {
 	// min-width: 200px;
 	font-size: 0.9rem;
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
-	padding: 2px 4px;
+	padding: 4px;
+	height: 32px;
 	cursor: pointer;
 	.q-btn {
 		visibility: hidden;
