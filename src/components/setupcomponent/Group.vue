@@ -1,23 +1,32 @@
 <script setup lang="ts">
-import { ref, reactive } from 'vue'
+import { ref, reactive, nextTick } from 'vue'
 import { Draggable } from '@he-tree/vue'
 import '@he-tree/vue/style/default.css'
 import { useHran } from '@/stores/hran'
 
 const hran = useHran()
-const treeData = reactive([
+let treeData = ref([
 	{
 		id: 0,
 		text: 'Группы хранилищ',
 		drag: false,
-		drop: true,
+		drop: false,
 		children: [
 			{
 				id: 1,
 				text: 'Common',
+				type: 'group',
 				drag: true,
 				drop: true,
+				children: [],
 			},
+			// {
+			// 	id: 2,
+			// 	text: 'New',
+			// 	type: 'group',
+			// 	drag: true,
+			// 	drop: true,
+			// },
 		],
 	},
 ])
@@ -73,21 +82,50 @@ const treeData = reactive([
 const toggle = (stat: any) => {
 	stat.open = !stat.open
 }
+const date = new Date()
+
+const tree = ref()
+
 const externalDataHandler = () => {
-	// return {
-	// 	id: 5,
-	// 	text: txt,
-	// }
-	console.log(hran.currentNode)
+	let dragged = {
+		text: hran.currentNode,
+		type: 'storage',
+	}
+	return dragged
 }
+
+const uniq = () => {
+	console.log(tree.value.stats)
+	// tree.value.statsFlat.filter(item => item.data.text == 'Storage 1')
+	// console.log(tree.value.statsFlat)
+	// console.log(
+	// 	tree.value.statsFlat.filter(item => item.data.text == 'Storage 1')
+	// )
+	// nextTick(() => {
+	// 	treeData.value = []
+	// })
+
+	// list.forEach(item => {
+	// 	item.children = [...new Set(item.children)]
+	// 	console.log(item.children)
+	// })
+}
+
 const isDrag = (e: any) => {
-	return true
+	if (e.data.drag) return true
+	else return false
 }
+
 const isDrop = (e: any) => {
-	return true
+	if (
+		!e.data.drop ||
+		e.children.some(item => item.data.text == hran.currentNode)
+	) {
+		return false
+	} else return true
 }
 const test = () => {
-	console.log(111)
+	console.log(hran.currentNode)
 }
 </script>
 
@@ -100,25 +138,27 @@ div
 		:eachDraggable="isDrag"
 		:onExternalDragOver="()=> true"
 		:externalDataHandler="externalDataHandler"
-		@enter="test"
+		@afterDrop="test"
 		:watermark="false" )
 		template(#default="{ node, stat }")
 			.zero(v-if="node.id == 0")
 				div
-					q-icon.trig(name="mdi-chevron-down" @click.stop="toggle(stat)" :class="{ 'closed': !stat.open }")
+					q-icon.trig(v-if="node.children" name="mdi-chevron-down" @click.stop="toggle(stat)" :class="{ 'closed': !stat.open }")
 					span {{node.text}} ({{treeData[0].children.length}})
-				q-btn(flat round icon="mdi-plus-circle" dense color="primary" @click="") 
+				q-btn(flat round icon="mdi-plus-circle" dense color="primary" @click="uniq") 
+
 			.node(v-else)
 				div
-					q-icon.q-mr-sm(name="mdi-folder-outline" color="secondary" size="21px")
+					q-icon.trig(v-if="node.children?.length" name="mdi-chevron-down" @click.stop="toggle(stat)" :class="{ 'closed': !stat.open }")
+					q-icon.q-mr-sm(v-if="node.type == 'group'" name="mdi-folder-outline" color="secondary" size="21px")
+					q-icon.q-mr-sm(v-if="node.type == 'storage'" name="mdi-database-outline" color="secondary" size="16px")
 					span {{ node.text }}
 				div
-					q-btn(flat round dense icon="mdi-pencil" size="sm" @click="edit(node)" color="secondary")
-					q-btn(flat round dense icon="mdi-trash-can-outline" size="sm" color="secondary")
-						q-menu(cover anchor="top left")
-							q-list(dense)
-								q-item(clickable v-close-popup @click="remove(stat)").pink
-									q-item-section Удалить
+					q-btn(flat round dense icon="mdi-trash-can-outline" size="sm" color="secondary" @click="remove(stat)")
+						// q-menu(cover anchor="top left")
+						// 	q-list(dense)
+						// 		q-item(clickable v-close-popup @click="remove(stat)").pink
+						// 			q-item-section Удалить
 
 // .row.items-center.justify-between
 // 	.zg Группы хранилищ ({{ hran.groups.length }})
@@ -190,6 +230,7 @@ div
 <style scoped lang="scss">
 .trig {
 	font-size: 1.3rem;
+	transform: translateX(-2px);
 	transition: 0.2s ease all;
 	&.closed {
 		transform: rotate(-90deg);

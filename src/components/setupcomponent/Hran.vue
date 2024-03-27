@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref, reactive } from 'vue'
-import { Draggable } from '@he-tree/vue'
+import { Draggable, BaseTree } from '@he-tree/vue'
 import '@he-tree/vue/style/default.css'
 import { useHran } from '@/stores/hran'
 
@@ -145,9 +145,6 @@ const isDrop = (e: any) => {
 const dragstart = node => {
 	hran.setCurrent(node)
 }
-const test = () => {
-	console.log('fck')
-}
 </script>
 
 <template lang="pug">
@@ -157,17 +154,17 @@ div
 		v-model="treeData"
 		:eachDroppable="isDrop"
 		:eachDraggable="isDrag"
-		:watermark="false" )
+		:watermark="false")
 
 		template(#default="{ node, stat }")
 			.zero(v-if="node.id == 0")
 				div
 					q-icon.trig(name="mdi-chevron-down" @click.stop="toggle(stat)" :class="{ 'closed': !stat.open }")
 					span {{node.text}} ({{treeData[0].children.length}})
-				q-btn(flat round icon="mdi-plus-circle" dense color="primary" @click="") 
-			.node(v-else )
+				q-btn(flat round icon="mdi-plus-circle" dense color="primary" @click="toggleAdd") 
+			.node(v-else  draggable="true" @dragstart.stop="dragstart(node.text)")
 				div
-					q-icon.q-mr-sm(name="mdi-database-outline" color="secondary" size="16px")
+					q-icon.sec(name="mdi-database-outline" size="16px")
 						q-menu
 							q-card.hrinfo
 								.label Название:
@@ -183,10 +180,10 @@ div
 									span(v-if="node.main") основной,
 									span(v-if="node.arch") архивный,
 									span(v-if="node.temp") временный
-					span(@click="edit(node)") {{ node.text }}
+					span.txt(@click="edit(node)") {{ node.text }}
 				div
 					q-btn(flat round dense icon="mdi-trash-can-outline" size="sm" color="secondary" @click="remove(stat)")
-					q-icon(name="mdi-drag" size="sm" color="secondary" draggable="true" @dragstart.stop="dragstart(node.text)")
+					// q-icon(name="mdi-drag" size="sm" color="secondary" draggable="true" @dragstart.stop="dragstart(node.text)")
 						// q-menu(cover anchor="top left")
 							q-list(dense)
 								q-item(clickable v-close-popup @click="remove(stat)").pink
@@ -230,26 +227,32 @@ div
 	align-items: center;
 	justify-content: space-between;
 }
+.sec {
+	color: $secondary;
+	margin-right: 0.3rem;
+	&:hover {
+		color: $primary;
+	}
+}
+.txt:hover {
+	color: $primary;
+}
 .node {
 	font-size: 0.9rem;
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
-	padding: 2px 4px;
+	padding: 4px;
+	height: 32px;
 	cursor: pointer;
 	.q-btn {
-		visibility: hidden;
+		display: none;
 	}
 	&:hover {
 		background: #dedede;
 		.q-btn {
-			visibility: visible;
+			display: inline-flex;
 		}
-	}
-	.hdd {
-		width: 20px;
-		height: 20px;
-		background: pink;
 	}
 }
 .hrinfo {
@@ -266,6 +269,6 @@ div
 	}
 }
 [draggable='true'] {
-	cursor: move;
+	// cursor: move;
 }
 </style>
