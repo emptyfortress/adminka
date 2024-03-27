@@ -91,7 +91,8 @@ const isDrag = (e: any) => {
 	else return false
 }
 const isDrop = (e: any) => {
-	if (e.data.drop && e.data.id !== 0) return true
+	if (e.data.type == 'rule' && !!hran.currentGroup) return true
+	if (e.data.id == 0 && tree.value.dragNode.data.type == 'rule') return true
 	else return false
 }
 
