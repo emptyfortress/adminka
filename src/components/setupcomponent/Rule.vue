@@ -88,7 +88,7 @@ const isDrag = (e: any) => {
 	else return false
 }
 const isDrop = (e: any) => {
-	if (e.data.drop) return true
+	if (e.data.drop && e.data.id !== 0) return true
 	else return false
 }
 
