@@ -89,8 +89,8 @@ q-page(padding)
 				ArchTab
 				#cache.zg Кэширование
 				CacheTab
-				#module.zg Доп.настройки
-				// component(:is="ModuleTab" :bd="bd")
+				#module.zg Дополнительные настройки
+				ModuleTab
 
 </template>
 

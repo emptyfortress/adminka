@@ -2,9 +2,9 @@
 import { ref } from 'vue'
 
 interface Props {
-	filled: boolean
-	bg: string
-	type: string
+	filled?: boolean
+	bg?: string
+	type?: string
 	disable?: boolean
 }
 const props = withDefaults(defineProps<Props>(), {
@@ -13,7 +13,7 @@ const props = withDefaults(defineProps<Props>(), {
 	type: 'text',
 })
 
-const modelValue = defineModel<string>()
+const modelValue = defineModel()
 
 const req = [
 	(val: string) => (val && val.length > 0) || 'Это обязательное поле',

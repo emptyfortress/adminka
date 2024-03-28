@@ -92,10 +92,8 @@ const week = ref('понедельник')
 				.row.justify-start.items-baseline.q-gutter-sm
 					div Раз в неделю в
 					MySelect(v-model="week" :options="options" style="width: 140px;")
-					// q-select.smm(v-model="week" dense :options="options")
 					div в
 					MyInput(v-model="hour2" type="number" style="width: 140px;")
-					// q-input.smm(v-model="hour2" type="number" dense )
 					div часов
 		q-item
 			q-item-section(avatar)

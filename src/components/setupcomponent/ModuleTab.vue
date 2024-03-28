@@ -1,9 +1,11 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-import { useWiz } from '@/stores/wiz'
+import { ref, reactive, computed } from 'vue'
+import MyField from '@/components/common/MyField.vue'
 import Step7 from '@/components/wizard/Step7.vue'
 
-const wiz = useWiz()
+// import { useWiz } from '@/stores/wiz'
+
+// const wiz = useWiz()
 
 const updateState = ref(false)
 const key = ref(0)
@@ -16,74 +18,67 @@ const start = () => {
 		wiz.resetCheck()
 	}, 5000)
 }
+const commonProp = reactive([
+	{
+		id: 0,
+		check: false,
+		checkbox: true,
+		descr: 'Базовые объекты',
+		block: 1,
+	},
+	{
+		id: 1,
+		check: false,
+		checkbox: true,
+		descr: 'Управление документами',
+		block: 1,
+	},
+	{
+		id: 2,
+		check: false,
+		checkbox: true,
+		descr: 'Управление процессами',
+		block: 1,
+	},
+	{
+		id: 3,
+		check: false,
+		checkbox: true,
+		descr: 'Конструктор согласований',
+		block: 2,
+	},
+	{
+		id: 4,
+		check: false,
+		checkbox: true,
+		descr: 'Web-client',
+		block: 2,
+	},
+])
+const firstBlock = computed(() => {
+	return commonProp.filter(item => item.block == 1)
+})
+const secondBlock = computed(() => {
+	return commonProp.filter(item => item.block == 2)
+})
+const action = () => {
+	updateState.value = !updateState.value
+}
 </script>
 
 <template lang="pug">
-.all
-	.arch.archnew
-		.column
-			.text-bold Обновить настройки для модулей:
-			q-checkbox(v-for="item in wiz.check1"
-				:key="item.id"
-				:label="item.label"
-				v-model="item.val")
-		.column
-			template(v-if="wiz.check2.length > 0")
-				.text-bold Загрузить настройки для модулей:
-				q-checkbox(v-for="item in wiz.check2"
-					:key="item.id"
-					:label="item.label"
-					v-model="item.val")
-		q-btn(unelevated color="primary" :disable="wiz.checkState1 && wiz.checkState2" size="md" label="Начать" @click="start").q-mt-md 
+.data
+	label Обновить настройки для модулей:
+	q-form
+		div(v-for="item in firstBlock" :key="item.id")
+			q-checkbox(v-if="item.checkbox" v-model="item.check" :label="item.descr" dense)
+	.q-mt-lg
+		label Загрузить настройки для модулей:
+		div(v-for="item in secondBlock" :key="item.id")
+			q-checkbox(v-if="item.checkbox" v-model="item.check" :label="item.descr" dense)
+	q-btn.q-mt-md(unelevated color="secondary" label="Начать" @click="action" size="sm") 
+	Step7(v-if="updateState")
 
-	.arch.q-mt-sm(v-if="updateState")
-		component(:is="Step7" hint="Обновление и/или загрузка дополнительных настроек:" result="Завершено успешно!" :key="key" )
 </template>
 
-<style scoped lang="scss">
-.all {
-	width: 900px;
-	margin: 0 auto;
-}
-.title {
-	font-size: 0.8rem;
-	text-transform: uppercase;
-	color: $secondary;
-	align-self: center;
-}
-.dis {
-	opacity: 0.3;
-}
-.archnew {
-	background: var(--bg-grey);
-	padding: 1rem;
-	display: grid;
-	grid-template-columns: 1fr 1fr 0.6fr;
-	align-items: top;
-	// justify-items: start;
-	column-gap: 1rem;
-	row-gap: 0.5rem;
-	.q-btn {
-		align-self: center;
-	}
-}
-.more {
-	display: grid;
-	grid-template-columns: auto 1fr;
-	justify-items: start;
-	align-items: center;
-	column-gap: 1rem;
-	row-gap: 0.5rem;
-}
-.q-select,
-.q-input {
-	width: 350px;
-	font-size: 1rem;
-}
-.q-checkbox {
-	margin-left: -0.5rem;
-}
-.done {
-	margin-top: 2rem;
-}
-</style>
+<style scoped lang="scss"></style>

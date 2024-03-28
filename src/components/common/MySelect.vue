@@ -2,9 +2,9 @@
 import { ref } from 'vue'
 
 interface Props {
-	filled: boolean
-	bg: string
-	options: string[]
+	filled?: boolean
+	bg?: string
+	options?: string[]
 	disable?: boolean
 }
 
