@@ -88,6 +88,7 @@ q-page(padding)
 				Outer
 				// component(:is="Outer")
 				#arch.zg Архивирование
+				ArchTab
 				// component(:is="ArchTab" :bd="bd")
 				#cache.zg Кэширование
 				// component(:is="CacheTab" :bd="bd")

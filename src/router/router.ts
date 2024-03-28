@@ -27,10 +27,6 @@ export const router = createRouter({
 			},
 		},
 		{
-			path: '/outer',
-			component: () => import('@/components/setupcomponent/Outer.vue'),
-		},
-		{
 			path: '/calendar',
 			name: 'calendar',
 			component: () => import('@/components/Calendar.vue'),

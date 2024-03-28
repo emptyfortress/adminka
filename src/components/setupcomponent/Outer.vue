@@ -10,7 +10,7 @@ const split2 = ref(42)
 
 <template lang="pug">
 div
-	.change Изменения, выполняемые на этой вкладке, применяются сразу.
+	.change Изменения в этом разделе применяются сразу.
 	.outer
 		q-splitter.spl(v-model="split1")
 			template(#before)

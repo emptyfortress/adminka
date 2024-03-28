@@ -73,6 +73,7 @@ const item = ref(false)
 	MyInput(v-model="main" v-if="!props.select && !props.checkbox" :bg="props.bg" :filled="props.filled" :type="props.type" :disable="props.disable")
 	MySelect(v-model="main" v-if="props.select && !props.checkbox" :bg="props.bg" :filled="props.filled" :options="props.options")
 	q-btn.add(v-if="props.button" unelevated color="secondary" :label="props.btLabel" size="sm") 
+
 </template>
 
 <style scoped lang="scss">
