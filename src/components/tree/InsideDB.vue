@@ -83,15 +83,12 @@ q-page(padding)
 				PropertyTab(:bd="currentDB")
 				#control.zg Обслуживание
 				ControlTab
-				// component(:is="ControlTab" :bd="bd")
 				#outer.zg Внешние хранилища
 				Outer
-				// component(:is="Outer")
 				#arch.zg Архивирование
 				ArchTab
-				// component(:is="ArchTab" :bd="bd")
 				#cache.zg Кэширование
-				// component(:is="CacheTab" :bd="bd")
+				CacheTab
 				#module.zg Доп.настройки
 				// component(:is="ModuleTab" :bd="bd")
 

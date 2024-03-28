@@ -11,6 +11,7 @@ const split2 = ref(42)
 <template lang="pug">
 div
 	.change Изменения в этом разделе применяются сразу.
+	.descr Здесь текст-пояснение про порядок настройки правил, групп и хранилищ.
 	.outer
 		q-splitter.spl(v-model="split1")
 			template(#before)
@@ -28,6 +29,10 @@ div
 </template>
 
 <style scoped lang="scss">
+.descr {
+	color: #666;
+	margin-left: 2rem;
+}
 .spl {
 	height: initial;
 	min-height: 200px;
@@ -40,8 +45,8 @@ div
 	// box-shadow: 0 0 4px rgba($color: #000000, $alpha: 0.3);
 }
 .change {
-	color: darkred;
 	background: darkred;
+	// background: $secondary;
 	color: white;
 	font-weight: 600;
 	font-size: 0.8rem;

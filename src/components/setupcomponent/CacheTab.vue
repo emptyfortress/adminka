@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue'
+import MyField from '@/components/common/MyField.vue'
 
 const prov = ref('InMemory')
 const line = ref('')
@@ -23,27 +24,57 @@ const calcColor = computed(() => {
 	}
 	return 'primary'
 })
+const commonProp = ref([
+	{
+		id: 0,
+		main: 'InMemory',
+		label: 'Провайдер',
+		options: ['InMemory', 'NoCache', 'Redis'],
+		select: true,
+	},
+	{
+		id: 1,
+		main: '',
+		label: 'Строка подключения',
+		disable: true,
+	},
+	{
+		id: 2,
+		main: '',
+		label: 'Пароль',
+		disable: true,
+		button: true,
+		nodescr: true,
+		btLabel: 'Тест',
+	},
+	{
+		id: 3,
+		checkbox: true,
+		check: false,
+		label: 'Счетчики',
+		descr: 'Включить счетчики производительности',
+	},
+])
+// TODO: Доделать disable строку подключения в зависимости от селектора
 </script>
 
 <template lang="pug">
-.all
-	.arch
-		.title Настройки провайдера
-		.more
-			label Провайдер:
-			q-select(v-model="prov" :options="options" dense)
-			label(:class="{dis : prov !=='Redis'}") Строка подключения:
-			.row.items-center
-				q-input(v-model="line" dense :disable="prov !== 'Redis'")
-				q-btn(unelevated :color="calcColor" size="xs" :loading="loading" :disable="prov !== 'Redis'" @click="test").q-ml-md
-					q-icon(v-if="check" name="mdi-check-bold" color="white")
-					span(v-else) Test
-			label(:class="{dis : prov !=='Redis'}") Пароль:
-			q-input(v-model="pass" dense :disable="prov !== 'Redis'")
-			label
-	.arch.q-mt-xs
-		div
-		q-checkbox(v-model="schet" label="Включить счетчики производительности")
+q-form
+	.section Настройки провайдера
+	q-list
+		MyField(
+			v-model:main="item.main" 
+			v-model:check="item.check" 
+			v-for="item in commonProp" 
+			:key="item.id" 
+			:label="item.label" 
+			:descr="item.descr" 
+			:checkbox="item.checkbox"
+			:disable="item.disable" 
+			:button="item.button"
+			:options="item.options"
+			:select="item.select"
+			:btLabel="item.btLabel")
 </template>
 
 <style scoped lang="scss">

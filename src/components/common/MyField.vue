@@ -11,6 +11,7 @@ interface Props {
 	type?: string
 	label: string
 	descr?: string
+	nodescr?: boolean
 	disable?: boolean
 	checkbox?: boolean
 	checkvalue?: boolean
@@ -67,7 +68,7 @@ const item = ref(false)
 	q-btn.refresh(v-if="changed" flat icon="mdi-restore" color="secondary" dense @click="reset") 
 	.inner(v-if="changed")
 	label {{ props.label }}
-	.descr(v-if="props.descr && !props.checkbox") {{ props.descr }}
+	.descr(v-if="!props.nodescr && !props.checkbox") {{ props.descr }}
 	div
 		q-checkbox(v-model="check" dense :label="props.descr" v-if="checkbox" :disable="props.disable")
 	MyInput(v-model="main" v-if="!props.select && !props.checkbox" :bg="props.bg" :filled="props.filled" :type="props.type" :disable="props.disable")
