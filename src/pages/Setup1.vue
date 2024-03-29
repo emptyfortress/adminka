@@ -35,9 +35,35 @@ const calcClass = (e: any) => {
 	return e.children?.length > 0 ? 'text-weight-bold' : ''
 }
 const tabs = ref('one')
-const sel = computed(() => {
-	return 'дфлоыдлво'
-})
+const current = ref('Шаблон настроек 1')
+const options = [
+	{
+		id: 0,
+		label: 'Шаблон настроек 1',
+		value: 'Шаблон настроек 1',
+		icon: 'mdi-code-braces',
+	},
+	{
+		id: 1,
+		label: 'Шаблон настроек 2',
+		value: 'Шаблон настроек 2',
+		icon: 'mdi-code-braces',
+	},
+	{
+		id: 2,
+		label: 'Шаблон настроек 3',
+		value: 'Шаблон настроек 3',
+		icon: 'mdi-code-braces',
+	},
+	{ id: 3, label: 'Сервер 1', value: 'Сервер 1', icon: 'mdi-penguin' },
+	{ id: 4, label: 'Сервер 2', value: 'Сервер 2', icon: 'mdi-penguin' },
+	{
+		id: 5,
+		label: 'Сервер 3',
+		value: 'Сервер 3',
+		icon: 'mdi-microsoft-windows-classic',
+	},
+]
 </script>
 
 <template lang="pug">
@@ -65,7 +91,13 @@ q-page.q-px-md.q-pt-sm
 								label {{ prop.node.label }}
 			div
 				.selector(v-if="route.path !== '/setup1/appserver/configurations'")
-					q-select(v-model="sel" dense outlined bg-color="white")
+					q-select(v-model="current" dense outlined bg-color="white" :options="options")
+						template(v-slot:option="scope")
+								q-item(v-bind="scope.itemProps")
+									q-item-section(avatar)
+										q-icon(:name="scope.opt.icon")
+									q-item-section
+										q-item-label {{ scope.opt.label }}
 					div
 						q-btn(flat color="primary" label="Отмена" @click="")
 						q-btn(unelevated color="primary" label="Сохранить" @click="")

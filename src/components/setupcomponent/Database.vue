@@ -124,7 +124,7 @@ const goto = (e: string) => {
 				q-td(key='cache' :props='props') {{ props.row.cache }}
 				q-td(key='date' :props='props') {{ props.row.date }}
 				q-td.text-center(key='def' :props='props')
-					q-icon(name="mdi-check-bold" size="sm" v-if="props.row.def")
+					q-icon(name="mdi-check-bold" color="primary" size="sm" v-if="props.row.def")
 					q-btn(flat color="primary" label="Назначить" v-else size="sm" @click.stop='assign(props.row.psevdo)')
 				q-td.text-right(key='def' :props='props')
 					q-btn.q-mr-md(:props="props" round flat icon='mdi-trash-can-outline' size='sm' dense @click.stop)
