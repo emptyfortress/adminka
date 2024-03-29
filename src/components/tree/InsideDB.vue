@@ -10,6 +10,13 @@ import ArchTab from '@/components/setupcomponent/ArchTab.vue'
 import CacheTab from '@/components/setupcomponent/CacheTab.vue'
 import ModuleTab from '@/components/setupcomponent/ModuleTab.vue'
 
+const props = defineProps({
+	id: {
+		type: String,
+		required: true,
+	},
+})
+
 const store = useStore()
 const tabs = useTabs()
 //
@@ -23,9 +30,8 @@ const select = (e: any) => {
 	document.getElementById(e.field)?.scrollIntoView({ behavior: 'smooth' })
 }
 const currentDB = computed(() => {
-	return store.databases.find(item => item.psevdo == route.params.id)
+	return store.databases.find(item => item.psevdo == props.id)
 })
-// console.log(currentDB.value)
 </script>
 
 <template lang="pug">
