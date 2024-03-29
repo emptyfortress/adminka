@@ -10,43 +10,9 @@ import ArchTab from '@/components/setupcomponent/ArchTab.vue'
 import CacheTab from '@/components/setupcomponent/CacheTab.vue'
 import ModuleTab from '@/components/setupcomponent/ModuleTab.vue'
 
-// interface Props {
-// 	psevdo: string
-// 	name: string
-// 	server: string
-// 	servertype: string
-// 	index: string
-// 	version: string
-// 	date: string
-// 	def: boolean
-// }
-//
-// const props = withDefaults(defineProps<Props>(), {
-// })
-
-// const props = defineProps<{
-// 	bd: {
-// 		psevdo: string
-// 		name: string
-// 		server: string
-// 		servertype: string
-// 		index: string
-// 		version: string
-// 		date: string
-// 		def: boolean
-// 	}
-// }>()
-const props = defineProps({
-	id: {
-		type: String,
-		required: true,
-		default: 'one',
-	},
-})
-
 const store = useStore()
 const tabs = useTabs()
-
+//
 const route = useRoute()
 const router = useRouter()
 const selected = ref('Свойства')
@@ -57,8 +23,9 @@ const select = (e: any) => {
 	document.getElementById(e.field)?.scrollIntoView({ behavior: 'smooth' })
 }
 const currentDB = computed(() => {
-	return store.databases.find(item => item.psevdo == props.id)
+	return store.databases.find(item => item.psevdo == route.params.id)
 })
+// console.log(currentDB.value)
 </script>
 
 <template lang="pug">

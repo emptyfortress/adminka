@@ -4,7 +4,20 @@ import { ref } from 'vue'
 interface Props {
 	filled?: boolean
 	bg?: string
-	type?: string
+	type?:
+		| 'number'
+		| 'date'
+		| 'url'
+		| 'search'
+		| 'textarea'
+		| 'time'
+		| 'text'
+		| 'email'
+		| 'password'
+		| 'tel'
+		| 'file'
+		| 'datetime-local'
+		| undefined
 	disable?: boolean
 	readonly?: boolean
 }
@@ -14,7 +27,7 @@ const props = withDefaults(defineProps<Props>(), {
 	type: 'text',
 })
 
-const modelValue = defineModel()
+const modelValue = defineModel<string | number | null | undefined>()
 
 const req = [
 	(val: string) => (val && val.length > 0) || 'Это обязательное поле',

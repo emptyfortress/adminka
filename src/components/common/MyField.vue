@@ -8,7 +8,20 @@ interface Props {
 	bg?: string
 	options?: string[]
 	select?: boolean
-	type?: string
+	type?:
+		| 'number'
+		| 'date'
+		| 'url'
+		| 'search'
+		| 'textarea'
+		| 'time'
+		| 'text'
+		| 'email'
+		| 'password'
+		| 'tel'
+		| 'file'
+		| 'datetime-local'
+		| undefined
 	label: string
 	descr?: string
 	nodescr?: boolean
@@ -31,6 +44,8 @@ const props = withDefaults(defineProps<Props>(), {
 	btLabel: 'Добавить',
 	descr: 'This is description',
 	readonly: false,
+	checkbox: false,
+	checkvalue: false,
 })
 
 const main = defineModel<string>('main')

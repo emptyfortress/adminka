@@ -3,7 +3,19 @@ import { ref, reactive } from 'vue'
 import MyField from '@/components/common/MyField.vue'
 
 const props = defineProps({
-	bd: Object,
+	bd: {
+		type: Object,
+		default: {
+			active: false,
+			psevdo: 'AGSupport',
+			name: 'AGSupport_1',
+			server: 'Docsvision 1',
+			index: 'yes',
+			version: 4373,
+			date: '20.10.2021',
+			def: true,
+		},
+	},
 })
 
 const commonProp = ref([
@@ -101,7 +113,6 @@ const tables = reactive([
 		val: 'UseTemporaryDatabase',
 	},
 ])
-const test = ref('fuck')
 </script>
 
 <template lang="pug">
@@ -115,7 +126,6 @@ q-form
 			:key="item.id" 
 			:label="item.label" 
 			:descr="item.descr" 
-			:disable="item.disable" 
 			:readonly="item.readonly"
 			:checkbox="item.checkbox")
 		
@@ -123,14 +133,12 @@ q-form
 	q-list
 		MyField(
 			v-model:main="item.val" 
-			v-model:check="item.check" 
 			v-for="item in tables" 
 			:key="item.id" 
 			:label="item.label" 
 			:select="item.select"
 			:options="options"
 			descr="This is description" 
-			:disable="item.disable" 
 			)
 
 </template>

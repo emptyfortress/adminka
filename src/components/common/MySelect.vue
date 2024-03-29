@@ -32,7 +32,7 @@ q-select(ref="select"
 	hide-bottom-space
 	lazy-rules
 	:rules="req"
-	@blur="input.validate()")
+	@blur="select.validate()")
 </template>
 
 <style scoped lang="scss">

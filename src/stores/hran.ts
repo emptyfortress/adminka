@@ -3,8 +3,8 @@ import { defineStore } from 'pinia'
 export const useHran = defineStore({
 	id: 'hran',
 	state: () => ({
-		currentNode: null as null | Object,
-		currentGroup: null as null | Object,
+		currentNode: null as null | Hran,
+		currentGroup: null as null | Hran,
 	}),
 	getters: {},
 	actions: {

@@ -49,7 +49,7 @@ const cols: QTableColumn[] = [
 ]
 
 const remove = (e: string) => {
-	tree.removeConfig(e)
+	// tree.removeConfig(e)
 }
 const dialog = ref(false)
 
@@ -58,7 +58,7 @@ const add = () => {
 }
 
 const addConfig = (e: string) => {
-	tree.addConfig(e)
+	// tree.addConfig(e)
 }
 
 const goto = (evt: Event, row: any, idx: number) => {

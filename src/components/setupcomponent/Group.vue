@@ -56,10 +56,10 @@ const options = [
 	'Случайный порядок',
 ]
 
-const remove = (e: any) => {
+const remove = (e: Stat) => {
 	tree.value.remove(e)
 }
-const toggle = (stat: any) => {
+const toggle = (stat: Stat) => {
 	stat.open = !stat.open
 }
 
@@ -70,13 +70,13 @@ const externalDataHandler = () => {
 	return temp
 }
 
-const isDrag = (e: any) => {
+const isDrag = (e: Stat) => {
 	return false
 	// if (e.data.drag) return true
 	// else return false
 }
 
-const isDrop = (e: any) => {
+const isDrop = (e: Stat) => {
 	if (
 		!e.data.drop ||
 		e.data.type == hran.currentNode?.type ||
@@ -86,7 +86,7 @@ const isDrop = (e: any) => {
 	else return true
 }
 
-const dragstart = node => {
+const dragstart = (node: Hran) => {
 	let tmp = { ...node }
 	tmp.id = +date
 	tmp.drop = false

@@ -104,7 +104,7 @@ const edit = (node: any) => {
 const date = new Date()
 
 const add = () => {
-	let tmp = {}
+	let tmp = {} as Hran
 	tmp.id = +date
 	tmp.text = name.value
 	tmp.type = 'storage'
@@ -146,7 +146,7 @@ const isDrop = (e: any) => {
 	if (e.data.drop) return true
 	else return false
 }
-const dragstart = node => {
+const dragstart = (node: Hran) => {
 	let tmp = { ...node }
 	tmp.id = +date
 	hran.setCurrent(tmp)

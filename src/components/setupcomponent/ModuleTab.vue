@@ -10,14 +10,14 @@ import Step7 from '@/components/wizard/Step7.vue'
 const updateState = ref(false)
 const key = ref(0)
 
-const start = () => {
-	updateState.value = true
-	key.value += 1
-	setTimeout(() => {
-		wiz.moveCheck()
-		wiz.resetCheck()
-	}, 5000)
-}
+// const start = () => {
+// 	updateState.value = true
+// 	key.value += 1
+// 	setTimeout(() => {
+// 		wiz.moveCheck()
+// 		wiz.resetCheck()
+// 	}, 5000)
+// }
 const commonProp = reactive([
 	{
 		id: 0,
@@ -68,10 +68,9 @@ const action = () => {
 	updateState.value = !updateState.value
 	setTimeout(() => {
 		loading.value = !loading.value
-		commonProp
-			.filter(item => item.check == true)
-			.map(el => (el.block = 1))
-			.map(elem => (elem.check = false))
+		commonProp.filter(item => item.check == true).map(el => (el.block = 1))
+		commonProp.map(el => (el.check = false))
+		updateState.value = !updateState.value
 	}, 4000)
 }
 
@@ -86,7 +85,7 @@ const active = computed(() => {
 	q-form
 		div(v-for="item in firstBlock" :key="item.id")
 			q-checkbox(v-if="item.checkbox" v-model="item.check" :label="item.descr" dense)
-	.q-mt-lg
+	.q-mt-lg(v-if="secondBlock.length > 0")
 		label Загрузить настройки для модулей:
 		div(v-for="item in secondBlock" :key="item.id")
 			q-checkbox(v-if="item.checkbox" v-model="item.check" :label="item.descr" dense)
