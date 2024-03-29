@@ -62,7 +62,7 @@ const { pause, resume, isActive } = useIntervalFn(() => {
 div
 	template(v-if="visible")
 		q-linear-progress.q-mt-lg(indeterminate)
-		.text-center.q-mt-md {{ word }}
+		.text-center.q-mt-sm {{ word }}
 	.min
 		q-card-section.suc(v-show="showData")
 			q-icon(name="mdi-check-bold" color="teal" size="md").q-mr-md
@@ -71,6 +71,9 @@ div
 </template>
 
 <style scoped lang="scss">
+.q-linear-progress {
+	width: 100%;
+}
 .min {
 	width: 100%;
 	display: flex;

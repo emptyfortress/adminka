@@ -3,7 +3,6 @@ import { ref, reactive } from 'vue'
 import ChangeDialog from '@/components/setupcomponent/ChangeDialog.vue'
 import MasterDatabase from '@/components/setupcomponent/MasterDatabase.vue'
 import EditDatabase from '@/components/setupcomponent/EditDatabase.vue'
-// import { useTabs } from '@/stores/tabs'
 import type { QTableProps } from 'quasar'
 import { useRouter } from 'vue-router'
 import { useStore } from '@/stores/store'
@@ -11,8 +10,6 @@ import { useStore } from '@/stores/store'
 const store = useStore()
 
 const router = useRouter()
-// const tabs = useTabs()
-// const emit = defineEmits(['change', 'haserror', 'noerror'])
 
 const change = ref(false)
 const bdRow = ref()
@@ -21,14 +18,8 @@ const master = ref(false)
 const edit = ref(false)
 const changename = ref('')
 
-// const remove = (row: any) => {
-// 	const index = rows.indexOf(row)
-// 	rows.splice(index, 1)
-// }
-const edBD = (row: any, field: string) => {
-	bdRow.value = row
-	bdTab.value = field
-	edit.value = true
+const remove = (row: any) => {
+	store.removeDB(row)
 }
 
 const assign = (e: string) => {
@@ -37,11 +28,8 @@ const assign = (e: string) => {
 }
 
 const assignDef = () => {
-	let index = rows.findIndex(item => item.psevdo === changename.value)
-	rows.map(item => (item.def = false))
-	rows[index].def = true
+	store.assignDefDB(changename.value)
 	change.value = false
-	// store.panels[2].change = true
 }
 
 const columns: QTableProps['columns'] = [

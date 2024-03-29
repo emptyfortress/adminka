@@ -6,6 +6,7 @@ interface Props {
 	bg?: string
 	type?: string
 	disable?: boolean
+	readonly?: boolean
 }
 const props = withDefaults(defineProps<Props>(), {
 	filled: false,
@@ -29,6 +30,7 @@ q-input(ref="input"
 	:bg-color="props.bg"
 	:type="props.type"
 	:disable="props.disable"
+	:readonly="props.readonly"
 	hide-bottom-space
 	lazy-rules :rules="req" @blur="input.validate()")
 </template>

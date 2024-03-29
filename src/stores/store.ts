@@ -57,5 +57,15 @@ export const useStore = defineStore({
 		],
 	}),
 	getters: {},
-	actions: {},
+	actions: {
+		removeDB(e: any) {
+			const index = this.databases.indexOf(e)
+			this.databases.splice(index, 1)
+		},
+		assignDefDB(e: string) {
+			let index = this.databases.findIndex(item => item.psevdo === e)
+			this.databases.map(item => (item.def = false))
+			this.databases[index].def = true
+		},
+	},
 })

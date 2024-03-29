@@ -61,9 +61,23 @@ const firstBlock = computed(() => {
 const secondBlock = computed(() => {
 	return commonProp.filter(item => item.block == 2)
 })
+const loading = ref(false)
+
 const action = () => {
+	loading.value = !loading.value
 	updateState.value = !updateState.value
+	setTimeout(() => {
+		loading.value = !loading.value
+		commonProp
+			.filter(item => item.check == true)
+			.map(el => (el.block = 1))
+			.map(elem => (elem.check = false))
+	}, 4000)
 }
+
+const active = computed(() => {
+	return commonProp.filter(item => item.check).length
+})
 </script>
 
 <template lang="pug">
@@ -76,9 +90,18 @@ const action = () => {
 		label Загрузить настройки для модулей:
 		div(v-for="item in secondBlock" :key="item.id")
 			q-checkbox(v-if="item.checkbox" v-model="item.check" :label="item.descr" dense)
-	q-btn.q-mt-md(unelevated color="secondary" label="Начать" @click="action" size="sm") 
-	Step7(v-if="updateState")
+	.begin
+		q-btn.q-mt-md(unelevated color="secondary" :loading="loading" label="Начать" @click="action" size="sm" :disable="!active") 
+		Step7(v-if="updateState")
 
 </template>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+.begin {
+	display: grid;
+	grid-template-columns: auto 1fr;
+	// justify-items: stretch;
+	align-items: start;
+	column-gap: 1rem;
+}
+</style>

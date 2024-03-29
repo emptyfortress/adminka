@@ -12,41 +12,41 @@ const commonProp = ref([
 		main: props.bd.name,
 		label: 'Имя базы данных',
 		descr: 'This is description',
-		disable: true,
+		readonly: true,
 	},
 	{
 		id: 1,
 		main: props.bd.psevdo,
 		label: 'Псевдоним',
 		descr: 'This is description',
-		disable: true,
+		readonly: true,
 	},
 	{
 		id: 2,
 		main: props.bd.server,
 		label: 'Server SQL',
 		descr: 'This is description',
-		disable: true,
+		readonly: true,
 	},
 	{
 		id: 3,
 		main: props.bd.servertype,
 		label: 'Тип сервера',
 		descr: 'This is description',
-		disable: true,
+		readonly: true,
 	},
 	{
 		id: 4,
 		main: props.bd.version,
 		label: 'Версия',
 		descr: 'This is description',
-		disable: true,
+		readonly: true,
 	},
 	{
 		id: 5,
 		main: props.bd.date,
 		label: 'Дата последнего обновления',
-		disable: true,
+		readonly: true,
 	},
 	{
 		id: 6,
@@ -101,6 +101,7 @@ const tables = reactive([
 		val: 'UseTemporaryDatabase',
 	},
 ])
+const test = ref('fuck')
 </script>
 
 <template lang="pug">
@@ -115,6 +116,7 @@ q-form
 			:label="item.label" 
 			:descr="item.descr" 
 			:disable="item.disable" 
+			:readonly="item.readonly"
 			:checkbox="item.checkbox")
 		
 	.section Расположение таблиц
