@@ -5,8 +5,8 @@ import { useRoute } from 'vue-router'
 const route = useRoute()
 const split1 = ref(17)
 const list = [
-	{ id: 0, url: '/root/test', label: 'Сервер приложений', selected: false },
-	{ id: 1, url: '/root/test1', label: 'Web-клиент', selected: false },
+	{ id: 0, url: '/root/dvserver', label: 'Сервер приложений', selected: false },
+	{ id: 1, url: '/root/webclient', label: 'Web-клиент', selected: false },
 	{ id: 2, url: '', label: 'Служба фоновых операций', selected: false },
 	{ id: 3, url: '', label: 'Сервис бизнес-процессов', selected: false },
 	{ id: 4, url: '', label: 'Почтовый сервер', selected: false },
@@ -16,6 +16,7 @@ const list = [
 const select = (e: any) => {
 	e.selected = true
 }
+const query = ref('')
 </script>
 
 <template lang="pug">
@@ -32,7 +33,7 @@ q-page(padding)
 							q-item-label {{ item.label }}
 
 			template(v-slot:after)
-				div(v-if="route.path == '/root/'") lkaslja
+				.sel(v-if="route.name == 'root'") Выберите модуль
 				router-view(v-slot="{ Component, route }" v-else)
 					transition(name="page")
 						component(:is="Component")
@@ -44,5 +45,12 @@ q-page(padding)
 	background: var(--tree-selection);
 	color: #0d47a1;
 	font-weight: 600;
+}
+.sel {
+	margin-left: 4rem;
+	margin-top: 3rem;
+	font-size: 1.2rem;
+	color: #777;
+	// text-align: center;
 }
 </style>

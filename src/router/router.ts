@@ -40,12 +40,12 @@ export const router = createRouter({
 			meta: { title: 'Модули', bread: [{ label: 'Dashboard', to: '/' }] },
 			children: [
 				{
-					path: 'test',
-					component: () => import('@/pages/Setup1.vue'),
+					path: 'dvserver',
+					component: () => import('@/components/Dvserver.vue'),
 				},
 				{
-					path: 'test1',
-					component: () => import('@/pages/Setup.vue'),
+					path: 'webclient',
+					component: () => import('@/components/Webclient.vue'),
 				},
 			],
 		},

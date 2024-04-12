@@ -14,6 +14,7 @@ const $q = useQuasar()
 const dark = () => {
 	$q.dark.toggle()
 }
+const query = ref('')
 </script>
 
 <template lang="pug">
@@ -22,7 +23,10 @@ q-layout(view="hHh LpR lFr")
 		q-toolbar
 			img(src="@/assets/img/adm-logo.svg")
 			q-toolbar-title.text-uppercase Docsvision 5 консоль управления
-			//- q-btn(flat round icon="mdi-brightness-4" @click="dark").q-mr-md
+			q-input(v-model="query" filled dense clearable placeholder="Найти настройку")
+				template(v-slot:prepend)
+					q-icon(name="mdi-magnify")
+			// q-btn(flat round icon="mdi-brightness-4" @click="dark").q-mr-md
 			q-btn(dense flat round  @click="ru = !ru").q-mr-md
 				img(v-if="ru" src="@/assets/img/russia.svg" width="26")
 				img(v-else src="@/assets/img/us.svg" width="26")
@@ -86,5 +90,10 @@ q-layout(view="hHh LpR lFr")
 	color: var(--text-color);
 	padding: 0 1rem;
 	font-size: 0.8rem;
+}
+.q-input {
+	width: 500px;
+	margin-right: 1rem;
+	font-size: 1rem;
 }
 </style>
