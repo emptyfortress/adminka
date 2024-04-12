@@ -5,11 +5,11 @@ import ConfigTreeServer from '@/components/ConfigTreeServer.vue'
 
 <template lang="pug">
 .grid
-	.section
+	.sec
 		ConfigTreeConfig()
 
-	.section
-		ConfigTreeServer( )
+	.sec
+		ConfigTreeServer()
 </template>
 
 <style scoped lang="scss">
@@ -18,7 +18,7 @@ import ConfigTreeServer from '@/components/ConfigTreeServer.vue'
 	display: grid;
 	grid-template-columns: repeat(2, 1fr);
 	gap: 1rem;
-	.section {
+	.sec {
 		background: var(--main-bg);
 		padding: 1rem;
 	}

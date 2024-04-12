@@ -34,6 +34,23 @@ export const router = createRouter({
 		},
 
 		{
+			path: '/root',
+			name: 'root',
+			component: () => import('@/pages/Root.vue'),
+			meta: { title: 'Модули', bread: [{ label: 'Dashboard', to: '/' }] },
+			children: [
+				{
+					path: 'test',
+					component: () => import('@/pages/Setup1.vue'),
+				},
+				{
+					path: 'test1',
+					component: () => import('@/pages/Setup.vue'),
+				},
+			],
+		},
+
+		{
 			path: '/setup0',
 			name: 'configserver',
 			component: () => import('@/components/Configuration1.vue'),
