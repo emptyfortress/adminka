@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import { conf, servers } from '@/stores/confTree1'
+import { configs, servers } from '@/stores/confTree1'
 import ConfigTree from '@/components/common/ConfigTree.vue'
+import DragConfigTree from '@/components/common/DragConfigTree.vue'
 
 const filter = ref('')
 </script>
@@ -9,12 +10,17 @@ const filter = ref('')
 <template lang="pug">
 .grid
 	.first
-		q-input.q-mt-md(v-model="filter" dense clearable placeholder="Фильтр" @clear="filter = ''")
+		q-input.q-mb-md(v-model="filter" dense clearable placeholder="Фильтр" @clear="filter = ''")
 			template(v-slot:prepend)
 				q-icon(name="mdi-magnify")
 
-		ConfigTree(:treeData="conf" :filter="filter")
-		ConfigTree(:treeData="servers" :filter="filter")
+		DragConfigTree(:treeData="configs" :filter="filter")
+		.q-mt-md
+				DragConfigTree(:treeData="servers" :filter="filter")
+		// ConfigTree(:treeData="conf" :filter="filter")
+		// ConfigTree(:treeData="servers" :filter="filter")
+	.first
+		// DragConfigTree(:treeData="configs")
 
 </template>
 
