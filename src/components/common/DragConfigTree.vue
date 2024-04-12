@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import { ref, reactive, watchEffect } from 'vue'
+import { ref, reactive, watchEffect, computed } from 'vue'
 import { Draggable, BaseTree } from '@he-tree/vue'
 import '@he-tree/vue/style/default.css'
 
 interface Props {
 	id: string
 	text: string
-	icon: string
+	icon?: string
 	selected?: boolean
 	ticked?: boolean
 	env?: string
@@ -52,6 +52,9 @@ watchEffect(() => {
 		})
 	} else tree.value?.statsFlat.map((item: Stat) => (item.hidden = false))
 })
+const length = computed(() => {
+	return props.treeData[0].children!.length
+})
 </script>
 
 <template lang="pug">
@@ -66,17 +69,18 @@ Draggable(ref="tree"
 		.zero(v-if="node.id == 'root'")
 			div
 				q-icon.trig(name="mdi-chevron-down" @click.stop="toggle(stat)" :class="{ 'closed': !stat.open }")
-				span {{node.text}} ({{treeData[0].children.length}})
+				span {{node.text}}
+				span.q-ml-md ({{ length }})
 			// q-btn(flat round icon="mdi-plus-circle" dense color="secondary" @click="toggleAdd") 
 
 		.node(v-else @click="select(stat)" :class="{ 'selected': stat.data.selected }")
 			div
 				q-checkbox(v-model="stat.checked" dense size="sm")
 				q-icon.q-mx-sm(:name="node.icon" size="18px")
-				span.txt(@click="edit(node)") {{ node.text }}
+				span.txt(@click="") {{ node.text }}
 			div
 				q-chip(v-if="node.env" size="sm" :class="node.env") {{ node.env }}
-				q-btn(flat round dense icon="mdi-close" size="sm" color="secondary" @click="remove(stat)")
+				q-btn(flat round dense icon="mdi-close" size="sm" color="secondary" @click="")
 </template>
 
 <style scoped lang="scss">

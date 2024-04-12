@@ -14,7 +14,7 @@ interface Props {
 
 const props = defineProps<{
 	treeData: Props[]
-	filter: String
+	filter: string
 }>()
 
 const tree = ref()
@@ -56,7 +56,7 @@ q-tree(ref="tree"
 						q-list
 							q-item(clickable)
 								q-item-section Действие 1
-							q-item(clickable @click="edit")
+							q-item(clickable @click="")
 								q-item-section Редактировать
 		
 				q-chip(v-if="showChip(prop.node)" size="sm" :class="prop.node.env") {{ prop.node.env }}
