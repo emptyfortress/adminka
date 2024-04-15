@@ -67,8 +67,11 @@ watchEffect(() => {
 		})
 	} else tree.value?.statsFlat.map((item: Stat) => (item.hidden = false))
 })
-const length = computed(() => {
+const length1 = computed(() => {
 	return props.treeData[0].children!.length
+})
+const length2 = computed(() => {
+	return tree.value?.statsFlat.filter((el: Stat) => el.data.type == 3).length
 })
 const caf = () => {
 	console.log(111)
@@ -92,7 +95,8 @@ Draggable(ref="tree"
 			div
 				q-icon.trig(name="mdi-chevron-down" @click.stop="toggle(stat)" :class="{ 'closed': !stat.open }")
 				span {{node.text}}
-				span.q-ml-md ({{ length }})
+				span.q-ml-md(v-if="node.id == 'conf'") ({{ length1 }})
+				span.q-ml-md(v-if="node.id == 'servers'") ({{ length2 }})
 			q-btn(flat round icon="mdi-plus-circle" dense color="secondary" @click="toggleAdd")
 
 		.node(v-else @click="select(stat)" :class="{ 'selected': stat.data.selected }")
