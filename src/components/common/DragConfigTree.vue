@@ -1,7 +1,8 @@
 <script setup lang="ts">
-import { ref, reactive, watchEffect, computed } from 'vue'
+import { ref, reactive, watch, watchEffect, computed } from 'vue'
 import { Draggable, dragContext } from '@he-tree/vue'
 import '@he-tree/vue/style/default.css'
+import { useDvServ } from '@/stores/dvservConfig'
 
 interface Props {
 	id: string
@@ -22,6 +23,7 @@ const props = defineProps<{
 
 const tree = ref()
 const list = ref(props.treeData)
+const serv = useDvServ()
 
 const isDrag = (e: any) => {
 	if (e.data.drag) return true
@@ -47,6 +49,7 @@ const isDrop = (targetStat: Stat) => {
 const select = (e: Stat) => {
 	tree.value.statsFlat.map((item: Stat) => (item.data.selected = false))
 	e.data.selected = true
+	serv.setCurrent(e)
 }
 const toggle = (stat: any) => {
 	stat.open = !stat.open
@@ -77,7 +80,12 @@ const caf = () => {
 	console.log(111)
 }
 const toggleAdd = () => {
-	console.log('add')
+	console.log(tree.value.getChecked())
+}
+
+const checkNode = () => {
+	const temp = tree.value.getChecked()
+	serv.setChecked(temp)
 }
 </script>
 
@@ -99,15 +107,16 @@ Draggable(ref="tree"
 				span.q-ml-md(v-if="node.id == 'servers'") ({{ length2 }})
 			q-btn(flat round icon="mdi-plus-circle" dense color="secondary" @click="toggleAdd")
 
-		.node(v-else @click="select(stat)" :class="{ 'selected': stat.data.selected }")
+		.node(v-else @click="select(stat)" :class="{ 'selected': stat.data.selected }" )
 			.q-gutter-x-sm
 				q-icon.trig(name="mdi-chevron-down" @click.stop="toggle(stat)" :class="{ 'closed': !stat.open }" v-if="stat.children.length")
-				q-checkbox(v-model="stat.checked" dense size="sm")
+				q-checkbox(v-model="stat.checked" dense size="sm" @click="checkNode")
 				q-icon(:name="node.icon" size="18px" v-if="node.icon")
-				span.txt(@click="") {{ node.text }}
+				span.txt {{ node.text }}
 			div
 				q-chip(v-if="node.env" size="sm" :class="node.env") {{ node.env }}
-				q-btn(flat round dense icon="mdi-close" size="sm" color="secondary" @click="")
+				// q-btn(flat round dense icon="mdi-close" size="sm" color="secondary" @click="")
+
 </template>
 
 <style scoped lang="scss">
