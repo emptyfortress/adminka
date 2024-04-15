@@ -15,10 +15,8 @@ const filter = ref('')
 				q-icon(name="mdi-magnify")
 
 		DragConfigTree(:treeData="configs" :filter="filter")
-		.q-mt-md
-				DragConfigTree(:treeData="servers" :filter="filter")
-		// ConfigTree(:treeData="conf" :filter="filter")
-		// ConfigTree(:treeData="servers" :filter="filter")
+		br
+		DragConfigTree(:treeData="servers" :filter="filter")
 	.first
 		// DragConfigTree(:treeData="configs")
 
