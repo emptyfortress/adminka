@@ -1,19 +1,18 @@
 <script setup lang="ts">
 import { ref, reactive, watchEffect, computed } from 'vue'
-import { Draggable, BaseTree } from '@he-tree/vue'
+import { Draggable, dragContext } from '@he-tree/vue'
 import '@he-tree/vue/style/default.css'
 
 interface Props {
 	id: string
 	text: string
+	type: number
 	icon?: string
 	selected?: boolean
 	ticked?: boolean
 	env?: string
 	children?: Props[]
 	drag?: boolean
-	drop?: boolean
-	root?: boolean
 }
 
 const props = defineProps<{
@@ -28,9 +27,22 @@ const isDrag = (e: any) => {
 	if (e.data.drag) return true
 	else return false
 }
-const isDrop = (e: any) => {
-	if (e.data.drop) return true
-	else return false
+const isDrop = (targetStat: Stat) => {
+	if (dragContext.dragNode.data.type == 2 && targetStat.data.id == 'conf') {
+		return true
+	} else if (
+		dragContext.dragNode.data.type == 3 &&
+		targetStat.data.id == 'servers'
+	) {
+		return true
+	} else if (
+		dragContext.dragNode.data.type == 4 &&
+		targetStat.data.id == 'servers'
+	) {
+		return true
+	} else if (dragContext.dragNode.data.type == 3 && targetStat.data.type == 4) {
+		return true
+	} else return false
 }
 const select = (e: Stat) => {
 	tree.value.statsFlat.map((item: Stat) => (item.data.selected = false))
@@ -58,6 +70,12 @@ watchEffect(() => {
 const length = computed(() => {
 	return props.treeData[0].children!.length
 })
+const caf = () => {
+	console.log(111)
+}
+const toggleAdd = () => {
+	console.log('add')
+}
 </script>
 
 <template lang="pug">
@@ -66,20 +84,22 @@ Draggable(ref="tree"
 	v-model="list"
 	:eachDroppable="isDrop"
 	:eachDraggable="isDrag"
+	:rootDroppable="false"
 	:watermark="false")
 
 	template(#default="{ node, stat }")
-		.zero(v-if="node.root")
+		.zero(v-if="node.type == 0 || node.type == 1")
 			div
 				q-icon.trig(name="mdi-chevron-down" @click.stop="toggle(stat)" :class="{ 'closed': !stat.open }")
 				span {{node.text}}
 				span.q-ml-md ({{ length }})
-			// q-btn(flat round icon="mdi-plus-circle" dense color="secondary" @click="toggleAdd") 
+			q-btn(flat round icon="mdi-plus-circle" dense color="secondary" @click="toggleAdd")
 
 		.node(v-else @click="select(stat)" :class="{ 'selected': stat.data.selected }")
-			div
+			.q-gutter-x-sm
+				q-icon.trig(name="mdi-chevron-down" @click.stop="toggle(stat)" :class="{ 'closed': !stat.open }" v-if="stat.children.length")
 				q-checkbox(v-model="stat.checked" dense size="sm")
-				q-icon.q-mx-sm(:name="node.icon" size="18px")
+				q-icon(:name="node.icon" size="18px" v-if="node.icon")
 				span.txt(@click="") {{ node.text }}
 			div
 				q-chip(v-if="node.env" size="sm" :class="node.env") {{ node.env }}
@@ -90,7 +110,7 @@ Draggable(ref="tree"
 .trig {
 	font-size: 1.3rem;
 	transition: 0.2s ease all;
-	margin-right: 4px;
+	// margin-right: 4px;
 	&.closed {
 		transform: rotate(-90deg);
 	}
@@ -102,6 +122,7 @@ Draggable(ref="tree"
 	color: $secondary;
 	align-items: center;
 	justify-content: space-between;
+	margin-top: 1rem;
 }
 .node {
 	font-size: 0.9rem;
