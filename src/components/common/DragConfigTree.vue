@@ -21,6 +21,8 @@ const props = defineProps<{
 }>()
 
 const tree = ref()
+const list = ref(props.treeData)
+
 const isDrag = (e: any) => {
 	if (e.data.drag) return true
 	else return false
@@ -60,7 +62,7 @@ const length = computed(() => {
 <template lang="pug">
 Draggable(ref="tree"
 	treeLine
-	v-model="props.treeData"
+	v-model="list"
 	:eachDroppable="isDrop"
 	:eachDraggable="isDrag"
 	:watermark="false")
