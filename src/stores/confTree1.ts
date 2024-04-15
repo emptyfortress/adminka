@@ -1,11 +1,12 @@
 import { uid } from 'quasar'
 
-const configs = [
+const tree = [
 	{
-		id: 'root',
+		id: 'conf',
 		text: 'Конфигурации',
 		drag: false,
 		drop: true,
+		root: true,
 		children: [
 			{
 				id: 'one',
@@ -33,14 +34,12 @@ const configs = [
 			},
 		],
 	},
-]
-
-const servers = [
 	{
-		id: 'root',
+		id: 'servers',
 		text: 'Серверы',
 		drag: false,
 		drop: true,
+		root: true,
 		children: [
 			{
 				id: uid(),
@@ -125,4 +124,5 @@ const servers = [
 		],
 	},
 ]
-export { configs, servers }
+
+export { tree }

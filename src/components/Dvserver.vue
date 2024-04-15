@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import { configs, servers } from '@/stores/confTree1'
+import { tree } from '@/stores/confTree1'
 import ConfigTree from '@/components/common/ConfigTree.vue'
 import DragConfigTree from '@/components/common/DragConfigTree.vue'
 
@@ -14,11 +14,8 @@ const filter = ref('')
 			template(v-slot:prepend)
 				q-icon(name="mdi-magnify")
 
-		DragConfigTree(:treeData="configs" :filter="filter")
-		br
-		DragConfigTree(:treeData="servers" :filter="filter")
+		DragConfigTree(:treeData="tree" :filter="filter" )
 	.first
-		// DragConfigTree(:treeData="configs")
 
 </template>
 

@@ -13,6 +13,7 @@ interface Props {
 	children?: Props[]
 	drag?: boolean
 	drop?: boolean
+	root?: boolean
 }
 
 const props = defineProps<{
@@ -68,7 +69,7 @@ Draggable(ref="tree"
 	:watermark="false")
 
 	template(#default="{ node, stat }")
-		.zero(v-if="node.id == 'root'")
+		.zero(v-if="node.root")
 			div
 				q-icon.trig(name="mdi-chevron-down" @click.stop="toggle(stat)" :class="{ 'closed': !stat.open }")
 				span {{node.text}}
