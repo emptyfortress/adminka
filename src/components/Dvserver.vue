@@ -34,13 +34,17 @@ const removeChecked = (e: Stat) => {
 
 	.first
 		q-card.sel(flat)
+			q-card-section.empty(v-if="!serv.currentNode")
+				.hd Информация
+				div Ничего не выбрано
+
 			q-card-section(:draggable="true" v-if="serv.currentNode")
 				.hd
 					q-icon.q-mr-sm( v-if="serv.currentNode.data.icon" :name="serv.currentNode.data.icon" color="secondary" size="sm")
 					span {{ serv.currentNode.data.text }}
 					q-popup-edit(v-model="serv.currentNode.data.text" auto-save v-slot="scope")
 						q-input(v-model="scope.value" dense autofocus counter @keyup.enter="scope.set")
-					q-chip.q-ml-lg(size="sm" v-if="serv.currentNode.data.env") {{ serv.currentNode.data.env }}
+					q-chip.q-ml-lg(size="sm" v-if="serv.currentNode.data.env" :class="serv.currentNode.data.env") {{ serv.currentNode.data.env }}
 
 
 			q-card-section(v-if="serv.currentNode")
@@ -68,20 +72,22 @@ const removeChecked = (e: Stat) => {
 
 		br
 		q-card.sele(flat @dragover.prevent="over = true" @dragleave.prevent="over = false" @drop="drop"  :class="{over: over}")
-			q-card-section(v-if="serv.checkedNodes.length" )
-				q-list
-					q-item.item(v-for="item in serv.checkedNodes" clickable :key="item.data.id")
-						q-item-section(side)
-							q-icon(:name="item.data.icon")
-						q-item-section
-							q-item-label {{ item.data.text }}
-						q-item-section(side)
-							q-btn(flat round icon="mdi-close"  @click="removeChecked(item)" dense) 
-			q-separator
-			q-card-actions(align="center" v-if="serv.checkedNodes.length > 1")
-				q-btn(flat color="primary" label="Сравнить" @click="") 
-				// q-btn(flat color="primary" label="Дублировать" @click="") 
-				q-space
+			template(v-if="serv.checkedNodes.length" )
+				q-card-section(v-if="serv.checkedNodes.length" )
+					q-list
+						q-item.item(v-for="item in serv.checkedNodes" clickable :key="item.data.id")
+							q-item-section(side)
+								q-icon(:name="item.data.icon")
+							q-item-section
+								q-item-label {{ item.data.text }}
+							q-item-section(side)
+								q-btn(flat round icon="mdi-close"  @click="removeChecked(item)" dense) 
+				q-separator
+				q-card-actions
+					q-btn(flat color="primary" label="Сравнить" @click="") 
+			q-card-section.empty(v-else)
+				.hd Групповая обработка
+				div Перетащите сюда серверы или конфигурации
 
 </template>
 
@@ -99,22 +105,23 @@ const removeChecked = (e: Stat) => {
 	color: $secondary;
 	cursor: pointer;
 }
-.sel,
-.sele {
-	min-height: 200px;
-	.hd {
-		color: $secondary;
-		font-size: 1.1rem;
-		span {
-			cursor: pointer;
-		}
+.hd {
+	color: $secondary;
+	font-size: 1.1rem;
+	span {
+		cursor: pointer;
 	}
+}
+.sel {
+	min-height: 200px;
 	&.over {
 		background: #c5def7;
 	}
 }
 .sele {
-	min-height: 100px;
+	&.over {
+		background: #c5def7;
+	}
 }
 .dat {
 	display: grid;
@@ -140,5 +147,9 @@ const removeChecked = (e: Stat) => {
 			display: inline-flex;
 		}
 	}
+}
+.empty {
+	color: #666;
+	color: $secondary;
 }
 </style>

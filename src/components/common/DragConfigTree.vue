@@ -172,13 +172,4 @@ Draggable(ref="tree"
 		color: #1565c0;
 	}
 }
-.test {
-	background: #ebd984;
-}
-.dev {
-	background: $blue-2;
-}
-.prod {
-	background: pink;
-}
 </style>

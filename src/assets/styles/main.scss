@@ -322,3 +322,12 @@ fieldset {
 		margin-top: 4px;
 	}
 }
+.test {
+	background: #ebd984;
+}
+.dev {
+	background: $blue-2;
+}
+.prod {
+	background: pink;
+}
