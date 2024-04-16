@@ -260,6 +260,8 @@ fieldset {
 	}
 }
 .bread {
+	border-bottom: 1px solid #ccc;
+	padding: 0.5rem 2rem;
 	// font-size: 1rem;
 }
 .q-breadcrumbs,
@@ -337,4 +339,15 @@ fieldset {
 }
 .prod {
 	background: pink;
+}
+.commonzg {
+	font-size: 1.3rem;
+	font-weight: 600;
+	text-transform: uppercase;
+	color: $secondary;
+	margin-top: 2rem;
+	margin-left: 2rem;
+	&:first-child {
+		margin-top: 0;
+	}
 }
