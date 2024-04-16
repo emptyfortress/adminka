@@ -87,6 +87,17 @@ const checkNode = () => {
 	const temp = tree.value.getChecked()
 	serv.setChecked(temp)
 }
+
+watch(
+	() => serv.removeNode,
+	() => {
+		serv.currentNode = null
+		tree.value.remove(serv.removeNode)
+	}
+)
+const startDrag = (e: Stat) => {
+	serv.setDragged(e)
+}
 </script>
 
 <template lang="pug">
@@ -107,7 +118,7 @@ Draggable(ref="tree"
 				span.q-ml-md(v-if="node.id == 'servers'") ({{ length2 }})
 			q-btn(flat round icon="mdi-plus-circle" dense color="secondary" @click="toggleAdd")
 
-		.node(v-else @click="select(stat)" :class="{ 'selected': stat.data.selected }" )
+		.node(v-else @click="select(stat)" :class="{ 'selected': stat.data.selected }" :draggable="true" @dragstart="startDrag(stat)")
 			.q-gutter-x-sm
 				q-icon.trig(name="mdi-chevron-down" @click.stop="toggle(stat)" :class="{ 'closed': !stat.open }" v-if="stat.children.length")
 				q-checkbox(v-model="stat.checked" dense size="sm" @click="checkNode")
@@ -115,7 +126,6 @@ Draggable(ref="tree"
 				span.txt {{ node.text }}
 			div
 				q-chip(v-if="node.env" size="sm" :class="node.env") {{ node.env }}
-				// q-btn(flat round dense icon="mdi-close" size="sm" color="secondary" @click="")
 
 </template>
 

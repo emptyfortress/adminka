@@ -9,6 +9,15 @@ const serv = useDvServ()
 
 const filter = ref('')
 const description = ref('Здесь описание выбранного узла')
+
+const remove = () => {
+	serv.setRemove()
+}
+const over = ref(false)
+const drop = () => {
+	over.value = false
+	console.log(serv.draggedNode)
+}
 </script>
 
 <template lang="pug">
@@ -19,9 +28,10 @@ const description = ref('Здесь описание выбранного узл
 				q-icon(name="mdi-magnify")
 
 		DragConfigTree(:treeData="tree" :filter="filter" )
+
 	.first
 		q-card.sel(flat v-if="serv.currentNode")
-			q-card-section
+			q-card-section(:draggable="true")
 				.hd
 					q-icon.q-mr-sm( v-if="serv.currentNode.data.icon" :name="serv.currentNode.data.icon" color="secondary" size="sm")
 					span {{ serv.currentNode.data.text }}
@@ -51,10 +61,10 @@ const description = ref('Здесь описание выбранного узл
 				q-btn(flat color="primary" label="Дублировать" @click="") 
 				q-btn(flat color="primary" label="Применить" @click="") 
 				q-space
-				q-btn(flat color="negative" label="Удалить" @click="") 
+				q-btn(v-if="serv.currentNode.data.type == 2 || serv.currentNode.data.type == 4" flat color="negative" label="Удалить" @click="remove") 
 
 		br
-		q-card.sel(flat v-if="serv.checkedNodes.length")
+		q-card.sel(flat v-if="serv.checkedNodes.length"  @dragover.prevent="over = true" @dragleave.prevent="over = false" @drop="drop($event)"  :class="{over: over}")
 			q-card-section
 				q-list
 					q-item(v-for="item in serv.checkedNodes" clickable :key="item.data.id")
@@ -64,6 +74,11 @@ const description = ref('Здесь описание выбранного узл
 							q-icon(:name="item.data.icon")
 						q-item-section
 							q-item-label {{ item.data.text }}
+			q-separator
+			q-card-actions(align="center")
+				q-btn(flat color="primary" label="Сравнить" @click="") 
+				// q-btn(flat color="primary" label="Дублировать" @click="") 
+				q-space
 
 </template>
 
@@ -89,6 +104,9 @@ const description = ref('Здесь описание выбранного узл
 		span {
 			cursor: pointer;
 		}
+	}
+	&.over {
+		background: #c5def7;
 	}
 }
 .dat {
