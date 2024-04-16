@@ -9,7 +9,7 @@ const tree = [
 		type: 0,
 		children: [
 			{
-				id: 'one',
+				id: 'config1',
 				text: 'Config 1',
 				type: 2,
 				drag: true,
@@ -18,7 +18,7 @@ const tree = [
 				env: 'dev',
 			},
 			{
-				id: 'two',
+				id: 'config2',
 				text: 'Config 2',
 				type: 2,
 				drag: true,
@@ -27,7 +27,7 @@ const tree = [
 				env: 'prod',
 			},
 			{
-				id: 'three',
+				id: 'config3',
 				text: 'Config 3',
 				type: 2,
 				drag: true,

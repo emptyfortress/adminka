@@ -4,6 +4,8 @@ import { tree } from '@/stores/confTree1'
 import ConfigTree from '@/components/common/ConfigTree.vue'
 import DragConfigTree from '@/components/common/DragConfigTree.vue'
 import { useDvServ } from '@/stores/dvservConfig'
+import ConfirmDialog from '@/components/tree/ConfirmDialog.vue'
+import { useRouter } from 'vue-router'
 
 const serv = useDvServ()
 
@@ -26,82 +28,98 @@ const version = ref('v.2.0.0')
 const duble = () => {
 	serv.setDuble(serv.currentNode)
 }
+const showDel = ref(false)
+const toggleDel = () => {
+	showDel.value = !showDel.value
+}
+const router = useRouter()
+const goto = () => {
+	let url = '/appserver/' + serv.currentNode.data.id
+	router.push(url)
+}
 </script>
 
 <template lang="pug">
-.grid
-	.first
-		q-input.q-mb-md(v-model="filter" dense clearable placeholder="Фильтр" @clear="filter = ''")
-			template(v-slot:prepend)
-				q-icon(name="mdi-magnify")
+div
+	.grid
+		.first
+			q-input.q-mb-md(v-model="filter" dense clearable placeholder="Фильтр" @clear="filter = ''")
+				template(v-slot:prepend)
+					q-icon(name="mdi-magnify")
 
-		DragConfigTree(:treeData="tree" :filter="filter" )
+			DragConfigTree(:treeData="tree" :filter="filter" )
 
-	.first
-		q-card.sel(flat)
-			q-card-section.empty(v-if="!serv.currentNode")
-				.hd Информация
-				div Ничего не выбрано
+		.first
+			q-card.sel(flat)
+				q-card-section.empty(v-if="!serv.currentNode")
+					.hd Информация
+					div Ничего не выбрано
 
-			q-card-section(:draggable="true" v-if="serv.currentNode")
-				.row.items-center.justify-between
-					.hd
-						q-icon.q-mr-sm( v-if="serv.currentNode.data.icon" :name="serv.currentNode.data.icon" color="secondary" size="sm")
-						span {{ serv.currentNode.data.text }}
-						q-popup-edit(v-model="serv.currentNode.data.text" auto-save v-slot="scope")
-							q-input(v-model="scope.value" dense autofocus counter @keyup.enter="scope.set")
-						q-chip.q-ml-lg(size="sm" v-if="serv.currentNode.data.env" :class="serv.currentNode.data.env") {{ serv.currentNode.data.env }}
-					.version
-						q-icon.q-mr-sm(name="mdi-source-branch" size="18px")
-						span {{ version }}
-						q-menu
-							q-item(clickable v-for="item in versions")
-								q-item-section {{ item }}
+				q-card-section(:draggable="true" v-if="serv.currentNode")
+					.row.items-center.justify-between
+						.hd
+							q-icon.q-mr-sm( v-if="serv.currentNode.data.icon" :name="serv.currentNode.data.icon" color="secondary" size="sm")
+							span {{ serv.currentNode.data.text }}
+							q-popup-edit(v-model="serv.currentNode.data.text" auto-save v-slot="scope")
+								q-input(v-model="scope.value" dense autofocus counter @keyup.enter="scope.set")
+							q-chip.q-ml-lg(size="sm" v-if="serv.currentNode.data.env" :class="serv.currentNode.data.env") {{ serv.currentNode.data.env }}
+						.version
+							q-icon.q-mr-sm(name="mdi-source-branch" size="18px")
+							span {{ version }}
+							q-menu
+								q-item(clickable v-for="item in versions")
+									q-item-section {{ item }}
 
 
-			q-card-section(v-if="serv.currentNode")
-				.dat
-					.label Описание
-					.val.edit {{ description }}
-						q-popup-edit(v-model="description" auto-save v-slot="scope")
-							q-input(v-model="scope.value" dense autofocus counter @keyup.enter="scope.set")
-					.label Модуль
-					.val Сервер приложений
-					.label Среда
-					.val {{ serv.currentNode.data.env }}
-					.label Создано
-					.val 22.05.2023 - 16:24
-					.label Автор
-					.val kmg01
+				q-card-section(v-if="serv.currentNode")
+					.dat
+						.label Описание
+						.val.edit {{ description }}
+							q-popup-edit(v-model="description" auto-save v-slot="scope")
+								q-input(v-model="scope.value" dense autofocus counter @keyup.enter="scope.set")
+						.label Модуль
+						.val Сервер приложений
+						.label Среда
+						.val {{ serv.currentNode.data.env }}
+						.label Создано
+						.val 22.05.2023 - 16:24
+						.label Автор
+						.val kmg01
 
-			q-separator
-			q-card-actions(align="center" v-if="serv.currentNode")
-				q-btn(flat color="primary" label="Настроить" @click="") 
-				q-btn(flat color="primary" label="Дублировать" @click="duble") 
-				q-space
-				q-btn(v-if="serv.currentNode.data.type == 2 || serv.currentNode.data.type == 4" flat color="negative" label="Удалить" @click="remove") 
-
-		br
-		q-card.sele(flat @dragover.prevent="over = true" @dragleave.prevent="over = false" @drop="drop"  :class="{over: over}")
-			template(v-if="serv.checkedNodes.length" )
-				q-card-section(v-if="serv.checkedNodes.length" )
-					q-list
-						q-item.item(v-for="item in serv.checkedNodes" clickable :key="item.data.id")
-							q-item-section(side)
-								q-icon(:name="item.data.icon")
-							q-item-section
-								q-item-label {{ item.data.text }}
-							q-item-section(side v-if="item.data.env")
-								q-chip(:class="item.data.env" size="sm") {{ item.data.env }}
-							q-item-section(side)
-								q-btn(flat round icon="mdi-close" size="sm" @click="removeChecked(item)" dense) 
 				q-separator
-				q-card-actions
-					q-btn(flat color="primary" label="Сравнить" @click="") 
-			q-card-section.empty(v-else)
-				.hd Групповая обработка
-				div Перетащите сюда серверы или конфигурации
+				q-card-actions(align="center" v-if="serv.currentNode")
+					q-btn(flat color="primary" label="Настроить" @click="goto") 
+					q-btn(flat color="primary" label="Дублировать" @click="duble") 
+					q-space
+					q-btn(v-if="serv.currentNode.data.type == 2 || serv.currentNode.data.type == 4" flat color="negative" label="Удалить" @click="toggleDel") 
 
+			br
+			q-card.sele(flat @dragover.prevent="over = true" @dragleave.prevent="over = false" @drop="drop"  :class="{over: over}")
+				template(v-if="serv.checkedNodes.length" )
+					q-card-section(v-if="serv.checkedNodes.length" )
+						q-list
+							q-item.item(v-for="item in serv.checkedNodes" clickable :key="item.data.id")
+								q-item-section(side)
+									q-icon(:name="item.data.icon")
+								q-item-section
+									q-item-label {{ item.data.text }}
+								q-item-section(side v-if="item.data.env")
+									q-chip(:class="item.data.env" size="sm") {{ item.data.env }}
+								q-item-section(side)
+									q-btn(flat round icon="mdi-close" size="sm" @click="removeChecked(item)" dense) 
+					q-separator
+					q-card-actions
+						q-btn(flat color="primary" label="Сравнить" @click="") 
+				q-card-section.empty(v-else)
+					.hd Групповая обработка
+					div Перетащите сюда серверы или конфигурации
+
+	ConfirmDialog(v-model="showDel" zag="Удалить конфигурацию")
+		template(#content)
+			p Вы уверены, что хотите удалить конфигурацию? Все настройки будут потеряны.
+		template(#actions)
+			q-btn(flat color="primary" label="Отмена" v-close-popup)
+			q-btn(unelevated color="negative" label="Удалить" @click="remove" v-close-popup) 
 </template>
 
 <style scoped lang="scss">

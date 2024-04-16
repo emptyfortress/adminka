@@ -44,10 +44,27 @@ export const router = createRouter({
 					component: () => import('@/components/Dvserver.vue'),
 				},
 				{
-					path: 'webclient',
-					component: () => import('@/components/Webclient.vue'),
+					path: 'par/:id',
+					component: () => import('@/components/tree/Zaglushka.vue'),
+					props: true,
 				},
 			],
+		},
+		{
+			path: '/appserver/:id',
+			name: 'appserver',
+			component: () => import('@/pages/Appserver.vue'),
+			props: true,
+			meta: {
+				title: 'Сервер приложений',
+				bread: [
+					{
+						label: 'Сервер приложений',
+						icon: 'mdi-arrow-left',
+						to: '/root/dvserver',
+					},
+				],
+			},
 		},
 
 		{
@@ -56,12 +73,11 @@ export const router = createRouter({
 			component: () => import('@/components/Configuration1.vue'),
 			meta: { title: 'Конфигурации', bread: [{ label: 'Dashboard', to: '/' }] },
 		},
+
 		{
 			path: '/setup1',
 			component: () => import('@/pages/Setup1.vue'),
-			meta: {
-				title: 'Модули',
-			},
+			meta: { title: 'Модули' },
 			children: [
 				{
 					path: '',

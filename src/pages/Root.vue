@@ -6,12 +6,32 @@ const route = useRoute()
 const split1 = ref(17)
 const list = [
 	{ id: 0, url: '/root/dvserver', label: 'Сервер приложений', selected: false },
-	{ id: 1, url: '/root/webclient', label: 'Web-клиент', selected: false },
-	{ id: 2, url: '', label: 'Служба фоновых операций', selected: false },
-	{ id: 3, url: '', label: 'Сервис бизнес-процессов', selected: false },
-	{ id: 4, url: '', label: 'Почтовый сервер', selected: false },
-	{ id: 5, url: '', label: 'Полнотекстовый поиск', selected: false },
-	{ id: 6, url: '', label: 'Виджеты', selected: false },
+	{ id: 1, url: '/root/par/webclient', label: 'Web-клиент', selected: false },
+	{
+		id: 2,
+		url: '/root/par/worker',
+		label: 'Служба фоновых операций',
+		selected: false,
+	},
+	{
+		id: 3,
+		url: '/root/par/business-process',
+		label: 'Сервис бизнес-процессов',
+		selected: false,
+	},
+	{
+		id: 4,
+		url: '/root/par/mailserver',
+		label: 'Почтовый сервер',
+		selected: false,
+	},
+	{
+		id: 5,
+		url: '/root/par/search',
+		label: 'Полнотекстовый поиск',
+		selected: false,
+	},
+	{ id: 6, url: '/root/par/widgets', label: 'Виджеты', selected: false },
 ]
 const select = (e: any) => {
 	e.selected = true

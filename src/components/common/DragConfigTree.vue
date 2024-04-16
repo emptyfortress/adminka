@@ -98,7 +98,7 @@ watch(
 		let tmp = {} as NodeData
 		tmp.id = uid()
 		tmp.text = serv.dubleNode.data.text + '-copy'
-		tmp.icon = serv.dubleNode.data.icon
+		tmp.icon = 'mdi-code-braces'
 		tmp.env = serv.dubleNode.data.env
 		tmp.type = serv.dubleNode.data.type
 		tmp.selected = true
