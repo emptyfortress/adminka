@@ -109,6 +109,7 @@ const createConf = () => {
 		type: 2,
 		drag: true,
 		drop: false,
+		selected: true,
 		icon: 'mdi-code-braces',
 		env: 'dev',
 	}
@@ -117,6 +118,9 @@ const createConf = () => {
 		tree.value.rootChildren[0],
 		tree.value.rootChildren[0].children.length
 	)
+	serv.setCurrent(tree.value.getStat(tmp))
+	name.value = ''
+	descripiton.value = ''
 }
 </script>
 
