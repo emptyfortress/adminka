@@ -91,6 +91,25 @@ watch(
 		tree.value.remove(serv.removeNode)
 	}
 )
+watch(
+	() => serv.dubleNode,
+	() => {
+		tree.value.statsFlat.map(item => (item.data.selected = false))
+		let tmp = {} as NodeData
+		tmp.id = uid()
+		tmp.text = serv.dubleNode.data.text + '-copy'
+		tmp.icon = serv.dubleNode.data.icon
+		tmp.env = serv.dubleNode.data.env
+		tmp.type = serv.dubleNode.data.type
+		tmp.selected = true
+		tree.value.add(
+			tmp,
+			tree.value.rootChildren[0],
+			tree.value.rootChildren[0].children.length
+		)
+		serv.setCurrent(tree.value.getStat(tmp))
+	}
+)
 const startDrag = (e: Stat) => {
 	serv.setDragged(e)
 }

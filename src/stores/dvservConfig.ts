@@ -7,6 +7,7 @@ export const useDvServ = defineStore({
 		checkedNodes: [] as Stat[],
 		removeNode: null as Stat | null,
 		draggedNode: null as Stat | null,
+		dubleNode: null as Stat | null,
 	}),
 	getters: {},
 	actions: {
@@ -24,6 +25,9 @@ export const useDvServ = defineStore({
 		},
 		removeChecked(e: Stat) {
 			this.checkedNodes = this.checkedNodes.filter((item: Stat) => item !== e)
+		},
+		setDuble(e: Stat) {
+			this.dubleNode = e
 		},
 	},
 })

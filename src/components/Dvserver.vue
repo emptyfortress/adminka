@@ -23,6 +23,9 @@ const removeChecked = (e: Stat) => {
 }
 const versions = ['v.1.0.0', 'v.1.0.1', 'v.1.5.2', 'v.2.0.0']
 const version = ref('v.2.0.0')
+const duble = () => {
+	serv.setDuble(serv.currentNode)
+}
 </script>
 
 <template lang="pug">
@@ -74,7 +77,7 @@ const version = ref('v.2.0.0')
 			q-separator
 			q-card-actions(align="center" v-if="serv.currentNode")
 				q-btn(flat color="primary" label="Настроить" @click="") 
-				q-btn(flat color="primary" label="Дублировать" @click="") 
+				q-btn(flat color="primary" label="Дублировать" @click="duble") 
 				q-space
 				q-btn(v-if="serv.currentNode.data.type == 2 || serv.currentNode.data.type == 4" flat color="negative" label="Удалить" @click="remove") 
 
