@@ -16,7 +16,10 @@ const remove = () => {
 const over = ref(false)
 const drop = () => {
 	over.value = false
-	console.log(serv.draggedNode)
+	serv.addChecked(serv.draggedNode)
+}
+const removeChecked = (e: Stat) => {
+	serv.removeChecked(e)
 }
 </script>
 
@@ -30,8 +33,8 @@ const drop = () => {
 		DragConfigTree(:treeData="tree" :filter="filter" )
 
 	.first
-		q-card.sel(flat v-if="serv.currentNode")
-			q-card-section(:draggable="true")
+		q-card.sel(flat)
+			q-card-section(:draggable="true" v-if="serv.currentNode")
 				.hd
 					q-icon.q-mr-sm( v-if="serv.currentNode.data.icon" :name="serv.currentNode.data.icon" color="secondary" size="sm")
 					span {{ serv.currentNode.data.text }}
@@ -40,7 +43,7 @@ const drop = () => {
 					q-chip.q-ml-lg(size="sm" v-if="serv.currentNode.data.env") {{ serv.currentNode.data.env }}
 
 
-			q-card-section
+			q-card-section(v-if="serv.currentNode")
 				.dat
 					.label Описание
 					.val.edit {{ description }}
@@ -56,26 +59,26 @@ const drop = () => {
 					.val kmg01
 
 			q-separator
-			q-card-actions(align="center")
+			q-card-actions(align="center" v-if="serv.currentNode")
 				q-btn(flat color="primary" label="Настроить" @click="") 
 				q-btn(flat color="primary" label="Дублировать" @click="") 
-				q-btn(flat color="primary" label="Применить" @click="") 
+				// q-btn(flat color="primary" label="Применить" @click="") 
 				q-space
 				q-btn(v-if="serv.currentNode.data.type == 2 || serv.currentNode.data.type == 4" flat color="negative" label="Удалить" @click="remove") 
 
 		br
-		q-card.sel(flat v-if="serv.checkedNodes.length"  @dragover.prevent="over = true" @dragleave.prevent="over = false" @drop="drop($event)"  :class="{over: over}")
-			q-card-section
+		q-card.sele(flat @dragover.prevent="over = true" @dragleave.prevent="over = false" @drop="drop"  :class="{over: over}")
+			q-card-section(v-if="serv.checkedNodes.length" )
 				q-list
-					q-item(v-for="item in serv.checkedNodes" clickable :key="item.data.id")
-						q-item-section(side)
-							q-checkbox(:modelValue="true" dense)
+					q-item.item(v-for="item in serv.checkedNodes" clickable :key="item.data.id")
 						q-item-section(side)
 							q-icon(:name="item.data.icon")
 						q-item-section
 							q-item-label {{ item.data.text }}
+						q-item-section(side)
+							q-btn(flat round icon="mdi-close"  @click="removeChecked(item)" dense) 
 			q-separator
-			q-card-actions(align="center")
+			q-card-actions(align="center" v-if="serv.checkedNodes.length > 1")
 				q-btn(flat color="primary" label="Сравнить" @click="") 
 				// q-btn(flat color="primary" label="Дублировать" @click="") 
 				q-space
@@ -96,8 +99,9 @@ const drop = () => {
 	color: $secondary;
 	cursor: pointer;
 }
-.sel {
-	// padding: 1rem;
+.sel,
+.sele {
+	min-height: 200px;
 	.hd {
 		color: $secondary;
 		font-size: 1.1rem;
@@ -108,6 +112,9 @@ const drop = () => {
 	&.over {
 		background: #c5def7;
 	}
+}
+.sele {
+	min-height: 100px;
 }
 .dat {
 	display: grid;
@@ -121,6 +128,17 @@ const drop = () => {
 	}
 	.val {
 		width: 100%;
+	}
+}
+.q-item {
+	padding-right: 0.5rem;
+	.q-btn {
+		display: none;
+	}
+	&:hover {
+		.q-btn {
+			display: inline-flex;
+		}
 	}
 }
 </style>

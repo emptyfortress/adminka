@@ -70,6 +70,7 @@ const tree = [
 				id: uid(),
 				text: 'Группа 1',
 				type: 4,
+				icon: 'mdi-folder-outline',
 				drag: true,
 				drop: true,
 				selected: false,

@@ -121,7 +121,7 @@ Draggable(ref="tree"
 		.node(v-else @click="select(stat)" :class="{ 'selected': stat.data.selected }" :draggable="true" @dragstart="startDrag(stat)")
 			.q-gutter-x-sm
 				q-icon.trig(name="mdi-chevron-down" @click.stop="toggle(stat)" :class="{ 'closed': !stat.open }" v-if="stat.children.length")
-				q-checkbox(v-model="stat.checked" dense size="sm" @click="checkNode")
+				// q-checkbox(v-model="stat.checked" dense size="sm" @click="checkNode")
 				q-icon(:name="node.icon" size="18px" v-if="node.icon")
 				span.txt {{ node.text }}
 			div
@@ -157,6 +157,9 @@ Draggable(ref="tree"
 	cursor: pointer;
 	.q-btn {
 		display: none;
+	}
+	.q-icon {
+		transform: translateY(-3px);
 	}
 	&:hover {
 		background: #dedede;

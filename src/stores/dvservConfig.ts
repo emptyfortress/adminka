@@ -13,14 +13,17 @@ export const useDvServ = defineStore({
 		setCurrent(e: Stat) {
 			this.currentNode = e
 		},
-		setChecked(arr: Stat[]) {
-			this.checkedNodes = arr
+		addChecked(e: Stat) {
+			this.checkedNodes.push(e)
 		},
 		setRemove(e: Stat) {
 			this.removeNode = this.currentNode
 		},
 		setDragged(e: Stat) {
 			this.draggedNode = e
+		},
+		removeChecked(e: Stat) {
+			this.checkedNodes = this.checkedNodes.filter((item: Stat) => item !== e)
 		},
 	},
 })
