@@ -3,6 +3,8 @@ import { ref, reactive, watch, watchEffect, computed } from 'vue'
 import { Draggable, dragContext } from '@he-tree/vue'
 import '@he-tree/vue/style/default.css'
 import { useDvServ } from '@/stores/dvservConfig'
+import ConfirmDialog from '@/components/tree/ConfirmDialog.vue'
+import { uid } from 'quasar'
 
 interface Props {
 	id: string
@@ -76,12 +78,6 @@ const length1 = computed(() => {
 const length2 = computed(() => {
 	return tree.value?.statsFlat.filter((el: Stat) => el.data.type == 3).length
 })
-const caf = () => {
-	console.log(111)
-}
-const toggleAdd = () => {
-	console.log(tree.value.getChecked())
-}
 
 const checkNode = () => {
 	const temp = tree.value.getChecked()
@@ -97,6 +93,30 @@ watch(
 )
 const startDrag = (e: Stat) => {
 	serv.setDragged(e)
+}
+
+const toggleAdd = () => {
+	showAdd.value = !showAdd.value
+}
+const showAdd = ref(false)
+const name = ref('')
+const descripiton = ref('')
+
+const createConf = () => {
+	const tmp = {
+		id: uid(),
+		text: name.value,
+		type: 2,
+		drag: true,
+		drop: false,
+		icon: 'mdi-code-braces',
+		env: 'dev',
+	}
+	tree.value.add(
+		tmp,
+		tree.value.rootChildren[0],
+		tree.value.rootChildren[0].children.length
+	)
 }
 </script>
 
@@ -128,6 +148,13 @@ Draggable(ref="tree"
 			div
 				q-chip(v-if="node.env" size="sm" :class="node.env") {{ node.env }}
 
+ConfirmDialog(v-model="showAdd" zag="Новая конфигурация")
+	template(#content)
+		q-input(v-model="name" filled label="Название")
+		q-input.q-mt-sm(v-model="descripiton" filled label="Описание")
+	template(#actions)
+		q-btn(flat color="primary" label="Отмена" v-close-popup)
+		q-btn(unelevated color="primary" label="Создать" @click="createConf" v-close-popup) 
 </template>
 
 <style scoped lang="scss">
