@@ -21,6 +21,8 @@ const drop = () => {
 const removeChecked = (e: Stat) => {
 	serv.removeChecked(e)
 }
+const versions = ['v.1.0.0', 'v.1.0.1', 'v.1.5.2', 'v.2.0.0']
+const version = ref('v.2.0.0')
 </script>
 
 <template lang="pug">
@@ -39,12 +41,19 @@ const removeChecked = (e: Stat) => {
 				div Ничего не выбрано
 
 			q-card-section(:draggable="true" v-if="serv.currentNode")
-				.hd
-					q-icon.q-mr-sm( v-if="serv.currentNode.data.icon" :name="serv.currentNode.data.icon" color="secondary" size="sm")
-					span {{ serv.currentNode.data.text }}
-					q-popup-edit(v-model="serv.currentNode.data.text" auto-save v-slot="scope")
-						q-input(v-model="scope.value" dense autofocus counter @keyup.enter="scope.set")
-					q-chip.q-ml-lg(size="sm" v-if="serv.currentNode.data.env" :class="serv.currentNode.data.env") {{ serv.currentNode.data.env }}
+				.row.items-center.justify-between
+					.hd
+						q-icon.q-mr-sm( v-if="serv.currentNode.data.icon" :name="serv.currentNode.data.icon" color="secondary" size="sm")
+						span {{ serv.currentNode.data.text }}
+						q-popup-edit(v-model="serv.currentNode.data.text" auto-save v-slot="scope")
+							q-input(v-model="scope.value" dense autofocus counter @keyup.enter="scope.set")
+						q-chip.q-ml-lg(size="sm" v-if="serv.currentNode.data.env" :class="serv.currentNode.data.env") {{ serv.currentNode.data.env }}
+					.version
+						q-icon.q-mr-sm(name="mdi-source-branch" size="18px")
+						span {{ version }}
+						q-menu
+							q-item(clickable v-for="item in versions")
+								q-item-section {{ item }}
 
 
 			q-card-section(v-if="serv.currentNode")
@@ -66,7 +75,6 @@ const removeChecked = (e: Stat) => {
 			q-card-actions(align="center" v-if="serv.currentNode")
 				q-btn(flat color="primary" label="Настроить" @click="") 
 				q-btn(flat color="primary" label="Дублировать" @click="") 
-				// q-btn(flat color="primary" label="Применить" @click="") 
 				q-space
 				q-btn(v-if="serv.currentNode.data.type == 2 || serv.currentNode.data.type == 4" flat color="negative" label="Удалить" @click="remove") 
 
@@ -80,8 +88,10 @@ const removeChecked = (e: Stat) => {
 								q-icon(:name="item.data.icon")
 							q-item-section
 								q-item-label {{ item.data.text }}
+							q-item-section(side v-if="item.data.env")
+								q-chip(:class="item.data.env" size="sm") {{ item.data.env }}
 							q-item-section(side)
-								q-btn(flat round icon="mdi-close"  @click="removeChecked(item)" dense) 
+								q-btn(flat round icon="mdi-close" size="sm" @click="removeChecked(item)" dense) 
 				q-separator
 				q-card-actions
 					q-btn(flat color="primary" label="Сравнить" @click="") 
@@ -105,7 +115,13 @@ const removeChecked = (e: Stat) => {
 	color: $secondary;
 	cursor: pointer;
 }
+.version {
+	font-size: 0.9rem;
+	cursor: pointer;
+	color: $secondary;
+}
 .hd {
+	display: flex;
 	color: $secondary;
 	font-size: 1.1rem;
 	span {
@@ -138,7 +154,6 @@ const removeChecked = (e: Stat) => {
 	}
 }
 .q-item {
-	padding-right: 0.5rem;
 	.q-btn {
 		display: none;
 	}
