@@ -7,12 +7,7 @@ import AppServerInside from '@/components/tree/AppServerInside.vue'
 
 const route = useRoute()
 const router = useRouter()
-
-const current = computed(() => {
-	const flat = [...tree[0].children, ...tree[1].children]
-	const curr = flat.find(item => item.id == route.params.id)
-	return curr
-})
+const serv = useDvServ()
 
 const list = reactive([
 	// { id: 0, label: 'Лицензия', selected: false },
@@ -28,12 +23,12 @@ const list = reactive([
 ])
 
 const selected = ref()
+
 const select = (e: any) => {
 	selected.value = e.label
 	// router.replace('/database/AGSupport#' + e.field)
 	document.getElementById(e.field)?.scrollIntoView({ behavior: 'smooth' })
 }
-const serv = useDvServ()
 </script>
 
 <template lang="pug">
@@ -41,10 +36,10 @@ q-page
 	.bread
 		q-breadcrumbs
 			q-breadcrumbs-el(v-for="item in route.meta.bread" :label="item.label" :icon="item.icon" @click="router.back")
-			q-breadcrumbs-el(:label="current.text")
+			q-breadcrumbs-el(label="Сравнение конфигураций")
 			q-space
-			q-btn(flat color="primary" label="Отмена" size="md") 
-			q-btn(unelevated color="primary" label="Применить" size="md") 
+			q-btn(flat color="primary" label="Показать отличия" size="md") 
+			// q-btn(unelevated color="primary" label="Применить" size="md")
 
 	.container
 		.grid
@@ -53,12 +48,19 @@ q-page
 					q-item-section
 						q-item-label {{ item.label }}
 			q-scroll-area.right
-				.q-ml-lg
-					.confzag
-						q-icon(:name="serv.currentNode.data.icon" color="secondary")
-						span {{ serv.currentNode.data.text}}
-					AppServerInside
-	</template>
+				.divide
+					.q-ml-lg
+						.confzag
+							q-icon(:name="serv.checkedNodes[0]?.data.icon" color="secondary")
+							span {{ serv.checkedNodes[0]?.data.text}}
+						AppServerInside
+
+					.q-ml-lg
+						.confzag
+							q-icon(:name="serv.checkedNodes[1]?.data.icon" color="secondary")
+							span {{ serv.checkedNodes[1]?.data.text}}
+						AppServerInside
+</template>
 
 <style scoped lang="scss">
 .grid {
@@ -68,13 +70,16 @@ q-page
 	align-items: start;
 	column-gap: 3rem;
 	row-gap: 0.5rem;
-	// background: green;
+}
+.divide {
+	// display: flex;
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
 }
 .right,
 .left {
 	height: calc(100vh - 165px);
 	width: 100%;
-	// background: pink;
 }
 .container {
 	margin: 1rem 2rem;

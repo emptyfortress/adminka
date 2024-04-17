@@ -51,6 +51,21 @@ export const router = createRouter({
 			],
 		},
 		{
+			path: '/dvcompare',
+			name: 'dvcompare',
+			component: () => import('@/pages/Dvcompare.vue'),
+			meta: {
+				title: 'Сервер приложений',
+				bread: [
+					{
+						label: 'Сервер приложений',
+						icon: 'mdi-arrow-left',
+						to: '/root/dvserver',
+					},
+				],
+			},
+		},
+		{
 			path: '/appserver/:id',
 			name: 'appserver',
 			component: () => import('@/pages/Appserver.vue'),

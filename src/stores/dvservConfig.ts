@@ -29,5 +29,8 @@ export const useDvServ = defineStore({
 		setDuble(e: Stat) {
 			this.dubleNode = e
 		},
+		clearChecked() {
+			this.checkedNodes = []
+		},
 	},
 })

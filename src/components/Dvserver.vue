@@ -41,6 +41,7 @@ const toggleDel = () => {
 	showDel.value = !showDel.value
 }
 const router = useRouter()
+
 const goto = () => {
 	let url = '/appserver/' + serv.currentNode.data.id
 	router.push(url)
@@ -49,6 +50,12 @@ const apply = ref(false)
 const setConfig = () => {
 	serv.setDragged(serv.currentNode)
 	apply.value = true
+}
+const clear = () => {
+	serv.clearChecked()
+}
+const compare = () => {
+	router.push('/dvcompare')
 }
 </script>
 
@@ -120,9 +127,13 @@ div
 									q-chip(:class="item.data.env" size="sm") {{ item.data.env }}
 								q-item-section(side)
 									q-btn(flat round icon="mdi-close" size="sm" @click="removeChecked(item)" dense) 
-					q-separator
-					q-card-actions
-						q-btn(flat color="primary" label="Сравнить" @click="") 
+
+					template(v-if="serv.checkedNodes.length > 1" )
+						q-separator
+						q-card-actions
+							q-btn(v-if="serv.checkedNodes.length == 2" flat color="primary" label="Сравнить" @click="compare") 
+							q-space
+							q-btn(flat color="negative" label="Очистить" @click="clear") 
 				q-card-section.empty(v-else)
 					.hd Групповая обработка
 					div Перетащите сюда серверы или конфигурации

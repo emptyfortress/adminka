@@ -22,7 +22,7 @@ interface Props {
 		| 'file'
 		| 'datetime-local'
 		| undefined
-	label: string
+	label?: string
 	descr?: string
 	nodescr?: boolean
 	disable?: boolean
@@ -38,7 +38,6 @@ const props = withDefaults(defineProps<Props>(), {
 	options: () => ['Options 1', 'Option 2'],
 	select: false,
 	type: 'text',
-	label: 'Label',
 	bg: 'white',
 	button: false,
 	btLabel: 'Добавить',
@@ -84,7 +83,7 @@ const item = ref(false)
 .data
 	q-btn.refresh(v-if="changed" flat icon="mdi-restore" color="secondary" dense @click="reset") 
 	.inner(v-if="changed")
-	label {{ props.label }}
+	label(v-if="props.label") {{ props.label }}
 	.descr(v-if="!props.nodescr && !props.checkbox") {{ props.descr }}
 	div
 		q-checkbox(v-model="check" dense :label="props.descr" v-if="checkbox" :disable="props.disable")
