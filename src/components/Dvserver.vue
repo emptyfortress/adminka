@@ -16,10 +16,18 @@ const remove = () => {
 	serv.setRemove()
 }
 const over = ref(false)
+
+const showApply = ref(false)
 const drop = () => {
 	over.value = false
-	serv.addChecked(serv.draggedNode)
+	if (apply.value == true) {
+		showApply.value = true
+		console.log('apply')
+	} else {
+		serv.addChecked(serv.draggedNode)
+	}
 }
+
 const removeChecked = (e: Stat) => {
 	serv.removeChecked(e)
 }
@@ -36,6 +44,11 @@ const router = useRouter()
 const goto = () => {
 	let url = '/appserver/' + serv.currentNode.data.id
 	router.push(url)
+}
+const apply = ref(false)
+const setConfig = () => {
+	serv.setDragged(serv.currentNode)
+	apply.value = true
 }
 </script>
 
@@ -55,7 +68,7 @@ div
 					.hd Информация
 					div Ничего не выбрано
 
-				q-card-section(:draggable="true" v-if="serv.currentNode")
+				q-card-section(:draggable="true" v-if="serv.currentNode" @dragstart="setConfig")
 					.row.items-center.justify-between
 						.hd
 							q-icon.q-mr-sm( v-if="serv.currentNode.data.icon" :name="serv.currentNode.data.icon" color="secondary" size="sm")
@@ -120,6 +133,13 @@ div
 		template(#actions)
 			q-btn(flat color="primary" label="Отмена" v-close-popup)
 			q-btn(unelevated color="negative" label="Удалить" @click="remove" v-close-popup) 
+
+	ConfirmDialog(v-model="showApply" zag="Применить конфигурацию")
+		template(#content)
+			p Применить настройки конфигурации <b>{{serv.draggedNode.data.text}}</b> к выбранным серверам?<br>Это действие нельзя отменить.
+		template(#actions)
+			q-btn(flat color="primary" label="Отмена" v-close-popup)
+			q-btn(unelevated color="primary" label="Применить" @click="" v-close-popup) 
 </template>
 
 <style scoped lang="scss">
