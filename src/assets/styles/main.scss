@@ -345,11 +345,11 @@ fieldset {
 	font-weight: 600;
 	text-transform: uppercase;
 	color: $secondary;
-	// margin-top: 2rem;
+	margin-top: 2rem;
 	margin-left: 2rem;
-	// &:first-child {
-	// 	margin-top: 0;
-	// }
+	&:first-child {
+		margin-top: 0;
+	}
 }
 .confzag {
 	margin-left: 2rem;

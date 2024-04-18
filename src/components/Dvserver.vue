@@ -31,7 +31,7 @@ const drop = () => {
 const removeChecked = (e: Stat) => {
 	serv.removeChecked(e)
 }
-const versions = ['v.1.0.0', 'v.1.0.1', 'v.1.5.2', 'v.2.0.0']
+const versions = ['v.2.0.0', 'v.1.5.2', 'v.1.0.1', 'v.1.0.0']
 const version = ref('v.2.0.0')
 const duble = () => {
 	serv.setDuble(serv.currentNode)

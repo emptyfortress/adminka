@@ -37,16 +37,20 @@ const select = (e: any) => {
 	e.selected = true
 }
 const query = ref('')
+const headline = ref('Модули и конфигурации')
+const goto = (e: any) => {
+	headline.value = e.label
+}
 </script>
 
 <template lang="pug">
 q-page(padding)
 	.container
-		.zag Модули и конфигурации
+		.zag {{ headline }}
 		q-splitter.q-mt-lg(v-model="split1")
 			template(v-slot:before)
 				q-list
-					q-item(clickable v-for="item in list" :key="item.id" :to="item.url")
+					q-item(clickable v-for="item in list" :key="item.id" @click="goto(item)" :to="item.url")
 						q-item-section(side)
 							q-icon(name="mdi-code-block-braces")
 						q-item-section
