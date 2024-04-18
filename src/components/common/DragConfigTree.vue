@@ -32,19 +32,22 @@ const isDrag = (e: any) => {
 	else return false
 }
 const isDrop = (targetStat: Stat) => {
-	if (dragContext.dragNode.data.type == 2 && targetStat.data.id == 'conf') {
+	if (dragContext.dragNode!.data.type == 2 && targetStat.data.id == 'conf') {
 		return true
 	} else if (
-		dragContext.dragNode.data.type == 3 &&
+		dragContext.dragNode!.data.type == 3 &&
 		targetStat.data.id == 'servers'
 	) {
 		return true
 	} else if (
-		dragContext.dragNode.data.type == 4 &&
+		dragContext.dragNode!.data.type == 4 &&
 		targetStat.data.id == 'servers'
 	) {
 		return true
-	} else if (dragContext.dragNode.data.type == 3 && targetStat.data.type == 4) {
+	} else if (
+		dragContext.dragNode!.data.type == 3 &&
+		targetStat.data.type == 4
+	) {
 		return true
 	} else return false
 }
@@ -79,11 +82,6 @@ const length2 = computed(() => {
 	return tree.value?.statsFlat.filter((el: Stat) => el.data.type == 3).length
 })
 
-const checkNode = () => {
-	const temp = tree.value.getChecked()
-	serv.setChecked(temp)
-}
-
 watch(
 	() => serv.removeNode,
 	() => {
@@ -94,13 +92,13 @@ watch(
 watch(
 	() => serv.dubleNode,
 	() => {
-		tree.value.statsFlat.map(item => (item.data.selected = false))
-		let tmp = {} as NodeData
+		tree.value.statsFlat.map((item: Stat) => (item.data.selected = false))
+		let tmp = {} as any
 		tmp.id = uid()
-		tmp.text = serv.dubleNode.data.text + '-copy'
+		tmp.text = serv.dubleNode!.data.text + '-copy'
 		tmp.icon = 'mdi-code-braces'
-		tmp.env = serv.dubleNode.data.env
-		tmp.type = serv.dubleNode.data.type
+		tmp.env = serv.dubleNode!.data.env
+		tmp.type = serv.dubleNode!.data.type
 		tmp.selected = true
 		tree.value.add(
 			tmp,
@@ -160,12 +158,11 @@ Draggable(ref="tree"
 				span.q-ml-md(v-if="node.id == 'conf'") ({{ length1 }})
 				span.q-ml-md(v-if="node.id == 'servers'") ({{ length2 }})
 			q-btn(flat round icon="mdi-plus-circle" dense color="secondary" @click="toggleAdd" v-if="node.id == 'conf'")
-			q-btn(flat round icon="mdi-sync" dense color="secondary" @click="toggleAdd" v-if="node.id == 'servers'")
+			q-btn(flat round icon="mdi-sync" dense color="secondary" @click="" v-if="node.id == 'servers'")
 
 		.node(v-else @click="select(stat)" :class="{ 'selected': stat.data.selected }" :draggable="true" @dragstart="startDrag(stat)")
 			.q-gutter-x-sm
 				q-icon.trig(name="mdi-chevron-down" @click.stop="toggle(stat)" :class="{ 'closed': !stat.open }" v-if="stat.children.length")
-				// q-checkbox(v-model="stat.checked" dense size="sm" @click="checkNode")
 				q-icon(:name="node.icon" size="18px" v-if="node.icon")
 				span.txt {{ node.text }}
 			div

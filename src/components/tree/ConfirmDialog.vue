@@ -1,5 +1,6 @@
 <script setup lang="ts">
-const modelValue = defineModel()
+const modelValue = defineModel<boolean>()
+
 const props = defineProps({
 	zag: {
 		type: String,

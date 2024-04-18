@@ -39,15 +39,9 @@ const check = ref(true)
 .section Настройки соединения Windows-клиента
 MyField(
 	v-model:main="item.main" 
-	v-model:check="item.check" 
 	v-for="item in win" 
 	:key="item.id" 
 	:label="item.label" 
-	:descr="item.descr" 
-	:disable="item.disable"
-	:checkbox="item.checkbox"
-	:button="item.button"
-	:btLabel="item.btLabel"
 	)
 
 .section Дополнительные настройки
@@ -57,26 +51,16 @@ MyField(
 	v-for="item in dop" 
 	:key="item.id" 
 	:label="item.label" 
-	:descr="item.descr" 
-	:disable="item.disable"
 	:checkbox="item.checkbox"
-	:button="item.button"
-	:btLabel="item.btLabel"
 	)
 
 .section Управление сессиями
 MyField(
 	v-model:main="item.main" 
-	v-model:check="item.check" 
 	v-for="item in session" 
 	:key="item.id" 
 	:label="item.label" 
-	:descr="item.descr" 
 	:type="item.type" 
-	:disable="item.disable"
-	:checkbox="item.checkbox"
-	:button="item.button"
-	:btLabel="item.btLabel"
 	)
 .data
 	label Открытые сессии (использовано 1 лицензий из 10):

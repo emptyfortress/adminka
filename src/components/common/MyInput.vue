@@ -4,20 +4,7 @@ import { ref } from 'vue'
 interface Props {
 	filled?: boolean
 	bg?: string
-	type?:
-		| 'number'
-		| 'date'
-		| 'url'
-		| 'search'
-		| 'textarea'
-		| 'time'
-		| 'text'
-		| 'email'
-		| 'password'
-		| 'tel'
-		| 'file'
-		| 'datetime-local'
-		| undefined
+	type?: any
 	disable?: boolean
 	readonly?: boolean
 }

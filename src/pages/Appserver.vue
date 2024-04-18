@@ -12,7 +12,8 @@ const current = computed(() => {
 	const flat = [...tree[0].children, ...tree[1].children]
 	const curr = flat.find(item => item.id == route.params.id)
 	let tmp = {} as Stat
-	tmp.data = Object.assign(curr)
+	// tmp.data = Object.assign(curr)
+	tmp.data = { ...curr }
 	return tmp
 })
 
@@ -43,7 +44,7 @@ q-page
 	.bread
 		q-breadcrumbs
 			q-breadcrumbs-el(v-for="item in route.meta.bread" :label="item.label" :icon="item.icon" @click="router.back")
-			q-breadcrumbs-el(:label="current.text")
+			q-breadcrumbs-el(:label="current.data.text")
 			q-space
 			q-btn(flat color="primary" label="Отмена" size="md") 
 			q-btn(unelevated color="primary" label="Применить" size="md") 

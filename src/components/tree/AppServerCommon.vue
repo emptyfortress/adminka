@@ -99,7 +99,7 @@ const local = ref([
 		id: 0,
 		label: 'Язык по умолчанию',
 		descr: 'This is description',
-		readonly: false,
+		disable: false,
 		startValue: 'ru',
 		group: [
 			{ label: 'Русский', val: 'ru' },
@@ -144,11 +144,7 @@ MyField(
 	v-for="item in cache" 
 	:key="item.id" 
 	:label="item.label" 
-	:descr="item.descr" 
-	:disable="item.disable"
 	:checkbox="item.checkbox"
-	:button="item.button"
-	:btLabel="item.btLabel"
 	)
 q-btn.bt(unelevated color="secondary" label="Очистить клиентский кэш" size="sm") 
 
@@ -160,10 +156,7 @@ MyField(
 	:key="item.id" 
 	:label="item.label" 
 	:descr="item.descr" 
-	:disable="item.disable"
 	:checkbox="item.checkbox"
-	:button="item.button"
-	:btLabel="item.btLabel"
 	)
 
 .section Локализация полей

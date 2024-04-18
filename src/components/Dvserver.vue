@@ -22,9 +22,8 @@ const drop = () => {
 	over.value = false
 	if (apply.value == true) {
 		showApply.value = true
-		console.log('apply')
 	} else {
-		serv.addChecked(serv.draggedNode)
+		serv.addChecked(serv.draggedNode!)
 	}
 }
 
@@ -34,7 +33,7 @@ const removeChecked = (e: Stat) => {
 const versions = ['v.2.0.0', 'v.1.5.2', 'v.1.0.1', 'v.1.0.0']
 const version = ref('v.2.0.0')
 const duble = () => {
-	serv.setDuble(serv.currentNode)
+	serv.setDuble(serv.currentNode!)
 }
 const showDel = ref(false)
 const toggleDel = () => {
@@ -43,12 +42,12 @@ const toggleDel = () => {
 const router = useRouter()
 
 const goto = () => {
-	let url = '/appserver/' + serv.currentNode.data.id
+	let url = '/appserver/' + serv.currentNode!.data.id
 	router.push(url)
 }
 const apply = ref(false)
 const setConfig = () => {
-	serv.setDragged(serv.currentNode)
+	serv.setDragged(serv.currentNode!)
 	apply.value = true
 }
 const clear = () => {
@@ -147,7 +146,7 @@ div
 
 	ConfirmDialog(v-model="showApply" zag="Применить конфигурацию")
 		template(#content)
-			p Применить настройки конфигурации <b>{{serv.draggedNode.data.text}}</b> к выбранным серверам?<br>Это действие нельзя отменить.
+			p Применить настройки конфигурации <b>{{serv.draggedNode?.data.text}}</b> к выбранным серверам?<br>Это действие нельзя отменить.
 		template(#actions)
 			q-btn(flat color="primary" label="Отмена" v-close-popup)
 			q-btn(unelevated color="primary" label="Применить" @click="" v-close-popup) 

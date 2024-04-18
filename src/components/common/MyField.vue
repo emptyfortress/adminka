@@ -8,20 +8,7 @@ interface Props {
 	bg?: string
 	options?: string[]
 	select?: boolean
-	type?:
-		| 'number'
-		| 'date'
-		| 'url'
-		| 'search'
-		| 'textarea'
-		| 'time'
-		| 'text'
-		| 'email'
-		| 'password'
-		| 'tel'
-		| 'file'
-		| 'datetime-local'
-		| undefined
+	type?: any
 	label?: string
 	descr?: string
 	nodescr?: boolean

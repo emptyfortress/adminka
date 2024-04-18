@@ -17,7 +17,7 @@ export const useDvServ = defineStore({
 		addChecked(e: Stat) {
 			this.checkedNodes.push(e)
 		},
-		setRemove(e: Stat) {
+		setRemove() {
 			this.removeNode = this.currentNode
 		},
 		setDragged(e: Stat) {
