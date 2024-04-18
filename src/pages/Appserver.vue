@@ -11,7 +11,9 @@ const router = useRouter()
 const current = computed(() => {
 	const flat = [...tree[0].children, ...tree[1].children]
 	const curr = flat.find(item => item.id == route.params.id)
-	return curr
+	let tmp = {} as Stat
+	tmp.data = Object.assign(curr)
+	return tmp
 })
 
 const list = reactive([
@@ -55,8 +57,10 @@ q-page
 			q-scroll-area.right
 				.q-ml-lg
 					.confzag
-						q-icon(:name="serv.currentNode.data.icon" color="secondary")
-						span {{ serv.currentNode.data.text}}
+						q-icon(:name="current.data.icon" color="secondary")
+						span {{ current.data.text}}
+						// q-icon(:name="serv.currentNode.data.icon" color="secondary")
+						// span {{ serv.currentNode.data.text}}
 					AppServerInside
 	</template>
 
