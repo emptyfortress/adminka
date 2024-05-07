@@ -23,7 +23,7 @@ q-layout(view="hHh LpR lFr")
 		q-toolbar
 			img(src="@/assets/img/adm-logo.svg")
 			q-toolbar-title.text-uppercase Docsvision 5 консоль управления
-			q-input(v-model="query" filled dense clearable placeholder="Найти настройку")
+			q-input(v-model="query" standout dense clearable placeholder="Найти настройку")
 				template(v-slot:prepend)
 					q-icon(name="mdi-magnify")
 			// q-btn(flat round icon="mdi-brightness-4" @click="dark").q-mr-md

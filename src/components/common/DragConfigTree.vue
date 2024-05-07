@@ -157,8 +157,9 @@ Draggable(ref="tree"
 				span {{node.text}}
 				span.q-ml-md(v-if="node.id == 'conf'") ({{ length1 }})
 				span.q-ml-md(v-if="node.id == 'servers'") ({{ length2 }})
-			q-btn(flat round icon="mdi-plus-circle" dense color="secondary" @click="toggleAdd" v-if="node.id == 'conf'")
-			q-btn(flat round icon="mdi-sync" dense color="secondary" @click="" v-if="node.id == 'servers'")
+			div
+				q-btn(flat round icon="mdi-sync" dense color="secondary" @click="" v-if="node.id == 'servers'")
+				q-btn(flat round icon="mdi-plus-circle" dense color="secondary" @click="toggleAdd" v-if="node.type == '0'")
 
 		.node(v-else @click="select(stat)" :class="{ 'selected': stat.data.selected }" :draggable="true" @dragstart="startDrag(stat)")
 			.q-gutter-x-sm

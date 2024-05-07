@@ -109,6 +109,7 @@ div
 				q-card-actions(align="center" v-if="serv.currentNode")
 					q-btn(flat color="primary" label="Настроить" @click="goto") 
 					q-btn(flat color="primary" label="Дублировать" @click="duble") 
+					q-btn(flat color="primary" label="json" @click="") 
 					q-space
 					q-btn(v-if="serv.currentNode.data.type == 2 || serv.currentNode.data.type == 4" flat color="negative" label="Удалить" @click="toggleDel") 
 

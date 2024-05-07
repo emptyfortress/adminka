@@ -42,7 +42,7 @@ const tree = [
 		text: 'Серверы',
 		drag: false,
 		drop: true,
-		type: 1,
+		type: 0,
 		children: [
 			{
 				id: uid(),
