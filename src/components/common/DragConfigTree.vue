@@ -5,6 +5,7 @@ import '@he-tree/vue/style/default.css'
 import { useDvServ } from '@/stores/dvservConfig'
 import ConfirmDialog from '@/components/tree/ConfirmDialog.vue'
 import { uid } from 'quasar'
+import { useRouter } from 'vue-router'
 
 interface Props {
 	id: string
@@ -51,10 +52,14 @@ const isDrop = (targetStat: Stat) => {
 		return true
 	} else return false
 }
+
+const router = useRouter()
 const select = (e: Stat) => {
 	tree.value.statsFlat.map((item: Stat) => (item.data.selected = false))
 	e.data.selected = true
 	serv.setCurrent(e)
+	const url = '/root/par/' + e.data.text
+	router.push(url)
 }
 const toggle = (stat: any) => {
 	stat.open = !stat.open
@@ -119,16 +124,15 @@ const showAdd = ref(false)
 const name = ref('')
 const descripiton = ref('')
 
-const createConf = () => {
+const createClaster = () => {
 	const tmp = {
 		id: uid(),
 		text: name.value,
-		type: 2,
+		type: 4,
 		drag: true,
-		drop: false,
+		drop: true,
 		selected: true,
-		icon: 'mdi-code-braces',
-		env: 'dev',
+		icon: 'mdi-folder-outline',
 	}
 	tree.value.add(
 		tmp,
@@ -169,13 +173,13 @@ Draggable(ref="tree"
 			div
 				q-chip(v-if="node.env" size="sm" :class="node.env") {{ node.env }}
 
-ConfirmDialog(v-model="showAdd" zag="Новая конфигурация")
+ConfirmDialog(v-model="showAdd" zag="Создать кластер")
 	template(#content)
 		q-input(v-model="name" filled label="Название")
 		q-input.q-mt-sm(v-model="descripiton" filled label="Описание")
 	template(#actions)
 		q-btn(flat color="primary" label="Отмена" v-close-popup)
-		q-btn(unelevated color="primary" label="Создать" @click="createConf" v-close-popup) 
+		q-btn(unelevated color="primary" label="Создать" :disable="!name.length" @click="createClaster" v-close-popup) 
 </template>
 
 <style scoped lang="scss">

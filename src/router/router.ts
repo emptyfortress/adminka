@@ -37,12 +37,12 @@ export const router = createRouter({
 			path: '/root',
 			name: 'root',
 			component: () => import('@/pages/Root.vue'),
-			meta: { title: 'Модули', bread: [{ label: 'Dashboard', to: '/' }] },
+			meta: { title: 'Серверы', bread: [{ label: 'Dashboard', to: '/' }] },
 			children: [
-				{
-					path: 'dvserver',
-					component: () => import('@/components/Dvserver.vue'),
-				},
+				// {
+				// 	path: 'dvserver',
+				// 	component: () => import('@/components/Dvserver.vue'),
+				// },
 				{
 					path: 'par/:id',
 					component: () => import('@/components/tree/Zaglushka.vue'),
