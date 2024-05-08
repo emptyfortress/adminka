@@ -33,26 +33,26 @@ const list = reactive([
 const selected = ref()
 const select = (e: any) => {
 	selected.value = e.label
-	// router.replace('/database/AGSupport#' + e.field)
 	document.getElementById(e.field)?.scrollIntoView({ behavior: 'smooth' })
 }
 const serv = useServ()
-// const path = computed(() => {
-// 	return route.fullPath()
-// })
+const bread = computed(() => {
+	let temp = route.fullPath.split('/')
+	return temp.slice(3)
+})
 </script>
 
 <template lang="pug">
 q-page
 	.bread
 		q-breadcrumbs
-			q-breadcrumbs-el(v-for="item in route.meta.bread" :label="item.label" :icon="item.icon" @click="router.back")
-			q-breadcrumbs-el(:label="current.data.text")
+			q-icon(name="mdi-arrow-left" color="primary")
+			q-breadcrumbs-el(:label="route.params.id" @click="router.back")
+			q-breadcrumbs-el(v-for="item in route.meta.bread" :label="item.label")
 			q-space
 			q-btn(flat color="primary" label="Отмена" size="md") 
 			q-btn(unelevated color="primary" label="Применить" size="md") 
 
-	// pre {{ route.fullPath }}
 	.container
 		.grid
 			q-list.left(dense)
