@@ -2,7 +2,7 @@
 import { ref, reactive, watch, watchEffect, computed } from 'vue'
 import { Draggable, dragContext } from '@he-tree/vue'
 import '@he-tree/vue/style/default.css'
-import { useDvServ } from '@/stores/dvservConfig'
+import { useServ } from '@/stores/dvservConfig'
 import ConfirmDialog from '@/components/tree/ConfirmDialog.vue'
 import { uid } from 'quasar'
 import { useRouter } from 'vue-router'
@@ -25,8 +25,8 @@ const props = defineProps<{
 }>()
 
 const tree = ref()
+const serv = useServ()
 const list = ref(props.treeData)
-const serv = useDvServ()
 
 const isDrag = (e: any) => {
 	if (e.data.drag) return true

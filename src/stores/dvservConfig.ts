@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia'
 
-export const useDvServ = defineStore({
-	id: 'dvserv',
+export const useServ = defineStore({
+	id: 'serv',
 	state: () => ({
 		currentNode: null as Stat | null,
 		checkedNodes: [] as Stat[],
