@@ -62,7 +62,7 @@ const list = [
 	},
 ]
 
-const goto = e => {
+const goto = (e: string) => {
 	router.push('/root/par/' + props.id + e)
 }
 </script>
@@ -72,7 +72,7 @@ div
 	q-card(flat)
 		q-card-section
 			.flex.q-gutter-lg
-				q-icon(name="mdi-information" color="secondary" size="lg" @click="test")
+				q-icon(name="mdi-information" color="secondary" size="lg")
 				div Тут информация про машину
 
 	.zg Компоненты

@@ -47,7 +47,7 @@ q-page
 	.bread
 		q-breadcrumbs
 			q-icon(name="mdi-arrow-left" color="primary")
-			q-breadcrumbs-el(:label="route.params.id" @click="router.back")
+			q-breadcrumbs-el(:label="route.params.id.toString()" @click="router.back")
 			q-breadcrumbs-el(v-for="item in route.meta.bread" :label="item.label")
 			q-space
 			q-btn(flat color="primary" label="Отмена" size="md") 

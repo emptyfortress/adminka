@@ -110,30 +110,28 @@ const goto = (e: string) => {
 	q-table(:rows='store.databases' :columns='columns' row-key='name' hide-bottom)
 		template(v-slot:body='props')
 			q-tr(:props='props' :class='{ cool: props.row.def }' @click="goto(props.row.psevdo)")
-				q-td(key="active" :props="props" )
+				q-td(key="active" :props="props" auto-width)
 					q-icon(name="mdi-circle-slice-8" color="green" v-if="props.row.active")
 						q-tooltip Доступна
 					q-icon(name="mdi-circle-slice-8" color="red" v-else)
 						q-tooltip Недоступна
-				q-td(key="psevdo" :props='props' )
+				q-td(key="psevdo" :props='props')
 					span {{ props.row.psevdo }}
-				q-td(key='servertype' :props='props' ) {{ props.row.servertype }}
-				q-td(key='index' :props='props' ) {{ props.row.index }}
-				q-td(key='cache' :props='props' ) {{ props.row.cache }}
-				q-td(key='date' :props='props' ) {{ props.row.date }}
-
-				q-td.text-center(key='def' :props='props' )
+				q-td(key='server' :props='props') {{ props.row.server }}
+				q-td(key='servertype' :props='props') {{ props.row.servertype }}
+				q-td(key='index' :props='props') {{ props.row.index }}
+				q-td(key='version' :props='props') {{ props.row.version }}
+				q-td(key='cache' :props='props') {{ props.row.cache }}
+				q-td(key='date' :props='props') {{ props.row.date }}
+				q-td.text-center(key='def' :props='props')
 					q-icon(name="mdi-check-bold" color="primary" size="sm" v-if="props.row.def")
 					q-btn(flat color="primary" label="Назначить" v-else size="sm" @click.stop='assign(props.row.psevdo)')
-
-				q-td.text-right(key='action' :props='props' )
-
+				q-td.text-right(key='def' :props='props')
 					q-btn.q-mr-md(:props="props" round flat icon='mdi-trash-can-outline' size='sm' dense @click.stop)
 						q-menu
 							q-list(:props="props")
 								q-item(clickable :props="props" @click="remove(props.row)" v-close-popup).pink
 									q-item-section Удалить
-
 					q-btn(:props="props" round flat icon='mdi-chevron-right' size='md' dense)
 
 	.q-gutter-x-xs.q-mt-sm

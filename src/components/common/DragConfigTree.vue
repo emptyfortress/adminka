@@ -142,7 +142,7 @@ Draggable(ref="tree"
 				q-btn(flat round icon="mdi-sync" dense color="secondary" @click="" v-if="node.id == 'servers'")
 				q-btn(flat round icon="mdi-plus-circle" dense color="secondary" @click="toggleAdd" v-if="node.type == '0'")
 
-		.node(v-else @click="select(stat)" :class="{ 'selected': stat.data.selected }" :draggable="true" @dragstart="startDrag(stat)")
+		.node(v-else @click="select(stat)" :class="{ 'selected': stat.data.selected }")
 			.q-gutter-x-sm
 				q-icon.trig(name="mdi-chevron-down" @click.stop="toggle(stat)" :class="{ 'closed': !stat.open }" v-if="stat.children.length")
 				q-icon(:name="node.icon" size="18px" v-if="node.icon")

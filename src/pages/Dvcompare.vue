@@ -2,12 +2,12 @@
 import { ref, computed, reactive } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { tree } from '@/stores/confTree1'
-import { useDvServ } from '@/stores/dvservConfig'
+import { useServ } from '@/stores/dvservConfig'
 import AppServerInside from '@/components/tree/AppServerInside.vue'
 
 const route = useRoute()
 const router = useRouter()
-const serv = useDvServ()
+const serv = useServ()
 
 const list = reactive([
 	// { id: 0, label: 'Лицензия', selected: false },
