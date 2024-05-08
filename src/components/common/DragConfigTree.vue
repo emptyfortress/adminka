@@ -5,7 +5,7 @@ import '@he-tree/vue/style/default.css'
 import { useServ } from '@/stores/dvservConfig'
 import ConfirmDialog from '@/components/tree/ConfirmDialog.vue'
 import { uid } from 'quasar'
-import { useRouter } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 
 interface Props {
 	id: string
@@ -54,6 +54,7 @@ const isDrop = (targetStat: Stat) => {
 }
 
 const router = useRouter()
+
 const select = (e: Stat) => {
 	tree.value.statsFlat.map((item: Stat) => (item.data.selected = false))
 	e.data.selected = true
@@ -80,42 +81,19 @@ watchEffect(() => {
 		})
 	} else tree.value?.statsFlat.map((item: Stat) => (item.hidden = false))
 })
-const length1 = computed(() => {
-	return props.treeData[0].children!.length
-})
-const length2 = computed(() => {
+const length = computed(() => {
 	return tree.value?.statsFlat.filter((el: Stat) => el.data.type == 3).length
 })
 
+const route = useRoute()
 watch(
-	() => serv.removeNode,
-	() => {
-		serv.currentNode = null
-		tree.value.remove(serv.removeNode)
+	() => route.name,
+	(newId, oldId) => {
+		if ((newId = 'root')) {
+			tree.value.statsFlat.map((item: Stat) => (item.data.selected = false))
+		}
 	}
 )
-watch(
-	() => serv.dubleNode,
-	() => {
-		tree.value.statsFlat.map((item: Stat) => (item.data.selected = false))
-		let tmp = {} as any
-		tmp.id = uid()
-		tmp.text = serv.dubleNode!.data.text + '-copy'
-		tmp.icon = 'mdi-code-braces'
-		tmp.env = serv.dubleNode!.data.env
-		tmp.type = serv.dubleNode!.data.type
-		tmp.selected = true
-		tree.value.add(
-			tmp,
-			tree.value.rootChildren[0],
-			tree.value.rootChildren[0].children.length
-		)
-		serv.setCurrent(tree.value.getStat(tmp))
-	}
-)
-const startDrag = (e: Stat) => {
-	serv.setDragged(e)
-}
 
 const toggleAdd = () => {
 	showAdd.value = !showAdd.value
@@ -159,8 +137,7 @@ Draggable(ref="tree"
 			div
 				q-icon.trig(name="mdi-chevron-down" @click.stop="toggle(stat)" :class="{ 'closed': !stat.open }")
 				span {{node.text}}
-				span.q-ml-md(v-if="node.id == 'conf'") ({{ length1 }})
-				span.q-ml-md(v-if="node.id == 'servers'") ({{ length2 }})
+				span.q-ml-md ({{ length }})
 			div
 				q-btn(flat round icon="mdi-sync" dense color="secondary" @click="" v-if="node.id == 'servers'")
 				q-btn(flat round icon="mdi-plus-circle" dense color="secondary" @click="toggleAdd" v-if="node.type == '0'")

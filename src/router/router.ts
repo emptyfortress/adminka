@@ -8,7 +8,7 @@ declare module 'vue-router' {
 		icon?: string
 	}
 	interface RouteMeta {
-		title: string
+		title?: string
 		bread?: Bread[]
 	}
 }
@@ -27,46 +27,23 @@ export const router = createRouter({
 			},
 		},
 		{
-			path: '/calendar',
-			name: 'calendar',
-			component: () => import('@/components/Calendar.vue'),
-			meta: { title: 'Calendar', bread: [{ label: 'Dashboard', to: '/' }] },
-		},
-
-		{
 			path: '/root',
 			name: 'root',
 			component: () => import('@/pages/Root.vue'),
 			meta: { title: 'Серверы', bread: [{ label: 'Dashboard', to: '/' }] },
 			children: [
-				// {
-				// 	path: 'dvserver',
-				// 	component: () => import('@/components/Dvserver.vue'),
-				// },
 				{
 					path: 'par/:id',
+					name: 'machine',
 					component: () => import('@/components/tree/Zaglushka.vue'),
 					props: true,
+					meta: { title: 'Сервер', bread: [{ label: 'Dashboard', to: '/' }] },
+					children: [],
 				},
 			],
 		},
 		{
-			path: '/dvcompare',
-			name: 'dvcompare',
-			component: () => import('@/pages/Dvcompare.vue'),
-			meta: {
-				title: 'Сервер приложений',
-				bread: [
-					{
-						label: 'Сервер приложений',
-						icon: 'mdi-arrow-left',
-						to: '/root/dvserver',
-					},
-				],
-			},
-		},
-		{
-			path: '/appserver/:id',
+			path: '/root/par/:id/appserver',
 			name: 'appserver',
 			component: () => import('@/pages/Appserver.vue'),
 			props: true,
@@ -89,47 +66,47 @@ export const router = createRouter({
 			meta: { title: 'Конфигурации', bread: [{ label: 'Dashboard', to: '/' }] },
 		},
 
-		{
-			path: '/setup1',
-			component: () => import('@/pages/Setup1.vue'),
-			meta: { title: 'Модули' },
-			children: [
-				{
-					path: '',
-					component: () => import('@/components/tree/Module.vue'),
-					meta: {
-						title: 'Модули',
-					},
-				},
-				{
-					path: 'appserver/configurations',
-					component: () => import('@/components/tree/Configurations.vue'),
-				},
-				{
-					path: 'appserver/database',
-					component: () => import('@/components/setupcomponent/Database.vue'),
-					meta: {
-						title: 'Модули',
-					},
-				},
-			],
-		},
-		{
-			path: '/database/:id',
-			name: 'database',
-			component: () => import('@/components/tree/InsideDB.vue'),
-			props: true,
-			meta: {
-				title: 'Модули',
-				bread: [
-					{
-						label: 'Базы данных',
-						icon: 'mdi-arrow-left',
-						to: 'appserver/configurations/SOL2016',
-					},
-				],
-			},
-		},
+		// {
+		// 	path: '/setup1',
+		// 	component: () => import('@/pages/Setup1.vue'),
+		// 	meta: { title: 'Модули' },
+		// 	children: [
+		// 		{
+		// 			path: '',
+		// 			component: () => import('@/components/tree/Module.vue'),
+		// 			meta: {
+		// 				title: 'Модули',
+		// 			},
+		// 		},
+		// 		{
+		// 			path: 'appserver/configurations',
+		// 			component: () => import('@/components/tree/Configurations.vue'),
+		// 		},
+		// 		{
+		// 			path: 'appserver/database',
+		// 			component: () => import('@/components/setupcomponent/Database.vue'),
+		// 			meta: {
+		// 				title: 'Модули',
+		// 			},
+		// 		},
+		// 	],
+		// },
+		// {
+		// 	path: '/database/:id',
+		// 	name: 'database',
+		// 	component: () => import('@/components/tree/InsideDB.vue'),
+		// 	props: true,
+		// 	meta: {
+		// 		title: 'Модули',
+		// 		bread: [
+		// 			{
+		// 				label: 'Базы данных',
+		// 				icon: 'mdi-arrow-left',
+		// 				to: 'appserver/configurations/SOL2016',
+		// 			},
+		// 		],
+		// 	},
+		// },
 		{
 			path: '/logs',
 			name: 'logs',

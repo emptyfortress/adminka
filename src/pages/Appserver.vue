@@ -2,7 +2,7 @@
 import { ref, computed, reactive } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { tree } from '@/stores/confTree1'
-import { useDvServ } from '@/stores/dvservConfig'
+import { useServ } from '@/stores/dvservConfig'
 import AppServerInside from '@/components/tree/AppServerInside.vue'
 
 const route = useRoute()
@@ -36,7 +36,10 @@ const select = (e: any) => {
 	// router.replace('/database/AGSupport#' + e.field)
 	document.getElementById(e.field)?.scrollIntoView({ behavior: 'smooth' })
 }
-const serv = useDvServ()
+const serv = useServ()
+// const path = computed(() => {
+// 	return route.fullPath()
+// })
 </script>
 
 <template lang="pug">
@@ -49,6 +52,7 @@ q-page
 			q-btn(flat color="primary" label="Отмена" size="md") 
 			q-btn(unelevated color="primary" label="Применить" size="md") 
 
+	// pre {{ route.fullPath }}
 	.container
 		.grid
 			q-list.left(dense)

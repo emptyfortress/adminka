@@ -3,11 +3,11 @@ import { ref } from 'vue'
 import { tree } from '@/stores/confTree1'
 import ConfigTree from '@/components/common/ConfigTree.vue'
 import DragConfigTree from '@/components/common/DragConfigTree.vue'
-import { useDvServ } from '@/stores/dvservConfig'
+import { useServ } from '@/stores/dvservConfig'
 import ConfirmDialog from '@/components/tree/ConfirmDialog.vue'
 import { useRouter } from 'vue-router'
 
-const serv = useDvServ()
+const serv = useServ()
 
 const filter = ref('')
 const description = ref('Здесь описание выбранного узла')
