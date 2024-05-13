@@ -24,16 +24,7 @@ const goBack = (to: string) => {
 		0,
 		route.matched[0].path.indexOf(to) + 1
 	)
-	// console.log(to)
 	console.log(matchedSegments)
-	// console.log(route.meta.bread)
-	// console.log(breadcrumbs.value)
-	// console.log(route)
-	// let path = route.fullPath.split('/')
-	// let split = path.splice(4, path.length)
-	// path = path.join('/')
-	// let fullp = path + '/' + e
-	// router.push(fullp)
 }
 </script>
 

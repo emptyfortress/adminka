@@ -88,8 +88,8 @@ const length = computed(() => {
 const route = useRoute()
 watch(
 	() => route.name,
-	(newId, oldId) => {
-		if ((newId = 'root')) {
+	newPath => {
+		if (newPath !== 'machine') {
 			tree.value.statsFlat.map((item: Stat) => (item.data.selected = false))
 		}
 	}
