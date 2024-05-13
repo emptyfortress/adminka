@@ -11,7 +11,7 @@ const props = defineProps({
 			name: 'AGSupport_1',
 			server: 'Docsvision 1',
 			index: 'yes',
-			version: 4373,
+			version: '4373',
 			date: '20.10.2021',
 			def: true,
 		},

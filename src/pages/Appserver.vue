@@ -1,12 +1,12 @@
 <script setup lang="ts">
 import { ref, computed, reactive } from 'vue'
-import { useRoute, useRouter } from 'vue-router'
+import { useRoute } from 'vue-router'
 import { tree } from '@/stores/confTree1'
 import { useServ } from '@/stores/dvservConfig'
 import AppServerInside from '@/components/tree/AppServerInside.vue'
+import BreadCrumbs from '@/components/tree/BreadCrumbs.vue'
 
 const route = useRoute()
-const router = useRouter()
 
 const current = computed(() => {
 	const flat = [...tree[0].children, ...tree[1].children]
@@ -36,23 +36,11 @@ const select = (e: any) => {
 	document.getElementById(e.field)?.scrollIntoView({ behavior: 'smooth' })
 }
 const serv = useServ()
-const bread = computed(() => {
-	let temp = route.fullPath.split('/')
-	return temp.slice(3)
-})
 </script>
 
 <template lang="pug">
 q-page
-	.bread
-		q-breadcrumbs
-			q-icon(name="mdi-arrow-left" color="primary")
-			q-breadcrumbs-el(:label="route.params.id.toString()" @click="router.back")
-			q-breadcrumbs-el(v-for="item in route.meta.bread" :label="item.label")
-			q-space
-			q-btn(flat color="primary" label="Отмена" size="md") 
-			q-btn(unelevated color="primary" label="Применить" size="md") 
-
+	BreadCrumbs
 	.container
 		.grid
 			q-list.left(dense)

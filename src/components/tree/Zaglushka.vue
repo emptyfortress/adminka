@@ -63,7 +63,7 @@ const list = [
 ]
 
 const goto = (e: string) => {
-	router.push('/root/par/' + props.id + e)
+	router.push('/root/' + props.id + e)
 }
 </script>
 

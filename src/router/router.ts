@@ -33,7 +33,7 @@ export const router = createRouter({
 			meta: { title: 'Серверы', bread: [{ label: 'Dashboard', to: '/' }] },
 			children: [
 				{
-					path: 'par/:id',
+					path: ':id',
 					name: 'machine',
 					component: () => import('@/components/tree/Zaglushka.vue'),
 					props: true,
@@ -43,7 +43,7 @@ export const router = createRouter({
 			],
 		},
 		{
-			path: '/root/par/:id/appserver',
+			path: '/root/:id/appserver',
 			name: 'appserver',
 			component: () => import('@/pages/Appserver.vue'),
 			props: true,
@@ -52,14 +52,13 @@ export const router = createRouter({
 				bread: [
 					{
 						label: 'Сервер приложений',
-						icon: 'mdi-arrow-left',
-						to: '/root/dvserver',
+						to: '',
 					},
 				],
 			},
 		},
 		{
-			path: '/root/par/:id/appserver/database/:bd',
+			path: '/root/:id/appserver/:bd',
 			name: 'db',
 			component: () => import('@/components/tree/InsideDB.vue'),
 			props: true,
@@ -68,8 +67,15 @@ export const router = createRouter({
 				bread: [
 					{
 						label: 'Сервер приложений',
-						icon: 'mdi-arrow-left',
-						to: '/root/dvserver',
+						to: 'appserver',
+					},
+					{
+						label: 'База данных',
+						to: 'database',
+					},
+					{
+						label: 'Ag',
+						to: '',
 					},
 				],
 			},

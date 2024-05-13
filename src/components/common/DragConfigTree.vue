@@ -59,7 +59,7 @@ const select = (e: Stat) => {
 	tree.value.statsFlat.map((item: Stat) => (item.data.selected = false))
 	e.data.selected = true
 	serv.setCurrent(e)
-	const url = '/root/par/' + e.data.text
+	const url = '/root/' + e.data.text
 	router.push(url)
 }
 const toggle = (stat: any) => {

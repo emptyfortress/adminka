@@ -102,7 +102,7 @@ const columns: QTableProps['columns'] = [
 	{ name: 'action', align: 'right', label: '', field: '' },
 ]
 const goto = (e: string) => {
-	router.push(route.fullPath + '/database/' + e)
+	router.push(route.fullPath + '/' + e)
 }
 </script>
 

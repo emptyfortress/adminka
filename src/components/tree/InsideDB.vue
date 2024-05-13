@@ -9,6 +9,7 @@ import Outer from '@/components/setupcomponent/Outer.vue'
 import ArchTab from '@/components/setupcomponent/ArchTab.vue'
 import CacheTab from '@/components/setupcomponent/CacheTab.vue'
 import ModuleTab from '@/components/setupcomponent/ModuleTab.vue'
+import BreadCrumbs from '@/components/tree/BreadCrumbs.vue'
 
 const props = defineProps({
 	id: {
@@ -35,50 +36,33 @@ const currentDB = computed(() => {
 </script>
 
 <template lang="pug">
-q-page(padding)
-	.treepage
-		q-breadcrumbs
-			q-breadcrumbs-el(v-for="item in route.meta.bread" :label="item.label" :icon="item.icon" @click="router.back")
-			q-breadcrumbs-el(:label="route.params.id.toString()")
-			q-space
-			q-btn(flat color="primary" label="Отмена" size="md") 
-			q-btn(unelevated color="primary" label="Применить" size="md") 
+q-page
+	BreadCrumbs
+	.container
+		.grid
+			q-list.left(dense)
+				q-item(clickable v-for="item in tabs.tabs" :key="item.id" :class="{selected: selected == item.label}" @click="select(item)")
+					q-item-section
+						q-item-label {{ item.label }}
 
-	.grid
-		q-list.left(dense)
-			q-item(clickable v-for="item in tabs.tabs" :key="item.id" :class="{selected: selected == item.label}" @click="select(item)")
-				q-item-section
-					q-item-label {{ item.label }}
-
-		q-scroll-area.right
-			.q-ml-lg
-				#prop.zg Свойства базы данных
-				PropertyTab(:bd="currentDB")
-				#control.zg Обслуживание
-				ControlTab
-				#outer.zg Внешние хранилища
-				Outer
-				#arch.zg Архивирование
-				ArchTab
-				#cache.zg Кэширование
-				CacheTab
-				#module.zg Дополнительные настройки
-				ModuleTab
+			q-scroll-area.right
+				.q-ml-lg
+					#prop.zg Свойства базы данных
+					PropertyTab(:bd="currentDB")
+					#control.zg Обслуживание
+					ControlTab
+					#outer.zg Внешние хранилища
+					Outer
+					#arch.zg Архивирование
+					ArchTab
+					#cache.zg Кэширование
+					CacheTab
+					#module.zg Дополнительные настройки
+					ModuleTab
 
 </template>
 
 <style scoped lang="scss">
-.q-breadcrumbs {
-	font-size: 1.1rem;
-	border-bottom: 1px solid #aaa;
-	margin-bottom: 1rem;
-	:deep(.q-icon) {
-		color: $primary !important;
-	}
-	.q-link {
-		cursor: pointer;
-	}
-}
 .grid {
 	display: grid;
 	grid-template-columns: auto 1fr;
@@ -109,5 +93,8 @@ q-page(padding)
 	height: calc(100vh - 165px);
 	width: 100%;
 	// background: pink;
+}
+.container {
+	margin: 1rem 2rem;
 }
 </style>
