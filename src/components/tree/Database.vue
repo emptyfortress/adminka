@@ -4,12 +4,13 @@ import ChangeDialog from '@/components/setupcomponent/ChangeDialog.vue'
 import MasterDatabase from '@/components/setupcomponent/MasterDatabase.vue'
 import EditDatabase from '@/components/setupcomponent/EditDatabase.vue'
 import type { QTableProps } from 'quasar'
-import { useRouter } from 'vue-router'
+import { useRouter, useRoute } from 'vue-router'
 import { useStore } from '@/stores/store'
 
 const store = useStore()
 
 const router = useRouter()
+const route = useRoute()
 
 const change = ref(false)
 const bdRow = ref()
@@ -101,7 +102,7 @@ const columns: QTableProps['columns'] = [
 	{ name: 'action', align: 'right', label: '', field: '' },
 ]
 const goto = (e: string) => {
-	router.push('/database/' + e)
+	router.push(route.fullPath + '/database/' + e)
 }
 </script>
 

@@ -58,6 +58,22 @@ export const router = createRouter({
 				],
 			},
 		},
+		{
+			path: '/root/par/:id/appserver/database/:bd',
+			name: 'db',
+			component: () => import('@/components/tree/InsideDB.vue'),
+			props: true,
+			meta: {
+				title: 'База данных',
+				bread: [
+					{
+						label: 'Сервер приложений',
+						icon: 'mdi-arrow-left',
+						to: '/root/dvserver',
+					},
+				],
+			},
+		},
 
 		{
 			path: '/setup0',
@@ -65,48 +81,6 @@ export const router = createRouter({
 			component: () => import('@/components/Configuration1.vue'),
 			meta: { title: 'Конфигурации', bread: [{ label: 'Dashboard', to: '/' }] },
 		},
-
-		// {
-		// 	path: '/setup1',
-		// 	component: () => import('@/pages/Setup1.vue'),
-		// 	meta: { title: 'Модули' },
-		// 	children: [
-		// 		{
-		// 			path: '',
-		// 			component: () => import('@/components/tree/Module.vue'),
-		// 			meta: {
-		// 				title: 'Модули',
-		// 			},
-		// 		},
-		// 		{
-		// 			path: 'appserver/configurations',
-		// 			component: () => import('@/components/tree/Configurations.vue'),
-		// 		},
-		// 		{
-		// 			path: 'appserver/database',
-		// 			component: () => import('@/components/setupcomponent/Database.vue'),
-		// 			meta: {
-		// 				title: 'Модули',
-		// 			},
-		// 		},
-		// 	],
-		// },
-		// {
-		// 	path: '/database/:id',
-		// 	name: 'database',
-		// 	component: () => import('@/components/tree/InsideDB.vue'),
-		// 	props: true,
-		// 	meta: {
-		// 		title: 'Модули',
-		// 		bread: [
-		// 			{
-		// 				label: 'Базы данных',
-		// 				icon: 'mdi-arrow-left',
-		// 				to: 'appserver/configurations/SOL2016',
-		// 			},
-		// 		],
-		// 	},
-		// },
 		{
 			path: '/logs',
 			name: 'logs',
