@@ -3,8 +3,8 @@ import Home from '@/pages/Home.vue'
 
 declare module 'vue-router' {
 	interface Bread {
-		label: string
-		to: string
+		label?: string
+		to?: string
 		icon?: string
 	}
 	interface RouteMeta {
@@ -37,11 +37,11 @@ export const router = createRouter({
 					name: 'machine',
 					component: () => import('@/components/tree/Zaglushka.vue'),
 					props: true,
-					meta: { title: 'Сервер', bread: [{ label: 'Dashboard', to: '/' }] },
 					children: [],
 				},
 			],
 		},
+
 		{
 			path: '/root/:id/appserver',
 			name: 'appserver',
@@ -51,12 +51,15 @@ export const router = createRouter({
 				title: 'Сервер приложений',
 				bread: [
 					{
-						label: 'Сервер приложений',
 						to: '',
+					},
+					{
+						label: 'Сервер приложений',
 					},
 				],
 			},
 		},
+
 		{
 			path: '/root/:id/appserver/:bd',
 			name: 'db',
@@ -68,14 +71,6 @@ export const router = createRouter({
 					{
 						label: 'Сервер приложений',
 						to: 'appserver',
-					},
-					{
-						label: 'База данных',
-						to: 'database',
-					},
-					{
-						label: 'Ag',
-						to: '',
 					},
 				],
 			},

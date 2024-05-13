@@ -33,6 +33,9 @@ const select = (e: any) => {
 const currentDB = computed(() => {
 	return store.databases.find(item => item.psevdo == props.id)
 })
+const test = () => {
+	console.log(route.matched)
+}
 </script>
 
 <template lang="pug">
@@ -47,7 +50,7 @@ q-page
 
 			q-scroll-area.right
 				.q-ml-lg
-					#prop.zg Свойства базы данных
+					#prop.zg(@click="test") Свойства базы данных
 					PropertyTab(:bd="currentDB")
 					#control.zg Обслуживание
 					ControlTab

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useRouter } from 'vue-router'
+import { useRouter, useRoute } from 'vue-router'
 
 const router = useRouter()
 
@@ -65,6 +65,11 @@ const list = [
 const goto = (e: string) => {
 	router.push('/root/' + props.id + e)
 }
+
+const route = useRoute()
+const test = () => {
+	console.log(route.matched)
+}
 </script>
 
 <template lang="pug">
@@ -72,7 +77,7 @@ div
 	q-card(flat)
 		q-card-section
 			.flex.q-gutter-lg
-				q-icon(name="mdi-information" color="secondary" size="lg")
+				q-icon(name="mdi-information" color="secondary" size="lg" @click="test")
 				div Тут информация про машину
 
 	.zg Компоненты
