@@ -6,7 +6,7 @@ const route = useRoute()
 const router = useRouter()
 
 const goBack = (idx: number) => {
-	console.log(route.matched)
+	// console.log(route.matched)
 }
 </script>
 
