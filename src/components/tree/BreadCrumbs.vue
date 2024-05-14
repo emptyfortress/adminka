@@ -5,15 +5,15 @@ import { useRoute, useRouter } from 'vue-router'
 const route = useRoute()
 const router = useRouter()
 
-const goBack = (idx: number) => {
-	// console.log(route.matched)
-}
+// const goBack = (idx: number) => {
+// 	console.log(route.matched)
+// }
 </script>
 
 <template lang="pug">
 .bread
 	q-breadcrumbs
-		div(@click="goBack") Здесь будет breadcrumbs
+		div Здесь будет breadcrumbs
 		// q-icon(name="mdi-arrow-left" color="primary")
 		// q-breadcrumbs-el(:label="route.params.id.toString()" @click="router.back")
 		// q-breadcrumbs-el(v-for="(bread, idx) in route.matched" :key="idx" :label="bread.name" :to="bread.path")
