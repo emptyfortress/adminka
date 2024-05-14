@@ -63,12 +63,12 @@ export const router = createRouter({
 			],
 		},
 
-		// {
-		// 	path: '/root/:id/appserver/:bd',
-		// 	name: 'db',
-		// 	component: () => import('@/components/tree/InsideDB.vue'),
-		// 	props: true,
-		// },
+		{
+			path: '/root/:id+',
+			component: () => import('@/components/tree/Zagl.vue'),
+			name: 'zagl',
+			props: true,
+		},
 
 		{
 			path: '/setup0',
