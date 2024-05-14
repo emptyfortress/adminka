@@ -49,11 +49,7 @@ q-page
 						q-item-label {{ item.label }}
 			q-scroll-area.right
 				.q-ml-lg
-					.confzag
-						q-icon(:name="current.data.icon" color="secondary")
-						span {{ current.data.text}}
-						// q-icon(:name="serv.currentNode.data.icon" color="secondary")
-						// span {{ serv.currentNode.data.text}}
+					.confzag  Сервер приложений
 					AppServerInside
 	</template>
 

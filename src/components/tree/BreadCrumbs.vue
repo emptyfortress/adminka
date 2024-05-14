@@ -16,12 +16,16 @@ const crumbs = computed(() => {
 			to: breadcrumbArray[idx - 1]
 				? '/' + breadcrumbArray[idx - 1].path + '/' + path
 				: '/' + path,
-			text: route.matched[idx].meta?.bread || path,
+			text: path,
 		})
 		return breadcrumbArray
 	}, [])
+	breadcrumbs[0].text = 'Серверы'
+	breadcrumbs[2].text = 'Сервер приложений'
+	breadcrumbs[2].to = '/root/DVM/appserver'
 	return breadcrumbs
 })
+
 const action = () => {
 	console.log(crumbs.value)
 }
@@ -29,17 +33,15 @@ const action = () => {
 
 <template lang="pug">
 .bread
-	q-btn(unelevated color="primary" label="Отмена" @click="action") 
-	// pre {{ crumbs }}
-	// q-breadcrumbs
-		// div(@click="goBack") bread
-		// q-icon(name="mdi-arrow-left" color="primary")
+	// q-btn(unelevated color="primary" label="Отмена" @click="action") 
+	q-breadcrumbs
+		q-icon(name="mdi-arrow-left" color="primary")
 		// q-breadcrumbs-el(:label="route.params.id.toString()" @click="router.back")
 		// q-breadcrumbs-el(v-for="(bread, idx) in route.matched" :key="idx" :label="bread.name" :to="bread.path")
-		// q-breadcrumbs-el(v-for="(bread, idx) in breadcrumbs" :key="idx" :label="bread.label" @click="goBack(idx)")
-		// q-space
-		// q-btn(flat color="primary" label="Отмена" size="md") 
-		// q-btn(unelevated color="primary" label="Применить" size="md") 
+		q-breadcrumbs-el(v-for="(bread, idx) in crumbs" :key="idx" :label="bread.text" :to="bread.to")
+		q-space
+		q-btn(flat color="primary" label="Отмена" size="md") 
+		q-btn(unelevated color="primary" label="Применить" size="md") 
 </template>
 
 <style scoped lang="scss"></style>
