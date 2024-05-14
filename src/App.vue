@@ -3,6 +3,7 @@ import { ref } from 'vue'
 import { useQuasar } from 'quasar'
 import Drawer from '@/components/Drawer.vue'
 import RDrawer from '@/components/RDrawer.vue'
+import { useRoute } from 'vue-router'
 
 const rightDrawer = ref(false)
 const ru = ref(true)
@@ -15,13 +16,18 @@ const dark = () => {
 	$q.dark.toggle()
 }
 const query = ref('')
+
+const route = useRoute()
+const match = () => {
+	console.log(route.matched)
+}
 </script>
 
 <template lang="pug">
 q-layout(view="hHh LpR lFr")
 	q-header.head
 		q-toolbar
-			img(src="@/assets/img/adm-logo.svg")
+			img(src="@/assets/img/adm-logo.svg" @click="match")
 			q-toolbar-title.text-uppercase Docsvision 5 консоль управления
 			q-input(v-model="query" standout dense clearable placeholder="Найти настройку")
 				template(v-slot:prepend)

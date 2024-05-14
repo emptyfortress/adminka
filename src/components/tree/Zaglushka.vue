@@ -1,5 +1,8 @@
 <script setup lang="ts">
+import { ref, computed, reactive } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
+import { tree } from '@/stores/serverTree'
+import { getMembers } from '@/utils/utils'
 
 const router = useRouter()
 
@@ -43,7 +46,7 @@ const list = [
 		id: 4,
 		url: '/mailserver',
 		label: 'Почтовый сервер',
-		descr: 'Настройки почты и почтового клиента',
+		descr: 'Настройки подключения к почтовому серверу',
 		state: 0,
 	},
 	{
@@ -67,9 +70,24 @@ const goto = (e: string) => {
 }
 
 const route = useRoute()
+
 const test = () => {
-	console.log(route.matched)
+	console.log(current.value)
 }
+const current = computed(() => {
+	let flat = getMembers(tree)
+	let curr = flat.find((item: any) => {
+		return item.text == props.id
+	})
+	return curr
+})
+
+// const fuck = ref(props.id)
+// const property = reactive([
+// 	{ label: 'Имя устройства', val: fuck.value.id },
+// 	{ label: 'Псевдоним устройства', val: fuck.value.psevdo },
+// 	{ label: 'Операционная система', val: fuck.value.system },
+// ])
 </script>
 
 <template lang="pug">
@@ -78,7 +96,13 @@ div
 		q-card-section
 			.flex.q-gutter-lg
 				q-icon(name="mdi-information" color="secondary" size="lg" @click="test")
-				div Тут информация про машину
+				.grid
+					label Имя устройства:
+					.val {{ current.text }}
+					label Псевдоним устройства:
+					.val {{ current.psevdo }}
+					label Операционная система:
+					.val {{ current.system }}
 
 	.zg Компоненты
 	q-list(separator)
@@ -108,5 +132,16 @@ div
 }
 .descr {
 	font-size: 0.9rem;
+}
+.grid {
+	display: grid;
+	grid-template-columns: auto 1fr;
+	// justify-items: start;
+	// align-items: stretch;
+	column-gap: 1rem;
+	// row-gap: 0.5rem;
+}
+.val {
+	font-weight: 600;
 }
 </style>

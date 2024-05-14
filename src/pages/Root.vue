@@ -5,7 +5,6 @@ import { tree } from '@/stores/serverTree'
 import DragConfigTree from '@/components/common/DragConfigTree.vue'
 import { useServ } from '@/stores/dvservConfig'
 import { getMembers } from '@/utils/utils'
-import BreadCrumbs from '@/components/tree/BreadCrumbs.vue'
 
 const route = useRoute()
 const split1 = ref(22)

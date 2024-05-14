@@ -37,6 +37,7 @@ export const router = createRouter({
 					name: 'machine',
 					component: () => import('@/components/tree/Zaglushka.vue'),
 					props: true,
+					meta: {},
 					children: [],
 				},
 			],
@@ -44,36 +45,29 @@ export const router = createRouter({
 
 		{
 			path: '/root/:id/appserver',
-			name: 'appserver',
-			component: () => import('@/pages/Appserver.vue'),
-			props: true,
-			meta: {
-				title: 'Сервер приложений',
-				bread: [
-					{
-						label: 'Сервер',
-					},
-					{
-						label: 'Сервер приложений',
-					},
-				],
-			},
+			children: [
+				{
+					path: '',
+					component: () => import('@/pages/Appserver.vue'),
+					props: true,
+					name: 'appserver',
+					meta: {},
+				},
+				{
+					path: ':bd',
+					name: 'db',
+					component: () => import('@/components/tree/InsideDB.vue'),
+					props: true,
+					meta: {},
+				},
+			],
 		},
 
 		{
-			path: '/root/:id/appserver/:bd',
-			name: 'db',
-			component: () => import('@/components/tree/InsideDB.vue'),
+			path: '/root/:id+',
+			component: () => import('@/components/tree/Zagl.vue'),
+			name: 'zagl',
 			props: true,
-			meta: {
-				title: 'База данных',
-				bread: [
-					{
-						label: 'Сервер приложений',
-						to: 'appserver',
-					},
-				],
-			},
 		},
 
 		{
