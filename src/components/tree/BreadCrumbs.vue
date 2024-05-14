@@ -26,6 +26,10 @@ const crumbs = computed(() => {
 	breadcrumbs[0].text = 'Серверы'
 	breadcrumbs[2].text = 'Сервер приложений'
 	breadcrumbs[2].to = '/root/DVM/appserver'
+	if (route.name == 'zagl') {
+		breadcrumbs[2].text = route.params.id[1]
+		breadcrumbs[2].to = ''
+	}
 	return breadcrumbs
 })
 
@@ -36,15 +40,16 @@ const action = () => {
 
 <template lang="pug">
 .bread
-	// q-btn(unelevated color="primary" label="Отмена" @click="action") 
 	q-breadcrumbs
 		q-icon(name="mdi-arrow-left" color="primary")
-		// q-breadcrumbs-el(:label="route.params.id.toString()" @click="router.back")
-		// q-breadcrumbs-el(v-for="(bread, idx) in route.matched" :key="idx" :label="bread.name" :to="bread.path")
 		q-breadcrumbs-el(v-for="(bread, idx) in crumbs" :key="idx" :label="bread.text" :to="bread.to")
 		q-space
 		q-btn(flat color="primary" label="Отмена" size="md") 
 		q-btn(unelevated color="primary" label="Применить" size="md") 
 </template>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+.bread {
+	font-size: 0.9rem;
+}
+</style>

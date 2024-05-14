@@ -3,9 +3,10 @@ import Home from '@/pages/Home.vue'
 
 declare module 'vue-router' {
 	interface Bread {
-		label?: string
-		to?: string
-		icon?: string
+		br?: string
+		// label?: string
+		// to?: string
+		// icon?: string
 	}
 	interface RouteMeta {
 		title?: string
@@ -23,14 +24,14 @@ export const router = createRouter({
 			component: Home,
 			meta: {
 				title: 'Admin console',
-				bread: [{ label: 'Dashboard', to: '/' }],
+				// bread: [{ label: 'Dashboard', to: '/' }],
 			},
 		},
 		{
 			path: '/root',
 			name: 'root',
 			component: () => import('@/pages/Root.vue'),
-			meta: { title: 'Серверы', bread: [{ label: 'Dashboard', to: '/' }] },
+			// meta: { title: 'Серверы', bread: [{ label: 'Dashboard', to: '/' }] },
 			children: [
 				{
 					path: ':id',
@@ -51,7 +52,9 @@ export const router = createRouter({
 					component: () => import('@/pages/Appserver.vue'),
 					props: true,
 					name: 'appserver',
-					meta: {},
+					meta: {
+						br: 'Сервер приложений',
+					},
 				},
 				{
 					path: ':bd',
@@ -74,7 +77,7 @@ export const router = createRouter({
 			path: '/setup0',
 			name: 'configserver',
 			component: () => import('@/components/Configuration1.vue'),
-			meta: { title: 'Конфигурации', bread: [{ label: 'Dashboard', to: '/' }] },
+			// meta: { title: 'Конфигурации', bread: [{ label: 'Dashboard', to: '/' }] },
 		},
 		{
 			path: '/logs',
