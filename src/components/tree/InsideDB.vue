@@ -27,7 +27,8 @@ const selected = ref('Свойства')
 
 const select = (e: any) => {
 	selected.value = e.label
-	router.replace('/database/AGSupport#' + e.field)
+	let path = route.path
+	router.replace(path + '#' + e.field)
 	document.getElementById(e.field)?.scrollIntoView({ behavior: 'smooth' })
 }
 const currentDB = computed(() => {
