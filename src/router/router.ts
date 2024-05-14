@@ -51,7 +51,7 @@ export const router = createRouter({
 				title: 'Сервер приложений',
 				bread: [
 					{
-						to: '',
+						label: 'Сервер',
 					},
 					{
 						label: 'Сервер приложений',
