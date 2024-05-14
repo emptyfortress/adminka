@@ -5,7 +5,6 @@ import { tree } from '@/stores/serverTree'
 import DragConfigTree from '@/components/common/DragConfigTree.vue'
 import { useServ } from '@/stores/dvservConfig'
 import { getMembers } from '@/utils/utils'
-import BreadCrumbs from '@/components/tree/BreadCrumbs.vue'
 
 const route = useRoute()
 const split1 = ref(22)
@@ -27,7 +26,6 @@ const headline = computed(() => {
 
 <template lang="pug">
 q-page(padding)
-	// BreadCrumbs
 	.container
 		.zag
 			q-icon.q-mr-sm(name="mdi-server-outline" v-if="!route.params.id")

@@ -5,16 +5,34 @@ import { useRoute, useRouter } from 'vue-router'
 const route = useRoute()
 const router = useRouter()
 
-const goBack = (idx: number) => {
-	console.log(route.matched)
+const goBack = (idx: number) => {}
+
+const crumbs = computed(() => {
+	let pathArray = route.path.split('/')
+	pathArray.shift()
+	let breadcrumbs = pathArray.reduce((breadcrumbArray, path, idx) => {
+		breadcrumbArray.push({
+			path: path,
+			to: breadcrumbArray[idx - 1]
+				? '/' + breadcrumbArray[idx - 1].path + '/' + path
+				: '/' + path,
+			text: route.matched[idx].meta?.bread || path,
+		})
+		return breadcrumbArray
+	}, [])
+	return breadcrumbs
+})
+const action = () => {
+	console.log(crumbs.value)
 }
 </script>
 
 <template lang="pug">
 .bread
-	q-breadcrumbs
-		div(@click="goBack") bread
-		pre {{ route.matched.length }}
+	q-btn(unelevated color="primary" label="Отмена" @click="action") 
+	// pre {{ crumbs }}
+	// q-breadcrumbs
+		// div(@click="goBack") bread
 		// q-icon(name="mdi-arrow-left" color="primary")
 		// q-breadcrumbs-el(:label="route.params.id.toString()" @click="router.back")
 		// q-breadcrumbs-el(v-for="(bread, idx) in route.matched" :key="idx" :label="bread.name" :to="bread.path")
