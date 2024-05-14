@@ -44,17 +44,28 @@ export const router = createRouter({
 
 		{
 			path: '/root/:id/appserver',
-			name: 'appserver',
-			component: () => import('@/pages/Appserver.vue'),
-			props: true,
+			children: [
+				{
+					path: '',
+					component: () => import('@/pages/Appserver.vue'),
+					props: true,
+					name: 'appserver',
+				},
+				{
+					path: ':bd',
+					name: 'db',
+					component: () => import('@/components/tree/InsideDB.vue'),
+					props: true,
+				},
+			],
 		},
 
-		{
-			path: '/root/:id/appserver/:bd',
-			name: 'db',
-			component: () => import('@/components/tree/InsideDB.vue'),
-			props: true,
-		},
+		// {
+		// 	path: '/root/:id/appserver/:bd',
+		// 	name: 'db',
+		// 	component: () => import('@/components/tree/InsideDB.vue'),
+		// 	props: true,
+		// },
 
 		{
 			path: '/setup0',

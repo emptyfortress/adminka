@@ -14,7 +14,7 @@ const goBack = (idx: number) => {
 .bread
 	q-breadcrumbs
 		div(@click="goBack") bread
-		pre {{ route.matched }}
+		pre {{ route.matched.length }}
 		// q-icon(name="mdi-arrow-left" color="primary")
 		// q-breadcrumbs-el(:label="route.params.id.toString()" @click="router.back")
 		// q-breadcrumbs-el(v-for="(bread, idx) in route.matched" :key="idx" :label="bread.name" :to="bread.path")
