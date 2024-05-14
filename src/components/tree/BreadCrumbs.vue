@@ -10,16 +10,19 @@ const goBack = (idx: number) => {}
 const crumbs = computed(() => {
 	let pathArray = route.path.split('/')
 	pathArray.shift()
-	let breadcrumbs = pathArray.reduce((breadcrumbArray, path, idx) => {
-		breadcrumbArray.push({
-			path: path,
-			to: breadcrumbArray[idx - 1]
-				? '/' + breadcrumbArray[idx - 1].path + '/' + path
-				: '/' + path,
-			text: path,
-		})
-		return breadcrumbArray
-	}, [])
+	let breadcrumbs = pathArray.reduce(
+		(breadcrumbArray: any, path: string, idx: number) => {
+			breadcrumbArray.push({
+				path: path,
+				to: breadcrumbArray[idx - 1]
+					? '/' + breadcrumbArray[idx - 1].path + '/' + path
+					: '/' + path,
+				text: path,
+			})
+			return breadcrumbArray
+		},
+		[]
+	)
 	breadcrumbs[0].text = 'Серверы'
 	breadcrumbs[2].text = 'Сервер приложений'
 	breadcrumbs[2].to = '/root/DVM/appserver'
