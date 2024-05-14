@@ -12,6 +12,11 @@ interface Props {
 	children?: Props[]
 }
 
+const props = defineProps<{
+	treeData: Props[]
+	filter: string
+}>()
+
 const tree = ref()
 const expandedKeys = ref(['root'])
 const selectedKeys = ref(null)
