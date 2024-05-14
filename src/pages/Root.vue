@@ -27,6 +27,7 @@ const headline = computed(() => {
 
 <template lang="pug">
 q-page(padding)
+	// BreadCrumbs
 	.container
 		.zag
 			q-icon.q-mr-sm(name="mdi-server-outline" v-if="!route.params.id")

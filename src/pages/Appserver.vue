@@ -40,7 +40,7 @@ const serv = useServ()
 
 <template lang="pug">
 q-page
-	BreadCrumbs
+	// BreadCrumbs
 	.container
 		.grid
 			q-list.left(dense)

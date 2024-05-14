@@ -47,17 +47,6 @@ export const router = createRouter({
 			name: 'appserver',
 			component: () => import('@/pages/Appserver.vue'),
 			props: true,
-			meta: {
-				title: 'Сервер приложений',
-				bread: [
-					{
-						label: 'Сервер',
-					},
-					{
-						label: 'Сервер приложений',
-					},
-				],
-			},
 		},
 
 		{
@@ -65,15 +54,6 @@ export const router = createRouter({
 			name: 'db',
 			component: () => import('@/components/tree/InsideDB.vue'),
 			props: true,
-			meta: {
-				title: 'База данных',
-				bread: [
-					{
-						label: 'Сервер приложений',
-						to: 'appserver',
-					},
-				],
-			},
 		},
 
 		{
