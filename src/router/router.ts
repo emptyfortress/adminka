@@ -3,10 +3,9 @@ import Home from '@/pages/Home.vue'
 
 declare module 'vue-router' {
 	interface Bread {
-		br?: string
-		// label?: string
-		// to?: string
-		// icon?: string
+		label?: string
+		to?: string
+		icon?: string
 	}
 	interface RouteMeta {
 		title?: string
@@ -52,9 +51,7 @@ export const router = createRouter({
 					component: () => import('@/pages/Appserver.vue'),
 					props: true,
 					name: 'appserver',
-					meta: {
-						br: 'Сервер приложений',
-					},
+					meta: {},
 				},
 				{
 					path: ':bd',
