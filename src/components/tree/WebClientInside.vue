@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import WebClientConnect from '@/components/tree/WebClientConnect.vue'
 import WebClientCommon from '@/components/tree/WebClientCommon.vue'
+import WebClientCache from '@/components/tree/WebClientCache.vue'
 </script>
 
 <template lang="pug">
@@ -9,6 +10,7 @@ WebClientConnect
 #common.commonzg Общие настройки
 WebClientCommon
 #cache.commonzg Кэширование
+WebClientCache
 #system.commonzg Система
 #crypto.commonzg Облачная подпись КриптоПро
 #grid.commonzg Грид
