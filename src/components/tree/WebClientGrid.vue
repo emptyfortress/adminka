@@ -34,7 +34,6 @@ q-form
 			v-for="item in Radio" 
 			:key="item.id" 
 			:label="item.label" 
-			:descr="item.descr" 
 			:disable="item.disable"
 			:startValue="item.startValue"
 			:group="item.group"
@@ -44,7 +43,6 @@ q-form
 			v-for="item in One" 
 			:key="item.id" 
 			:label="item.label" 
-			:descr="item.descr" 
 			:readonly="item.readonly"
 			:type="item.type"
 			)
