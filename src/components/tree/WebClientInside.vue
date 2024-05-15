@@ -1,13 +1,13 @@
 <script setup lang="ts">
-// import AppServerCommon from '@/components/tree/AppServerCommon.vue'
-// import AppServerDostup from '@/components/tree/AppServerDostup.vue'
-// import AppServerAuth from '@/components/tree/AppServerAuth.vue'
-// import Database from '@/components/tree/Database.vue'
+import WebClientConnect from '@/components/tree/WebClientConnect.vue'
+import WebClientCommon from '@/components/tree/WebClientCommon.vue'
 </script>
 
 <template lang="pug">
 #connect.commonzg Подключение к серверу приложений
+WebClientConnect
 #common.commonzg Общие настройки
+WebClientCommon
 #cache.commonzg Кэширование
 #system.commonzg Система
 #crypto.commonzg Облачная подпись КриптоПро
