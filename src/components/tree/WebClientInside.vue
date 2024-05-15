@@ -3,6 +3,8 @@ import WebClientConnect from '@/components/tree/WebClientConnect.vue'
 import WebClientCommon from '@/components/tree/WebClientCommon.vue'
 import WebClientCache from '@/components/tree/WebClientCache.vue'
 import WebClientSystem from '@/components/tree/WebClientSystem.vue'
+import WebClientCrypto from '@/components/tree/WebClientCrypto.vue'
+import WebClientGrid from '@/components/tree/WebClientGrid.vue'
 </script>
 
 <template lang="pug">
@@ -15,7 +17,9 @@ WebClientCache
 #system.commonzg Система
 WebClientSystem
 #crypto.commonzg Облачная подпись КриптоПро
+WebClientCrypto
 #grid.commonzg Грид
+WebClientGrid
 #locale.commonzg Локализации
 #cards.commonzg Виды карточек
 #experiment.commonzg Экспериментальные функции
