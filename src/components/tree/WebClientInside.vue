@@ -2,6 +2,7 @@
 import WebClientConnect from '@/components/tree/WebClientConnect.vue'
 import WebClientCommon from '@/components/tree/WebClientCommon.vue'
 import WebClientCache from '@/components/tree/WebClientCache.vue'
+import WebClientSystem from '@/components/tree/WebClientSystem.vue'
 </script>
 
 <template lang="pug">
@@ -12,6 +13,7 @@ WebClientCommon
 #cache.commonzg Кэширование
 WebClientCache
 #system.commonzg Система
+WebClientSystem
 #crypto.commonzg Облачная подпись КриптоПро
 #grid.commonzg Грид
 #locale.commonzg Локализации
