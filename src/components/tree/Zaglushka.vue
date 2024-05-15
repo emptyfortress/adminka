@@ -3,6 +3,7 @@ import { ref, computed, reactive } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import { tree } from '@/stores/serverTree'
 import { getMembers } from '@/utils/utils'
+import { useElementSize } from '@vueuse/core'
 
 const router = useRouter()
 
@@ -82,12 +83,8 @@ const current = computed(() => {
 	return curr
 })
 
-// const fuck = ref(props.id)
-// const property = reactive([
-// 	{ label: 'Имя устройства', val: fuck.value.id },
-// 	{ label: 'Псевдоним устройства', val: fuck.value.psevdo },
-// 	{ label: 'Операционная система', val: fuck.value.system },
-// ])
+const el = ref(null)
+const { width, height } = useElementSize(el)
 </script>
 
 <template lang="pug">
@@ -103,15 +100,17 @@ div
 					.val {{ current.psevdo }}
 					label Операционная система:
 					.val {{ current.system }}
+					label Рабочее окружение
+					.val {{ current.env }}
 
 	.zg Компоненты
-	q-list(separator)
+	q-list(separator ref="el")
 		q-item(clickable v-for="item in list" :key="item.id" @click="goto(item.url)")
 			q-item-section(avatar)
 				q-icon(name="mdi-code-block-braces" color="secondary")
 			q-item-section
 				q-item-label {{item.label}}
-			q-item-section
+			q-item-section(v-if="width > 780")
 				.flex.items-center.q-gutter-lg
 					q-icon(v-if="item.state == 0" name="mdi-alert" size="sm")
 					q-icon(v-if="item.state == 1" name="mdi-check-bold" color="positive" size="md")
