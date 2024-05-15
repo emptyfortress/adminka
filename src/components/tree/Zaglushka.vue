@@ -26,7 +26,7 @@ const list = [
 		url: '/webclient',
 		label: 'Web-клиент',
 		descr: 'Настройки веб-клиента',
-		state: 0,
+		state: 3,
 	},
 	{
 		id: 2,
@@ -116,6 +116,7 @@ div
 					q-icon(v-if="item.state == 0" name="mdi-alert" size="sm")
 					q-icon(v-if="item.state == 1" name="mdi-check-bold" color="positive" size="md")
 					q-icon(v-if="item.state == 2" name="mdi-alert-circle-outline" color="negative" size="md")
+					q-icon(v-if="item.state == 3" name="mdi-progress-question" color="secondary" size="md")
 					.descr {{item.descr}}
 			q-item-section(side)
 				q-icon(name="mdi-chevron-right" color="secondary")
