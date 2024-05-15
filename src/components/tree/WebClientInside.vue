@@ -7,6 +7,7 @@ import WebClientCrypto from '@/components/tree/WebClientCrypto.vue'
 import WebClientGrid from '@/components/tree/WebClientGrid.vue'
 import WebLocalization from '@/components/tree/WebLocalization.vue'
 import WebCards from '@/components/tree/WebCards.vue'
+import WebExp from '@/components/tree/WebExp.vue'
 </script>
 
 <template lang="pug">
@@ -27,6 +28,7 @@ WebLocalization
 #cards.commonzg Виды карточек
 WebCards
 #experiment.commonzg Экспериментальные функции
+WebExp
 </template>
 
 <style scoped lang="scss">

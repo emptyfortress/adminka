@@ -36,7 +36,7 @@ const list = computed(() => {
 				{
 					id: 8,
 					label: 'Экспериментальные функции',
-					field: '',
+					field: 'experiment',
 					selected: false,
 				},
 			]
