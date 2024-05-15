@@ -3,7 +3,7 @@ import { defineStore } from 'pinia'
 // import { useServer } from '@/stores/server'
 // import { useAccess } from '@/stores/access'
 // import { useBp } from '@/stores/bp'
-// import { useWebConfig } from '@/stores/webconfig'
+import { useWebConfig } from '@/stores/webconfig'
 
 interface Connection {
 	name: string
@@ -55,6 +55,7 @@ export const useStore = defineStore({
 				def: false,
 			},
 		],
+		wc: useWebConfig(),
 	}),
 	getters: {},
 	actions: {
@@ -67,5 +68,8 @@ export const useStore = defineStore({
 			this.databases.map(item => (item.def = false))
 			this.databases[index].def = true
 		},
+		// changeWebDefaults(e: number) {
+		// 	this.panelsWeb[e].change = true
+		// },
 	},
 })

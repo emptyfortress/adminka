@@ -5,6 +5,8 @@ import WebClientCache from '@/components/tree/WebClientCache.vue'
 import WebClientSystem from '@/components/tree/WebClientSystem.vue'
 import WebClientCrypto from '@/components/tree/WebClientCrypto.vue'
 import WebClientGrid from '@/components/tree/WebClientGrid.vue'
+import WebLocalization from '@/components/tree/WebLocalization.vue'
+import WebCards from '@/components/tree/WebCards.vue'
 </script>
 
 <template lang="pug">
@@ -21,7 +23,9 @@ WebClientCrypto
 #grid.commonzg Грид
 WebClientGrid
 #locale.commonzg Локализации
+WebLocalization 
 #cards.commonzg Виды карточек
+WebCards
 #experiment.commonzg Экспериментальные функции
 </template>
 
