@@ -105,6 +105,7 @@ const Dopoln1 = ref([
 		label: 'Оффлайн режим после паузы, мин.',
 		descr: 'This is description',
 		readonly: false,
+		type: 'number',
 	},
 	{
 		id: 1,
@@ -112,13 +113,7 @@ const Dopoln1 = ref([
 		label: 'Закрытие сессии после паузы, мин.',
 		descr: 'This is description',
 		readonly: false,
-	},
-	{
-		id: 2,
-		main: '',
-		label: 'Закрытие сессии после паузы, мин.',
-		descr: 'This is description',
-		readonly: false,
+		type: 'number',
 	},
 	{
 		id: 3,
@@ -126,6 +121,7 @@ const Dopoln1 = ref([
 		label: 'Максимальный размер файла, байт',
 		descr: 'This is description',
 		readonly: false,
+		type: 'number',
 	},
 ])
 </script>
@@ -136,25 +132,23 @@ q-form
 	q-list
 		MyField(
 			v-model:main="item.main" 
-			v-model:check="item.check" 
 			v-for="item in Folders" 
 			:key="item.id" 
 			:label="item.label" 
 			:descr="item.descr" 
 			:readonly="item.readonly"
-			:checkbox="item.checkbox")
+			)
 
 	.section Шаблоны для определения устройств
 	q-list
 		MyField(
 			v-model:main="item.main" 
-			v-model:check="item.check" 
 			v-for="item in Device" 
 			:key="item.id" 
 			:label="item.label" 
 			:descr="item.descr" 
 			:readonly="item.readonly"
-			:checkbox="item.checkbox")
+			)
 
 	.section Дополнительно
 	q-list
@@ -169,13 +163,13 @@ q-form
 		)
 		MyField(
 			v-model:main="item.main" 
-			v-model:check="item.check" 
 			v-for="item in Dopoln1" 
 			:key="item.id" 
 			:label="item.label" 
 			:descr="item.descr" 
 			:readonly="item.readonly"
-			:checkbox="item.checkbox")
+			:type="item.type"
+			)
 
 </template>
 

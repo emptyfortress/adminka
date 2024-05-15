@@ -39,13 +39,12 @@ q-form
 	q-list
 		MyField(
 			v-model:main="item.main" 
-			v-model:check="item.check" 
 			v-for="item in Prop" 
 			:key="item.id" 
 			:label="item.label" 
 			:descr="item.descr" 
 			:readonly="item.readonly"
-			:checkbox="item.checkbox")
+			)
 </template>
 
 <style scoped lang="scss"></style>
