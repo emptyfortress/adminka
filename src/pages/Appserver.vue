@@ -18,7 +18,7 @@ const current = computed(() => {
 })
 
 const list = reactive([
-	// { id: 0, label: 'Лицензия', selected: false },
+	{ id: 0, field: 'lic', label: 'Лицензия', selected: false },
 	{ id: 1, field: 'bd', label: 'Базы данных', selected: false },
 	{ id: 2, field: 'common', label: 'Общие настройки', selected: false },
 	{ id: 3, field: 'dost', label: 'Управление доступом', selected: false },
@@ -26,6 +26,12 @@ const list = reactive([
 		id: 4,
 		field: 'auth',
 		label: 'Расширенная аутентификация',
+		selected: false,
+	},
+	{
+		id: 5,
+		field: 'addition',
+		label: 'Дополнительный настройки',
 		selected: false,
 	},
 ])

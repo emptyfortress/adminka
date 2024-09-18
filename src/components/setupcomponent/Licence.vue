@@ -1,9 +1,15 @@
+<script setup lang="ts">
+import { ref } from 'vue'
+
+const check = ref(true)
+</script>
+
 <template lang="pug">
 div
 	q-btn.q-mr-md(unelevated color="secondary" label="Изменить ключ" size="sm")
 	q-btn(flat round icon="mdi-printer-outline")
-	.text-bold Параметры используемой лицензии:
-	.q-mt-md
+	.section Параметры используемой лицензии:
+	.q-mt-md.q-ml-lg
 		.gr
 			div Вид:
 			div Custom license
@@ -17,7 +23,9 @@ div
 		.q-mt-md Дополнительные опции:
 		.pr
 			div DocsVision Platform DVG
+			.pr Максимальное количество соединений: 99999
 			div DocsVision Windows-Client
+			.pr Максимальное количество соединений: 99999
 			div DocsVision Workflow Server
 			.pr Максимальное количество соединений: 99999
 			div DocsVision WWF Processes
@@ -80,11 +88,38 @@ div
 			div Docsvision Мобильное приложение
 			div Docsvision Модуль Интеллектуальный поиск
 
+		.section Управление лицензиями
+		.data
+			label Персональные лицензии пользователей системы
+			q-markup-table(flat)
+				thead
+					tr
+						th
+						th Пользователь
+						th Компьютер
+						th Серийный номер
+						th Дата генерации ключа
+				tbody
+					tr
+						td
+							q-checkbox(dense size="sm" v-model="check")
+						td company/orlov.v
+						td dv105pc
+						td 17.11.2022 11:08
+						td 17.11.2022 11:08
+					tr.bt
+						td
+						td.q-gutter-x-xs(colspan="4")
+							q-btn(size="sm" unelevated color="secondary" label="Добавить") 
+							q-btn(size="sm" unelevated color="secondary" label="Удалить") 
+
+
 </template>
 
-<script setup lang="ts"></script>
-
 <style scoped lang="scss">
+th {
+	text-align: left;
+}
 .gr {
 	display: grid;
 	grid-template-columns: auto 1fr;
@@ -93,5 +128,8 @@ div
 .pr {
 	margin-left: 2rem;
 	font-family: monospace;
+}
+.section {
+	margin-left: 0;
 }
 </style>
