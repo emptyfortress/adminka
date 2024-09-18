@@ -17,7 +17,7 @@ const hran = useHran()
 // 	temp: boolean
 // }
 
-const treeData = reactive([
+let treeData = reactive([
 	{
 		id: 0,
 		text: 'Хранилища',
