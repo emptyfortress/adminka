@@ -94,29 +94,28 @@ div
 			q-markup-table(flat)
 				thead
 					tr
+						th.num #
+						th Лицензия
 						th
-						th Пользователь
-						th Компьютер
-						th Серийный номер
-						th Дата генерации ключа
 				tbody
 					tr
-						td
-							q-checkbox(dense size="sm" v-model="check")
+						td.num 1.
 						td company/orlov.v
-						td dv105pc
-						td 17.11.2022 11:08
-						td 17.11.2022 11:08
+						td.text-right
+							q-btn(flat round icon="mdi-trash-can-outline" size='sm') 
 					tr.bt
-						td
-						td.q-gutter-x-xs(colspan="4")
+						// td
+						td.q-gutter-x-xs(colspan="3")
 							q-btn(size="sm" unelevated color="secondary" label="Добавить") 
-							q-btn(size="sm" unelevated color="secondary" label="Удалить") 
+							// q-btn(size="sm" unelevated color="secondary" label="Удалить") 
 
 
 </template>
 
 <style scoped lang="scss">
+.num {
+	width: 20px;
+}
 th {
 	text-align: left;
 }
