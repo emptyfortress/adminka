@@ -135,6 +135,37 @@ const modules = ref([
 		check: false,
 	},
 ])
+	},
+])
+const local = ref([
+	{
+		id: 0,
+		label: 'Язык по умолчанию',
+		descr: 'This is description',
+		disable: false,
+		startValue: 'ru',
+		group: [
+			{ label: 'Русский', val: 'ru' },
+			{ label: 'English', val: 'en' },
+		],
+	},
+	{
+		id: 1,
+		label: 'Режим локализации полей',
+		descr: 'This is description',
+		readonly: false,
+		startValue: '1',
+		group: [
+			{ label: 'Выкл.', val: '1' },
+			{ label: 'Вкл.', val: '2' },
+			{ label: 'Чтение', val: '3' },
+			{ label: 'Запись', val: '4' },
+			{ label: 'Особый *', val: '5' },
+		],
+	},
+])
+	},
+])
 </script>
 
 <template lang="pug">
