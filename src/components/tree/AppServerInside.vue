@@ -2,6 +2,7 @@
 import AppServerCommon from '@/components/tree/AppServerCommon.vue'
 import AppServerDostup from '@/components/tree/AppServerDostup.vue'
 import AppServerAuth from '@/components/tree/AppServerAuth.vue'
+import AppServerDop from '@/components/tree/AppServerDop.vue'
 import Database from '@/components/tree/Database.vue'
 import Licence from '@/components/setupcomponent/Licence.vue'
 </script>
@@ -20,6 +21,8 @@ AppServerCommon
 AppServerDostup
 #auth.commonzg Расширенная аутентификация
 AppServerAuth
+#addition.commonzg Дополнительные настройки
+AppServerDop
 </template>
 
 <style scoped lang="scss">

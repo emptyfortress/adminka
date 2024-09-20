@@ -19,6 +19,7 @@ interface Props {
 	// checkvalue?: boolean
 	button?: boolean
 	btLabel?: string
+	textarea?: boolean
 }
 
 const props = withDefaults(defineProps<Props>(), {
@@ -32,6 +33,7 @@ const props = withDefaults(defineProps<Props>(), {
 	descr: 'This is description',
 	readonly: false,
 	checkbox: false,
+	textarea: false,
 	// checkvalue: false,
 })
 
@@ -76,7 +78,8 @@ const item = ref(false)
 	.descr(v-if="props.info") {{ props.descr }}
 	div
 		q-checkbox(v-model="check" dense :label="props.descr" v-if="checkbox" :disable="props.disable")
-	MyInput(v-model="main" v-if="!props.select && !props.checkbox" :bg="props.bg" :filled="props.filled" :type="props.type" :disable="props.disable" :readonly="props.readonly")
+	MyInput(v-model="main" v-if="!props.select && !props.checkbox && !props.textarea" :bg="props.bg" :filled="props.filled" :type="props.type" :disable="props.disable" :readonly="props.readonly")
+	q-input(v-model="main" v-if='props.textarea' bg-color="white" outlined autogrow)
 	MySelect(v-model="main" v-if="props.select && !props.checkbox" :bg="props.bg" :filled="props.filled" :options="props.options")
 	q-btn.add(v-if="props.button" unelevated color="secondary" :label="props.btLabel" size="sm") 
 
