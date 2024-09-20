@@ -9,6 +9,8 @@ const commonProp = ref([
 		label: 'Адрес сайта документации',
 		descr: 'Расположение пользовательской документации',
 		readonly: false,
+		button: true,
+		btLabel: 'Восстановить по умолчанию',
 	},
 	{
 		id: 1,

@@ -11,6 +11,33 @@ const current = computed(() => {
 const select = (e: any) => {
 	selection.value = e.label
 }
+const columns = [
+	{
+		name: 'id',
+		required: true,
+		label: '#',
+		align: 'right',
+		field: 'id',
+		format: val => val + 1,
+		sortable: false,
+	},
+	{
+		name: 'user',
+		required: true,
+		label: 'Пользователь',
+		align: 'left',
+		field: 'user',
+		sortable: true,
+	},
+	{
+		name: 'action',
+		required: true,
+		label: '',
+		align: 'right',
+		field: row => row.name,
+		sortable: false,
+	},
+]
 </script>
 
 <template lang="pug">
@@ -27,25 +54,20 @@ q-form.q-mt-md(ref="form" @validation-error="$emit('haserror')" @validation-succ
 
 		.to
 			q-icon(name="mdi-arrow-right-bold" size="lg")
-		q-scroll-area.wh
-			q-markup-table(flat)
-				thead
-					tr
-						th #
-						th Имя пользователя
-						th 
-				tbody
-					tr(v-for="(item, index) in current.users" :key="item.id")
-						td.sma {{ index + 1 }}
-						td {{ item.label }}
-						td.text-right
-							q-btn(flat round color="secondary" icon='mdi-trash-can-outline' size='sm') 
-					tr(v-if='current.users.length == 0')
-						td(colspan="3") Пользователи не найдены.
-					tr
-						td(colspan="3")
-							q-btn(unelevated color="secondary" label="Добавить" size='sm') 
-								
+		.wh
+			q-table(flat bordered
+				:rows="current.users"
+				:columns="columns"
+				row-key="id")
+				template(v-slot:body-cell-id="props")
+					q-td.sma {{ props.row.id + 1 }}
+				template(v-slot:body-cell-action="props")
+					q-td(:props="props")
+						q-btn(flat round icon="mdi-trash-can-outline" color="secondary" size='sm') 
+
+			q-card-section
+				q-btn(unelevated color="secondary" label="Добавить" size='sm') 
+		
 </template>
 
 <style scoped lang="scss">
@@ -58,9 +80,6 @@ q-form.q-mt-md(ref="form" @validation-error="$emit('haserror')" @validation-succ
 	& > div.wh {
 		background: white;
 	}
-}
-.wh {
-	height: 400px;
 }
 .sma {
 	width: 20px;

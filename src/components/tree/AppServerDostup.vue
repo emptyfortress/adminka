@@ -204,7 +204,7 @@ MyField(
 	:type="item.type" 
 	)
 
-.data
+// .data
 	label Открытые сессии (использовано 1 лицензий из 10):
 	q-markup-table(flat)
 		thead
