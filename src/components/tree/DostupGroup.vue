@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref, watch, computed } from 'vue'
 import { useStore } from '@/stores/store'
+import type { QTableColumn } from 'quasar'
 const store = useStore()
 
 const selection = ref('DocsVision Users')
@@ -11,14 +12,14 @@ const current = computed(() => {
 const select = (e: any) => {
 	selection.value = e.label
 }
-const columns = [
+const columns: QTableColumn[] = [
 	{
 		name: 'id',
 		required: true,
 		label: '#',
 		align: 'right',
 		field: 'id',
-		format: val => val + 1,
+		format: (val: any) => val + 1,
 		sortable: false,
 	},
 	{
@@ -34,7 +35,7 @@ const columns = [
 		required: true,
 		label: '',
 		align: 'right',
-		field: row => row.name,
+		field: (row: any) => row.name,
 		sortable: false,
 	},
 ]

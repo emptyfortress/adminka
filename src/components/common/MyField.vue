@@ -16,7 +16,7 @@ interface Props {
 	disable?: boolean
 	readonly?: boolean
 	checkbox?: boolean
-	checkvalue?: boolean
+	// checkvalue?: boolean
 	button?: boolean
 	btLabel?: string
 }
@@ -32,7 +32,7 @@ const props = withDefaults(defineProps<Props>(), {
 	descr: 'This is description',
 	readonly: false,
 	checkbox: false,
-	checkvalue: false,
+	// checkvalue: false,
 })
 
 const main = defineModel<string>('main')
@@ -73,7 +73,7 @@ const item = ref(false)
 	.inner(v-if="changed")
 	label(v-if="props.label") {{ props.label }}
 	.descr(v-if="!props.nodescr && !props.checkbox") {{ props.descr }}
-	.descr(v-if="props.info") {{ props.info }}
+	.descr(v-if="props.info") {{ props.descr }}
 	div
 		q-checkbox(v-model="check" dense :label="props.descr" v-if="checkbox" :disable="props.disable")
 	MyInput(v-model="main" v-if="!props.select && !props.checkbox" :bg="props.bg" :filled="props.filled" :type="props.type" :disable="props.disable" :readonly="props.readonly")

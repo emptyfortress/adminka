@@ -67,6 +67,8 @@ const journal = ref([
 		descr:
 			'Путь к файлу журнала, в котором регистрируются выполняемые сервером операции.',
 		readonly: false,
+		select: false,
+		options: [],
 	},
 	{
 		id: 1,
@@ -104,32 +106,32 @@ const cache = ref([
 	{
 		id: 2,
 		main: '',
-		check: true,
 		label: 'Справочники',
 		disable: true,
 		checkbox: true,
+		check: true,
 	},
 ])
 const modules = ref([
 	{
 		id: 0,
 		main: '',
-		check: true,
 		label: 'Проверка версии БД',
 		info: 'Когда флаг установлен, сообщение о несоответствии версии базы данных и версии сервера Docsvision вносится в журнал выполняемых сервером операций.',
 		descr: 'Проверять версию базы данных',
 		readonly: false,
 		checkbox: true,
+		check: true,
 	},
 	{
 		id: 0,
 		main: '',
-		check: false,
 		label: 'Обновление БД',
 		info: 'Флаг включает режим установки модулей без загрузки данных в БД.',
 		descr: 'Пропускать обновление БД при установке модулей',
 		readonly: false,
 		checkbox: true,
+		check: false,
 	},
 ])
 </script>
@@ -138,14 +140,12 @@ const modules = ref([
 q-list
 	MyField(
 		v-model:main="item.main" 
-		v-model:check="item.check" 
 		v-for="item in commonProp" 
 		:key="item.id" 
 		:label="item.label" 
 		:descr="item.descr" 
 		:readonly="item.readonly"
 		:type='item.type'
-		:checkbox="item.checkbox"
 		:button="item.button"
 		:btLabel="item.btLabel"
 		)
@@ -153,13 +153,11 @@ q-list
 .section Журналирование
 MyField(
 	v-model:main="item.main" 
-	v-model:check="item.check" 
 	v-for="item in journal" 
 	:key="item.id" 
 	:label="item.label" 
 	:descr="item.descr" 
 	:readonly="item.readonly"
-	:type='item.type'
 	:select='item.select'
 	:options='item.options'
 	)

@@ -146,29 +146,22 @@ MyField(
 .section НАСТРОЙКА ДОМЕННЫХ КАТАЛОГОВ
 MyField(
 	v-model:main="item.main" 
-	v-model:check="item.check" 
 	v-for="item in cat" 
 	:key="item.id" 
 	:label="item.label" 
 	:descr="item.descr" 
 	:readonly="item.readonly"
-	:type='item.type'
-	:select='item.select'
-	:options='item.options'
 	)
 
 .section Настройки подключения к LDAP каталогу домена
 MyField(
 	v-model:main="item.main" 
-	v-model:check="item.check" 
 	v-for="item in ldap" 
 	:key="item.id" 
 	:label="item.label" 
 	:descr="item.descr" 
 	:readonly="item.readonly"
 	:type='item.type'
-	:select='item.select'
-	:options='item.options'
 	)
 
 SimpleRadioGroup(
@@ -183,15 +176,12 @@ SimpleRadioGroup(
 
 MyField(
 	v-model:main="item.main" 
-	v-model:check="item.check" 
 	v-for="item in ldap1" 
 	:key="item.id" 
 	:label="item.label" 
 	:descr="item.descr" 
 	:readonly="item.readonly"
 	:type='item.type'
-	:select='item.select'
-	:options='item.options'
 	)
 
 .section Управление сессиями
