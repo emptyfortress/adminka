@@ -10,6 +10,7 @@ interface Props {
 	select?: boolean
 	type?: any
 	label?: string
+	info?: string
 	descr?: string
 	nodescr?: boolean
 	disable?: boolean
@@ -72,6 +73,7 @@ const item = ref(false)
 	.inner(v-if="changed")
 	label(v-if="props.label") {{ props.label }}
 	.descr(v-if="!props.nodescr && !props.checkbox") {{ props.descr }}
+	.descr(v-if="props.info") {{ props.info }}
 	div
 		q-checkbox(v-model="check" dense :label="props.descr" v-if="checkbox" :disable="props.disable")
 	MyInput(v-model="main" v-if="!props.select && !props.checkbox" :bg="props.bg" :filled="props.filled" :type="props.type" :disable="props.disable" :readonly="props.readonly")

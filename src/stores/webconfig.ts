@@ -224,7 +224,63 @@ export const useWebConfig = defineStore({
 				],
 			},
 		],
+		groups: [
+			{
+				id: 0,
+				selected: true,
+				label: 'DocsVision Users',
+				users: [
+					{ id: 0, label: 'digdes/kmg01' },
+					{ id: 1, label: 'digdes/kmg02' },
+					{ id: 2, label: 'digdes/kmg03' },
+					{ id: 0, label: 'digdes/kmg01' },
+					{ id: 1, label: 'digdes/kmg02' },
+					{ id: 2, label: 'digdes/kmg03' },
+					{ id: 0, label: 'digdes/kmg01' },
+					{ id: 1, label: 'digdes/kmg02' },
+					{ id: 2, label: 'digdes/kmg03' },
+					{ id: 0, label: 'digdes/kmg01' },
+					{ id: 1, label: 'digdes/kmg02' },
+					{ id: 2, label: 'digdes/kmg03' },
+				],
+			},
+			{
+				id: 1,
+				selected: false,
+				label: 'DocsVision Power Users',
+				users: [
+					{ id: 0, label: 'digdes/admin' },
+					{ id: 1, label: 'digdes/superadmin' },
+				],
+			},
+			{ id: 2, selected: false, label: 'DocsVision Administrators', users: [] },
+			{
+				id: 3,
+				selected: false,
+				label: 'DocsVision Security Administrators',
+				users: [],
+			},
+			{
+				id: 4,
+				selected: false,
+				label: 'DocsVision Archive Operators',
+				users: [],
+			},
+			{
+				id: 5,
+				selected: false,
+				label: 'DocsVision Search Query Creators',
+				users: [],
+			},
+			{
+				id: 6,
+				selected: false,
+				label: 'DocsVision Workflow Process Creators',
+				users: [],
+			},
+		],
 	}),
+
 	getters: {},
 	actions: {},
 })
