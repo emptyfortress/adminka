@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import MyField from '@/components/common/MyField.vue'
+import SimpleRadioGroup from '@/components/common/SimpleRadioGroup.vue'
 
 const commonProp = ref([
 	{
@@ -135,8 +136,6 @@ const modules = ref([
 		check: false,
 	},
 ])
-	},
-])
 const local = ref([
 	{
 		id: 0,
@@ -162,8 +161,6 @@ const local = ref([
 			{ label: 'Запись', val: '4' },
 			{ label: 'Особый *', val: '5' },
 		],
-	},
-])
 	},
 ])
 </script>
@@ -205,6 +202,16 @@ MyField(
 	:checkbox="item.checkbox"
 	:info='item.info'
 	)
+
+.section Локализация полей
+SimpleRadioGroup(
+	v-for='item in local'
+	:key='item.id'
+	:label='item.label'
+	:descr='item.descr'
+	:startValue='item.startValue'
+	:group='item.group'
+)
 
 </template>
 
