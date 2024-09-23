@@ -139,8 +139,8 @@ const modules = ref([
 const local = ref([
 	{
 		id: 0,
-		label: 'Язык по умолчанию',
-		descr: 'This is description',
+		label: 'Язык',
+		descr: 'Язык локализации по умолчанию',
 		disable: false,
 		startValue: 'ru',
 		group: [
@@ -151,14 +151,14 @@ const local = ref([
 	{
 		id: 1,
 		label: 'Режим локализации полей',
-		descr: 'This is description',
+		descr: 'Установка локализованных значений для полей клиентского приложения',
 		readonly: false,
 		startValue: '1',
 		group: [
 			{ label: 'Выкл.', val: '1' },
-			{ label: 'Вкл.', val: '2' },
 			{ label: 'Чтение', val: '3' },
 			{ label: 'Запись', val: '4' },
+			{ label: 'Вкл.', val: '2' },
 			{ label: 'Особый *', val: '5' },
 		],
 	},
@@ -212,7 +212,7 @@ SimpleRadioGroup(
 	:startValue='item.startValue'
 	:group='item.group'
 )
-
+.star <sup>*</sup> Новое значение будет сохраняться и для основной локали и для локали клиентского приложения.
 </template>
 
 <style scoped lang="scss">
