@@ -78,13 +78,13 @@ const columns: QTableProps['columns'] = [
 		field: 'version',
 		sortable: true,
 	},
-	{
-		name: 'cache',
-		align: 'left',
-		label: 'Кэш',
-		field: 'cache',
-		sortable: true,
-	},
+	// {
+	// 	name: 'cache',
+	// 	align: 'left',
+	// 	label: 'Кэш',
+	// 	field: 'cache',
+	// 	sortable: true,
+	// },
 	{
 		name: 'date',
 		align: 'left',
@@ -137,7 +137,8 @@ const goto = (e: string) => {
 
 	.q-gutter-x-xs.q-mt-sm
 		q-btn(unelevated color='secondary' @click='master = true' size="sm") Создать
-		q-btn(unelevated color='secondary' @click='' size="sm") Подключить БД
+		q-btn(unelevated color='secondary' @click='' size="sm") Подключить
+		q-btn(unelevated color='secondary' @click='' size="sm") Обновить
 
 component(:is="ChangeDialog" v-model="change" :changename="changename" @changeDef="assignDef")
 component(:is="MasterDatabase" v-model="master")
