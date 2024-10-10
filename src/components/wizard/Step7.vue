@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, onMounted, onUpdated } from 'vue'
+import { ref, watch, } from 'vue'
 import { useIntervalFn } from '@vueuse/core'
 import { rand } from '@vueuse/shared'
 import { useWiz } from '@/stores/wiz'
@@ -16,25 +16,21 @@ const props = defineProps({
 })
 
 const wiz = useWiz()
-const visible = ref(true)
 const showData = ref(false)
 
-onMounted(() => {
-	setTimeout(() => {
-		visible.value = false
-		showData.value = true
-		wiz.done = true
-		wiz.finish++
-	}, 5000)
-})
-onUpdated(() => {
-	setTimeout(() => {
-		visible.value = false
-		showData.value = true
-		wiz.done = true
-		wiz.finish++
-	}, 5000)
-})
+watch(
+	() => wiz.create,
+	() => {
+		if (wiz.create == 1) {
+			setTimeout(() => {
+				showData.value = true
+				// wiz.done = true
+				wiz.finish++
+				wiz.setCreate(2)
+			}, 2000)
+		}
+	}
+)
 
 const greetings = [
 	'Hello',
@@ -60,11 +56,11 @@ const { pause, resume, isActive } = useIntervalFn(() => {
 
 <template lang="pug">
 div
-	template(v-if="visible")
+	template(v-if="wiz.create == 1")
 		q-linear-progress.q-mt-lg(indeterminate)
 		.text-center.q-mt-sm {{ word }}
 	.min
-		q-card-section.suc(v-show="showData")
+		q-card-section.suc(v-show="wiz.create == 2")
 			q-icon(name="mdi-check-bold" color="teal" size="md").q-mr-md
 			|{{ props.result }}
 
@@ -74,16 +70,19 @@ div
 .q-linear-progress {
 	width: 100%;
 }
+
 .min {
 	width: 100%;
 	display: flex;
 	justify-content: center;
 	align-items: center;
 }
+
 .wait {
 	margin-top: 1rem;
 	color: $primary;
 }
+
 .suc {
 	color: teal;
 	font-weight: 600;

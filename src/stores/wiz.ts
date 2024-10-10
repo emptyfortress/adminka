@@ -13,6 +13,7 @@ export const useWiz = defineStore({
 			{ id: 4, block: 2, label: 'Конструктор согласований', val: false },
 			{ id: 2, block: 2, label: 'Web-client', val: false },
 		],
+		create: 0,
 	}),
 	getters: {
 		dopModules(state) {
@@ -50,6 +51,9 @@ export const useWiz = defineStore({
 			if (temp.length > 0) {
 				temp.forEach((item) => (item.block = 1))
 			}
+		},
+		setCreate(e: number) {
+			this.create = e
 		},
 	},
 })

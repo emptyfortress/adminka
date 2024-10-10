@@ -1,12 +1,17 @@
 <script setup lang="ts">
 import { useWiz } from '@/stores/wiz'
 const wiz = useWiz()
+const action = (() => {
+	wiz.setCreate(1)
+})
 </script>
 
 <template lang="pug">
 .text-bold Загрузить дополнительные настройки следующих модулей:
 .column.q-mt-md
 	q-checkbox(v-for="item in wiz.check" :key="item.id" :label="item.label" v-model="item.val")
+.text-center
+	q-btn(v-if='wiz.dopModules && wiz.create == 0' unelevated color="primary" label="Загрузить" @click="action") 
 
 </template>
 
@@ -22,6 +27,7 @@ const wiz = useWiz()
 	margin: 1rem auto;
 	padding: 1rem;
 }
+
 label {
 	color: #666;
 }

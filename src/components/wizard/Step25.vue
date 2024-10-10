@@ -2,12 +2,42 @@
 // import { ref } from 'vue'
 
 const items = [
-	{ id: 0, label: 'ChangeObjectDataBaseType', val: 'UseTemporaryDatabase' },
-	{ id: 1, label: 'CursorDataBaseType', val: 'UseTemporaryDatabase' },
-	{ id: 2, label: 'FileCursorDataBaseType', val: 'UseOwnDatabase' },
-	{ id: 3, label: 'IconDataBaseType', val: 'UseTemporaryDatabase' },
-	{ id: 4, label: 'KeysetDataBaseType', val: 'UseTemporaryDatabase' },
-	{ id: 5, label: 'SearchDataBaseType', val: 'UseTemporaryDatabase' },
+	{
+		id: 0,
+		caption: 'Изменения объектов',
+		label: 'ChangeObjectDataBaseType',
+		val: 'UseTemporaryDatabase',
+	},
+	{
+		id: 1,
+		caption: 'Внутренние курсоры',
+		label: 'CursorDataBaseType',
+		val: 'UseTemporaryDatabase',
+	},
+	{
+		id: 2,
+		caption: 'Файловые курсоры',
+		label: 'FileCursorDataBaseType',
+		val: 'UseOwnDatabase',
+	},
+	{
+		id: 3,
+		caption: 'Иконки',
+		label: 'IconDataBaseType',
+		val: 'UseTemporaryDatabase',
+	},
+	{
+		id: 4,
+		caption: 'Представления',
+		label: 'KeysetDataBaseType',
+		val: 'UseTemporaryDatabase',
+	},
+	{
+		id: 5,
+		caption: 'Поисковые запросы',
+		label: 'SearchDataBaseType',
+		val: 'UseTemporaryDatabase',
+	},
 ]
 
 const options = [
@@ -22,7 +52,9 @@ const options = [
 q-expansion-item(label="Размещение таблиц" header-class="text-bold")
 	.mygrid.q-pa-md
 		template(v-for="item in items")
-			label {{item.label}}:
+			div
+				.caption {{item.caption}}:
+				label {{item.label}}
 			q-select(v-model="item.val" :options="options" dense outlined bg-color="white")
 </template>
 
@@ -38,5 +70,11 @@ q-expansion-item(label="Размещение таблиц" header-class="text-bo
 .q-input,
 .q-select {
 	width: 100%;
+}
+.caption {
+	font-weight: 600;
+}
+label {
+	font-size: 0.8rem;
 }
 </style>
