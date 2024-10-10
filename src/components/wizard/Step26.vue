@@ -37,7 +37,7 @@ const stop = (() => {
 	div {{ props.text }}
 
 .text-center
-	q-btn(v-if='wiz.create == 0' unelevated color="primary" label="Создать БД" @click="start") 
+	q-btn(v-if='wiz.create == 0' unelevated color="primary" label="Старт" @click="start") 
 	q-btn(v-if='wiz.create == 1' unelevated color="primary" label="Отмена" @click="stop") 
 </template>
 

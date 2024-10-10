@@ -107,10 +107,15 @@ const goto = (e: string) => {
 }
 
 const wiz = useWiz()
+
 const create = () => {
 	wiz.choose = 'create'
 	master.value = true
 }
+const refresh = ((e: any) => {
+	wiz.choose = 'update'
+	master.value = true
+})
 </script>
 
 <template lang="pug">
@@ -134,8 +139,9 @@ const create = () => {
 				q-td.text-center(key='def' :props='props')
 					q-icon(name="mdi-check-bold" color="primary" size="sm" v-if="props.row.def")
 					q-btn(flat color="primary" label="Назначить" v-else size="sm" @click.stop='assign(props.row.psevdo)')
+
 				q-td.text-right(key='def' :props='props')
-					q-btn.q-mr-lg(:props="props" flat icon='mdi-sync' label="Обновить" color="primary" size='sm' dense @click.stop)
+					q-btn.q-mr-lg(:props="props" flat icon='mdi-sync' label="Обновить" color="primary" size='sm' dense @click.stop="refresh(props.row)")
 
 					q-btn.q-mr-md(:props="props" flat icon='mdi-database-remove-outline' label="Отключить" size='sm' color="primary" dense @click.stop)
 						q-menu
@@ -149,8 +155,8 @@ const create = () => {
 		q-btn(unelevated color='secondary' @click='' size="sm") Подключить
 		// q-btn(unelevated color='secondary' @click='' size="sm") Обновить
 
-component(:is="ChangeDialog" v-model="change" :changename="changename" @changeDef="assignDef")
-component(:is="MasterDatabase" v-model="master")
+ChangeDialog(v-model="change" :changename="changename" @changeDef="assignDef")
+MasterDatabase(v-model="master")
 // component(:is="EditDatabase" v-model="edit" :bd="bdRow" :tab="bdTab")
 
 </template>

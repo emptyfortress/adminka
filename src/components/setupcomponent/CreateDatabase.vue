@@ -11,7 +11,7 @@ import Step6 from '@/components/wizard/Step6.vue'
 import Step7 from '@/components/wizard/Step7.vue'
 import Step25 from '@/components/wizard/Step25.vue'
 import Step26 from '@/components/wizard/Step26.vue'
-// import Finish from '@/components/wizard/Finish.vue'
+import Finish from '@/components/wizard/Finish.vue'
 
 const step = ref(1)
 const live = ref(false)
@@ -65,6 +65,7 @@ defineExpose({ step, nextStep, prevStep })
 			.all900
 				.arch
 					Step4
+
 		q-step(:name="5" prefix="5" title="Подтверждение параметров БД" :done="step > 5" )
 			.all900
 				.arch
@@ -80,10 +81,9 @@ defineExpose({ step, nextStep, prevStep })
 					Step6
 					Step7(result="Модули установлены!")
 
-		// q-step(:name="7" prefix="7" title="Завершение" :done="step > 7" )
-			.all900
+			.all900(v-if="wiz.finish > 1")
 				.arch.q-mt-sm
-					Finish
+					Finish()
 
 </template>
 

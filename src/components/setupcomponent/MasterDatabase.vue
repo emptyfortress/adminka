@@ -16,18 +16,21 @@ q-dialog(:model-value="props.dialog" position="bottom" full-width persistent)
 
 		.bottom
 			q-separator
-			q-card-actions(v-if="step > 5" align="center")
+			q-card-actions(v-if="ready" align="center")
 				q-btn(unelevated color="primary" @click="close" padding="xs xl") Готово
 
 			q-card-actions(v-else align="center")
 				q-btn(flat color="primary" @click="close").q-mr-xl Отмена
+
 				template(v-if="wiz.choose === 'create'")
 					q-btn(flat color="primary" @click="crBack") Назад
 					q-btn(unelevated color="primary" @click="crNext" padding="xs xl") Далее
-				template(v-if="panel === 'connect'")
+
+				template(v-if="wiz.choose === 'connect'")
 					q-btn(flat color="primary" @click="conBack") Назад
 					q-btn(unelevated color="primary" @click="conNext" padding="xs xl") Далее
-				template(v-if="panel === 'update'")
+
+				template(v-if="wiz.choose === 'update'")
 					q-btn(flat color="primary" @click="upBack") Назад
 					q-btn(unelevated color="primary" @click="upNext" padding="xs xl") Далее
 		q-btn.close(flat round icon="mdi-close" color="primary" @click="close")
@@ -57,10 +60,10 @@ const emit = defineEmits(['update:modelValue'])
 
 const close = () => {
 	emit('update:modelValue', false)
-	panel.value = 'start'
 	wiz.choose = 'start'
 	wiz.done = false
 	wiz.finish = 0
+	wiz.setCreate(0)
 }
 const crNext = () => {
 	wiz.setCreate(0)
@@ -69,11 +72,18 @@ const crNext = () => {
 const conNext = () => {
 	if (!!con.value) con.value.nextStep()
 }
+
 const step = computed(() => {
-	return cr.value?.step
+	if (wiz.choose === 'create') {
+		return cr.value?.step
+	}
+	if (wiz.choose === 'update') {
+		return up.value?.step
+	}
 })
 
 const upNext = () => {
+	wiz.setCreate(0)
 	if (!!up.value) up.value.nextStep()
 }
 
@@ -153,6 +163,11 @@ const panel = ref('start')
 const next = () => {
 	panel.value = wiz.choose
 }
+const ready = computed(() => {
+	if (wiz.choose === 'create' && step.value == 6) return true
+	else if (wiz.choose === 'update' && step.value == 3) return true
+	return false
+})
 </script>
 
 <style scoped lang="scss">

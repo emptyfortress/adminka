@@ -8,13 +8,14 @@ import Step7 from '@/components/wizard/Step7.vue'
 import Finish from '@/components/wizard/Finish.vue'
 import { useWiz } from '@/stores/wiz'
 
-const step = ref(4)
+const step = ref(1)
 const live = ref(false)
 const stepper = ref()
 const wiz = useWiz()
 
 const nextStep = () => {
-	if (step.value === 6 && wiz.dopModules === false) {
+	// if (step.value === 6 && wiz.dopModules === false) {
+	if (step.value === 3) {
 		wiz.finish = 2
 		stepper.value.next()
 	} else stepper.value.next()
@@ -28,43 +29,29 @@ defineExpose({ step, nextStep, prevStep })
 <template lang="pug">
 .create
 	q-stepper(v-model="step" ref="stepper" alternative-labels animated header-nav flat done-color="teal" :keep-alive="live")
-		q-step(:name="4" prefix="1" title="Конфигурация" :done="step > 4" )
+		q-step(:name="1" prefix="1" title="Конфигурация" :done="step > 1" )
 			.all900
 				.arch
-					component(:is="Step4")
-		q-step(:name="5" prefix="2" title="Подтверждение параметров БД" :done="step > 5")
+					Step4
+
+		q-step(:name="2" prefix="2" title="Подтверждение параметров БД" :done="step > 2")
 			.all900
 				.arch
-					component(:is="Step5" text="Обновить базу данных со следующими параметрами")
+					Step5(text="Обновить базу данных со следующими параметрами")
 			.all900
 				.arch.q-mt-sm
-					component(:is="Step26")
+					Step26
+					Step7(result="База успешно обновлена!" )
 
-		q-step(:name="6" prefix="6" title="Обновление БД" :done="step > 6" )
+		q-step(:name="3" prefix="3" title="Загрузка настроек" :done="step > 3" )
 			.all900
 				.arch
-					component(:is="Step7" hint="Обновление БД" result="База данных успешно обновлена!" )
-			.all900(v-if="wiz.done")
-				.arch.q-mt-sm
-					component(:is="Step6")
+					Step6
+					Step7(hint="Установка доп.модулей" result="Модули установлены!")
 
-		q-step(:name="7" prefix="7" title="Завершение" :done="step > 7" )
-			.all900(v-if="wiz.dopModules")
-				.arch
-					component(:is="Step7" hint="Установка доп.модулей" result="Модули установлены!")
 			.all900(v-if="wiz.finish > 1")
 				.arch.q-mt-sm
-					component(:is="Finish")
-
-		// q-step(:name="6" prefix="3" title="Дополнительно" :done="step > 6" )
-		// 	.all900
-		// 		.arch
-		// 			component(:is="Step6")
-		// q-step(:name="7" prefix="4" title="Обновление" :done="step > 7" )
-		// 	.all900
-		// 		.arch
-		// 			component(:is="Step7" hint="Обновление БД" result="Обновление прошло успешно!")
-
+					Finish()
 </template>
 
 <style scoped lang="scss">
