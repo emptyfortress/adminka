@@ -14,7 +14,6 @@ const stepper = ref()
 const wiz = useWiz()
 
 const nextStep = () => {
-	// if (step.value === 6 && wiz.dopModules === false) {
 	if (step.value === 3) {
 		wiz.finish = 2
 		stepper.value.next()
@@ -49,7 +48,7 @@ defineExpose({ step, nextStep, prevStep })
 					Step6
 					Step7(hint="Установка доп.модулей" result="Модули установлены!")
 
-			.all900(v-if="wiz.finish > 1")
+			.all900(v-if="wiz.create == 2")
 				.arch.q-mt-sm
 					Finish()
 </template>

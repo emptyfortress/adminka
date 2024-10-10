@@ -2,7 +2,7 @@
 import { ref, reactive } from 'vue'
 import ChangeDialog from '@/components/setupcomponent/ChangeDialog.vue'
 import MasterDatabase from '@/components/setupcomponent/MasterDatabase.vue'
-import EditDatabase from '@/components/setupcomponent/EditDatabase.vue'
+// import EditDatabase from '@/components/setupcomponent/EditDatabase.vue'
 import type { QTableProps } from 'quasar'
 import { useRouter, useRoute } from 'vue-router'
 import { useStore } from '@/stores/store'
@@ -14,10 +14,10 @@ const router = useRouter()
 const route = useRoute()
 
 const change = ref(false)
-const bdRow = ref()
-const bdTab = ref('control')
+// const bdRow = ref()
+// const bdTab = ref('control')
 const master = ref(false)
-const edit = ref(false)
+// const edit = ref(false)
 const changename = ref('')
 
 const remove = (row: any) => {
@@ -112,6 +112,10 @@ const create = () => {
 	wiz.choose = 'create'
 	master.value = true
 }
+const connect = () => {
+	wiz.choose = 'connect'
+	master.value = true
+}
 const refresh = ((e: any) => {
 	wiz.choose = 'update'
 	master.value = true
@@ -152,7 +156,7 @@ const refresh = ((e: any) => {
 
 	.q-gutter-x-xs.q-mt-sm
 		q-btn(unelevated color='secondary' @click='create' size="sm") Создать
-		q-btn(unelevated color='secondary' @click='' size="sm") Подключить
+		q-btn(unelevated color='secondary' @click='connect' size="sm") Подключить
 		// q-btn(unelevated color='secondary' @click='' size="sm") Обновить
 
 ChangeDialog(v-model="change" :changename="changename" @changeDef="assignDef")

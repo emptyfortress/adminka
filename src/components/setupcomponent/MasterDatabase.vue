@@ -70,7 +70,8 @@ const crNext = () => {
 	cr.value.nextStep()
 }
 const conNext = () => {
-	if (!!con.value) con.value.nextStep()
+	wiz.setCreate(0)
+	con.value.nextStep()
 }
 
 const step = computed(() => {

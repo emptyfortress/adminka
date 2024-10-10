@@ -35,6 +35,7 @@ defineExpose({ step, nextStep, prevStep })
 			.all900
 				.arch
 					component(:is="Step1" text="Выберите сервер БД, под управлением которого будет работать подключаемая база данных:")
+
 		q-step(:name="2" prefix="2" title="База данных" :done="step > 2" )
 			.all900
 				.arch
@@ -42,43 +43,40 @@ defineExpose({ step, nextStep, prevStep })
 			.all900
 				.arch.q-mt-sm(style="padding: 0")
 					component(:is="Step25")
+
 		q-step(:name="3" prefix="3" title="Конфигурация" :done="step > 3" )
 			.all900
 				.arch
 					component(:is="Step4")
+
 		q-step(:name="4" prefix="4" title="Подтверждение параметров БД" :done="step > 4" )
 			.all900
 				.arch
 					component(:is="Step5")
 			.all900
 				.arch.q-mt-sm
-					component(:is="Step26" text="Подключение к базе данных может занять длительное время.")
+					Step26(color="orange" text="Подключение к базе данных может занять длительное время.")
+					Step7(result="База данных успешно подключена!" )
 
 
-		q-step(:name="5" prefix="5" title="Подключение к БД" :done="step > 5" )
+		q-step(:name="5" prefix="5" title="Обновление БД" :done="step > 5" )
 			.all900
-				.arch
-					component(:is="Step7" hint="Подключение к БД" result="База данных успешно подключена!" )
-			.all900(v-if="wiz.done")
 				.arch.q-mt-sm
-					component(:is="Step6")
+					Step26(color="negative")
+					Step7(result="База успешно обновлена!" )
 
-		q-step(:name="6" prefix="6" title="Завершение" :done="step > 6" )
-			.all900(v-if="wiz.dopModules")
-				.arch
-					component(:is="Step7" hint="Установка доп.модулей" result="Модули установлены!")
-			.all900(v-if="wiz.finish > 1")
+				// .text-center.q-mt-md
+					q-btn(unelevated color="primary" label="Пропустить обновление" @click="action") 
+
+		q-step(:name="6" prefix="6" title="Загрузка настроек" :done="step > 6" )
+			.all900
 				.arch.q-mt-sm
-					component(:is="Finish")
+					Step6
+					Step7(result="Модули установлены!")
 
-		// q-step(:name="6" prefix="5" title="Дополнительно" :done="step > 6" )
-		// 	.all900
-		// 		.arch
-		// 			component(:is="Step6")
-		// q-step(:name="7" prefix="6" title="Подключение" :done="step > 7" )
-		// 	.all900
-		// 		.arch
-		// 			component(:is="Step7" hint="Подключение БД" result="Подключение прошло успешно!")
+			.all900(v-if="wiz.create == 2")
+				.arch.q-mt-sm
+					Finish()
 
 </template>
 

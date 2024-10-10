@@ -81,7 +81,7 @@ defineExpose({ step, nextStep, prevStep })
 					Step6
 					Step7(result="Модули установлены!")
 
-			.all900(v-if="wiz.finish > 1")
+			.all900(v-if="wiz.create == 2")
 				.arch.q-mt-sm
 					Finish()
 
