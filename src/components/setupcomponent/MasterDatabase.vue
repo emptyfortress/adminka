@@ -88,81 +88,15 @@ const upNext = () => {
 }
 
 const crBack = () => {
-	if (cr.value.step === 1) {
-		panel.value = 'start'
-	} else {
-		cr.value.prevStep()
-	}
+	cr.value.prevStep()
 }
 const conBack = () => {
-	if (con.value.step === 1) {
-		panel.value = 'start'
-	} else {
-		con.value.prevStep()
-	}
+	con.value.prevStep()
 }
 const upBack = () => {
-	if (up.value.step === 4) {
-		panel.value = 'start'
-	} else {
-		up.value.prevStep()
-	}
+	up.value.prevStep()
 }
 
-const selected = ref([])
-
-const headers: QTableProps['columns'] = [
-	{
-		label: 'Название',
-		align: 'left',
-		sortable: true,
-		name: 'name',
-		field: 'name',
-	},
-	{
-		label: 'Псевдоним',
-		align: 'left',
-		sortable: true,
-		name: 'psevdo',
-		field: 'psevdo',
-	},
-	// { label: 'Активна', align: 'left', sortable: true, name: 'active', field: 'active' },
-]
-
-const list = [
-	{
-		id: 0,
-		active: true,
-		psevdo: 'AGSupport',
-		name: 'AGSupport_1',
-		servertype: 'SQL Server',
-		server: 'Docsvision 1',
-		index: 'yes',
-		version: 4373,
-		cache: 'InMemory',
-		date: '20.10.2021',
-		def: true,
-	},
-	{
-		id: 1,
-		active: true,
-		psevdo: 'DvTest',
-		name: 'AGSupport_2',
-		servertype: 'SQL Server',
-		server: 'Docsvision 1',
-		index: 'yes',
-		cache: 'Redis',
-		version: 4373,
-		date: '04.11.2022',
-		def: false,
-	},
-]
-
-const panel = ref('start')
-
-const next = () => {
-	panel.value = wiz.choose
-}
 const ready = computed(() => {
 	if (wiz.choose === 'create' && step.value == 6) return true
 	else if (wiz.choose === 'update' && step.value == 3) return true
