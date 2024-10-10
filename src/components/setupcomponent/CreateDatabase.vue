@@ -65,7 +65,7 @@ defineExpose({ step, nextStep, prevStep })
 			.all900
 				.arch
 					Step4
-		q-step(:name="5" prefix="5" title="Создание БД" :done="step > 5" )
+		q-step(:name="5" prefix="5" title="Подтверждение параметров БД" :done="step > 5" )
 			.all900
 				.arch
 					Step5
@@ -74,7 +74,7 @@ defineExpose({ step, nextStep, prevStep })
 					Step26(color="orange" text="Создание базы данных может занять длительное время.")
 					Step7(result="База данных создана успешно!" )
 
-		q-step(:name="6" prefix="6" title="Завершение" :done="step > 6" )
+		q-step(:name="6" prefix="6" title="Загрузка настроек" :done="step > 6" )
 			.all900
 				.arch.q-mt-sm
 					Step6
