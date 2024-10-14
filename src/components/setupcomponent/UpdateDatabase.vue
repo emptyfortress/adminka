@@ -37,12 +37,14 @@ defineExpose({ step, nextStep, prevStep })
 			.all900
 				.arch
 					Step5(text="Обновить базу данных со следующими параметрами")
+
+		q-step(:name="3" prefix="3" title="Обновление БД" :done="step > 3")
 			.all900
 				.arch.q-mt-sm
 					Step26
 					Step7(result="База успешно обновлена!" )
 
-		q-step(:name="3" prefix="3" title="Загрузка настроек" :done="step > 3" )
+		q-step(:name="4" prefix="4" title="Загрузка настроек" :done="step > 4" )
 			.all900
 				.arch
 					Step6

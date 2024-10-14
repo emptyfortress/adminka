@@ -103,7 +103,7 @@ const upBack = () => {
 
 const ready = computed(() => {
 	if (wiz.choose === 'create' && step.value == 6) return true
-	else if (wiz.choose === 'update' && step.value == 3) return true
+	else if (wiz.choose === 'update' && step.value == 4) return true
 	else if (wiz.choose === 'connect' && step.value == 6) return true
 	return false
 })
