@@ -19,9 +19,9 @@ const current = computed(() => {
 
 const list = reactive([
 	{ id: 0, field: 'lic', label: 'Лицензия', selected: false },
+	{ id: 3, field: 'dost', label: 'Управление доступом', selected: false },
 	{ id: 1, field: 'bd', label: 'Базы данных', selected: false },
 	{ id: 2, field: 'common', label: 'Общие настройки', selected: false },
-	{ id: 3, field: 'dost', label: 'Управление доступом', selected: false },
 	{
 		id: 4,
 		field: 'auth',
@@ -31,7 +31,7 @@ const list = reactive([
 	{
 		id: 5,
 		field: 'addition',
-		label: 'Дополнительный настройки',
+		label: 'Дополнительные настройки',
 		selected: false,
 	},
 ])
@@ -50,7 +50,7 @@ q-page
 	.container
 		.grid
 			q-list.left(dense)
-				q-item(clickable v-for="item in list" :key="item.id" :class="{selected: selected == item.label}" @click="select(item)")
+				q-item(clickable v-for="item in list" :key="item.id" :class="{ selected: selected == item.label }" @click="select(item)")
 					q-item-section
 						q-item-label {{ item.label }}
 			q-scroll-area.right
@@ -69,15 +69,18 @@ q-page
 	row-gap: 0.5rem;
 	// background: green;
 }
+
 .right,
 .left {
 	height: calc(100vh - 165px);
 	width: 100%;
 	// background: pink;
 }
+
 .container {
 	margin: 1rem 2rem;
 }
+
 .selected {
 	color: $blue-10;
 	border: 1px solid hsl(221 41% 73% / 1);

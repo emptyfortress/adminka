@@ -12,13 +12,14 @@ import Licence from '@/components/setupcomponent/Licence.vue'
 .align
 	Licence
 
+#dost.commonzg Управление доступом
+AppServerDostup
+
 #bd.commonzg Базы данных
 .align
 	Database()
 #common.commonzg Общие настройки
 AppServerCommon
-#dost.commonzg Управление доступом
-AppServerDostup
 #auth.commonzg Расширенная аутентификация
 AppServerAuth
 #addition.commonzg Дополнительные настройки
