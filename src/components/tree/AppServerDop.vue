@@ -56,7 +56,7 @@ const rows = ref([
 ])
 
 const pagination = {
-	sortBy: 'key',
+	// sortBy: 'key',
 	rowsPerPage: 10
 }
 
@@ -65,11 +65,14 @@ const remove = ((e: number) => {
 	rows.value.splice(index, 1)
 })
 
+const add = (() => {
+	rows.value.unshift({ id: Date.now(), key: 'Новый ключ', val: 'Новое значение' })
+})
 </script>
 
 <template lang="pug">
 .q-mx-lg
-	q-btn.q-mb-sm(unelevated color="secondary" label="Добавить настройку" @click="" size="sm") 
+	q-btn.q-mb-sm(unelevated color="secondary" label="Добавить настройку" @click="add" size="sm") 
 	q-table(flat bordered
 		:columns="cols"
 		:rows="rows"
