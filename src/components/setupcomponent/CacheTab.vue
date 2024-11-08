@@ -29,6 +29,7 @@ const commonProp = ref([
 		id: 0,
 		main: 'InMemory',
 		label: 'Провайдер',
+		descr: 'Настройки способа хранения временных данных сервера',
 		options: ['InMemory', 'NoCache', 'Redis'],
 		select: true,
 	},
@@ -36,15 +37,16 @@ const commonProp = ref([
 		id: 1,
 		main: '',
 		label: 'Строка подключения',
+		descr: 'Строка подключения к Redis',
 		disable: true,
 	},
 	{
 		id: 2,
 		main: '',
 		label: 'Пароль',
+		descr: 'Пароль для доступа к Redis. Требуется заполнять только в том случае, если настроена аутентификация при помощи пароля',
 		disable: true,
 		button: true,
-		nodescr: true,
 		btLabel: 'Тест',
 	},
 	{
@@ -52,6 +54,7 @@ const commonProp = ref([
 		checkbox: true,
 		check: false,
 		label: 'Счетчики',
+		info: 'Включение функции записи информации, связанной с работой серверного кэша',
 		descr: 'Включить счетчики производительности',
 	},
 ])
@@ -73,6 +76,7 @@ q-form
 			:disable="item.disable" 
 			:button="item.button"
 			:options="item.options"
+			:info="item.info"
 			:select="item.select"
 			:btLabel="item.btLabel")
 </template>
@@ -82,14 +86,17 @@ q-form
 	width: 900px;
 	margin: 0 auto;
 }
+
 .title {
 	font-size: 0.8rem;
 	text-transform: uppercase;
 	color: $secondary;
 }
+
 .dis {
 	opacity: 0.3;
 }
+
 .arch {
 	background: var(--bg-grey);
 	padding: 1rem;
@@ -100,6 +107,7 @@ q-form
 	column-gap: 1rem;
 	row-gap: 0.5rem;
 }
+
 .more {
 	display: grid;
 	grid-template-columns: auto 1fr;
@@ -108,6 +116,7 @@ q-form
 	column-gap: 1rem;
 	row-gap: 0.5rem;
 }
+
 .q-select,
 .q-input {
 	width: 350px;
