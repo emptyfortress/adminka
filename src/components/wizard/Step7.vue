@@ -60,7 +60,7 @@ div
 		q-linear-progress.q-mt-lg(indeterminate)
 		.text-center.q-mt-sm {{ word }}
 	.min
-		q-card-section.suc(v-show="wiz.create == 2")
+		.suc(v-show="wiz.create == 2")
 			q-icon(name="mdi-check-bold" color="teal" size="md").q-mr-md
 			|{{ props.result }}
 

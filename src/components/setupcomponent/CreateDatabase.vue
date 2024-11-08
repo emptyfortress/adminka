@@ -50,23 +50,23 @@ defineExpose({ step, nextStep, prevStep })
 			.all900
 				.arch
 					Step1(ref="st1")
-		q-step(:name="2" prefix="2" title="Скрипт создания" :done="step > 2" )
-			.all900
-				.arch
-					Step2
-		q-step(:name="3" prefix="3" title="База данных" :done="step > 3" )
+		// q-step(:name="2" prefix="2" title="Скрипт создания" :done="step > 2" )
+		// 	.all900
+		// 		.arch
+		// 			Step2
+		q-step(:name="2" prefix="2" title="База данных" :done="step > 2" )
 			.all900
 				.arch
 					Step3
 			.all900(v-if="forms.step1.type === 'MS SQL Server'")
 				.arch.q-mt-sm(style="padding: 0")
 					Step25
-		q-step(:name="4" prefix="4" title="Конфигурация" :done="step > 4" )
+		q-step(:name="3" prefix="3" title="Конфигурация" :done="step > 3" )
 			.all900
 				.arch
 					Step4
 
-		q-step(:name="5" prefix="5" title="Подтверждение параметров БД" :done="step > 5" )
+		q-step(:name="4" prefix="4" title="Подтверждение параметров БД" :done="step > 4" )
 			.all900
 				.arch
 					Step5
@@ -74,8 +74,13 @@ defineExpose({ step, nextStep, prevStep })
 				.arch.q-mt-sm
 					Step26(color="orange" text="Создание базы данных может занять длительное время.")
 					Step7(result="База данных создана успешно!" )
+			.all900
+				.arch.q-mt-sm(v-if='wiz.create == 2')
+					.text-center.text-weight-bold.text-negative
+						q-icon.q-mr-md(name="mdi-hand-pointing-right" color="negative" size="md")
+						|Для продолжения необходимо перезапустить службу dvappserver
 
-		q-step(:name="6" prefix="6" title="Загрузка настроек" :done="step > 6" )
+		q-step(:name="5" prefix="5" title="Загрузка настроек" :done="step > 5" )
 			.all900
 				.arch.q-mt-sm
 					Step6
