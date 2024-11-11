@@ -44,6 +44,7 @@ const changed = ref(false)
 
 const old = ref()
 const oldcheck = ref()
+const emit = defineEmits(['tapped'])
 
 onMounted(() => {
 	old.value = main.value
@@ -79,9 +80,9 @@ const item = ref(false)
 	div
 		q-checkbox(v-model="check" dense :label="props.descr" v-if="checkbox" :disable="props.disable")
 	MyInput(v-model="main" v-if="!props.select && !props.checkbox && !props.textarea" :bg="props.bg" :filled="props.filled" :type="props.type" :disable="props.disable" :readonly="props.readonly")
-	q-input(v-model="main" v-if='props.textarea' bg-color="white" outlined autogrow)
+	q-input(v-model="main" v-if='props.textarea' bg-color="white" outlined autogrow :disable="props.disable")
 	MySelect(v-model="main" v-if="props.select && !props.checkbox" :bg="props.bg" :filled="props.filled" :options="props.options")
-	q-btn.add(v-if="props.button" unelevated color="secondary" :label="props.btLabel" size="sm") 
+	q-btn.add(v-if="props.button" unelevated color="secondary" :label="props.btLabel" size="sm" @click='$emit("tapped")') 
 
 </template>
 

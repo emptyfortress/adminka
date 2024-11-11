@@ -9,7 +9,8 @@ export const useTabs = defineStore({
 			{ id: 2, field: 'outer', name: 'outer', label: 'Внешние хранилища', modified: false },
 			{ id: 3, field: 'arch', name: 'arch', label: 'Архивирование', modified: false },
 			{ id: 5, field: 'cache', name: 'cache', label: 'Кэширование', modified: false },
-			{ id: 6, field: 'module', name: 'module', label: 'Доп. настройки', modified: false },
+			{ id: 6, field: 'log', name: 'log', label: 'Журналирование', modified: false },
+			{ id: 7, field: 'module', name: 'module', label: 'Доп. настройки', modified: false },
 		],
 	}),
 

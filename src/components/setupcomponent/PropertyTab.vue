@@ -24,42 +24,42 @@ const commonProp = ref([
 		main: props.bd.name,
 		label: 'Имя базы данных',
 		descr: 'Название базы данных, с которым она создана в СУБД',
-		readonly: true,
+		disable: true,
 	},
 	{
 		id: 1,
 		main: props.bd.psevdo,
 		label: 'Псевдоним',
 		descr: 'Название базы данных, с которым она зарегистрирована в Docsvision',
-		readonly: true,
+		disable: true,
 	},
 	{
 		id: 2,
 		main: props.bd.server,
 		label: 'Server SQL',
 		descr: 'Сетевое имя сервера баз данных',
-		readonly: true,
+		disable: true,
 	},
 	{
 		id: 3,
 		main: props.bd.servertype,
 		label: 'Тип сервера',
 		descr: 'Тип сервера баз данных, под управлением которого работает БД',
-		readonly: true,
+		disable: true,
 	},
 	{
 		id: 4,
 		main: props.bd.version,
 		label: 'Версия',
 		descr: 'Версия базы данных',
-		readonly: true,
+		disable: true,
 	},
 	{
 		id: 5,
 		main: props.bd.date,
 		label: 'Дата обновления',
 		descr: 'Дата последнего обновления',
-		readonly: true,
+		disable: true,
 	},
 	// {
 	// 	id: 6,
@@ -146,10 +146,9 @@ q-form
 			:label="item.label" 
 			:descr="item.descr" 
 			:info="item.info"
-			:readonly="item.readonly"
 			:disable="item.disable"
 			:checkbox="item.checkbox")
-		
+
 	.section Расположение таблиц
 	.descr Место размещения служебных таблиц, используемых сервером Docsvision для хранения временных данных: внутренних курсоров, курсоров для работы с файлами и иконками, промежуточных данных представлений, результатов поисковых запросов и прочих.
 	q-list

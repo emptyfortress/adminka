@@ -8,6 +8,7 @@ import ControlTab from '@/components/setupcomponent/ControlTab.vue'
 import Outer from '@/components/setupcomponent/Outer.vue'
 import ArchTab from '@/components/setupcomponent/ArchTab.vue'
 import CacheTab from '@/components/setupcomponent/CacheTab.vue'
+import Logging from '@/components/setupcomponent/Logging.vue'
 import ModuleTab from '@/components/setupcomponent/ModuleTab.vue'
 import BreadCrumbs from '@/components/tree/BreadCrumbs.vue'
 
@@ -45,7 +46,7 @@ q-page
 	.container
 		.grid
 			q-list.left(dense)
-				q-item(clickable v-for="item in tabs.tabs" :key="item.id" :class="{selected: selected == item.label}" @click="select(item)")
+				q-item(clickable v-for="item in tabs.tabs" :key="item.id" :class="{ selected: selected == item.label }" @click="select(item)")
 					q-item-section
 						q-item-label {{ item.label }}
 
@@ -61,6 +62,8 @@ q-page
 					ArchTab
 					#cache.zg Кэширование
 					CacheTab
+					#log.zg Журналирование
+					Logging
 					#module.zg Дополнительные настройки
 					ModuleTab
 
@@ -76,11 +79,13 @@ q-page
 	row-gap: 0.5rem;
 	// background: green;
 }
+
 .selected {
 	color: $blue-10;
 	border: 1px solid hsl(221 41% 73% / 1);
 	background: var(--tree-selection);
 }
+
 .zg {
 	font-size: 1.3rem;
 	font-weight: 600;
@@ -88,16 +93,19 @@ q-page
 	color: $secondary;
 	margin-top: 2rem;
 	margin-left: 2rem;
+
 	&:first-child {
 		margin-top: 0;
 	}
 }
+
 .right,
 .left {
 	height: calc(100vh - 165px);
 	width: 100%;
 	// background: pink;
 }
+
 .container {
 	margin: 1rem 2rem;
 }
