@@ -21,7 +21,7 @@ const key = ref(0)
 const commonProp = reactive([
 	{
 		id: 0,
-		check: false,
+		check: null,
 		checkbox: true,
 		descr: 'Базовые объекты',
 		block: 1,
