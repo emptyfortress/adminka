@@ -3,6 +3,7 @@ import { ref } from 'vue'
 import MyField from '@/components/common/MyField.vue'
 import SimpleRadioGroup from '@/components/common/SimpleRadioGroup.vue'
 import DostupGroup from '@/components/tree/DostupGroup.vue'
+import AppServerCatalog from '@/components/tree/AppServerCatalog.vue'
 
 const win = ref([
 	{ id: 0, label: 'Использовать протокол', main: 'Веб-сервис (http + soap)' },
@@ -74,56 +75,6 @@ const cat = ref([
 		readonly: false,
 	},
 ])
-const ldap = ref([
-	{
-		id: 0,
-		main: 'domain.com',
-		label: 'Адреса серверов LDAP',
-		descr: 'Адреса серверов LDAP данного домена',
-		readonly: false,
-	},
-	{
-		id: 1,
-		main: '10000',
-		label: 'Таймаут',
-		descr: 'Время ожидания ответа LDAP сервера, мс',
-		readonly: false,
-		type: 'number',
-	},
-])
-const ldap1 = ref([
-	{
-		id: 0,
-		main: 'user@domain.com',
-		label: 'Логин',
-		descr:
-			'Логин пользователя для подключения к LDAP-каталогам текущего домена в формате user@example.com',
-		readonly: false,
-	},
-	{
-		id: 1,
-		main: '',
-		label: 'Пароль',
-		descr:
-			'Пароль пользователя для подключения к LDAP-каталогам текущего домена',
-		readonly: false,
-		type: 'password',
-	},
-])
-
-const Radio = ref([
-	{
-		id: 0,
-		label: 'Тип аутентификации в LDAP',
-		descr: 'Тип аутентификации в LDAP',
-		disable: false,
-		startValue: '1',
-		group: [
-			{ label: 'Basic', val: '1' },
-			{ label: 'Advanced', val: '2' },
-		],
-	},
-])
 </script>
 
 <template lang="pug">
@@ -143,46 +94,7 @@ MyField(
 	:info='item.info'
 	)
 
-.section НАСТРОЙКА ДОМЕННЫХ КАТАЛОГОВ
-MyField(
-	v-model:main="item.main" 
-	v-for="item in cat" 
-	:key="item.id" 
-	:label="item.label" 
-	:descr="item.descr" 
-	:readonly="item.readonly"
-	)
-
-.section Настройки подключения к LDAP каталогу домена
-MyField(
-	v-model:main="item.main" 
-	v-for="item in ldap" 
-	:key="item.id" 
-	:label="item.label" 
-	:descr="item.descr" 
-	:readonly="item.readonly"
-	:type='item.type'
-	)
-
-SimpleRadioGroup(
-	v-for="item in Radio" 
-	:key="item.id" 
-	:label="item.label" 
-	:descr="item.descr" 
-	:disable="item.disable"
-	:startValue="item.startValue"
-	:group="item.group"
-)
-
-MyField(
-	v-model:main="item.main" 
-	v-for="item in ldap1" 
-	:key="item.id" 
-	:label="item.label" 
-	:descr="item.descr" 
-	:readonly="item.readonly"
-	:type='item.type'
-	)
+AppServerCatalog
 
 .section Управление сессиями
 MyField(
@@ -226,11 +138,13 @@ MyField(
 	margin-left: 2rem;
 	color: #666;
 }
+
 th,
 td {
 	padding: 2px 5px;
 	text-align: left;
 }
+
 .q-table thead tr {
 	height: 28px;
 	background: #ccc;

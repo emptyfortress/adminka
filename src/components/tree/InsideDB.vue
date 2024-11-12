@@ -77,7 +77,6 @@ q-page
 	align-items: start;
 	column-gap: 3rem;
 	row-gap: 0.5rem;
-	// background: green;
 }
 
 .selected {

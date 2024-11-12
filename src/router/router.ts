@@ -60,6 +60,13 @@ export const router = createRouter({
 					props: true,
 					meta: {},
 				},
+				{
+					path: 'ldap-:net',
+					name: 'ldap',
+					component: () => import('@/components/tree/Ldap.vue'),
+					props: true,
+					meta: {},
+				},
 			],
 		},
 
