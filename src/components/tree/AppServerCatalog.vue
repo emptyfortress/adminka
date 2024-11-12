@@ -105,7 +105,7 @@ const rows = ref([
 	}
 ])
 
-const goto = ((evt, row, index) => {
+const goto = ((evt: any, row: any, index: number) => {
 	router.push(route.fullPath + '/ldap-' + row.netbios)
 })
 
@@ -117,7 +117,13 @@ const add = (() => {
 	rows.value.push({
 		id: rows.value.length + 2,
 		domain: 'domain',
-		ldap: []
+		netbios: '',
+		ldap: [],
+		redirect: '',
+		timeout: 0,
+		auth: '',
+		login: '',
+		pass: '',
 	})
 })
 </script>
