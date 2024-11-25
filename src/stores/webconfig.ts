@@ -230,7 +230,7 @@ export const useWebConfig = defineStore({
 				selected: true,
 				label: 'DocsVision Users',
 				users: [
-					{ id: 0, user: '//Everyone' },
+					{ id: 0, user: 'Everyone' },
 					{ id: 1, user: 'digdes/kmg01' },
 					{ id: 2, user: 'digdes/kmg02' },
 					{ id: 3, user: 'digdes/kmg03' },
@@ -282,14 +282,13 @@ export const useWebConfig = defineStore({
 	getters: {},
 	actions: {
 		addUser(curr: string, e: any) {
-			console.log('addddd')
 			const currentGroup = this.groups.find((item: any) => item.label == curr)
 			currentGroup?.users.push(e)
 		},
 		removeUser(curr: string, e: any) {
 			const currentGroup = this.groups.find((item: any) => item.label == curr)
 			const index = currentGroup?.users.indexOf(e)
-			if (index) {
+			if (index !== undefined) {
 				currentGroup?.users.splice(index, 1)
 			}
 		},
