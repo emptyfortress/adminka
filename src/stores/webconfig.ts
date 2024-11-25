@@ -234,6 +234,12 @@ export const useWebConfig = defineStore({
 					{ id: 1, user: 'digdes/kmg01' },
 					{ id: 2, user: 'digdes/kmg02' },
 					{ id: 3, user: 'digdes/kmg03' },
+					// { id: 4, user: 'digdes/kmg03' },
+					// { id: 5, user: 'digdes/kmg03' },
+					// { id: 6, user: 'digdes/kmg03' },
+					// { id: 7, user: 'digdes/kmg03' },
+					// { id: 8, user: 'digdes/kmg03' },
+					// { id: 9, user: 'digdes/kmg03' },
 				],
 			},
 			{
@@ -274,5 +280,18 @@ export const useWebConfig = defineStore({
 	}),
 
 	getters: {},
-	actions: {},
+	actions: {
+		addUser(curr: string, e: any) {
+			console.log('addddd')
+			const currentGroup = this.groups.find((item: any) => item.label == curr)
+			currentGroup?.users.push(e)
+		},
+		removeUser(curr: string, e: any) {
+			const currentGroup = this.groups.find((item: any) => item.label == curr)
+			const index = currentGroup?.users.indexOf(e)
+			if (index) {
+				currentGroup?.users.splice(index, 1)
+			}
+		},
+	},
 })

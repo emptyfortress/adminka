@@ -3,6 +3,7 @@ import { ref, watch, computed } from 'vue'
 import { useStore } from '@/stores/store'
 import type { QTableColumn } from 'quasar'
 const store = useStore()
+import { useWebConfig } from '@/stores/webconfig'
 
 const selection = ref('DocsVision Users')
 const current = computed(() => {
@@ -13,15 +14,6 @@ const select = (e: any) => {
 	selection.value = e.label
 }
 const columns: QTableColumn[] = [
-	{
-		name: 'id',
-		required: true,
-		label: '#',
-		align: 'right',
-		field: 'id',
-		format: (val: any) => val + 1,
-		sortable: false,
-	},
 	{
 		name: 'user',
 		required: true,
@@ -39,6 +31,29 @@ const columns: QTableColumn[] = [
 		sortable: false,
 	},
 ]
+
+const webconfig = useWebConfig()
+
+const remove = (e: any) => {
+	webconfig.removeUser(current.value.label, e)
+}
+
+const table = ref()
+
+const user = ref()
+const username = ref()
+
+const add = () => {
+	console.log('add')
+	if (!user.value) return
+	let tmp = {
+		id: +Date.now(),
+		user: user.value,
+	}
+	webconfig.addUser(selection.value, tmp)
+	user.value = null
+	username.value.focus()
+}
 </script>
 
 <template lang="pug">
@@ -55,23 +70,54 @@ q-form.q-mt-md(ref="form" @validation-error="$emit('haserror')" @validation-succ
 
 		.to
 			q-icon(name="mdi-arrow-right-bold" size="lg")
-		.wh
-			q-table(flat bordered
+		.wh1
+			q-table(flat bordered ref='table'
 				:rows="current.users"
 				:columns="columns"
+				hide-bottom
+				:rows-per-page-options='[0]'
 				row-key="id")
-				template(v-slot:body-cell-id="props")
-					q-td.sma {{ props.row.id + 1 }}
+
+				template(v-slot:body-cell-user="props")
+					q-td(:props="props")
+						span.edi {{props.row.user}}
+						q-popup-edit(v-model="props.row.user" auto-save v-slot="scope")
+							q-input(v-model="scope.value" dense autofocus counter @keyup.enter="scope.set")
+
 				template(v-slot:body-cell-action="props")
 					q-td(:props="props")
 						q-btn(flat round icon="mdi-trash-can-outline" color="secondary" size='sm') 
+							q-menu
+								q-list
+									q-item(clickable @click='remove(props.row)').pink
+										q-item-section Удалить
 
 			q-card-section
-				q-btn(unelevated color="secondary" label="Добавить" size='sm') 
+				.row.items-center.q-gutter-x-sm
+					div Пользователь:
+					q-input.user(ref='username' v-model="user" dense outlined bg-color="white")
+					q-btn(unelevated color="secondary" label="Добавить" icon='mdi-plus-circle' size='sm' @click='add') 
 		
 </template>
 
 <style scoped lang="scss">
+:deep(.q-field__control) {
+	height: 28px;
+	font-size: 0.9rem;
+}
+:deep(.q-field__native) {
+	line-height: 24px;
+}
+:deep(.q-field__marginal) {
+	height: inherit;
+}
+:deep(.q-icon) {
+	width: 0.4rem;
+	font-size: 20px;
+}
+:deep(.q-field__messages) {
+	font-size: 0.65rem;
+}
 .lang {
 	margin: 0 2rem;
 	display: grid;
@@ -80,6 +126,9 @@ q-form.q-mt-md(ref="form" @validation-error="$emit('haserror')" @validation-succ
 
 	& > div.wh {
 		background: white;
+	}
+	& > div.wh1 {
+		background: #ffffff99;
 	}
 }
 .sma {
@@ -101,5 +150,9 @@ th {
 
 .sel {
 	background: var(--bg-selected);
+}
+.edi {
+	color: $secondary;
+	border-bottom: 1px dotted $secondary;
 }
 </style>
