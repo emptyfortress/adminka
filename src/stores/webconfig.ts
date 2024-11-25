@@ -230,7 +230,7 @@ export const useWebConfig = defineStore({
 				selected: true,
 				label: 'DocsVision Users',
 				users: [
-					{ id: 0, user: 'Everyone' },
+					{ id: 0, user: '//Everyone' },
 					{ id: 1, user: 'digdes/kmg01' },
 					{ id: 2, user: 'digdes/kmg02' },
 					{ id: 3, user: 'digdes/kmg03' },
