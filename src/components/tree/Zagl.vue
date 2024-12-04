@@ -21,7 +21,7 @@ q-page
 
 			q-scroll-area.right
 				.q-ml-lg
-					.confzag  {{ props.id[1]}}
+					.confzag {{ props.id[1]}}
 					WebClientInside
 </template>
 

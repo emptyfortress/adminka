@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue'
-import { useRoute, useRouter } from 'vue-router'
+import { useRoute } from 'vue-router'
 
 const route = useRoute()
-const router = useRouter()
+// const router = useRouter()
 
 const selected = ref()
 const select = (e: any) => {
@@ -17,28 +17,28 @@ const list = computed(() => {
 			return [
 				{
 					id: 0,
-					label: 'Подключение к серверу приложений',
+					label: 'Подключение',
 					field: 'connect',
 					selected: false,
 				},
-				{ id: 1, label: 'Общие настройки', field: 'common', selected: false },
-				{ id: 2, label: 'Кэширование', field: 'cache', selected: false },
-				{ id: 3, label: 'Система', field: 'system', selected: false },
 				{
-					id: 4,
-					label: 'Облачная подпись КриптоПро',
-					field: 'crypto',
+					id: 1,
+					label: 'База данных',
+					field: 'bd',
 					selected: false,
 				},
-				{ id: 5, label: 'Грид', field: 'grid', selected: false },
-				{ id: 6, label: 'Локализации', field: 'locale', selected: false },
-				{ id: 7, label: 'Виды карточек', field: 'cards', selected: false },
 				{
-					id: 8,
-					label: 'Экспериментальные функции',
-					field: 'experiment',
-					selected: false,
+					id: 2,
+					label: 'Интерфейс',
+					field: 'interface',
+					selected: true,
 				},
+				{ id: 3, label: 'Общие', field: 'common', selected: false },
+				{ id: 4, label: 'Производительность', field: 'yield', selected: false },
+				{ id: 5, label: 'Работа с файлами', field: 'files', selected: false },
+				{ id: 6, label: 'Инструменты', field: 'tools', selected: false },
+				{ id: 7, label: 'Электронная подпись', field: 'sign', selected: false },
+				{ id: 8, label: 'Журналирование', field: 'logs', selected: false },
 			]
 		case 'worker':
 			return [

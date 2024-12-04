@@ -13,22 +13,25 @@ import WebExp from '@/components/tree/WebExp.vue'
 <template lang="pug">
 #connect.commonzg Подключение к серверу приложений
 WebClientConnect
+#bd.commonzg База данных
+// WebClientConnect
+#interface.commonzg Интерфейс
 #common.commonzg Общие настройки
-WebClientCommon
-#cache.commonzg Кэширование
-WebClientCache
-#system.commonzg Система
-WebClientSystem
-#crypto.commonzg Облачная подпись КриптоПро
-WebClientCrypto
-#grid.commonzg Грид
-WebClientGrid
-#locale.commonzg Локализации
-WebLocalization 
-#cards.commonzg Виды карточек
-WebCards
-#experiment.commonzg Экспериментальные функции
-WebExp
+#yield.commonzg Производительность
+#files.commonzg Работа с файлами
+#tools.commonzg Инструменты
+#sign.commonzg Электронная подпись
+#logs.commonzg Журналирование
+
+// #common.commonzg Общие настройки
+// WebClientCommon
+// #cache.commonzg Кэширование
+// #system.commonzg Система
+// #crypto.commonzg Облачная подпись КриптоПро
+// #grid.commonzg Грид
+// #locale.commonzg Локализации
+// #cards.commonzg Виды карточек
+// #experiment.commonzg Экспериментальные функции
 </template>
 
 <style scoped lang="scss">
