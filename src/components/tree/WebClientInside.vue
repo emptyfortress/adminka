@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import WebClientConnect from '@/components/tree/WebClientConnect.vue'
+import WebClientDb from '@/components/tree/WebClientDb.vue'
 import WebClientCommon from '@/components/tree/WebClientCommon.vue'
 import WebClientCache from '@/components/tree/WebClientCache.vue'
 import WebClientSystem from '@/components/tree/WebClientSystem.vue'
@@ -14,7 +15,7 @@ import WebExp from '@/components/tree/WebExp.vue'
 #connect.commonzg Подключение к серверу приложений
 WebClientConnect
 #bd.commonzg База данных
-// WebClientConnect
+WebClientDb
 #interface.commonzg Интерфейс
 #common.commonzg Общие настройки
 #yield.commonzg Производительность
