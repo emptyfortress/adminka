@@ -1,125 +1,55 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import MyField from '@/components/common/MyField.vue'
-import SimpleRadioGroup from '@/components/common/SimpleRadioGroup.vue'
+// import SimpleRadioGroup from '@/components/common/SimpleRadioGroup.vue'
 
-const Folders = ref([
-	{
-		id: 0,
-		main: 'C:/Program Files (x86)/Docsvision/WebClient/5.5/Site/Extensions',
-		label: 'Размещение расширений',
-		descr: 'This is description',
-		readonly: false,
-	},
-	{
-		id: 1,
-		main: 'Content/Tools/DVWebTool/Docsvision.DVWebTool.application',
-		label: 'Адрес установщика утилиты DVWebTool',
-		descr: 'This is description',
-		readonly: false,
-	},
-	{
-		id: 2,
-		main: '${gdc:baseLogFolder}/docsvision/webclient/webclient.log',
-		label: 'Адрес журнала операций web-клиента',
-		descr: 'This is description',
-		readonly: false,
-	},
-])
 const Device = ref([
 	{
 		id: 0,
 		main: '',
 		label: 'Новые мобильные устройства',
-		descr: 'This is description',
+		descr: 'Шаблон определения мобильных устройств нового поколения',
 		readonly: false,
 	},
 	{
 		id: 1,
 		main: '',
 		label: 'Старые мобильные устройства',
-		descr: 'This is description',
+		descr: 'Шаблон определения старых мобильных устройств',
 		readonly: false,
 	},
 	{
 		id: 2,
 		main: '',
 		label: 'Планшеты',
-		descr: 'This is description',
+		descr: 'Шаблон определения планшетов',
 		readonly: false,
 	},
 ])
 
-const Dopoln = ref([
+const cookie = ref([
 	{
 		id: 0,
-		label: 'Режим удаления карточек',
-		descr: 'This is description',
-		disable: false,
-		startValue: '1',
-		group: [
-			{ label: 'В корзину', val: '1' },
-			{ label: 'Полное удаление', val: '2' },
-		],
+		main: '0',
+		label: 'Интервал автоматического обновления сессии, ч',
+		descr: 'Продление действия cookies при входе пользователя в Web-клиент.',
+		readonly: false,
+		type: 'number',
 	},
 	{
 		id: 1,
-		label: 'Порядок следования кнопок',
-		descr: 'This is description',
-		disable: false,
-		startValue: '1',
-		group: [
-			{ label: 'Auto', val: '1' },
-			{ label: 'OK, Cancel', val: '2' },
-			{ label: 'Cancel, OK', val: '2' },
-		],
+		main: '120',
+		label: 'Период действия пользовательской сессии, ч',
+		descr: 'Период действия пользовательской сессии',
+		readonly: false,
+		type: 'number',
 	},
 	{
 		id: 2,
-		label: 'Прятать боковую панель по клику на странице',
-		descr: 'This is description',
-		disable: false,
-		startValue: '1',
-		group: [
-			{ label: 'Да', val: '1' },
-			{ label: 'Нет', val: '2' },
-		],
-	},
-	{
-		id: 3,
-		label: 'Показывать сообщение о переходе в оффлайн',
-		descr: 'This is description',
-		disable: false,
-		startValue: '1',
-		group: [
-			{ label: 'Да', val: '1' },
-			{ label: 'Нет', val: '2' },
-		],
-	},
-])
-
-const Dopoln1 = ref([
-	{
-		id: 0,
-		main: '',
-		label: 'Оффлайн режим после паузы, мин.',
-		descr: 'This is description',
-		readonly: false,
-		type: 'number',
-	},
-	{
-		id: 1,
-		main: '',
-		label: 'Закрытие сессии после паузы, мин.',
-		descr: 'This is description',
-		readonly: false,
-		type: 'number',
-	},
-	{
-		id: 3,
-		main: '50000000',
-		label: 'Максимальный размер файла, байт',
-		descr: 'This is description',
+		main: '120',
+		label:
+			'Период действия пользовательской сессии на мобильных устройствах, ч',
+		descr: 'Период действия пользовательской сесси на мобильных устройствахи',
 		readonly: false,
 		type: 'number',
 	},
@@ -128,18 +58,19 @@ const Dopoln1 = ref([
 
 <template lang="pug">
 q-form
-	.section Папки
+	.section Пользовательские cookie
 	q-list
 		MyField(
 			v-model:main="item.main" 
-			v-for="item in Folders" 
+			v-for="item in cookie" 
 			:key="item.id" 
 			:label="item.label" 
 			:descr="item.descr" 
 			:readonly="item.readonly"
+			:type='item.type'
 			)
 
-	.section Шаблоны для определения устройств
+	.section Устройства
 	q-list
 		MyField(
 			v-model:main="item.main" 
@@ -148,27 +79,7 @@ q-form
 			:label="item.label" 
 			:descr="item.descr" 
 			:readonly="item.readonly"
-			)
-
-	.section Дополнительно
-	q-list
-		SimpleRadioGroup(
-			v-for="item in Dopoln" 
-			:key="item.id" 
-			:label="item.label" 
-			:descr="item.descr" 
-			:disable="item.disable"
-			:startValue="item.startValue"
-			:group="item.group"
-		)
-		MyField(
-			v-model:main="item.main" 
-			v-for="item in Dopoln1" 
-			:key="item.id" 
-			:label="item.label" 
-			:descr="item.descr" 
-			:readonly="item.readonly"
-			:type="item.type"
+			:type='item.type'
 			)
 
 </template>

@@ -25,7 +25,9 @@ WebCards
 #interface.commonzg Интерфейс
 WebClientInterface
 #common.commonzg Общие настройки
+WebClientCommon
 #yield.commonzg Производительность
+WebClientCache
 #files.commonzg Работа с файлами
 #tools.commonzg Инструменты
 #sign.commonzg Электронная подпись
