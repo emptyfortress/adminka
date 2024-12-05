@@ -3,9 +3,9 @@ import { computed } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 
 const route = useRoute()
-const router = useRouter()
+// const router = useRouter()
 
-const goBack = (idx: number) => {}
+// const goBack = (idx: number) => {}
 
 const crumbs = computed(() => {
 	let pathArray = route.path.split('/')
@@ -23,19 +23,23 @@ const crumbs = computed(() => {
 		},
 		[]
 	)
+
 	breadcrumbs[0].text = 'Серверы'
-	breadcrumbs[2].text = 'Сервер приложений'
-	breadcrumbs[2].to = '/root/DVM/appserver'
-	if (route.name == 'zagl') {
-		breadcrumbs[2].text = route.params.id[1]
-		breadcrumbs[2].to = ''
+	if (breadcrumbs[2].text == 'appserver') {
+		breadcrumbs[2].text = 'Сервер приложений'
+		breadcrumbs[2].to = '/root/DVM/appserver'
 	}
+	if (breadcrumbs[2].text == 'webclient') {
+		breadcrumbs[2].text = 'Web-клиент'
+		breadcrumbs[2].to = '/root/DVM/webclient'
+	}
+
 	return breadcrumbs
 })
 
-const action = () => {
-	console.log(crumbs.value)
-}
+// const action = () => {
+// 	console.log(crumbs.value)
+// }
 </script>
 
 <template lang="pug">

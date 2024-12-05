@@ -44,6 +44,26 @@ export const router = createRouter({
 		},
 
 		{
+			path: '/root/:id/webclient',
+			children: [
+				{
+					path: '',
+					component: () => import('@/pages/Webclient.vue'),
+					props: true,
+					name: 'webclient',
+					meta: {},
+				},
+				// {
+				// 	path: ':bd1',
+				// 	component: () => import('@/components/tree/WebClientInsideDB.vue'),
+				// 	props: true,
+				// 	name: 'bd',
+				// 	meta: {},
+				// },
+			],
+		},
+
+		{
 			path: '/root/:id/appserver',
 			children: [
 				{
@@ -70,12 +90,12 @@ export const router = createRouter({
 			],
 		},
 
-		{
-			path: '/root/:id+',
-			component: () => import('@/components/tree/Zagl.vue'),
-			name: 'zagl',
-			props: true,
-		},
+		// {
+		// 	path: '/root/:id+',
+		// 	component: () => import('@/components/tree/Zagl.vue'),
+		// 	name: 'zagl',
+		// 	props: true,
+		// },
 
 		{
 			path: '/setup0',

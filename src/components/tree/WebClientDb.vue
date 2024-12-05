@@ -58,6 +58,7 @@ const goto = (e: string) => {
 
 <template lang="pug">
 .database
+	div {{ route.fullPath }}
 	q-table(:rows='store.databases' :columns='columns' row-key='name' hide-bottom)
 		template(v-slot:body='props')
 			q-tr(:props='props' :class='{ cool: props.row.def }' @click="goto(props.row.psevdo)")

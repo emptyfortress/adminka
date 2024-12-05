@@ -6,17 +6,10 @@ import { cards } from '@/stores/treeCards'
 const store = useStore()
 
 const form = ref()
-// const emit = defineEmits(['change', 'haserror', 'noerror'])
 const filter = ref('')
 const tree = ref()
 
 const kkey = ref(0)
-// watch(store.wc.cards, (value) => {
-// 	if (value) {
-// 		store.changeWebDefaults(7)
-// 		emit('change')
-// 	}
-// })
 const selection = ref('AGSupport')
 
 const select = (e: any) => {
@@ -57,27 +50,41 @@ const choose = () => {
 <template lang="pug">
 q-form(ref="form" @validation-error="$emit('haserror')" @validation-success="$emit('noerror')" no-error-focus)
 	.lang
-		.wh
-			.text-weight-bold.q-pa-sm Базы данных:
-			q-list
-				q-item.db(clickable v-for="item in store.wc.cards" :key="item.id" @click="select(item)" :class="{ sel: item.psevdo === selection }")
-					q-item-section(side)
-						q-icon(name="mdi-database-outline")
-					q-item-section
-						q-item-label {{ item.psevdo }}
-		.to
-			q-icon(name="mdi-arrow-right-bold" size="lg")
-		.wh
-			q-markup-table(flat)
-				thead
+		q-markup-table()
+			thead
+				tr
+					th.top(colspan='2')
+						q-icon(name="mdi-database" color="secondary" size='md')
+						span AGSupport
+				tr
+					th Тип карточки
+					th Вид по умолчанию
+			transition(name="fade" mode="out-in")
+				tbody(:key="kkey")
+					tr(v-for="item in current.types" :key="item.id")
+						td {{ item.name }}
+						td.choose(@click="showDialog(item)") {{ item.vid }}
 					tr
-						th Тип карточки
-						th Вид по умолчанию
-				transition(name="fade" mode="out-in")
-					tbody(:key="kkey")
-						tr(v-for="item in current.types" :key="item.id")
-							td {{ item.name }}
-							td.choose(@click="showDialog(item)") {{ item.vid }}
+						td(colspan='2')
+							q-btn(unelevated color="secondary" label="Добавить тип ????"  size='sm')
+
+		q-markup-table()
+			thead
+				tr
+					th.top(colspan='2')
+						q-icon(name="mdi-database" color="secondary" size='md')
+						span dvTest
+				tr
+					th Тип карточки
+					th Вид по умолчанию
+			transition(name="fade" mode="out-in")
+				tbody(:key="kkey")
+					tr(v-for="item in current.types" :key="item.id")
+						td {{ item.name }}
+						td.choose(@click="showDialog(item)") {{ item.vid }}
+					tr
+						td(colspan='2')
+							q-btn(unelevated color="secondary" label="Добавить тип ????"  size='sm')
 
 	q-dialog(v-model="dialog")
 		q-card(style="min-width: 400px; padding: 1rem;")
@@ -108,25 +115,26 @@ q-form(ref="form" @validation-error="$emit('haserror')" @validation-success="$em
 .lang {
 	margin: 0 2rem;
 	display: grid;
-	grid-template-columns: 0.4fr auto 1fr;
+	grid-template-columns: repeat(3, 1fr);
 	gap: 1rem;
+}
 
-	& > div.wh {
-		background: white;
-	}
+:deep(.q-table th) {
+	font-size: 0.7rem;
+	font-weight: normal;
+	color: hsl(0, 0%, 40%);
+	// padding: 5px 8px;
+}
+th.top {
+	font-size: 1.1rem;
+	font-weight: 600;
+	margin-left: 0.5rem;
+	border-bottom: none;
+	color: black;
 }
 
 th {
 	text-align: left;
-}
-
-.to {
-	align-self: center;
-	text-align: center;
-}
-
-.q-item.db {
-	border: none !important;
 }
 
 .sel {

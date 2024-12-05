@@ -11,14 +11,6 @@ const Prop = ref([
 		descr: 'Адрес сервера приложений, к которому подключается Web-клиент',
 	},
 	{
-		id: 1,
-		main: 'test_dv',
-		label: 'Подключаемая база данных',
-		descr: 'Список подключенных баз данных указанного сервера Docsvision',
-		select: true,
-		options: ['test_dv', 'dvdatabase'],
-	},
-	{
 		id: 2,
 		main: '',
 		label: 'Имя системного пользователя',
@@ -49,9 +41,7 @@ q-form
 			:key="item.id" 
 			:label="item.label" 
 			:descr="item.descr" 
-			:select="item.select"
 			:type="item.type"
-			:options='item.options'
 			)
 AppServerCatalog
 </template>

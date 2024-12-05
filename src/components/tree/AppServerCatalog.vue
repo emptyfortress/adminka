@@ -78,7 +78,7 @@ const columns: QTableProps['columns'] = [
 		field: 'action',
 		sortable: false,
 		align: 'right',
-	}
+	},
 ]
 
 const rows = ref([
@@ -102,18 +102,18 @@ const rows = ref([
 		auth: 'basic',
 		login: 'kmg01',
 		pass: 'pass',
-	}
+	},
 ])
 
-const goto = ((evt: any, row: any, index: number) => {
+const goto = (evt: any, row: any, index: number) => {
 	router.push(route.fullPath + '/ldap-' + row.netbios)
-})
+}
 
-const remove = ((e: number) => {
-	rows.value = rows.value.filter((item) => item.id !== e)
-})
+const remove = (e: number) => {
+	rows.value = rows.value.filter(item => item.id !== e)
+}
 
-const add = (() => {
+const add = () => {
 	rows.value.push({
 		id: rows.value.length + 2,
 		domain: 'domain',
@@ -125,14 +125,14 @@ const add = (() => {
 		login: '',
 		pass: '',
 	})
-})
+}
 </script>
 
-<template lang='pug'>
-.section НАСТРОЙКА ДОМЕННЫХ КАТАЛОГОВ
+<template lang="pug">
+.section Настройка доменных каталогов
 
 .catalog
-	q-table(:rows='rows' :columns='columns' row-key='id' hide-bottom @row-click='goto')
+	q-table(:rows='rows' :columns='columns' row-key='id' hide-pagination @row-click='goto')
 
 		template(v-slot:body-cell-ldap="props")
 			q-td.ldap(:props='props')
@@ -149,14 +149,15 @@ const add = (() => {
 								q-item-section Удалить
 				q-btn(:props="props" flat round icon='mdi-chevron-right' size='md' dense )
 
-	.q-gutter-x-xs.q-mt-sm
-		q-btn(unelevated color='secondary' @click='add' size="sm") Новый каталог
+		template(v-slot:bottom)
+			q-btn(unelevated color='secondary' @click='add' size="sm") Новый каталог
+
 </template>
 
 <style scoped lang="scss">
 .catalog {
 	margin-left: 2rem;
-	margin-top: .5rem;
+	margin-top: 0.5rem;
 }
 :deep(.q-table thead th) {
 	font-size: 0.7rem;
@@ -164,13 +165,9 @@ const add = (() => {
 	color: hsl(0, 0%, 40%);
 	// padding: 5px 8px;
 }
-:deep(.q-table tbody td) {
-	// padding: 5px 8px;
-	// vertical-align: top;
-}
 
 :deep(.q-table tbody td) {
-	font-size: .85rem;
+	font-size: 0.85rem;
 }
 
 :deep(.q-table tbody tr) {

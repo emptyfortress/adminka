@@ -6,6 +6,7 @@ import WebClientCache from '@/components/tree/WebClientCache.vue'
 import WebClientSystem from '@/components/tree/WebClientSystem.vue'
 import WebClientCrypto from '@/components/tree/WebClientCrypto.vue'
 import WebClientGrid from '@/components/tree/WebClientGrid.vue'
+import WebClientDecision from '@/components/tree/WebClientDecision.vue'
 import WebLocalization from '@/components/tree/WebLocalization.vue'
 import WebCards from '@/components/tree/WebCards.vue'
 import WebExp from '@/components/tree/WebExp.vue'
@@ -14,8 +15,13 @@ import WebExp from '@/components/tree/WebExp.vue'
 <template lang="pug">
 #connect.commonzg Подключение к серверу приложений
 WebClientConnect
-#bd.commonzg База данных
-WebClientDb
+#decision.commonzg Решения
+WebClientDecision
+#local.commonzg Локализации
+WebLocalization
+#vid.commonzg Виды карточек
+WebCards
+
 #interface.commonzg Интерфейс
 #common.commonzg Общие настройки
 #yield.commonzg Производительность
@@ -30,7 +36,6 @@ WebClientDb
 // #system.commonzg Система
 // #crypto.commonzg Облачная подпись КриптоПро
 // #grid.commonzg Грид
-// #locale.commonzg Локализации
 // #cards.commonzg Виды карточек
 // #experiment.commonzg Экспериментальные функции
 </template>
