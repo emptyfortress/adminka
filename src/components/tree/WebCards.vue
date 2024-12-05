@@ -53,9 +53,11 @@ q-form(ref="form" @validation-error="$emit('haserror')" @validation-success="$em
 		q-markup-table()
 			thead
 				tr
-					th.top(colspan='2')
+					th.top()
 						q-icon(name="mdi-database" color="secondary" size='md')
 						span AGSupport
+					th.bad
+						q-badge(rounded color="blue-4") БД по умолчанию
 				tr
 					th Тип карточки
 					th Вид по умолчанию
@@ -131,6 +133,10 @@ th.top {
 	margin-left: 0.5rem;
 	border-bottom: none;
 	color: black;
+}
+.bad {
+	border-bottom: none;
+	text-align: right;
 }
 
 th {

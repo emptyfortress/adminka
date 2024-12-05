@@ -47,12 +47,15 @@ q-form(ref="form" @validation-error="$emit('haserror')" @validation-success="$em
 		q-markup-table
 			thead
 				tr
-					th.top(colspan='2')
+					th.top()
 						q-icon(name="mdi-database" color="secondary" size='md')
 						span AGSupport
+					th.bad
+						q-badge(rounded color="blue-4") БД по умолчанию
 				tr
 					th Язык
-					th По умолчанию
+					th Язык по умолчанию
+
 			transition(name="fade" mode="out-in")
 				tbody(:key="kkey")
 					tr(v-for="item in current.lang" :key="item.id")
@@ -60,6 +63,7 @@ q-form(ref="form" @validation-error="$emit('haserror')" @validation-success="$em
 							q-checkbox(v-model="item.active") {{ item.name }}
 						td
 							q-radio(v-model="current.defLang" :val="item.def")
+
 		q-markup-table
 			thead
 				tr
@@ -68,7 +72,7 @@ q-form(ref="form" @validation-error="$emit('haserror')" @validation-success="$em
 						span dvTest
 				tr
 					th Язык
-					th По умолчанию
+					th Язык по умолчанию
 			transition(name="fade" mode="out-in")
 				tbody(:key="kkey")
 					tr(v-for="item in current.lang" :key="item.id")
@@ -93,12 +97,16 @@ th {
 	color: hsl(0, 0%, 40%);
 	// padding: 5px 8px;
 }
-th.top {
+.top {
 	font-size: 1.1rem;
 	font-weight: 600;
 	margin-left: 0.5rem;
 	border-bottom: none;
 	color: black;
+}
+.bad {
+	border-bottom: none;
+	text-align: right;
 }
 
 .sel {

@@ -61,7 +61,7 @@ const remove = (e: number) => {
 				q-icon(name="mdi-database" color="secondary" size='md')
 				span AGSupport
 				q-space
-				q-badge(rounded color="primary" outline) База данных по умолчанию
+				q-badge(rounded color="blue-4") БД по умолчанию
 
 		template(v-slot:body-cell-action='props' )
 			q-td.text-right(:props='props')
