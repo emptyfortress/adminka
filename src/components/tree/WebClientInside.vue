@@ -3,9 +3,10 @@ import WebClientConnect from '@/components/tree/WebClientConnect.vue'
 import WebClientDb from '@/components/tree/WebClientDb.vue'
 import WebClientCommon from '@/components/tree/WebClientCommon.vue'
 import WebClientCache from '@/components/tree/WebClientCache.vue'
-import WebClientSystem from '@/components/tree/WebClientSystem.vue'
-import WebClientCrypto from '@/components/tree/WebClientCrypto.vue'
-import WebClientGrid from '@/components/tree/WebClientGrid.vue'
+import WebClientFiles from '@/components/tree/WebClientFiles.vue'
+// import WebClientSystem from '@/components/tree/WebClientSystem.vue'
+// import WebClientCrypto from '@/components/tree/WebClientCrypto.vue'
+// import WebClientGrid from '@/components/tree/WebClientGrid.vue'
 import WebClientDecision from '@/components/tree/WebClientDecision.vue'
 import WebClientInterface from '@/components/tree/WebClientInterface.vue'
 import WebLocalization from '@/components/tree/WebLocalization.vue'
@@ -29,6 +30,7 @@ WebClientCommon
 #yield.commonzg Производительность
 WebClientCache
 #files.commonzg Работа с файлами
+WebClientFiles
 #tools.commonzg Инструменты
 #sign.commonzg Электронная подпись
 #logs.commonzg Журналирование

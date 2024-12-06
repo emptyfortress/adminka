@@ -116,9 +116,12 @@ q-form(ref="form" @validation-error="$emit('haserror')" @validation-success="$em
 <style scoped lang="scss">
 .lang {
 	margin: 0 2rem;
-	display: grid;
-	grid-template-columns: repeat(3, 1fr);
+	display: flex;
+	flex-wrap: wrap;
 	gap: 1rem;
+}
+.q-table__container {
+	min-width: 400px;
 }
 
 :deep(.q-table th) {

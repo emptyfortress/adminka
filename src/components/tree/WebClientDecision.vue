@@ -55,7 +55,7 @@ const remove = (e: number) => {
 
 <template lang="pug">
 .lang
-	q-table(:rows='rows' :columns='columns' row-key='id' hide-pagination)
+	q-table(:rows='rows' :columns='columns' row-key='id' hide-pagination wrap-cells)
 		template(v-slot:top)
 			.top
 				q-icon(name="mdi-database" color="secondary" size='md')
@@ -75,12 +75,11 @@ const remove = (e: number) => {
 				q-btn(unelevated color="secondary" label="Импортировать решения" size='sm') 
 				q-btn(unelevated color="secondary" label="Импортировать стандартные решения" size='sm') 
 
-	q-table(:rows='rows' :columns='columns' row-key='id' hide-pagination)
+	q-table(:rows='rows' :columns='columns' row-key='id' hide-pagination wrap-cells)
 		template(v-slot:top)
 			.top
 				q-icon(name="mdi-database" color="secondary" size='md')
 				span dvTest
-
 		template(v-slot:body-cell-action='props' )
 			q-td.text-right(:props='props')
 				q-btn(flat round icon="mdi-trash-can-outline" color="secondary" size='sm') 
@@ -92,13 +91,16 @@ const remove = (e: number) => {
 			.q-gutter-x-xs
 				q-btn(unelevated color="secondary" label="Импортировать решения" size='sm') 
 				q-btn(unelevated color="secondary" label="Импортировать стандартные решения" size='sm') 
+
 </template>
 
 <style scoped lang="scss">
 .lang {
 	margin: 0 2rem;
-	display: grid;
-	grid-template-columns: auto 1fr;
+	display: flex;
+	flex-wrap: wrap;
+	// display: grid;
+	// grid-template-columns: auto 1fr;
 	gap: 1rem;
 }
 :deep(.q-table th) {
@@ -106,6 +108,9 @@ const remove = (e: number) => {
 	font-weight: normal;
 	color: hsl(0, 0%, 40%);
 	// padding: 5px 8px;
+}
+:deep(tbody tr td:first-child) {
+	max-width: 170px;
 }
 .top {
 	font-size: 1.1rem;

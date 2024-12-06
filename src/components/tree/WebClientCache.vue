@@ -130,7 +130,6 @@ q-form
 			:key="item.id" 
 			:label="item.label" 
 			:descr="item.descr" 
-			:readonly="item.readonly"
 			:checkbox="item.checkbox"
 			:info='item.info'
 			:type='item.type'
@@ -147,10 +146,7 @@ q-form
 			:label="item.label" 
 			:descr="item.descr" 
 			:readonly="item.readonly"
-			:checkbox="item.checkbox"
-			:info='item.info'
 			:type='item.type'
-			:check='item.check'
 			)
 
 	.section Кэш справочников

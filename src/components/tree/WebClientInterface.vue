@@ -168,7 +168,6 @@ q-list
 		:readonly="item.readonly"
 		:checkbox="item.checkbox"
 		:info='item.info'
-		:type="item.type"
 		)
 </template>
 
