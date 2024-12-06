@@ -30,7 +30,7 @@ export const router = createRouter({
 			path: '/root',
 			name: 'root',
 			component: () => import('@/pages/Root.vue'),
-			// meta: { title: 'Серверы', bread: [{ label: 'Dashboard', to: '/' }] },
+			meta: {},
 			children: [
 				{
 					path: ':id',
@@ -53,13 +53,6 @@ export const router = createRouter({
 					name: 'webclient',
 					meta: {},
 				},
-				// {
-				// 	path: ':bd1',
-				// 	component: () => import('@/components/tree/WebClientInsideDB.vue'),
-				// 	props: true,
-				// 	name: 'bd',
-				// 	meta: {},
-				// },
 			],
 		},
 
@@ -90,12 +83,12 @@ export const router = createRouter({
 			],
 		},
 
-		// {
-		// 	path: '/root/:id+',
-		// 	component: () => import('@/components/tree/Zagl.vue'),
-		// 	name: 'zagl',
-		// 	props: true,
-		// },
+		{
+			path: '/root/:id/:name',
+			component: () => import('@/pages/Tmp.vue'),
+			name: 'zagl',
+			props: true,
+		},
 
 		{
 			path: '/setup0',
