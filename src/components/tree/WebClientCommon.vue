@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import MyField from '@/components/common/MyField.vue'
-// import SimpleRadioGroup from '@/components/common/SimpleRadioGroup.vue'
+import MyRadioGroup3 from '@/components/common/MyRadioGroup3.vue'
+import PropertyTab from '../setupcomponent/PropertyTab.vue';
 
 const Device = ref([
 	{
@@ -54,10 +55,31 @@ const cookie = ref([
 		type: 'number',
 	},
 ])
+const Protokol = ref([
+	{
+		id: 0,
+		main: '0',
+		label: 'Интервал автоматического обновления сессии, ч',
+		descr: 'Продление действия cookies при входе пользователя в Web-клиент.',
+		readonly: false,
+	},
+
+])
 </script>
 
 <template lang="pug">
 q-form
+	.section Настройка протокола
+	q-list
+		MyRadioGroup3(
+			v-model:main="item.main" 
+			v-for="item in Protokol" 
+			:key="item.id" 
+			:label="item.label" 
+			:descr="item.descr" 
+			:readonly="item.readonly"
+			)
+
 	.section Пользовательские cookie
 	q-list
 		MyField(
@@ -79,7 +101,6 @@ q-form
 			:label="item.label" 
 			:descr="item.descr" 
 			:readonly="item.readonly"
-			:type='item.type'
 			)
 
 </template>

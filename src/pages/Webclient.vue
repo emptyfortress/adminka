@@ -27,7 +27,7 @@ const list = [
 	},
 	{ id: 3, label: 'Виды карточек', field: 'vid', selected: false },
 	{ id: 4, label: 'Интерфейс', field: 'interface', selected: false },
-	{ id: 5, label: 'Общие', field: 'common', selected: false },
+	{ id: 5, label: 'Сайт', field: 'common', selected: false },
 	{ id: 6, label: 'Производительность', field: 'yield', selected: false },
 	{ id: 7, label: 'Работа с файлами', field: 'files', selected: false },
 	{ id: 8, label: 'Инструменты', field: 'tools', selected: false },

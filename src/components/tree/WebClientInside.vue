@@ -23,7 +23,7 @@ WebLocalization
 WebCards
 #interface.commonzg Интерфейс
 WebClientInterface
-#common.commonzg Общие настройки
+#common.commonzg Сайт
 WebClientCommon
 #yield.commonzg Производительность
 WebClientCache
