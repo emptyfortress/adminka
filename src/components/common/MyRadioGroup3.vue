@@ -28,6 +28,8 @@ const hour1 = ref('www.google.com')
 const hour2 = ref(4173)
 const hour3 = ref('www.yandex.ru')
 const hour4 = ref(3589)
+const hour5 = ref('')
+const hour6 = ref('')
 
 </script>
 
@@ -65,11 +67,11 @@ const hour4 = ref(3589)
 			br
 			label Сертификат
 			.descr Путь к штампу сертификата
-			MyInput(v-model="hour4" type='number')
+			MyInput(v-model="hour5")
 			br
 			label Пароль
 			.descr Пароль сертификата
-			MyInput(v-model="hour4" type='number')
+			MyInput(v-model="hour6")
 
 
 	
