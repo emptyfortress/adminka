@@ -67,8 +67,17 @@ q-form(ref="form" @validation-error="$emit('haserror')" @validation-success="$em
 						td {{ item.name }}
 						td.choose(@click="showDialog(item)") {{ item.vid }}
 					tr
-						td(colspan='2')
-							q-btn(unelevated color="secondary" label="Добавить тип ????"  size='sm')
+						td(colspan="2")
+					tr.sele
+						td(colspan="2")
+							.text-bold Дополнительно
+							.flex.justify-between.q-mt-sm
+								div Вид карточки для ссылки "Файл"
+								.choose(@click="showDialog") Файл
+							.flex.justify-between.q-mt-sm
+								div Корневой вид для карточки КС
+								.choose(@click="showDialog") Задание КС
+
 
 		q-markup-table()
 			thead
@@ -85,8 +94,16 @@ q-form(ref="form" @validation-error="$emit('haserror')" @validation-success="$em
 						td {{ item.name }}
 						td.choose(@click="showDialog(item)") {{ item.vid }}
 					tr
-						td(colspan='2')
-							q-btn(unelevated color="secondary" label="Добавить тип ????"  size='sm')
+						td(colspan="2")
+					tr.sele
+						td(colspan="2")
+							.text-bold Дополнительно
+							.flex.justify-between.q-mt-sm
+								div Вид карточки для ссылки "Файл"
+								.choose(@click="showDialog") Файл
+							.flex.justify-between.q-mt-sm
+								div Корневой вид для карточки КС
+								.choose(@click="showDialog") Задание КС
 
 	q-dialog(v-model="dialog")
 		q-card(style="min-width: 400px; padding: 1rem;")
@@ -120,6 +137,7 @@ q-form(ref="form" @validation-error="$emit('haserror')" @validation-success="$em
 	flex-wrap: wrap;
 	gap: 1rem;
 }
+
 .q-table__container {
 	min-width: 400px;
 }
@@ -130,6 +148,7 @@ q-form(ref="form" @validation-error="$emit('haserror')" @validation-success="$em
 	color: hsl(0, 0%, 40%);
 	// padding: 5px 8px;
 }
+
 th.top {
 	font-size: 1.1rem;
 	font-weight: 600;
@@ -137,6 +156,7 @@ th.top {
 	border-bottom: none;
 	color: black;
 }
+
 .bad {
 	border-bottom: none;
 	text-align: right;
@@ -148,6 +168,11 @@ th {
 
 .sel {
 	background: var(--bg-selected);
+}
+
+.sele {
+	// background: hsl(200 18% 84% / 1);
+	border-bottom: none;
 }
 
 .choose {
