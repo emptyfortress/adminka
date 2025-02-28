@@ -13,10 +13,10 @@ const columns: QTableProps['columns'] = [
 		align: 'left',
 	},
 	{
-		name: 'db',
+		name: 'bd',
 		required: true,
 		label: 'База данных',
-		field: 'db',
+		field: 'bd',
 		sortable: true,
 		align: 'left',
 	},
@@ -50,7 +50,7 @@ const rows = ref([
 	{
 		id: 0,
 		service: 'http://workflow.domain.com:5099',
-		db: 'AGSupport',
+		bd: 'AGSupport',
 		proc: 1,
 		mail: 'TestMail',
 	},
@@ -60,21 +60,49 @@ const rows = ref([
 const remove = (e: number) => {
 	rows.value = rows.value.filter(item => item.id !== e)
 }
-const show = ref(true)
+const show = ref(false)
 
 const toggle = (() => {
 	show.value = !show.value
 })
 
 const service = ref('')
-const descripiton = ref('')
+const bd = ref('')
 const proc = ref(0)
 const mail = ref('')
 const oauth = ref(false)
+const client = ref('')
+const catalog = ref('')
+const secret = ref('')
 
 const req = [
 	(val: string) => (val && val.length > 0) || 'Это обязательное поле',
 ]
+
+const options = [ 'Option 1', 'Option 2', 'Option 3', ]
+const options1 = [ 'Option 1', 'Option 2', 'Option 3', ]
+
+const onSubmit = (() => {
+	myform.value.validate().then((success: any) => {
+		if (success) {
+			let tmp = {
+				id: 2,
+				service: service.value,
+				bd: bd.value,
+				proc: proc.value,
+				mail: mail.value,
+			}
+			rows.value.push(tmp)
+			show.value = false
+		}
+		else {
+			return
+		}
+
+	})
+
+})
+
 const myform = ref()
 </script>
 
@@ -97,23 +125,23 @@ const myform = ref()
 		template(v-slot:bottom)
 			q-btn(unelevated color='secondary' @click='toggle' size="sm") Подключить сервис
 
-ConfirmDialog(v-model="show" zag="Подключить сервис")
-	template(#content)
-		q-form(ref='myform' :autofocus='true' @submit="onSubmit" @reset="onReset" style='width: 500px')
-			q-input(v-model="service" autofocus filled label="Сервис" dense lazy-rules :rules="req" @blur="myform.validate()")
-			q-select(v-model="bd" filled label="База данных" :options='options' dense lazy-rules :rules="req" @blur="myform.validate()")
-			q-select(v-model="mail" filled label="Почтовое соединение" :options='options1' dense lazy-rules :rules="req" @blur="myform.validate()")
-			.row.justify-between.items-center
-				q-input(v-model="proc" filled label="Доля процессоров" type='number' dense lazy-rules :rules="req" @blur="myform.validate()")
-				q-checkbox(dense label='Использовать OAuth' v-model="oauth")
-			template(v-if='oauth')
-				q-input(v-model="client" filled label="Идентификатор клиента" dense lazy-rules :rules="req" @blur="myform.validate()")
-				q-input(v-model="catalog" filled label="Идентификатор каталога" dense lazy-rules :rules="req" @blur="myform.validate()")
-				q-input(v-model="secret" filled label="Клиентский секрет" dense lazy-rules :rules="req" @blur="myform.validate()")
+	ConfirmDialog(v-model="show" zag="Подключить сервис")
+		template(#content)
+			q-form(ref='myform' :autofocus='true' @submit="onSubmit" style='width: 500px')
+				q-input(v-model="service" autofocus filled label="Сервис" dense lazy-rules :rules="req" )
+				q-select(v-model="bd" filled label="База данных" :options='options' dense lazy-rules :rules="req" )
+				q-select(v-model="mail" filled label="Почтовое соединение" :options='options1' dense lazy-rules :rules="req" )
+				.row.justify-between.items-center
+					q-input(v-model="proc" filled label="Доля процессоров" type='number' dense lazy-rules :rules="req" )
+					q-checkbox(dense label='Использовать OAuth' v-model="oauth")
+				template(v-if='oauth')
+					q-input(v-model="client" filled label="Идентификатор клиента" dense lazy-rules :rules="req" )
+					q-input(v-model="catalog" filled label="Идентификатор каталога" dense lazy-rules :rules="req" )
+					q-input(v-model="secret" filled label="Клиентский секрет" dense lazy-rules :rules="req" )
 
-	template(#actions)
-		q-btn(flat color="primary" label="Отмена" v-close-popup)
-		q-btn(unelevated color="primary" label="Подключить"  @click="" v-close-popup) 
+		template(#actions)
+			q-btn(flat color="primary" label="Отмена" v-close-popup)
+			q-btn(unelevated color="primary" label="Подключить" @click='onSubmit') 
 
 </template>
 
