@@ -19,17 +19,18 @@ const current = computed(() => {
 
 const list = reactive([
 	{ id: 0, field: 'lic', label: 'Лицензия', selected: false },
-	{ id: 3, field: 'dost', label: 'Управление доступом', selected: false },
-	{ id: 1, field: 'bd', label: 'Базы данных', selected: false },
-	{ id: 2, field: 'common', label: 'Общие настройки', selected: false },
+	{ id: 1, field: 'dost', label: 'Управление доступом', selected: false },
+	{ id: 2, field: 'bd', label: 'Базы данных', selected: false },
+	{ id: 3, field: 'common', label: 'Общие настройки', selected: false },
+	{ id: 4, field: 'workflow', label: 'Сервис workflow', selected: false },
 	{
-		id: 4,
+		id: 5,
 		field: 'auth',
 		label: 'Расширенная аутентификация',
 		selected: false,
 	},
 	{
-		id: 5,
+		id: 6,
 		field: 'addition',
 		label: 'Дополнительные настройки',
 		selected: false,

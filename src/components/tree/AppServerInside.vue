@@ -5,6 +5,7 @@ import AppServerAuth from '@/components/tree/AppServerAuth.vue'
 import AppServerDop from '@/components/tree/AppServerDop.vue'
 import Database from '@/components/tree/Database.vue'
 import Licence from '@/components/setupcomponent/Licence.vue'
+import AppServerWorkflow from '@/components/tree/AppServerWorkflow.vue'
 </script>
 
 <template lang="pug">
@@ -20,6 +21,8 @@ AppServerDostup
 	Database()
 #common.commonzg Общие настройки
 AppServerCommon
+#workflow.commonzg Сервис Workflow
+AppServerWorkflow
 #auth.commonzg Расширенная аутентификация
 AppServerAuth
 #addition.commonzg Дополнительные настройки
