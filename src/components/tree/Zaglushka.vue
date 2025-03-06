@@ -38,8 +38,8 @@ const list = [
 	},
 	{
 		id: 3,
-		url: '/business-process',
-		label: 'Сервис бизнес-процессов',
+		url: '/workflow',
+		label: 'Сервис управления процессами',
 		descr: 'Настройки workflow',
 		state: 0,
 	},
@@ -109,14 +109,14 @@ div
 			q-item-section(avatar)
 				q-icon(name="mdi-code-block-braces" color="secondary")
 			q-item-section
-				q-item-label {{item.label}}
+				q-item-label {{ item.label }}
 			q-item-section(v-if="width > 780")
 				.flex.items-center.q-gutter-lg
 					q-icon(v-if="item.state == 0" name="mdi-alert" size="sm")
 					q-icon(v-if="item.state == 1" name="mdi-check-bold" color="positive" size="md")
 					q-icon(v-if="item.state == 2" name="mdi-alert-circle-outline" color="negative" size="md")
 					q-icon(v-if="item.state == 3" name="mdi-progress-question" color="secondary" size="md")
-					.descr {{item.descr}}
+					.descr {{ item.descr }}
 			q-item-section(side)
 				q-icon(name="mdi-chevron-right" color="secondary")
 </template>
@@ -126,13 +126,16 @@ div
 	margin-top: 1rem;
 	font-size: 1.4rem;
 }
+
 .q-list {
 	font-size: 1rem;
 	color: $secondary;
 }
+
 .descr {
 	font-size: 0.9rem;
 }
+
 .grid {
 	display: grid;
 	grid-template-columns: auto 1fr;
@@ -141,6 +144,7 @@ div
 	column-gap: 1rem;
 	// row-gap: 0.5rem;
 }
+
 .val {
 	font-weight: 600;
 }

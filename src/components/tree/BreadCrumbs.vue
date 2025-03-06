@@ -33,6 +33,10 @@ const crumbs = computed(() => {
 		breadcrumbs[2].text = 'Web-клиент'
 		breadcrumbs[2].to = '/root/DVM/webclient'
 	}
+	if (breadcrumbs[2].text == 'workflow') {
+		breadcrumbs[2].text = 'Сервис workflow'
+		breadcrumbs[2].to = '/root/DVM/workflow'
+	}
 
 	return breadcrumbs
 })

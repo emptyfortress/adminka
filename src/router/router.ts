@@ -57,6 +57,19 @@ export const router = createRouter({
 		},
 
 		{
+			path: '/root/:id/workflow',
+			children: [
+				{
+					path: '',
+					component: () => import('@/pages/Workflow.vue'),
+					props: true,
+					name: 'workflow',
+					meta: {},
+				},
+			],
+		},
+
+		{
 			path: '/root/:id/appserver',
 			children: [
 				{
