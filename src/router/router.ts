@@ -27,6 +27,15 @@ export const router = createRouter({
 			},
 		},
 		{
+			path: '/tmp',
+			name: 'tmp',
+			component: () => import('@/pages/Readonly.vue'),
+			meta: {
+				title: 'Admin console',
+				// bread: [{ label: 'Dashboard', to: '/' }],
+			},
+		},
+		{
 			path: '/root',
 			name: 'root',
 			component: () => import('@/pages/Root.vue'),
