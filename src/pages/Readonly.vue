@@ -24,6 +24,14 @@ q-page(padding)
 			q-checkbox(v-model="check2" dense label='readonly' disable)
 		div
 			q-checkbox(v-model="check3" dense label='disabled' disable)
+
+	br
+	fieldset(style='width:400px')
+		legend Группа ридонли настроек
+		.q-gutter-y-sm()
+			q-input(dense v-model="normal" outlined readonly)
+			q-input(dense v-model="normal" outlined readonly)
+			q-checkbox(v-model="check3" dense label='disabled' disable)
 </template>
 
 <style scoped lang="scss"></style>
