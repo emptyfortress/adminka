@@ -14,7 +14,7 @@ const props = defineProps({
 	},
 })
 
-const list = [
+const list = ref([
 	{
 		id: 0,
 		url: '/appserver',
@@ -64,7 +64,11 @@ const list = [
 		descr: 'Настройки виджетов',
 		state: 2,
 	},
-]
+])
+
+const remove = ((num: number) => {
+	list.value.splice(num, 1)
+})
 
 const goto = (e: string) => {
 	router.push('/root/' + props.id + e)
@@ -105,7 +109,7 @@ div
 
 	.zg Компоненты
 	q-list(separator ref="el")
-		q-item(clickable v-for="item in list" :key="item.id" @click="goto(item.url)")
+		q-item(clickable v-for="(item, index) in list" :key="item.id" @click="goto(item.url)")
 			q-item-section(avatar)
 				q-icon(name="mdi-code-block-braces" color="secondary")
 			q-item-section
@@ -118,7 +122,13 @@ div
 					q-icon(v-if="item.state == 3" name="mdi-progress-question" color="secondary" size="md")
 					.descr {{ item.descr }}
 			q-item-section(side)
-				q-icon(name="mdi-chevron-right" color="secondary")
+				.row.items-center
+					q-btn.remove(flat round dense icon="mdi-delete-outline" color="secondary" size='12px' @click.stop) 
+						q-menu
+							q-list
+								q-item(clickable @click.stop='remove(index)').pink
+									q-item-section Удалить
+					q-icon(name="mdi-chevron-right" color="secondary" size='sm')
 </template>
 
 <style scoped lang="scss">
@@ -130,6 +140,10 @@ div
 .q-list {
 	font-size: 1rem;
 	color: $secondary;
+}
+
+.remove {
+	margin-right: 1rem;
 }
 
 .descr {
