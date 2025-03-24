@@ -126,32 +126,34 @@ q-page(padding)
 					q-td(colspan="6")
 						.row.justify-between
 							q-btn(unelevated color="secondary" label="Закрыть выбранные" size="sm")
-							q-btn(unelevated color="secondary" :label="filter" size="sm")
-								q-menu
-									q-list
-										q-item(clickable dense @click="setFilter('Только неактивные')" v-close-popup)
-											q-item-section(side)
-												q-icon(name="mdi-circle-slice-8" color="red" size="12px")
-											q-item-section Показать неактивные
-										q-item(clickable dense @click="setFilter('Только активные')" v-close-popup)
-											q-item-section(side)
-												q-icon(name="mdi-circle-slice-8" color="green" size="12px")
-											q-item-section Показать активные
+							div
+								q-btn(flat color="secondary" label="Аудит сессий и лицензий" size="sm")
+								q-btn(unelevated color="secondary" :label="filter" size="sm")
+									q-menu
+										q-list
+											q-item(clickable dense @click="setFilter('Только неактивные')" v-close-popup)
+												q-item-section(side)
+													q-icon(name="mdi-circle-slice-8" color="red" size="12px")
+												q-item-section Показать неактивные
+											q-item(clickable dense @click="setFilter('Только активные')" v-close-popup)
+												q-item-section(side)
+													q-icon(name="mdi-circle-slice-8" color="green" size="12px")
+												q-item-section Показать активные
 
-										q-item(clickable dense @click="setFilter('Последние 10 мин')" v-close-popup)
-											q-item-section(side)
-												q-icon(name="mdi-circle-slice-8" color="primary" size="12px")
-											q-item-section.fuck
-												div Показать активные в течении
-												.edit(@click.stop) {{time }}
-													q-popup-edit(v-model="time" auto-save v-slot="scope")
-														q-input(v-model="scope.value" dense autofocus counter @keyup.enter="scope.set") 
-												div мин.
+											q-item(clickable dense @click="setFilter('Последние 10 мин')" v-close-popup)
+												q-item-section(side)
+													q-icon(name="mdi-circle-slice-8" color="primary" size="12px")
+												q-item-section.fuck
+													div Показать активные в течении
+													.edit(@click.stop) {{time }}
+														q-popup-edit(v-model="time" auto-save v-slot="scope")
+															q-input(v-model="scope.value" dense autofocus counter @keyup.enter="scope.set") 
+													div мин.
 
-										q-item(clickable dense @click="setFilter('Фильтр')" v-close-popup)
-											q-item-section(side)
-												q-icon(name="mdi-circle-slice-8" color="black" size="12px")
-											q-item-section Показать все
+											q-item(clickable dense @click="setFilter('Фильтр')" v-close-popup)
+												q-item-section(side)
+													q-icon(name="mdi-circle-slice-8" color="black" size="12px")
+												q-item-section Показать все
 </template>
 
 <style scoped lang="scss">
