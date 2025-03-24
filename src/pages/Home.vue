@@ -125,7 +125,8 @@ q-page(padding)
 				template(v-slot:bottom-row)
 					q-td(colspan="6")
 						.row.justify-between
-							q-btn(unelevated color="secondary" label="Закрыть выбранные" size="sm")
+							q-btn(v-if='selected.length' unelevated color="secondary" label="Закрыть выбранные" size="sm")
+							div(v-else)
 							div
 								q-btn(flat color="secondary" label="Аудит сессий и лицензий" size="sm")
 								q-btn(unelevated color="secondary" :label="filter" size="sm")
