@@ -25,10 +25,9 @@
 		.q-mt-sm(v-if="selectedChip == 3") мин.
 
 	.q-gutter-xs
+		q-btn(unelevated color="secondary" label="Аудит сессий и лицензий" size="sm") 
 		q-btn(flat  round icon="mdi-reload")
 			q-tooltip Обновить
-		q-btn(flat  round icon="mdi-backup-restore")
-			q-tooltip Ресет
 		q-btn(flat  round icon="mdi-microsoft-excel")
 			q-tooltip Экспорт в xsl
 		q-btn(flat  round icon="mdi-delete-outline")
