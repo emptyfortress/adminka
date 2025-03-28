@@ -41,6 +41,10 @@ q-table(:columns="cols"
 	v-model:selected="selected"
 	color="secondary"
 	flat).tab
+	template(v-slot:body-cell-status='props')
+		q-td(:props="props")
+			q-icon(v-if='props.row.status == 1' name="mdi-circle-slice-8" color="green")
+			q-icon(v-else name="mdi-circle-slice-8" color="red")
 
 </template>
 
