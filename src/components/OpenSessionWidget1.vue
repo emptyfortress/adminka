@@ -1,6 +1,9 @@
 <script setup lang="ts">
 import type { QTableProps } from 'quasar'
 import { ref, computed } from 'vue'
+import { useRouter } from 'vue-router'
+
+const router = useRouter()
 
 const cols: QTableProps['columns'] = [
 	{
@@ -163,10 +166,6 @@ const rows = [
 	},
 ]
 
-const time = ref(10)
-
-const filter = ref('')
-
 const filteredRows = computed(() => {
 	if (selectedChip.value == 1) {
 		return rows.filter(el => el.status == 1)
@@ -214,7 +213,7 @@ const pagination = ref({
 <template lang="pug">
 q-card
 	.top
-		.link {{ text }}&nbsp;&nbsp;({{total }})
+		router-link.link(to="/session") {{ text }}&nbsp;&nbsp;({{total }})
 		.time
 			span 24.03.2025 13:08
 			q-icon(name="mdi-reload")
@@ -267,6 +266,7 @@ q-card
 	color: var(--q-link);
 	font-weight: 600;
 	cursor: pointer;
+	text-decoration: none;
 }
 .top {
 	display: flex;
@@ -306,7 +306,7 @@ q-card
 	margin: 0 0.5rem;
 }
 .q-chip--selected {
-	background: $secondary;
+	background: $primary;
 	color: white;
 }
 .sel {

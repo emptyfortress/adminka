@@ -123,6 +123,11 @@ export const router = createRouter({
 			name: 'logs',
 			component: () => import('@/pages/Logs.vue'),
 		},
+		{
+			path: '/session',
+			name: 'session',
+			component: () => import('@/pages/Sessions.vue'),
+		},
 	],
 })
 
