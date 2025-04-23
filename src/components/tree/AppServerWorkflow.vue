@@ -4,14 +4,14 @@ import type { QTableProps } from 'quasar'
 import ConfirmDialog from '@/components/tree/ConfirmDialog.vue'
 
 const columns: QTableProps['columns'] = [
-	{
-		name: 'service',
-		required: true,
-		label: 'Сервис бизнес-процессов',
-		field: 'service',
-		sortable: true,
-		align: 'left',
-	},
+	// {
+	// 	name: 'service',
+	// 	required: true,
+	// 	label: 'Сервис бизнес-процессов',
+	// 	field: 'service',
+	// 	sortable: true,
+	// 	align: 'left',
+	// },
 	{
 		name: 'bd',
 		required: true,
@@ -44,7 +44,6 @@ const columns: QTableProps['columns'] = [
 		sortable: false,
 		align: 'right',
 	},
-
 ]
 const rows = ref([
 	{
@@ -54,7 +53,6 @@ const rows = ref([
 		proc: 1,
 		mail: 'TestMail',
 	},
-
 ])
 
 const remove = (e: number) => {
@@ -62,9 +60,9 @@ const remove = (e: number) => {
 }
 const show = ref(false)
 
-const toggle = (() => {
+const toggle = () => {
 	show.value = !show.value
-})
+}
 
 const service = ref('')
 const bd = ref('')
@@ -79,10 +77,10 @@ const req = [
 	(val: string) => (val && val.length > 0) || 'Это обязательное поле',
 ]
 
-const options = [ 'Option 1', 'Option 2', 'Option 3', ]
-const options1 = [ 'Option 1', 'Option 2', 'Option 3', ]
+const options = ['Option 1', 'Option 2', 'Option 3']
+const options1 = ['Option 1', 'Option 2', 'Option 3']
 
-const onSubmit = (() => {
+const onSubmit = () => {
 	myform.value.validate().then((success: any) => {
 		if (success) {
 			let tmp = {
@@ -94,14 +92,11 @@ const onSubmit = (() => {
 			}
 			rows.value.push(tmp)
 			show.value = false
-		}
-		else {
+		} else {
 			return
 		}
-
 	})
-
-})
+}
 
 const myform = ref()
 </script>
@@ -147,7 +142,7 @@ const myform = ref()
 
 <style scoped lang="scss">
 .catalog {
-	margin-left: 2rem;
+	// margin-left: 2rem;
 	margin-top: 0.5rem;
 }
 

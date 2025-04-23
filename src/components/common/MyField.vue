@@ -44,7 +44,7 @@ const changed = ref(false)
 
 const old = ref()
 const oldcheck = ref()
-const emit = defineEmits(['tapped'])
+const emit = defineEmits(['tapped', 'update'])
 
 onMounted(() => {
 	old.value = main.value
@@ -68,6 +68,10 @@ const reset = () => {
 	})
 }
 const item = ref(false)
+
+const update = () => {
+	emit('update')
+}
 </script>
 
 <template lang="pug">
@@ -81,8 +85,10 @@ const item = ref(false)
 		q-checkbox(v-model="check" dense :label="props.descr" v-if="checkbox" :disable="props.disable")
 	MyInput(v-model="main" v-if="!props.select && !props.checkbox && !props.textarea" :bg="props.bg" :filled="props.filled" :type="props.type" :disable="props.disable" :readonly="props.readonly")
 	q-input(v-model="main" v-if='props.textarea' bg-color="white" outlined autogrow :disable="props.disable")
-	MySelect(v-model="main" v-if="props.select && !props.checkbox" :bg="props.bg" :filled="props.filled" :options="props.options")
+	MySelect(v-model="main" v-if="props.select && !props.checkbox" :bg="props.bg" :filled="props.filled" :options="props.options" @update='update')
 	q-btn.add(v-if="props.button" unelevated color="secondary" :label="props.btLabel" size="sm" @click='$emit("tapped")') 
+
+	slot
 
 </template>
 

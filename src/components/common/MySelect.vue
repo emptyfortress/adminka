@@ -19,6 +19,11 @@ const req = [
 	(val: string) => (val && val.length > 0) || 'Это обязательное поле',
 ]
 const select = ref()
+
+const emit = defineEmits(['update'])
+const update = () => {
+	emit('update')
+}
 </script>
 
 <template lang="pug">
@@ -32,7 +37,8 @@ q-select(ref="select"
 	hide-bottom-space
 	lazy-rules
 	:rules="req"
-	@blur="select.validate()")
+	@blur="select.validate()"
+	@update:model-value="update")
 </template>
 
 <style scoped lang="scss">
