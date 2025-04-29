@@ -103,6 +103,8 @@ const myform = ref()
 
 <template lang="pug">
 .catalog
+	.descr Назначение сервиса для обработки баз данных
+
 	q-table(:rows='rows' :columns='columns' row-key='id')
 
 		template(v-slot:body-cell-service='props')
@@ -143,7 +145,7 @@ const myform = ref()
 <style scoped lang="scss">
 .catalog {
 	// margin-left: 2rem;
-	margin-top: 0.5rem;
+	margin-top: 1.5rem;
 }
 
 :deep(.q-table thead th) {
