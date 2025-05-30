@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import MyField from '@/components/common/MyField.vue'
-import AppServerWorkflow from '@/components/tree/AppServerWorkflow.vue'
+import SearchDBTable from '@/components/tree/SearchDBTable.vue'
 
 const Prop = ref([
 	{

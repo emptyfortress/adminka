@@ -37,6 +37,10 @@ const crumbs = computed(() => {
 		breadcrumbs[2].text = 'Сервис workflow'
 		breadcrumbs[2].to = '/root/DVM/workflow'
 	}
+	if (breadcrumbs[2].text == 'search') {
+		breadcrumbs[2].text = 'Полнотекстовый поиск'
+		breadcrumbs[2].to = '/root/DVM/search'
+	}
 
 	return breadcrumbs
 })
