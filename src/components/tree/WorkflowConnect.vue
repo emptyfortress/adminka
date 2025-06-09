@@ -157,21 +157,20 @@ MyField(
 )
 	q-btn.q-mt-sm(unelevated color="secondary" label="Connect" @click="connect" size="sm" :loading="loading" v-if='serverSelected')
 
-.data
+.dat
 	label Обработка баз данных
 	.descr Здесь описание раздела. Уравнение малых колебаний, согласно третьему закону Ньютона, активно.
 
 	template(v-for="bd in bds" :key="bd.id" v-if='connected')
 		.bd
-			q-icon.q-mr-sm(name="mdi-database" color="secondary")
-			|{{ bd.nam }}
-		q-form
-			q-list
-				MyField(v-for="item in bd.props"
-					v-model:main="item.main"
-					:label='item.label'
-					:descr='item.descr'
-				)
+			.nnn
+				q-icon.q-mr-sm(name="mdi-database" color="secondary")
+				|{{ bd.nam }}
+			MyField(v-for="item in bd.props"
+				v-model:main="item.main"
+				:label='item.label'
+				:descr='item.descr'
+			)
 
 	.fu(v-else)
 		q-icon.q-mr-sm(name="mdi-alert" size='sm')
@@ -195,15 +194,15 @@ q-form
 .q-input {
 	margin-top: 0;
 }
-.data {
+.dat {
 	padding: 1rem;
 	padding-top: 0.3rem;
 	margin-left: 1rem;
 	border: 1px solid transparent;
 	.descr {
-		color: #666;
-		font-size: 0.8rem;
-		font-weight: 400;
+		color: #666 !important;
+		font-size: 0.8rem !important;
+		font-weight: 400 !important;
 	}
 	label {
 		font-size: 1rem;
@@ -214,7 +213,7 @@ q-form
 .block {
 	margin-left: 2rem;
 }
-.bd {
+.nnn {
 	color: $secondary;
 	font-size: 1.1rem;
 	font-weight: 600;
