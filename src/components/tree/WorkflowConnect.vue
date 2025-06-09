@@ -155,7 +155,7 @@ MyField(
 	:options="options"
 	@update='update'
 )
-	q-btn.q-mt-sm(unelevated color="secondary" label="Connect" @click="connect" size="sm" :loading="loading" v-if='serverSelected')
+	q-btn.q-mt-sm(unelevated color="secondary" label="Connect" @click="connect" size="sm" :loading="loading" v-if='serverSelected && !connected')
 
 .dat
 	label Обработка баз данных
