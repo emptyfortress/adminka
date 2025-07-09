@@ -4,15 +4,15 @@ import MyField from '@/components/common/MyField.vue'
 import SearchDBTable from '@/components/tree/SearchDBTable.vue'
 
 const Prop = ref([
-	{
-		id: 0,
-		main: '',
-		label: 'Сервер приложений',
-		descr:
-			'Выбор зарегистрированного Сервера приложений, к которому подключается сервис Полнотекстового поиска.',
-		select: true,
-		options: ['Адрес 1', 'Адрес 2', 'Адрес 3', 'Адрес 4', 'Адрес 5', 'Адрес 6'],
-	},
+	// {
+	// 	id: 0,
+	// 	main: '',
+	// 	label: 'Сервер приложений',
+	// 	descr:
+	// 		'Выбор зарегистрированного Сервера приложений, к которому подключается сервис Полнотекстового поиска.',
+	// 	select: true,
+	// 	options: ['Адрес 1', 'Адрес 2', 'Адрес 3', 'Адрес 4', 'Адрес 5', 'Адрес 6'],
+	// },
 	{
 		id: 2,
 		main: '',
@@ -49,8 +49,6 @@ q-form
 			:key="item.id" 
 			:label="item.label" 
 			:descr="item.descr" 
-			:select='item.select'
-			:options='item.options'
 			@update='update'
 			)
 			div(v-if='serverSelected && item.id == 0')

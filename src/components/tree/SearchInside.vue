@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import SearchConnect from '@/components/tree/SearchConnect.vue'
+import SearchConnect1 from '@/components/tree/SearchConnect1.vue'
 import MyField from '@/components/common/MyField.vue'
 
 const agreg = ref([
@@ -16,7 +16,7 @@ const agreg = ref([
 
 <template lang="pug">
 #connect.commonzg Подключение
-SearchConnect
+SearchConnect1
 // WorkflowConnect
 #agregat.commonzg Агрегация
 q-form
