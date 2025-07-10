@@ -1,10 +1,22 @@
 <script setup lang="ts">
-import { ref, computed } from 'vue'
+import { ref, computed, watch } from 'vue'
 import { useStore } from '@/stores/store'
 import type { QTableProps } from 'quasar'
 import SearchConnect from '@/components/tree/SearchConnect.vue'
 
 const store = useStore()
+const dialog = ref(false)
+
+// локальная копия для выбора баз данных в диалоге
+const localDatabases = ref([] as typeof store.databases)
+
+// при открытии диалога клонируем текущее состояние
+watch(dialog, val => {
+	if (val) {
+		// deep clone, чтобы не менять оригинал по ссылке
+		localDatabases.value = JSON.parse(JSON.stringify(store.databases))
+	}
+})
 
 const columns: QTableProps['columns'] = [
 	{
@@ -40,11 +52,19 @@ const columns: QTableProps['columns'] = [
 	{ name: 'action', align: 'right', label: '', field: '' },
 ]
 
-const dialog = ref(false)
-
 const rows = computed(() => {
 	return store.databases.filter(item => item.active)
 })
+
+// Применить изменения по кнопке "OK"
+function applyChanges() {
+	// просто заменим все базы на новые (можно доработать диффами, если нужно)
+	store.databases = [...localDatabases.value]
+}
+
+const remove = (item: any) => {
+	item.active = false
+}
 </script>
 
 <template lang="pug">
@@ -64,7 +84,7 @@ const rows = computed(() => {
 					q-btn.q-mr-md(:props="props" flat icon='mdi-database-remove-outline' label="Отключить" size='sm' color="primary" dense @click.stop)
 						q-menu
 							q-list(:props="props")
-								q-item(clickable :props="props" @click="" v-close-popup).pink
+								q-item(clickable :props="props" @click="remove(props.row)" v-close-popup).pink
 									q-item-section Отключить
 					q-btn(:props="props" round flat icon='mdi-chevron-right' size='md' dense)
 
@@ -82,7 +102,7 @@ q-dialog(v-model="dialog")
 		q-card-section
 			div Выберите базы данных, для подключения
 			q-list
-				q-item(clickable tag='label' v-for="item in store.databases" :key='item.psevdo')
+				q-item(clickable tag='label' v-for="item in localDatabases" :key='item.psevdo')
 					q-item-section
 						.row.items-center
 							q-icon.q-mr-sm(name="mdi-database-outline" color="secondary" size='16px')
@@ -95,7 +115,7 @@ q-dialog(v-model="dialog")
 						q-checkbox(dense v-model="item.active" size="sm")
 		q-card-actions(align="right")
 			q-btn(flat label="Отмена" color="primary" v-close-popup)
-			q-btn(flat label="OK" color="primary" v-close-popup)
+			q-btn(flat label="OK" color="primary" @click="applyChanges(); dialog = false")
 
 </template>
 
