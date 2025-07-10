@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import { useStore } from '@/stores/store'
 import type { QTableProps } from 'quasar'
 import SearchConnect from '@/components/tree/SearchConnect.vue'
@@ -30,13 +30,6 @@ const columns: QTableProps['columns'] = [
 		field: 'server',
 		sortable: true,
 	},
-	// {
-	// 	name: 'servertype',
-	// 	align: 'left',
-	// 	label: 'Тип сервера',
-	// 	field: 'servertype',
-	// 	sortable: true,
-	// },
 	{
 		name: 'index',
 		align: 'left',
@@ -44,38 +37,14 @@ const columns: QTableProps['columns'] = [
 		field: 'index',
 		sortable: true,
 	},
-	// {
-	// 	name: 'version',
-	// 	align: 'left',
-	// 	label: 'Версия',
-	// 	field: 'version',
-	// 	sortable: true,
-	// },
-	// {
-	// 	name: 'cache',
-	// 	align: 'left',
-	// 	label: 'Кэш',
-	// 	field: 'cache',
-	// 	sortable: true,
-	// },
-	// {
-	// 	name: 'date',
-	// 	align: 'left',
-	// 	label: 'Создано',
-	// 	field: 'date',
-	// 	sortable: true,
-	// },
-	// {
-	// 	name: 'def',
-	// 	align: 'center',
-	// 	label: 'По умолчанию',
-	// 	field: 'def',
-	// 	sortable: true,
-	// },
 	{ name: 'action', align: 'right', label: '', field: '' },
 ]
 
 const dialog = ref(false)
+
+const rows = computed(() => {
+	return store.databases.filter(item => item.active)
+})
 </script>
 
 <template lang="pug">
@@ -83,7 +52,7 @@ const dialog = ref(false)
 	br
 	label Сервер приложений
 	div
-		q-table.mywidth(:rows='store.databases' :columns='columns' row-key='name' hide-bottom)
+		q-table.mywidth(:rows='rows' :columns='columns' row-key='name' hide-bottom)
 			template(v-slot:body-cell-active='props')
 				q-td(key="active" :props="props" auto-width)
 					q-icon(name="mdi-circle-slice-8" color="green" v-if="props.row.active")
@@ -105,12 +74,25 @@ br
 SearchConnect
 
 q-dialog(v-model="dialog")
-	q-card.q-pa-sm
-		q-card-section(class="row items-center q-pb-none")
-			div(class="text-h6") Подключить
+	q-card.q-pa-sm(style='min-width: 600px')
+		.row.items-center.q-pb-none.q-ml-md
+			.text-h6 Подключить БД
 			q-space
-			q-btn(icon="close" flat round dense v-close-popup)
-		q-card-section Нужно описание, что в этом окне?
+			q-btn(icon="mdi-close" flat round dense v-close-popup)
+		q-card-section
+			div Выберите базы данных, для подключения
+			q-list
+				q-item(clickable tag='label' v-for="item in store.databases" :key='item.psevdo')
+					q-item-section
+						.row.items-center
+							q-icon.q-mr-sm(name="mdi-database-outline" color="secondary" size='16px')
+							span {{ item.psevdo }}
+					q-item-section
+						.row.items-center
+							q-icon.q-mr-sm(name="mdi-server-network-outline" color="secondary" size='16px')
+							|{{ item.server }}
+					q-item-section(side)
+						q-checkbox(dense v-model="item.active" size="sm")
 		q-card-actions(align="right")
 			q-btn(flat label="Отмена" color="primary" v-close-popup)
 			q-btn(flat label="OK" color="primary" v-close-popup)
@@ -148,6 +130,11 @@ label {
 	font-weight: 600;
 	color: #666;
 }
+.q-dialog label {
+	font-weight: 400;
+	color: #000;
+	font-size: 0.85rem;
+}
 // :deep(.q-table__container) {
 // 	width: 600px;
 // }
@@ -157,11 +144,5 @@ label {
 	display: inline-block;
 	max-width: unset; // отменяет 100% ширину по умолчанию
 	min-width: 600px;
-	.q-table__middle {
-		// width: auto !important;
-	}
-	table {
-		// width: auto;
-	}
 }
 </style>
