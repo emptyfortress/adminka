@@ -8,4 +8,4 @@
 - quasar
 - pinia
 
-
+upgrade to node.js 22
