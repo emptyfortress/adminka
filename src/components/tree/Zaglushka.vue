@@ -128,13 +128,6 @@ div
 				q-item-label {{ item.label }}
 				.descr {{ item.descr }}
 
-				// .flex.items-center.q-gutter-lg
-				// 	q-icon(v-if="item.state == 0" name="mdi-alert" size="sm")
-				// 	q-icon(v-if="item.state == 1" name="mdi-check-bold" color="positive" size="md")
-				// 	q-icon(v-if="item.state == 2" name="mdi-alert-circle-outline" color="negative" size="md")
-				// 	q-icon(v-if="item.state == 3" name="mdi-progress-question" color="secondary" size="md")
-				// 	.descr {{ item.descr }}
-
 			q-item-section(side)
 				q-btn(flat round dense icon="mdi-dots-vertical" color="secondary" size='12px' @click.stop) 
 					q-menu
@@ -142,17 +135,19 @@ div
 							q-item(clickable @click="exportSet" v-close-popup)
 								q-item-section(side)
 									q-icon(name='mdi-arrow-up-box')
-								q-item-section  Экспорт настроек
+								q-item-section  Экспортировать&nbsp;настройки
 
 							q-item(clickable @click="importSet" v-close-popup)
 								q-item-section(side)
 									q-icon(name='mdi-arrow-down-box')
-								q-item-section  Импорт настроек
+								q-item-section  Импортировать&nbsp;настройки
 
 							q-item.pink(clickable @click.stop='remove(index)')
 								q-item-section(side)
 									q-icon(name='mdi-delete-outline' color="negative")
-								q-item-section Удалить настройки
+								q-item-section Удалить&nbsp;компонент
+			q-item-section(side)
+				q-btn(flat round dense color="primary" icon="mdi-chevron-right") 
 
 	CopySettingsDialog(v-model:dialog="dialog" :importMode='importMode')
 
