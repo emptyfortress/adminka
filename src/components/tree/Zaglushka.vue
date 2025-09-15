@@ -4,6 +4,7 @@ import { useRouter, useRoute } from 'vue-router'
 import { tree } from '@/stores/serverTree'
 import { getMembers } from '@/utils/utils'
 import { useElementSize } from '@vueuse/core'
+import CopySettingsDialog from '@/components/CopySettingsDialog.vue'
 
 const router = useRouter()
 
@@ -66,9 +67,9 @@ const list = ref([
 	},
 ])
 
-const remove = ((num: number) => {
+const remove = (num: number) => {
 	list.value.splice(num, 1)
-})
+}
 
 const goto = (e: string) => {
 	router.push('/root/' + props.id + e)
@@ -89,6 +90,17 @@ const current = computed(() => {
 
 const el = ref(null)
 const { width, height } = useElementSize(el)
+
+const dialog = ref(false)
+const importMode = ref(false)
+const exportSet = () => {
+	importMode.value = false
+	dialog.value = !dialog.value
+}
+const importSet = () => {
+	importMode.value = true
+	dialog.value = !dialog.value
+}
 </script>
 
 <template lang="pug">
@@ -114,21 +126,36 @@ div
 				q-icon(name="mdi-code-block-braces" color="secondary")
 			q-item-section
 				q-item-label {{ item.label }}
-			q-item-section(v-if="width > 780")
-				.flex.items-center.q-gutter-lg
-					q-icon(v-if="item.state == 0" name="mdi-alert" size="sm")
-					q-icon(v-if="item.state == 1" name="mdi-check-bold" color="positive" size="md")
-					q-icon(v-if="item.state == 2" name="mdi-alert-circle-outline" color="negative" size="md")
-					q-icon(v-if="item.state == 3" name="mdi-progress-question" color="secondary" size="md")
-					.descr {{ item.descr }}
+				.descr {{ item.descr }}
+
+				// .flex.items-center.q-gutter-lg
+				// 	q-icon(v-if="item.state == 0" name="mdi-alert" size="sm")
+				// 	q-icon(v-if="item.state == 1" name="mdi-check-bold" color="positive" size="md")
+				// 	q-icon(v-if="item.state == 2" name="mdi-alert-circle-outline" color="negative" size="md")
+				// 	q-icon(v-if="item.state == 3" name="mdi-progress-question" color="secondary" size="md")
+				// 	.descr {{ item.descr }}
+
 			q-item-section(side)
-				.row.items-center
-					q-btn.remove(flat round dense icon="mdi-delete-outline" color="secondary" size='12px' @click.stop) 
-						q-menu
-							q-list
-								q-item(clickable @click.stop='remove(index)').pink
-									q-item-section Удалить
-					q-icon(name="mdi-chevron-right" color="secondary" size='sm')
+				q-btn(flat round dense icon="mdi-dots-vertical" color="secondary" size='12px' @click.stop) 
+					q-menu
+						q-list
+							q-item(clickable @click="exportSet" v-close-popup)
+								q-item-section(side)
+									q-icon(name='mdi-arrow-up-box')
+								q-item-section  Экспорт настроек
+
+							q-item(clickable @click="importSet" v-close-popup)
+								q-item-section(side)
+									q-icon(name='mdi-arrow-down-box')
+								q-item-section  Импорт настроек
+
+							q-item.pink(clickable @click.stop='remove(index)')
+								q-item-section(side)
+									q-icon(name='mdi-delete-outline' color="negative")
+								q-item-section Удалить настройки
+
+	CopySettingsDialog(v-model:dialog="dialog" :importMode='importMode')
+
 </template>
 
 <style scoped lang="scss">
@@ -140,14 +167,14 @@ div
 .q-list {
 	font-size: 1rem;
 	color: $secondary;
-}
-
-.remove {
-	margin-right: 1rem;
+	.pink {
+		background: inherit;
+	}
 }
 
 .descr {
-	font-size: 0.9rem;
+	font-size: 0.7rem;
+	color: #777;
 }
 
 .grid {
