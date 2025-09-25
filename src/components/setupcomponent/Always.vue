@@ -74,7 +74,8 @@ q-list
 	.data(:class='{dis: dis}')
 		q-btn.refresh(v-if="changed" flat icon="mdi-restore" color="secondary" dense @click="reset") 
 		.inner(v-if="changed")
-		label Ноды AlwaysOn:
+		label Ноды AlwaysOn
+		.descr Узлы кластера, которые могут использоваться в alwaysOn
 		.checks(v-for="item in nodes" :key='item.id')
 			q-checkbox(v-model="item.active" :label="item.label" :disable='dis')
 			q-icon(name="mdi-circle-slice-8" color="teal" v-if='item.status == 1')
