@@ -10,6 +10,7 @@ import ArchTab from '@/components/setupcomponent/ArchTab.vue'
 import CacheTab from '@/components/setupcomponent/CacheTab.vue'
 import Logging from '@/components/setupcomponent/Logging.vue'
 import ModuleTab from '@/components/setupcomponent/ModuleTab.vue'
+import Always from '@/components/setupcomponent/Always.vue'
 import BreadCrumbs from '@/components/tree/BreadCrumbs.vue'
 
 const props = defineProps({
@@ -64,6 +65,8 @@ q-page
 					CacheTab
 					#log.zg Журналирование
 					Logging
+					#always.zg Настройки Always on
+					Always
 					#module.zg Дополнительные настройки
 					ModuleTab
 

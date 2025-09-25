@@ -58,6 +58,7 @@ watch(main, (val, oldval) => {
 watch(check, (val, oldval) => {
 	if (val !== oldval) {
 		changed.value = true
+		emit('update', val)
 	}
 })
 const reset = () => {
