@@ -50,7 +50,7 @@ export const useTabs = defineStore({
 				id: 8,
 				field: 'always',
 				name: 'always',
-				label: 'Настройки AlwaysOn',
+				label: 'Распределение нагрузки',
 				modified: false,
 			},
 			{

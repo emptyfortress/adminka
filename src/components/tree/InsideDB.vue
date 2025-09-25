@@ -65,7 +65,7 @@ q-page
 					CacheTab
 					#log.zg Журналирование
 					Logging
-					#always.zg Настройки Always on
+					#always.zg Распределение нагрузки
 					Always
 					#module.zg Дополнительные настройки
 					ModuleTab

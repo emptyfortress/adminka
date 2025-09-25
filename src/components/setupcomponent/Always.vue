@@ -7,8 +7,19 @@ const always = ref([
 		id: 0,
 		checkbox: true,
 		check: false,
-		label: 'Использование AlwaysOn',
-		descr: 'Включить AlwaysOn',
+		label: 'AlwaysOn',
+		info: 'Параметры работы сервера Docsvision с группой доступности AlwaysOn',
+		descr: 'Использовать AlwaysOn',
+	},
+])
+const soft = ref([
+	{
+		id: 0,
+		checkbox: true,
+		check: false,
+		label: 'SoftPoint',
+		info: 'Флаг обеспечивает подключение к узлам AlwaysOn в кластере SoftPoint через специальные алгоритмы.',
+		descr: 'Использовать SoftPoint',
 	},
 ])
 
@@ -67,6 +78,7 @@ q-list
 		:key="item.id" 
 		:label="item.label" 
 		:descr="item.descr" 
+		:info="item.info" 
 		:checkbox="item.checkbox"
 		@update="update"
 		)
@@ -74,14 +86,24 @@ q-list
 	.data(:class='{dis: dis}')
 		q-btn.refresh(v-if="changed" flat icon="mdi-restore" color="secondary" dense @click="reset") 
 		.inner(v-if="changed")
-		label Ноды AlwaysOn
-		.descr Узлы кластера, которые могут использоваться в alwaysOn
+		label Узлы AlwaysOn
 		.checks(v-for="item in nodes" :key='item.id')
-			q-checkbox(v-model="item.active" :label="item.label" :disable='dis')
+			q-checkbox(v-model="item.active" :disable='dis')
+			.q-mr-sm {{ item.label }}
 			q-icon(name="mdi-circle-slice-8" color="teal" v-if='item.status == 1')
+				q-tooltip HEALTHY
 			q-icon(name="mdi-circle-slice-8" color="red" v-else)
-			span(v-if='item.status == 1') HEALTHY
-			span(v-else) NOT_HEALTHY	
+				q-tooltip NOT_HEALTHY
+
+	MyField(
+		v-model:check="item.check" 
+		v-for="item in soft" 
+		:key="item.id" 
+		:label="item.label" 
+		:descr="item.descr" 
+		:info="item.info" 
+		:checkbox="item.checkbox"
+		)
 </template>
 
 <style scoped lang="scss">
@@ -139,10 +161,11 @@ q-list
 	}
 }
 .checks {
-	max-width: 350px;
-	display: grid;
-	grid-template-columns: 1fr 24px 100px;
+	display: flex;
 	align-items: center;
+	// max-width: 350px;
+	// display: grid;
+	// grid-template-columns: 42px 1fr;
 }
 .dis {
 	opacity: 0.6;
