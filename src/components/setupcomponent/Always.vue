@@ -15,19 +15,19 @@ const always = ref([
 const initialNodes = [
 	{
 		id: 0,
-		label: 'ANEW2016',
+		label: 'New2016',
 		active: true,
 		status: 1,
 	},
 	{
 		id: 1,
-		label: 'NODE2',
+		label: 'Node2',
 		active: false,
 		status: 1,
 	},
 	{
 		id: 2,
-		label: 'MYSPARENODE',
+		label: 'MySpareNode',
 		active: false,
 		status: 2,
 	},
@@ -80,9 +80,8 @@ q-list
 			q-checkbox(v-model="item.active" :label="item.label" :disable='dis')
 			q-icon(name="mdi-circle-slice-8" color="teal" v-if='item.status == 1')
 			q-icon(name="mdi-circle-slice-8" color="red" v-else)
-			span(v-if='item.status == 1') healthy
-			span(v-else) I feel bad
-	
+			span(v-if='item.status == 1') HEALTHY
+			span(v-else) NOT_HEALTHY	
 </template>
 
 <style scoped lang="scss">
