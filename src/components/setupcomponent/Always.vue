@@ -8,7 +8,7 @@ const always = ref([
 		checkbox: true,
 		check: false,
 		label: 'AlwaysOn',
-		info: 'Параметры работы сервера Docsvision с группой доступности AlwaysOn',
+		info: 'Флаг активирует работу сервера Docsvision с группами доступности AlwaysOn.',
 		descr: 'Использовать AlwaysOn',
 	},
 ])
@@ -95,13 +95,14 @@ q-list
 			q-icon(name="mdi-circle-slice-8" color="red" v-else)
 				q-tooltip NOT_HEALTHY
 
-	MyField(
+	MyField(:class='{dis: dis}'
 		v-model:check="item.check" 
 		v-for="item in soft" 
 		:key="item.id" 
 		:label="item.label" 
 		:descr="item.descr" 
 		:info="item.info" 
+		:disable="dis"
 		:checkbox="item.checkbox"
 		)
 </template>
