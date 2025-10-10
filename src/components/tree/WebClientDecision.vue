@@ -56,29 +56,16 @@ const remove = (e: number) => {
 	if (index !== -1) rows.value.splice(index, 1)
 }
 
-const tabl1 = ref(false)
-const tabl2 = ref(false)
-const imp = (id: number) => {
-	if (id == 1) {
-		tabl1.value = true
-		setTimeout(() => {
-			tabl1.value = false
-			$q.notify({
-				icon: 'mdi-check-bold',
-				message: 'Импорт завершен. Обновите страницу.',
-			})
-		}, 5000)
-	}
-	if (id == 2) {
-		tabl2.value = true
-		setTimeout(() => {
-			tabl2.value = false
-			$q.notify({
-				icon: 'mdi-check-bold',
-				message: 'Импорт завершен. Обновите страницу.',
-			})
-		}, 5000)
-	}
+const tabl = ref(false)
+const imp = () => {
+	tabl.value = true
+	setTimeout(() => {
+		tabl.value = false
+		$q.notify({
+			icon: 'mdi-check-bold',
+			message: 'Импорт завершен. Обновите страницу.',
+		})
+	}, 5000)
 }
 </script>
 
@@ -102,9 +89,9 @@ const imp = (id: number) => {
 									q-item-section Удалить
 			template(v-slot:bottom)
 				.q-gutter-x-xs
-					q-btn(unelevated color="secondary" label="Импортировать решения" size='sm' @click="imp(1)") 
-					q-btn(unelevated color="secondary" label="Импортировать стандартные решения" size='sm' @click="imp(1)") 
-		.splash(v-if='tabl1')
+					q-btn(unelevated color="secondary" label="Импортировать решения" size='sm' @click="imp") 
+					q-btn(unelevated color="secondary" label="Импортировать стандартные решения" size='sm' @click="imp") 
+		.splash(v-if='tabl')
 			div
 				SvgSpinners90RingWithBg
 				.inf Подождите завершения импорта
@@ -124,9 +111,9 @@ const imp = (id: number) => {
 									q-item-section Удалить
 			template(v-slot:bottom)
 				.q-gutter-x-xs
-					q-btn(unelevated color="secondary" label="Импортировать решения" size='sm' @click="imp(2)") 
-					q-btn(unelevated color="secondary" label="Импортировать стандартные решения" size='sm' @click="imp(2)") 
-		.splash(v-if='tabl2')
+					q-btn(unelevated color="secondary" label="Импортировать решения" size='sm' @click="imp") 
+					q-btn(unelevated color="secondary" label="Импортировать стандартные решения" size='sm' @click="imp") 
+		.splash(v-if='tabl')
 			div
 				SvgSpinners90RingWithBg
 				.inf Подождите завершения импорта
