@@ -1,6 +1,10 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import type { QTableColumn } from 'quasar'
+import { useQuasar } from 'quasar'
+import SvgSpinners90RingWithBg from '@/components/icons/SvgSpinners90RingWithBg.vue'
+
+const $q = useQuasar()
 
 const columns: QTableColumn[] = [
 	{
@@ -51,46 +55,81 @@ const remove = (e: number) => {
 	const index = rows.value.findIndex(item => item.id == e)
 	if (index !== -1) rows.value.splice(index, 1)
 }
+
+const tabl1 = ref(false)
+const tabl2 = ref(false)
+const imp = (id: number) => {
+	if (id == 1) {
+		tabl1.value = true
+		setTimeout(() => {
+			tabl1.value = false
+			$q.notify({
+				icon: 'mdi-check-bold',
+				message: 'Импорт завершен. Обновите страницу.',
+			})
+		}, 5000)
+	}
+	if (id == 2) {
+		tabl2.value = true
+		setTimeout(() => {
+			tabl2.value = false
+			$q.notify({
+				icon: 'mdi-check-bold',
+				message: 'Импорт завершен. Обновите страницу.',
+			})
+		}, 5000)
+	}
+}
 </script>
 
 <template lang="pug">
 .lang
-	q-table(:rows='rows' :columns='columns' row-key='id' hide-pagination wrap-cells)
-		template(v-slot:top)
-			.top
-				q-icon(name="mdi-database" color="secondary" size='md')
-				span AGSupport
-				q-space
-				q-badge(rounded color="blue-4") БД по умолчанию
+	.loader
+		q-table(:rows='rows' :columns='columns' row-key='id' hide-pagination wrap-cells)
+			template(v-slot:top)
+				.top
+					q-icon(name="mdi-database" color="secondary" size='md')
+					span AGSupport
+					q-space
+					q-badge(rounded color="blue-4") БД по умолчанию
 
-		template(v-slot:body-cell-action='props' )
-			q-td.text-right(:props='props')
-				q-btn(flat round icon="mdi-trash-can-outline" color="secondary" size='sm') 
-					q-menu
-						q-list
-							q-item(clickable @click="remove(props.row.id)").pink
-								q-item-section Удалить
-		template(v-slot:bottom)
-			.q-gutter-x-xs
-				q-btn(unelevated color="secondary" label="Импортировать решения" size='sm') 
-				q-btn(unelevated color="secondary" label="Импортировать стандартные решения" size='sm') 
+			template(v-slot:body-cell-action='props' )
+				q-td.text-right(:props='props')
+					q-btn(flat round icon="mdi-trash-can-outline" color="secondary" size='sm') 
+						q-menu
+							q-list
+								q-item(clickable @click="remove(props.row.id)").pink
+									q-item-section Удалить
+			template(v-slot:bottom)
+				.q-gutter-x-xs
+					q-btn(unelevated color="secondary" label="Импортировать решения" size='sm' @click="imp(1)") 
+					q-btn(unelevated color="secondary" label="Импортировать стандартные решения" size='sm' @click="imp(1)") 
+		.splash(v-if='tabl1')
+			div
+				SvgSpinners90RingWithBg
+				.inf Подождите завершения импорта
 
-	q-table(:rows='rows' :columns='columns' row-key='id' hide-pagination wrap-cells)
-		template(v-slot:top)
-			.top
-				q-icon(name="mdi-database" color="secondary" size='md')
-				span dvTest
-		template(v-slot:body-cell-action='props' )
-			q-td.text-right(:props='props')
-				q-btn(flat round icon="mdi-trash-can-outline" color="secondary" size='sm') 
-					q-menu
-						q-list
-							q-item(clickable @click="remove(props.row.id)").pink
-								q-item-section Удалить
-		template(v-slot:bottom)
-			.q-gutter-x-xs
-				q-btn(unelevated color="secondary" label="Импортировать решения" size='sm') 
-				q-btn(unelevated color="secondary" label="Импортировать стандартные решения" size='sm') 
+	.loader
+		q-table(:rows='rows' :columns='columns' row-key='id' hide-pagination wrap-cells)
+			template(v-slot:top)
+				.top
+					q-icon(name="mdi-database" color="secondary" size='md')
+					span dvTest
+			template(v-slot:body-cell-action='props' )
+				q-td.text-right(:props='props')
+					q-btn(flat round icon="mdi-trash-can-outline" color="secondary" size='sm') 
+						q-menu
+							q-list
+								q-item(clickable @click="remove(props.row.id)").pink
+									q-item-section Удалить
+			template(v-slot:bottom)
+				.q-gutter-x-xs
+					q-btn(unelevated color="secondary" label="Импортировать решения" size='sm' @click="imp(2)") 
+					q-btn(unelevated color="secondary" label="Импортировать стандартные решения" size='sm' @click="imp(2)") 
+		.splash(v-if='tabl2')
+			div
+				SvgSpinners90RingWithBg
+				.inf Подождите завершения импорта
 
 </template>
 
@@ -99,8 +138,6 @@ const remove = (e: number) => {
 	margin: 0 2rem;
 	display: flex;
 	flex-wrap: wrap;
-	// display: grid;
-	// grid-template-columns: auto 1fr;
 	gap: 1rem;
 }
 :deep(.q-table th) {
@@ -118,5 +155,27 @@ const remove = (e: number) => {
 	width: 100%;
 	display: flex;
 	align-items: center;
+}
+.loader {
+	position: relative;
+}
+.splash {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	background: #ffffffdd;
+	top: 0;
+	left: 0;
+	font-size: 5rem;
+	line-height: 1;
+	color: $secondary;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	text-align: center;
+}
+.inf {
+	font-size: 1rem;
+	font-weight: 600;
 }
 </style>
