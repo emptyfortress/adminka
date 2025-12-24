@@ -6,20 +6,25 @@ const store = useStore()
 const localDatabases = ref([] as typeof store.databases)
 
 localDatabases.value = JSON.parse(JSON.stringify(store.databases))
+
+const columns = [
+	{ name: 'psevdo', label: 'Psevdo', field: 'psevdo', align: 'left' },
+	{ name: 'server', label: 'Server', field: 'server', align: 'left' },
+	{ name: 'sql', label: 'SQL', field: 'sql', align: 'left' },
+	{ name: 'action', label: 'Action', field: 'action', align: 'left' },
+]
 </script>
 
 <template lang="pug">
 	div Выберите базу данных, для подключения
-	q-list
-		q-item(clickable tag='label' v-for="item in localDatabases" :key='item.psevdo')
-			q-item-section
-				.row.items-center
-					q-icon.q-mr-sm(name="mdi-database-outline" color="secondary" size='16px')
-					span {{ item.psevdo }}
-			q-item-section
-				.row.items-center
-					q-icon.q-mr-sm(name="mdi-server-network-outline" color="secondary" size='16px')
-					|{{ item.server }}
-			q-item-section(side)
-				q-checkbox(dense v-model="item.active" size="sm")
+	q-table(
+		:rows="localDatabases"
+		:columns="columns"
+		row-key="psevdo"
+		flat
+		hide-pagination
+	)
+		template(v-slot:body-cell-action="props")
+			q-td(:props="props")
+				q-checkbox(dense v-model="props.row.active" size="sm")
 </template>
