@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia'
 import { ref, computed, watch } from 'vue'
 
-export type FlowType = 'A' | 'B' | 'C'
+export type FlowType = 'A' | 'B'
 
 export const useStepperStore = defineStore('stepper', () => {
 	const currentStep = ref(1)
@@ -15,9 +15,8 @@ export const useStepperStore = defineStore('stepper', () => {
 	const baseSteps = ['step-1', 'step-2'] // step-2 = fork
 
 	const branchSteps: Record<FlowType, string[]> = {
-		A: ['a-1', 'a-2'],
-		B: ['b-1'],
-		C: ['c-1', 'c-2', 'c-3'],
+		A: ['a-1', 'a-2', 'a-3', 'a-4'],
+		B: ['c-1', 'c-2', 'c-3', 'c-4'],
 	}
 
 	const finalSteps = ['summary']

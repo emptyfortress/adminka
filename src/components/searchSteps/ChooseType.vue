@@ -10,11 +10,6 @@
 			color="secondary"
 			@click="select('B')"
 		/>
-		<q-btn
-			label="Путь C"
-			color="accent"
-			@click="select('C')"
-		/>
 	</div>
 </template>
 

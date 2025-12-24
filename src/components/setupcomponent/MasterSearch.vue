@@ -8,7 +8,6 @@ import ChooseType from '@/components/searchSteps/ChooseType.vue'
 import StepA1 from '@/components/searchSteps/StepA1.vue'
 import Step1 from '@/components/searchSteps/Step1.vue'
 import StepA2 from '@/components/searchSteps/StepA2.vue'
-import StepB1 from '@/components/searchSteps/StepB1.vue'
 import StepC1 from '@/components/searchSteps/StepC1.vue'
 import StepC2 from '@/components/searchSteps/StepC2.vue'
 import StepC3 from '@/components/searchSteps/StepC3.vue'
@@ -18,15 +17,11 @@ const store = useStepperStore()
 const { currentStep, steps, branch } = storeToRefs(store)
 const { next, prev, selectFlow } = store
 
-const stepperKey = computed(() => branch.value)
-
 const stepComponents: Record<string, any> = {
 	'step-1': Step1,
 	'step-2': ChooseType,
-	// 'choose-type': ChooseType,
 	'a-1': StepA1,
 	'a-2': StepA2,
-	'b-1': StepB1,
 	'c-1': StepC1,
 	'c-2': StepC2,
 	'c-3': StepC3,
@@ -34,14 +29,17 @@ const stepComponents: Record<string, any> = {
 }
 
 const titles: Record<string, string> = {
-	'step-1': 'Подключение',
-	'step-2': 'Выбор типа',
-	'a-1': 'Шаг A1',
-	'a-2': 'Шаг A2',
-	'b-1': 'Шаг B1',
-	'c-1': 'Шаг C1',
-	'c-2': 'Шаг C2',
-	'c-3': 'Шаг C3',
+	'step-1': 'База данных',
+	'step-2': 'Тип поиска',
+	'a-1': 'Язык',
+	'a-2': 'Карточки',
+	'a-3': 'Файлы',
+	'a-4': 'Справочники',
+
+	'c-1': 'Язык',
+	'c-2': 'Карточки',
+	'c-3': 'Фасеты',
+	'c-4': 'Справочники',
 	summary: 'Итог',
 }
 
@@ -62,79 +60,28 @@ q-dialog(v-model="modelValue" position="bottom" full-width persistent)
 					span Подключение полнотекстового поиска
 
 			q-card-section
-				transition(name="stepper-fade" mode="out-in")
-					q-stepper(
-						v-model="currentStep"
-						:key="stepperKey"
-						color="primary"
-						inactive-color="secondary"
-						done-color="teal"
-						alternative-labels
-						animated
-						flat
-						header-nav
+				q-stepper(
+					v-model="currentStep"
+					color="primary"
+					inactive-color="secondary"
+					done-color="teal"
+					alternative-labels
+					animated
+					flat
+					header-nav
+				)
+					q-step(
+						v-for="(step, index) in steps"
+						:key="step"
+						:name="index + 1"
+						:prefix='index + 1'
+						:title="titles[step]"
 					)
-						q-step(
-							v-for="(step, index) in steps"
-							:key="step"
-							:name="index + 1"
-							:title="titles[step]"
-						)
-							component(
-								:is="stepComponents[step]"
-								@next="next"
-								@prev="prev"
-								@select-flow="selectFlow")
-
-					// q-step(
-					// 	:name="1"
-					// 	prefix="1"
-					// 	title="Выбор БД"
-					// 	:done="step > 1")
-					// 	div дфоывдфлоывдло
-					// q-step(
-					// 	:name="2"
-					// 	prefix="2"
-					// 	title="Хранилища"
-					// 	:done="step > 2")
-					// 	div дфоывдфлоывдло
-					// q-step(v-if='true'
-					// 	:name="2"
-					// 	prefix="2"
-					// 	title="Внешняя база"
-					// 	:done="step > 2")
-					// 	div дфоывдфлоывдло
-					// q-step(
-					// 	:name="3"
-					// 	prefix="3"
-					// 	title="Языки"
-					// 	:done="step > 3")
-					// 	div дфоывдфлоывдло
-					// q-step(
-					// 	:name="4"
-					// 	prefix="4"
-					// 	title="Карточки"
-					// 	:done="step > 4")
-					// 	div дфоывдфлоывдло
-					// q-step(
-					// 	:name="5"
-					// 	prefix="5"
-					// 	title="Файлы"
-					// 	:done="step > 5")
-					// 	div дфоывдфлоывдло
-					// q-step(
-					// 	:name="6"
-					// 	prefix="6"
-					// 	title="Справочники"
-					// 	:done="step > 6")
-					// 	div дфоывдфлоывдло
-					// q-step(
-					// 	:name="7"
-					// 	prefix="7"
-					// 	title="Подтверждение параметров"
-					// 	:done="step > 7")
-					// 	div дфоывдфлоывдло
-
+						component(
+							:is="stepComponents[step]"
+							@next="next"
+							@prev="prev"
+							@select-flow="selectFlow")
 
 		.bottom
 			q-separator
