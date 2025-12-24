@@ -76,6 +76,7 @@ q-dialog(v-model="modelValue" position="bottom" full-width persistent)
 						:name="index + 1"
 						:prefix='index + 1'
 						:title="titles[step]"
+						:done="index < currentStep - 1"
 					)
 						component(
 							:is="stepComponents[step]"
