@@ -1,13 +1,14 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { useStore } from '@/stores/store'
+import type { QTableColumn } from 'quasar'
 
 const store = useStore()
 const localDatabases = ref([] as typeof store.databases)
 
 localDatabases.value = JSON.parse(JSON.stringify(store.databases))
 
-const columns = [
+const columns: QTableColumn[] = [
 	{ name: 'psevdo', label: 'Psevdo', field: 'psevdo', align: 'left' },
 	{ name: 'server', label: 'Server', field: 'server', align: 'left' },
 	{ name: 'sql', label: 'SQL', field: 'sql', align: 'left' },
