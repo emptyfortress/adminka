@@ -9,9 +9,6 @@ export const useStepperStore = defineStore('stepper', () => {
 	// выбор делается на втором шаге
 	const branch = ref<FlowType>('A')
 
-	/**
-	 * 🔹 сегменты флоу
-	 */
 	const baseSteps = ['step-1', 'step-2'] // step-2 = fork
 
 	const branchSteps: Record<FlowType, string[]> = {

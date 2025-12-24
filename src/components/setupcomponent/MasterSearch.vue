@@ -59,30 +59,31 @@ q-dialog(v-model="modelValue" position="bottom" full-width persistent)
 					q-icon(name='mdi-wizard-hat')
 					span Подключение полнотекстового поиска
 
-			q-card-section
-				q-stepper(
-					v-model="currentStep"
-					color="primary"
-					inactive-color="secondary"
-					done-color="teal"
-					alternative-labels
-					animated
-					flat
-					header-nav
+			q-stepper(
+				v-model="currentStep"
+				color="primary"
+				inactive-color="secondary"
+				done-color="teal"
+				alternative-labels
+				animated
+				flat
+				header-nav
+			)
+				q-step(
+					v-for="(step, index) in steps"
+					:key="step"
+					:name="index + 1"
+					:prefix='index + 1'
+					:title="titles[step]"
+					:done="index < currentStep - 1"
 				)
-					q-step(
-						v-for="(step, index) in steps"
-						:key="step"
-						:name="index + 1"
-						:prefix='index + 1'
-						:title="titles[step]"
-						:done="index < currentStep - 1"
-					)
-						component(
-							:is="stepComponents[step]"
-							@next="next"
-							@prev="prev"
-							@select-flow="selectFlow")
+					.all900
+						.arch
+							component(
+								:is="stepComponents[step]"
+								@next="next"
+								@prev="prev"
+								@select-flow="selectFlow")
 
 		.bottom
 			q-separator
@@ -103,7 +104,8 @@ q-dialog(v-model="modelValue" position="bottom" full-width persistent)
 				template(v-if="wiz.choose === 'update'")
 					q-btn(flat color="primary" @click="upBack") Назад
 					q-btn(unelevated color="primary" @click="upNext" padding="xs xl") Далее
-			q-btn.close(flat round icon="mdi-close" color="primary" @click="close")
+
+		q-btn.close(flat round icon="mdi-close" color="primary" @click="close")
 </template>
 
 <style scoped lang="scss">
@@ -164,5 +166,18 @@ q-dialog(v-model="modelValue" position="bottom" full-width persistent)
 .stepper-fade-enter-from,
 .stepper-fade-leave-to {
 	opacity: 0;
+}
+:deep(.q-stepper__tab--active) {
+	background: #d1e1e7;
+}
+:deep(.q-stepper__tab) {
+	padding: 0.5rem;
+}
+:deep(.q-stepper__header--alternative-labels .q-stepper__tab) {
+	min-height: 10px;
+}
+.all900 {
+	width: clamp(350px, calc(100% - 1rem), 800px);
+	margin: 0 auto;
 }
 </style>
