@@ -1,71 +1,44 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue'
-import type { QTableProps } from 'quasar'
-import { useWiz } from '@/stores/wiz'
-import CreateDatabase from '@/components/setupcomponent/CreateDatabase.vue'
-import ConnectDatabase from '@/components/setupcomponent/ConnectDatabase.vue'
-import UpdateDatabase from '@/components/setupcomponent/UpdateDatabase.vue'
+import { storeToRefs } from 'pinia'
+import { useStepperStore } from '@/stores/useStepperStore'
+
+// шаги
+import ChooseType from '@/components/searchSteps/ChooseType.vue'
+import StepA1 from '@/components/searchSteps/StepA1.vue'
+import StepA2 from '@/components/searchSteps/StepA2.vue'
+import StepB1 from '@/components/searchSteps/StepB1.vue'
+import StepC1 from '@/components/searchSteps/StepC1.vue'
+import StepC2 from '@/components/searchSteps/StepC2.vue'
+import StepC3 from '@/components/searchSteps/StepC3.vue'
+import Summary from '@/components/searchSteps/Summary.vue'
+
+const store = useStepperStore()
+const { currentStep, steps } = storeToRefs(store)
+const { next, prev, selectFlow } = store
+
+const stepComponents: Record<string, any> = {
+	'choose-type': ChooseType,
+	'a-1': StepA1,
+	'a-2': StepA2,
+	'b-1': StepB1,
+	'c-1': StepC1,
+	'c-2': StepC2,
+	'c-3': StepC3,
+	summary: Summary,
+}
+
+const titles: Record<string, string> = {
+	'choose-type': 'Выбор типа',
+	'a-1': 'Шаг A1',
+	'a-2': 'Шаг A2',
+	'b-1': 'Шаг B1',
+	'c-1': 'Шаг C1',
+	'c-2': 'Шаг C2',
+	'c-3': 'Шаг C3',
+	summary: 'Итог',
+}
 
 const modelValue = defineModel<boolean>()
-
-const cr = ref()
-const con = ref()
-const up = ref()
-
-const step = ref(1)
-
-const wiz = useWiz()
-const emit = defineEmits(['update:modelValue'])
-
-const close = () => {
-	emit('update:modelValue', false)
-	wiz.choose = 'start'
-	wiz.done = false
-	wiz.finish = 0
-	wiz.setCreate(0)
-}
-const crNext = () => {
-	wiz.setCreate(0)
-	cr.value.nextStep()
-}
-const conNext = () => {
-	wiz.setCreate(0)
-	con.value.nextStep()
-}
-
-// const step = computed(() => {
-// 	if (wiz.choose === 'create') {
-// 		return cr.value?.step
-// 	}
-// 	if (wiz.choose === 'update') {
-// 		return up.value?.step
-// 	}
-// 	if (wiz.choose === 'connect') {
-// 		return con.value?.step
-// 	}
-// })
-
-const upNext = () => {
-	wiz.setCreate(0)
-	if (!!up.value) up.value.nextStep()
-}
-
-const crBack = () => {
-	cr.value.prevStep()
-}
-const conBack = () => {
-	con.value.prevStep()
-}
-const upBack = () => {
-	up.value.prevStep()
-}
-
-const ready = computed(() => {
-	if (wiz.choose === 'create' && step.value == 6) return true
-	else if (wiz.choose === 'update' && step.value == 4) return true
-	else if (wiz.choose === 'connect' && step.value == 6) return true
-	return false
-})
 </script>
 
 <template lang="pug">
@@ -77,9 +50,9 @@ q-dialog(v-model="modelValue" position="bottom" full-width persistent)
 					q-icon(name='mdi-wizard-hat')
 					span Подключение полнотекстового поиска
 
-			q-card-section.narrow
+			q-card-section
 				q-stepper(
-					v-model="step"
+					v-model="currentStep"
 					color="primary"
 					inactive-color="secondary"
 					done-color="teal"
@@ -89,67 +62,60 @@ q-dialog(v-model="modelValue" position="bottom" full-width persistent)
 					header-nav
 				)
 					q-step(
-						:name="1"
-						prefix="1"
-						title="Выбор БД"
-						:done="step > 1")
+						v-for="(step, index) in steps"
+						:key="step"
+						:name="index + 1"
+						:title="titles[step]"
+					)
 
-						div дфоывдфлоывдло
-
-					q-step(
-						:name="2"
-						prefix="2"
-						title="Хранилища"
-						:done="step > 2")
-
-						div дфоывдфлоывдло
-
-					q-step(v-if='true'
-						:name="2"
-						prefix="2"
-						title="Внешняя база"
-						:done="step > 2")
-						div дфоывдфлоывдло
-
-
-					q-step(
-						:name="3"
-						prefix="3"
-						title="Языки"
-						:done="step > 3")
-						div дфоывдфлоывдло
-
-
-					q-step(
-						:name="4"
-						prefix="4"
-						title="Карточки"
-						:done="step > 4")
-						div дфоывдфлоывдло
-
-
-					q-step(
-						:name="5"
-						prefix="5"
-						title="Файлы"
-						:done="step > 5")
-						div дфоывдфлоывдло
-
-
-					q-step(
-						:name="6"
-						prefix="6"
-						title="Справочники"
-						:done="step > 6")
-						div дфоывдфлоывдло
-
-
-					q-step(
-						:name="7"
-						prefix="7"
-						title="Подтверждение параметров"
-						:done="step > 7")
-						div дфоывдфлоывдло
+					// q-step(
+					// 	:name="1"
+					// 	prefix="1"
+					// 	title="Выбор БД"
+					// 	:done="step > 1")
+					// 	div дфоывдфлоывдло
+					// q-step(
+					// 	:name="2"
+					// 	prefix="2"
+					// 	title="Хранилища"
+					// 	:done="step > 2")
+					// 	div дфоывдфлоывдло
+					// q-step(v-if='true'
+					// 	:name="2"
+					// 	prefix="2"
+					// 	title="Внешняя база"
+					// 	:done="step > 2")
+					// 	div дфоывдфлоывдло
+					// q-step(
+					// 	:name="3"
+					// 	prefix="3"
+					// 	title="Языки"
+					// 	:done="step > 3")
+					// 	div дфоывдфлоывдло
+					// q-step(
+					// 	:name="4"
+					// 	prefix="4"
+					// 	title="Карточки"
+					// 	:done="step > 4")
+					// 	div дфоывдфлоывдло
+					// q-step(
+					// 	:name="5"
+					// 	prefix="5"
+					// 	title="Файлы"
+					// 	:done="step > 5")
+					// 	div дфоывдфлоывдло
+					// q-step(
+					// 	:name="6"
+					// 	prefix="6"
+					// 	title="Справочники"
+					// 	:done="step > 6")
+					// 	div дфоывдфлоывдло
+					// q-step(
+					// 	:name="7"
+					// 	prefix="7"
+					// 	title="Подтверждение параметров"
+					// 	:done="step > 7")
+					// 	div дфоывдфлоывдло
 
 
 		.bottom
