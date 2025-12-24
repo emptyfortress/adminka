@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { computed } from 'vue'
 import { storeToRefs } from 'pinia'
 import { useStepperStore } from '@/stores/useStepperStore'
 
@@ -14,8 +15,10 @@ import StepC3 from '@/components/searchSteps/StepC3.vue'
 import Summary from '@/components/searchSteps/Summary.vue'
 
 const store = useStepperStore()
-const { currentStep, steps } = storeToRefs(store)
+const { currentStep, steps, branch } = storeToRefs(store)
 const { next, prev, selectFlow } = store
+
+const stepperKey = computed(() => branch.value)
 
 const stepComponents: Record<string, any> = {
 	'step-1': Step1,
@@ -59,27 +62,29 @@ q-dialog(v-model="modelValue" position="bottom" full-width persistent)
 					span Подключение полнотекстового поиска
 
 			q-card-section
-				q-stepper(
-					v-model="currentStep"
-					color="primary"
-					inactive-color="secondary"
-					done-color="teal"
-					alternative-labels
-					animated
-					flat
-					header-nav
-				)
-					q-step(
-						v-for="(step, index) in steps"
-						:key="step"
-						:name="index + 1"
-						:title="titles[step]"
+				transition(name="stepper-fade" mode="out-in")
+					q-stepper(
+						v-model="currentStep"
+						:key="stepperKey"
+						color="primary"
+						inactive-color="secondary"
+						done-color="teal"
+						alternative-labels
+						animated
+						flat
+						header-nav
 					)
-						component(
-							:is="stepComponents[step]"
-							@next="next"
-							@prev="prev"
-							@select-flow="selectFlow")
+						q-step(
+							v-for="(step, index) in steps"
+							:key="step"
+							:name="index + 1"
+							:title="titles[step]"
+						)
+							component(
+								:is="stepComponents[step]"
+								@next="next"
+								@prev="prev"
+								@select-flow="selectFlow")
 
 					// q-step(
 					// 	:name="1"
@@ -202,8 +207,14 @@ q-dialog(v-model="modelValue" position="bottom" full-width persistent)
 :deep(.q-table tr.selected) {
 	background: var(--bg-selected);
 }
-// .narrow {
-// 	max-width: 1200px;
-// 	margin: 0 auto;
-// }
+
+.stepper-fade-enter-active,
+.stepper-fade-leave-active {
+	transition: opacity 200ms ease;
+}
+
+.stepper-fade-enter-from,
+.stepper-fade-leave-to {
+	opacity: 0;
+}
 </style>

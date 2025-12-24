@@ -7,7 +7,7 @@ export const useStepperStore = defineStore('stepper', () => {
 	const currentStep = ref(1)
 
 	// выбор делается на втором шаге
-	const branch = ref<FlowType | null>(null)
+	const branch = ref<FlowType>('A')
 
 	/**
 	 * 🔹 сегменты флоу
