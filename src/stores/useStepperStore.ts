@@ -27,7 +27,7 @@ export const useStepperStore = defineStore('stepper', () => {
 	 */
 	const steps = computed<string[]>(() => {
 		if (!branch.value) {
-			return baseSteps
+			return [...baseSteps, ...branchSteps['A'], ...finalSteps]
 		}
 
 		return [...baseSteps, ...branchSteps[branch.value], ...finalSteps]
@@ -47,7 +47,7 @@ export const useStepperStore = defineStore('stepper', () => {
 		currentStep.value = forkIndex + 1
 	})
 
-	function selectBranch(value: FlowType) {
+	function selectFlow(value: FlowType) {
 		branch.value = value
 	}
 
@@ -68,7 +68,7 @@ export const useStepperStore = defineStore('stepper', () => {
 		branch,
 		steps,
 		currentStepName,
-		selectBranch,
+		selectFlow,
 		next,
 		prev,
 	}

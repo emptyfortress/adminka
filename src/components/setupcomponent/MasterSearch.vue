@@ -5,6 +5,7 @@ import { useStepperStore } from '@/stores/useStepperStore'
 // шаги
 import ChooseType from '@/components/searchSteps/ChooseType.vue'
 import StepA1 from '@/components/searchSteps/StepA1.vue'
+import Step1 from '@/components/searchSteps/Step1.vue'
 import StepA2 from '@/components/searchSteps/StepA2.vue'
 import StepB1 from '@/components/searchSteps/StepB1.vue'
 import StepC1 from '@/components/searchSteps/StepC1.vue'
@@ -17,7 +18,9 @@ const { currentStep, steps } = storeToRefs(store)
 const { next, prev, selectFlow } = store
 
 const stepComponents: Record<string, any> = {
-	'choose-type': ChooseType,
+	'step-1': Step1,
+	'step-2': ChooseType,
+	// 'choose-type': ChooseType,
 	'a-1': StepA1,
 	'a-2': StepA2,
 	'b-1': StepB1,
@@ -28,7 +31,8 @@ const stepComponents: Record<string, any> = {
 }
 
 const titles: Record<string, string> = {
-	'choose-type': 'Выбор типа',
+	'step-1': 'Подключение',
+	'step-2': 'Выбор типа',
 	'a-1': 'Шаг A1',
 	'a-2': 'Шаг A2',
 	'b-1': 'Шаг B1',
@@ -39,6 +43,10 @@ const titles: Record<string, string> = {
 }
 
 const modelValue = defineModel<boolean>()
+
+const close = () => {
+	modelValue.value = false
+}
 </script>
 
 <template lang="pug">
@@ -67,6 +75,11 @@ q-dialog(v-model="modelValue" position="bottom" full-width persistent)
 						:name="index + 1"
 						:title="titles[step]"
 					)
+						component(
+							:is="stepComponents[step]"
+							@next="next"
+							@prev="prev"
+							@select-flow="selectFlow")
 
 					// q-step(
 					// 	:name="1"
@@ -120,14 +133,14 @@ q-dialog(v-model="modelValue" position="bottom" full-width persistent)
 
 		.bottom
 			q-separator
-			q-card-actions(v-if="ready" align="center")
+			q-card-actions(align="center")
 				q-btn(unelevated color="primary" @click="close" padding="xs xl") Готово
 
-			q-card-actions(v-else align="center")
-				q-btn(flat color="primary" @click="close").q-mr-xl Отмена
+			// q-card-actions(v-else align="center")
+			// 	q-btn(flat color="primary" @click="close").q-mr-xl Отмена
 
-				template(v-if="wiz.choose === 'create'")
-					q-btn(flat color="primary" @click="crBack") Назад
+				// template(v-if="wiz.choose === 'create'")
+				// 	q-btn(flat color="primary" @click="crBack") Назад
 					q-btn(unelevated color="primary" @click="crNext" padding="xs xl") Далее
 
 				template(v-if="wiz.choose === 'connect'")
@@ -137,7 +150,7 @@ q-dialog(v-model="modelValue" position="bottom" full-width persistent)
 				template(v-if="wiz.choose === 'update'")
 					q-btn(flat color="primary" @click="upBack") Назад
 					q-btn(unelevated color="primary" @click="upNext" padding="xs xl") Далее
-		q-btn.close(flat round icon="mdi-close" color="primary" @click="close")
+			q-btn.close(flat round icon="mdi-close" color="primary" @click="close")
 </template>
 
 <style scoped lang="scss">
