@@ -1,3 +1,73 @@
+<script setup lang="ts">
+import { computed, ref } from 'vue'
+import type { QTableProps } from 'quasar'
+import { useWiz } from '@/stores/wiz'
+import CreateDatabase from '@/components/setupcomponent/CreateDatabase.vue'
+import ConnectDatabase from '@/components/setupcomponent/ConnectDatabase.vue'
+import UpdateDatabase from '@/components/setupcomponent/UpdateDatabase.vue'
+
+const modelValue = defineModel<boolean>()
+
+const cr = ref()
+const con = ref()
+const up = ref()
+
+const step = ref(1)
+
+const wiz = useWiz()
+const emit = defineEmits(['update:modelValue'])
+
+const close = () => {
+	emit('update:modelValue', false)
+	wiz.choose = 'start'
+	wiz.done = false
+	wiz.finish = 0
+	wiz.setCreate(0)
+}
+const crNext = () => {
+	wiz.setCreate(0)
+	cr.value.nextStep()
+}
+const conNext = () => {
+	wiz.setCreate(0)
+	con.value.nextStep()
+}
+
+// const step = computed(() => {
+// 	if (wiz.choose === 'create') {
+// 		return cr.value?.step
+// 	}
+// 	if (wiz.choose === 'update') {
+// 		return up.value?.step
+// 	}
+// 	if (wiz.choose === 'connect') {
+// 		return con.value?.step
+// 	}
+// })
+
+const upNext = () => {
+	wiz.setCreate(0)
+	if (!!up.value) up.value.nextStep()
+}
+
+const crBack = () => {
+	cr.value.prevStep()
+}
+const conBack = () => {
+	con.value.prevStep()
+}
+const upBack = () => {
+	up.value.prevStep()
+}
+
+const ready = computed(() => {
+	if (wiz.choose === 'create' && step.value == 6) return true
+	else if (wiz.choose === 'update' && step.value == 4) return true
+	else if (wiz.choose === 'connect' && step.value == 6) return true
+	return false
+})
+</script>
+
 <template lang="pug">
 q-dialog(v-model="modelValue" position="bottom" full-width persistent)
 	q-card.edit
@@ -103,76 +173,6 @@ q-dialog(v-model="modelValue" position="bottom" full-width persistent)
 					q-btn(unelevated color="primary" @click="upNext" padding="xs xl") Далее
 		q-btn.close(flat round icon="mdi-close" color="primary" @click="close")
 </template>
-
-<script setup lang="ts">
-import { computed, ref } from 'vue'
-import type { QTableProps } from 'quasar'
-import { useWiz } from '@/stores/wiz'
-import CreateDatabase from '@/components/setupcomponent/CreateDatabase.vue'
-import ConnectDatabase from '@/components/setupcomponent/ConnectDatabase.vue'
-import UpdateDatabase from '@/components/setupcomponent/UpdateDatabase.vue'
-
-const modelValue = defineModel<boolean>()
-
-const cr = ref()
-const con = ref()
-const up = ref()
-
-const step = ref(1)
-
-const wiz = useWiz()
-const emit = defineEmits(['update:modelValue'])
-
-const close = () => {
-	emit('update:modelValue', false)
-	wiz.choose = 'start'
-	wiz.done = false
-	wiz.finish = 0
-	wiz.setCreate(0)
-}
-const crNext = () => {
-	wiz.setCreate(0)
-	cr.value.nextStep()
-}
-const conNext = () => {
-	wiz.setCreate(0)
-	con.value.nextStep()
-}
-
-// const step = computed(() => {
-// 	if (wiz.choose === 'create') {
-// 		return cr.value?.step
-// 	}
-// 	if (wiz.choose === 'update') {
-// 		return up.value?.step
-// 	}
-// 	if (wiz.choose === 'connect') {
-// 		return con.value?.step
-// 	}
-// })
-
-const upNext = () => {
-	wiz.setCreate(0)
-	if (!!up.value) up.value.nextStep()
-}
-
-const crBack = () => {
-	cr.value.prevStep()
-}
-const conBack = () => {
-	con.value.prevStep()
-}
-const upBack = () => {
-	up.value.prevStep()
-}
-
-const ready = computed(() => {
-	if (wiz.choose === 'create' && step.value == 6) return true
-	else if (wiz.choose === 'update' && step.value == 4) return true
-	else if (wiz.choose === 'connect' && step.value == 6) return true
-	return false
-})
-</script>
 
 <style scoped lang="scss">
 .edit {
