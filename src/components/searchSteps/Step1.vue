@@ -63,7 +63,6 @@ const handleCheckboxClick = (row: any) => {
 		flat
 		hide-pagination
 		v-model:pagination="pagination"
-		:row-class="row => row.active ? 'selected' : ''"
 	)
 		template(v-slot:body-cell-action="props")
 			q-td(:props="props")
@@ -93,8 +92,5 @@ const handleCheckboxClick = (row: any) => {
 }
 .dis {
 	opacity: 0.5;
-}
-.selected {
-	background-color: var(--bg-selected);
 }
 </style>
