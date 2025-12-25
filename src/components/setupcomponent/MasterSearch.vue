@@ -88,22 +88,9 @@ q-dialog(v-model="modelValue" position="bottom" full-width persistent)
 		.bottom
 			q-separator
 			q-card-actions(align="center")
-				q-btn(unelevated color="primary" @click="close" padding="xs xl") Готово
-
-			// q-card-actions(v-else align="center")
-			// 	q-btn(flat color="primary" @click="close").q-mr-xl Отмена
-
-				// template(v-if="wiz.choose === 'create'")
-				// 	q-btn(flat color="primary" @click="crBack") Назад
-					q-btn(unelevated color="primary" @click="crNext" padding="xs xl") Далее
-
-				template(v-if="wiz.choose === 'connect'")
-					q-btn(flat color="primary" @click="conBack") Назад
-					q-btn(unelevated color="primary" @click="conNext" padding="xs xl") Далее
-
-				template(v-if="wiz.choose === 'update'")
-					q-btn(flat color="primary" @click="upBack") Назад
-					q-btn(unelevated color="primary" @click="upNext" padding="xs xl") Далее
+				q-btn(flat color="primary" @click="close").q-mr-xl Отмена
+				q-btn(flat color="primary" @click="prev") Назад
+				q-btn(unelevated color="primary" @click="next" padding="xs xl") Далее
 
 		q-btn.close(flat round icon="mdi-close" color="primary" @click="close")
 </template>

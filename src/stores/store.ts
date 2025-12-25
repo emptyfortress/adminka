@@ -20,10 +20,12 @@ export const useStore = defineStore({
 		databases: [
 			{
 				active: true,
+				dis: true,
 				psevdo: 'AGSupport',
 				name: 'AGSupport_1',
 				servertype: 'SQL Server',
 				server: 'vega',
+				sql: '109pc0116.digdes.com',
 				index: 'да',
 				indexplace: 'Внешняя БД',
 				version: '4373',
@@ -36,10 +38,12 @@ export const useStore = defineStore({
 			},
 			{
 				active: true,
+				dis: true,
 				psevdo: 'DvTest',
 				name: 'AGSupport_2',
 				servertype: 'SQL Server',
 				server: 'vega',
+				sql: '109pc0116.digdes.com',
 				index: 'да',
 				indexplace: 'Локальная БД',
 				cache: 'Redis',
@@ -68,10 +72,12 @@ export const useStore = defineStore({
 			},
 			{
 				active: true,
+				dis: true,
 				psevdo: 'DvWorkflow',
 				name: 'AGSupport_4',
 				servertype: 'SQL Server',
 				server: 'astra',
+				sql: '109pc0058.digdes.com',
 				cache: 'Redis',
 				index: 'да',
 				indexplace: 'Elasticsearch',

@@ -9,21 +9,40 @@ const localDatabases = ref([] as typeof store.databases)
 localDatabases.value = JSON.parse(JSON.stringify(store.databases))
 
 const columns: QTableColumn[] = [
-	{ name: 'psevdo', label: 'Psevdo', field: 'psevdo', align: 'left', sortable: true },
-	{ name: 'server', label: 'Server', field: 'server', align: 'left', sortable: true },
-	{ name: 'sql', label: 'SQL', field: 'sql', align: 'left', sortable: true },
-	{ name: 'action', label: 'Action', field: 'action', align: 'left' },
+	{
+		name: 'psevdo',
+		label: 'Псевдоним',
+		field: 'psevdo',
+		align: 'left',
+		sortable: true,
+	},
+	{
+		name: 'server',
+		label: 'Сервер приложений',
+		field: 'server',
+		align: 'left',
+		sortable: true,
+	},
+	{
+		name: 'sql',
+		label: 'Сервер SQL',
+		field: 'sql',
+		align: 'left',
+		sortable: true,
+	},
+	{ name: 'action', label: 'Подключено', field: 'action', align: 'center' },
 ]
 
 const pagination = ref({
 	sortBy: 'psevdo',
 	descending: false,
+	rowsPerPage: 10,
 })
 </script>
 
 <template lang="pug">
-	div Выберите базу данных, для подключения
-	q-table(
+	.text-bold Выберите базу данных, для подключения:
+	q-table.q-mt-md(
 		:rows="localDatabases"
 		:columns="columns"
 		row-key="psevdo"
@@ -33,5 +52,22 @@ const pagination = ref({
 	)
 		template(v-slot:body-cell-action="props")
 			q-td(:props="props")
-				q-checkbox(dense v-model="props.row.active" size="sm")
+				q-checkbox(dense v-model="props.row.active" size="sm" :disable='props.row.dis')
+
+		template(v-slot:body-cell-psevdo="props")
+			q-td(:props="props")
+				q-icon(name="mdi-database" color="secondary")
+				span.q-ml-sm {{ props.row.psevdo }}
+
+		template(v-slot:body-cell-server="props")
+			q-td(:props="props")
+				q-icon(name="mdi-server-network-outline" color="secondary")
+				span.q-ml-sm {{ props.row.server }}
+
 </template>
+
+<style lang="scss" scoped>
+.q-icon {
+	font-size: 1.1rem;
+}
+</style>
