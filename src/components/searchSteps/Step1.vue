@@ -38,6 +38,20 @@ const pagination = ref({
 	descending: false,
 	rowsPerPage: 10,
 })
+
+const handleCheckboxClick = (row: any) => {
+	if (row.dis) return
+
+	// Uncheck all rows first
+	localDatabases.value.forEach(db => {
+		if (!db.dis) {
+			db.active = false
+		}
+	})
+
+	// Check the clicked row
+	row.active = true
+}
 </script>
 
 <template lang="pug">
@@ -52,7 +66,13 @@ const pagination = ref({
 	)
 		template(v-slot:body-cell-action="props")
 			q-td(:props="props")
-				q-checkbox(dense v-model="props.row.active" size="sm" :disable='props.row.dis')
+				q-checkbox(
+					dense
+					v-model="props.row.active"
+					size="sm"
+					:disable='props.row.dis'
+					@click="handleCheckboxClick(props.row)"
+				)
 
 		template(v-slot:body-cell-psevdo="props")
 			q-td(:props="props")
