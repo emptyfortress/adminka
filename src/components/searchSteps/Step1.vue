@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import { useStore } from '@/stores/store'
 import type { QTableColumn } from 'quasar'
 
@@ -52,6 +52,10 @@ const handleCheckboxClick = (row: any) => {
 	// Check the clicked row
 	row.active = true
 }
+
+const selectedDatabase = computed(() => {
+	return localDatabases.value.find(db => db.active)
+})
 </script>
 
 <template lang="pug">
@@ -84,6 +88,14 @@ const handleCheckboxClick = (row: any) => {
 				q-icon(name="mdi-server-network-outline" color="secondary")
 				span.q-ml-sm {{ props.row.server }}
 
+	q-separator.q-my-md
+
+	.text-bold Текущий выбор:
+	div.q-mt-sm(v-if="selectedDatabase")
+		q-icon(name="mdi-database-check" color="primary")
+		span.q-ml-sm {{ selectedDatabase.psevdo }} ({{ selectedDatabase.server }})
+	div.q-mt-sm(v-else)
+		span.text-grey Выберите базу данных
 </template>
 
 <style lang="scss" scoped>
