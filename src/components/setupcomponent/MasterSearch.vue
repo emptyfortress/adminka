@@ -1,5 +1,5 @@
 <script setup lang="ts">
-// import { computed } from 'vue'
+import { computed } from 'vue'
 import { storeToRefs } from 'pinia'
 import { useStepperStore } from '@/stores/useStepperStore'
 
@@ -15,7 +15,7 @@ import Summary from '@/components/searchSteps/Summary.vue'
 
 const store = useStepperStore()
 const { currentStep, steps, branch } = storeToRefs(store)
-const { next, prev, selectFlow } = store
+const { next, prev, selectFlow, guards } = store
 
 const stepComponents: Record<string, any> = {
 	'step-1': Step1,
@@ -48,6 +48,10 @@ const modelValue = defineModel<boolean>()
 const close = () => {
 	modelValue.value = false
 }
+
+const canNext = computed(() => {
+	return guards[currentStep.value]()
+})
 </script>
 
 <template lang="pug">
@@ -87,8 +91,8 @@ q-dialog(v-model="modelValue" position="bottom" full-width persistent)
 			q-separator
 			q-card-actions(align="center")
 				q-btn(flat color="primary" @click="close").q-mr-xl Отмена
-				q-btn(flat color="primary" @click="prev") Назад
-				q-btn(unelevated color="primary" @click="next" padding="xs xl") Далее
+				q-btn(flat color="primary" @click="prev" :disable="currentStep === 1") Назад
+				q-btn(unelevated color="primary" @click="next" padding="xs xl" :disable="!canNext") Далее
 
 		q-btn.close(flat round icon="mdi-close" color="primary" @click="close")
 </template>
