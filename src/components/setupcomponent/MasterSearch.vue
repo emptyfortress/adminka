@@ -11,9 +11,6 @@ import CardStep from '@/components/searchSteps/CardStep.vue'
 import FileStep from '@/components/searchSteps/FileStep.vue'
 import FacetStep from '@/components/searchSteps/FacetStep.vue'
 import CatalogStep from '@/components/searchSteps/CatalogStep.vue'
-import StepC1 from '@/components/searchSteps/StepC1.vue'
-import StepC2 from '@/components/searchSteps/StepC2.vue'
-import StepC3 from '@/components/searchSteps/StepC3.vue'
 import Summary from '@/components/searchSteps/Summary.vue'
 
 const store = useStepperStore()

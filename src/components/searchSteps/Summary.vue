@@ -1,6 +1,9 @@
-<template>
-  <div>
-    <h3>Summary Header</h3>
-    <p>This is a dummy template for Summary</p>
-  </div>
+<script setup lang="ts"></script>
+
+<template lang="pug">
+.all900
+	.arch
+		.text-bold Итог
 </template>
+
+<style scoped lang="scss"></style>
