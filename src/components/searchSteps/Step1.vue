@@ -54,8 +54,12 @@ const handleCheckboxClick = (row: any) => {
 }
 
 const selectedDatabase = computed(() => {
-	return localDatabases.value.find(db => db.active)
+	return localDatabases.value.find(db => db.active && !db.dis)
 })
+
+const calcColor = (row: any) => {
+	return row.dis ? 'secondary' : 'primary'
+}
 </script>
 
 <template lang="pug">
@@ -74,6 +78,7 @@ const selectedDatabase = computed(() => {
 					dense
 					v-model="props.row.active"
 					size="sm"
+					:color=`props.row.dis ? "secondary" : "primary"`
 					:disable='props.row.dis'
 					@click="handleCheckboxClick(props.row)"
 				)
@@ -90,11 +95,11 @@ const selectedDatabase = computed(() => {
 
 	q-separator.q-my-md
 
-	.text-bold Текущий выбор:
-	div.q-mt-sm(v-if="selectedDatabase")
+	span.text-bold Текущий выбор:
+	span.q-ml-sm(v-if="selectedDatabase")
 		q-icon(name="mdi-database-check" color="primary")
 		span.q-ml-sm {{ selectedDatabase.psevdo }} ({{ selectedDatabase.server }})
-	div.q-mt-sm(v-else)
+	span.q-ml-sm(v-else)
 		span.text-grey Выберите базу данных
 </template>
 
