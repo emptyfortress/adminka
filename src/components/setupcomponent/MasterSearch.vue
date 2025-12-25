@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed } from 'vue'
+// import { computed } from 'vue'
 import { storeToRefs } from 'pinia'
 import { useStepperStore } from '@/stores/useStepperStore'
 
@@ -81,8 +81,6 @@ q-dialog(v-model="modelValue" position="bottom" full-width persistent)
 						.arch
 							component(
 								:is="stepComponents[step]"
-								@next="next"
-								@prev="prev"
 								@select-flow="selectFlow")
 
 		.bottom

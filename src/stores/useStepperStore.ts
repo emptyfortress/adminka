@@ -2,11 +2,10 @@ import { defineStore } from 'pinia'
 import { ref, computed, watch } from 'vue'
 
 export type FlowType = 'A' | 'B'
+export type StepNumber = 1 | 2 | 3 | 4 | 5 | 6 | 7
 
 export const useStepperStore = defineStore('stepper', () => {
-	const currentStep = ref(1)
-
-	// выбор делается на втором шаге
+	const currentStep = ref<StepNumber>(1)
 	const branch = ref<FlowType>('A')
 
 	const baseSteps = ['step-1', 'step-2'] // step-2 = fork
@@ -45,9 +44,57 @@ export const useStepperStore = defineStore('stepper', () => {
 
 	function selectFlow(value: FlowType) {
 		branch.value = value
+		step2.value.flow = value
 	}
 
+	// step data
+	const step1 = ref({
+		psevdo: '',
+		server: '',
+	})
+	const step2 = ref({
+		flow: '',
+	})
+
+	// final payload
+	const payload = computed(() => {
+		return {
+			psevdo: step1.value.psevdo,
+			server: step1.value.server,
+			flow: step2.value.flow,
+		}
+	})
+
+	// guards
+	function guardStep1() {
+		if (!step1.value.psevdo) {
+			return false
+		}
+		return true
+	}
+	function guardStep2() {
+		if (!step2.value.flow) {
+			return false
+		}
+		return true
+	}
+
+	const guards: Record<StepNumber, () => true | string> = {
+		1: guardStep1,
+		2: guardStep2,
+		// 3: guardStep3,
+		// 4: guardStep4,
+		// 5: () => true,
+	}
+
+	// navigation
 	function next() {
+		const result = guards[currentStep.value]()
+
+		if (result !== true) {
+			return
+		}
+
 		if (currentStep.value < steps.value.length) {
 			currentStep.value++
 		}
@@ -63,6 +110,8 @@ export const useStepperStore = defineStore('stepper', () => {
 		currentStep,
 		branch,
 		steps,
+		step1,
+		step2,
 		currentStepName,
 		selectFlow,
 		next,

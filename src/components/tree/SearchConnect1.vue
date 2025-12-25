@@ -119,32 +119,7 @@ const remove = (item: any) => {
 
 br
 SearchConnect
-
 MasterSearch(v-model="dialog")
-
-// q-dialog(v-model="dialog")
-// 	q-card.q-pa-sm(style='min-width: 600px')
-// 		.row.items-center.q-pb-none.q-ml-md
-// 			.text-h6 Подключить БД
-// 			q-space
-// 			q-btn(icon="mdi-close" flat round dense v-close-popup)
-// 		q-card-section
-// 			div Выберите базы данных, для подключения
-// 			q-list
-// 				q-item(clickable tag='label' v-for="item in localDatabases" :key='item.psevdo')
-// 					q-item-section
-// 						.row.items-center
-// 							q-icon.q-mr-sm(name="mdi-database-outline" color="secondary" size='16px')
-// 							span {{ item.psevdo }}
-// 					q-item-section
-// 						.row.items-center
-// 							q-icon.q-mr-sm(name="mdi-server-network-outline" color="secondary" size='16px')
-// 							|{{ item.server }}
-// 					q-item-section(side)
-// 						q-checkbox(dense v-model="item.active" size="sm")
-// 		q-card-actions(align="right")
-// 			q-btn(flat label="Отмена" color="primary" v-close-popup)
-// 			q-btn(flat label="OK" color="primary" @click="applyChanges(); dialog = false")
 
 </template>
 

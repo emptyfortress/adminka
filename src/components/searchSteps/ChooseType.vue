@@ -10,22 +10,18 @@ const group = ref(null)
 const options = [
 	{
 		label: 'Использовать внешний полнотекстовый поиск Elasticsearch',
-		value: 'A',
+		value: 'B',
 	},
-	{ label: 'Использовать локальную базу данных', value: 'B' },
+	{ label: 'Использовать локальную базу данных', value: 'A' },
 ]
 
-watch(group, (newValue) => {
+watch(group, newValue => {
 	if (newValue === 'A') {
 		emit('select-flow', 'A')
 	} else if (newValue === 'B') {
 		emit('select-flow', 'B')
 	}
 })
-
-function select(flow: FlowType) {
-	emit('select-flow', flow)
-}
 </script>
 
 <template lang="pug">
@@ -36,17 +32,4 @@ function select(flow: FlowType) {
 		type="radio"
 		v-model="group")
 
-
-	<!-- <div class="q-gutter-md"> -->
-	<!-- 	<q-btn -->
-	<!-- 		label="Путь A" -->
-	<!-- 		color="primary" -->
-	<!-- 		@click="select('A')" -->
-	<!-- 	/> -->
-	<!-- 	<q-btn -->
-	<!-- 		label="Путь B" -->
-	<!-- 		color="secondary" -->
-	<!-- 		@click="select('B')" -->
-	<!-- 	/> -->
-	<!-- </div> -->
 </template>

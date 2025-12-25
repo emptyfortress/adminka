@@ -2,8 +2,10 @@
 import { ref, computed } from 'vue'
 import { useStore } from '@/stores/store'
 import type { QTableColumn } from 'quasar'
+import { useStepperStore } from '@/stores/useStepperStore'
 
 const store = useStore()
+const stepper = useStepperStore()
 const localDatabases = ref([] as typeof store.databases)
 
 localDatabases.value = JSON.parse(JSON.stringify(store.databases))
@@ -51,6 +53,8 @@ const handleCheckboxClick = (row: any) => {
 
 	// Check the clicked row
 	row.active = true
+	stepper.step1.psevdo = row.psevdo
+	stepper.step1.server = row.server
 }
 
 const selectedDatabase = computed(() => {
