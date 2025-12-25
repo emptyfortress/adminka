@@ -70,4 +70,7 @@ const pagination = ref({
 .q-icon {
 	font-size: 1.1rem;
 }
+.dis {
+	opacity: 0.5;
+}
 </style>

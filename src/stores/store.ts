@@ -56,6 +56,7 @@ export const useStore = defineStore({
 			},
 			{
 				active: false,
+				dis: false,
 				psevdo: 'DvShowCase',
 				name: 'AGSupport_3',
 				servertype: 'PostgreSQL',
@@ -90,6 +91,7 @@ export const useStore = defineStore({
 			},
 			{
 				active: false,
+				dis: false,
 				psevdo: 'DvFinance',
 				name: 'AGSupport_5',
 				servertype: 'PostgreSQL',
@@ -106,6 +108,7 @@ export const useStore = defineStore({
 			},
 			{
 				active: false,
+				dis: false,
 				psevdo: 'DvArchive',
 				name: 'AGSupport_6',
 				servertype: 'SQL Server',
