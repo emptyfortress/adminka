@@ -26,11 +26,12 @@ watch(group, newValue => {
 </script>
 
 <template lang="pug">
-div
-	.text-bold Выберите хранилище
+.all900
+	.arch
+		.text-bold Выберите хранилище
 
-	q-option-group(
-		:options="options"
-		type="radio"
-		v-model="group")
+		q-option-group(
+			:options="options"
+			type="radio"
+			v-model="group")
 </template>

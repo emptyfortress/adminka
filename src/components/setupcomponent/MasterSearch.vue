@@ -4,10 +4,13 @@ import { storeToRefs } from 'pinia'
 import { useStepperStore } from '@/stores/useStepperStore'
 
 // шаги
-import ChooseType from '@/components/searchSteps/ChooseType.vue'
-import StepA1 from '@/components/searchSteps/StepA1.vue'
 import Step1 from '@/components/searchSteps/Step1.vue'
-import StepA2 from '@/components/searchSteps/StepA2.vue'
+import ChooseType from '@/components/searchSteps/ChooseType.vue'
+import LangStep from '@/components/searchSteps/LangStep.vue'
+import CardStep from '@/components/searchSteps/CardStep.vue'
+import FileStep from '@/components/searchSteps/FileStep.vue'
+import FacetStep from '@/components/searchSteps/FacetStep.vue'
+import CatalogStep from '@/components/searchSteps/CatalogStep.vue'
 import StepC1 from '@/components/searchSteps/StepC1.vue'
 import StepC2 from '@/components/searchSteps/StepC2.vue'
 import StepC3 from '@/components/searchSteps/StepC3.vue'
@@ -20,11 +23,14 @@ const { next, prev, selectFlow, guards } = store
 const stepComponents: Record<string, any> = {
 	'step-1': Step1,
 	'step-2': ChooseType,
-	'a-1': StepA1,
-	'a-2': StepA2,
-	'c-1': StepC1,
-	'c-2': StepC2,
-	'c-3': StepC3,
+	'a-1': LangStep,
+	'a-2': CardStep,
+	'a-3': FileStep,
+	'a-4': CatalogStep,
+	'c-1': LangStep,
+	'c-2': CardStep,
+	'c-3': FacetStep,
+	'c-4': CatalogStep,
 	summary: Summary,
 }
 
