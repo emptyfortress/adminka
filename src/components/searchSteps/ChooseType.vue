@@ -25,11 +25,11 @@ watch(group, newValue => {
 </script>
 
 <template lang="pug">
+div
 	.text-bold Выберите хранилище
 
 	q-option-group(
 		:options="options"
 		type="radio"
 		v-model="group")
-
 </template>
