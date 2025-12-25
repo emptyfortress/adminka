@@ -52,6 +52,11 @@ const close = () => {
 const canNext = computed(() => {
 	return guards[currentStep.value]()
 })
+
+// Filter out undefined steps and ensure we have valid step keys
+const validSteps = computed(() => {
+	return steps.value.filter(step => step && titles[step])
+})
 </script>
 
 <template lang="pug">
@@ -74,7 +79,7 @@ q-dialog(v-model="modelValue" position="bottom" full-width persistent)
 				header-nav
 			)
 				q-step(
-					v-for="(step, index) in steps"
+					v-for="(step, index) in validSteps"
 					:key="step"
 					:name="index + 1"
 					:prefix='index + 1'
