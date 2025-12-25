@@ -1,23 +1,31 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
 import type { FlowType } from '@/stores/useStepperStore'
 
 const emit = defineEmits<{
 	(e: 'select-flow', value: FlowType): void
 }>()
 
-function select(flow: FlowType) {
-	emit('select-flow', flow)
-}
-
 const group = ref(null)
 const options = [
 	{
 		label: 'Использовать внешний полнотекстовый поиск Elasticsearch',
-		value: 1,
+		value: 'A',
 	},
-	{ label: 'Использовать локальную базу данных', value: 2 },
+	{ label: 'Использовать локальную базу данных', value: 'B' },
 ]
+
+watch(group, (newValue) => {
+	if (newValue === 'A') {
+		emit('select-flow', 'A')
+	} else if (newValue === 'B') {
+		emit('select-flow', 'B')
+	}
+})
+
+function select(flow: FlowType) {
+	emit('select-flow', flow)
+}
 </script>
 
 <template lang="pug">
