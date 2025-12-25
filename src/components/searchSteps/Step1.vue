@@ -67,44 +67,46 @@ const calcColor = (row: any) => {
 </script>
 
 <template lang="pug">
-	.text-bold Выберите базу данных, для подключения:
-	q-table.q-mt-md(
-		:rows="localDatabases"
-		:columns="columns"
-		row-key="psevdo"
-		flat
-		hide-pagination
-		v-model:pagination="pagination"
-	)
-		template(v-slot:body-cell-action="props")
-			q-td(:props="props")
-				q-checkbox(
-					dense
-					v-model="props.row.active"
-					size="sm"
-					:color=`props.row.dis ? "secondary" : "primary"`
-					:disable='props.row.dis'
-					@click="handleCheckboxClick(props.row)"
-				)
+.all900
+	.arch
+		.text-bold Выберите базу данных, для подключения:
+		q-table.q-mt-md(
+			:rows="localDatabases"
+			:columns="columns"
+			row-key="psevdo"
+			flat
+			hide-pagination
+			v-model:pagination="pagination"
+		)
+			template(v-slot:body-cell-action="props")
+				q-td(:props="props")
+					q-checkbox(
+						dense
+						v-model="props.row.active"
+						size="sm"
+						:color=`props.row.dis ? "secondary" : "primary"`
+						:disable='props.row.dis'
+						@click="handleCheckboxClick(props.row)"
+					)
 
-		template(v-slot:body-cell-psevdo="props")
-			q-td(:props="props")
-				q-icon(name="mdi-database" color="secondary")
-				span.q-ml-sm {{ props.row.psevdo }}
+			template(v-slot:body-cell-psevdo="props")
+				q-td(:props="props")
+					q-icon(name="mdi-database" color="secondary")
+					span.q-ml-sm {{ props.row.psevdo }}
 
-		template(v-slot:body-cell-server="props")
-			q-td(:props="props")
-				q-icon(name="mdi-server-network-outline" color="secondary")
-				span.q-ml-sm {{ props.row.server }}
+			template(v-slot:body-cell-server="props")
+				q-td(:props="props")
+					q-icon(name="mdi-server-network-outline" color="secondary")
+					span.q-ml-sm {{ props.row.server }}
 
-	q-separator.q-my-md
+		q-separator.q-my-md
 
-	span.text-bold Текущий выбор:
-	span.q-ml-sm(v-if="selectedDatabase")
-		q-icon(name="mdi-database-check" color="primary")
-		span.q-ml-sm {{ selectedDatabase.psevdo }} ({{ selectedDatabase.server }})
-	span.q-ml-sm(v-else)
-		span.text-grey Выберите базу данных
+		span.text-bold Текущий выбор:
+		span.q-ml-sm(v-if="selectedDatabase")
+			q-icon(name="mdi-database-check" color="primary")
+			span.q-ml-sm {{ selectedDatabase.psevdo }} ({{ selectedDatabase.server }})
+		span.q-ml-sm(v-else)
+			span.text-grey Ничего не выбрано
 </template>
 
 <style lang="scss" scoped>

@@ -3,7 +3,8 @@ import { ref, watch } from 'vue'
 import type { FlowType } from '@/stores/useStepperStore'
 
 const emit = defineEmits<{
-	(e: 'select-flow', value: FlowType): void
+	(e: 'select-flow', value: 'A' | 'B'): void
+	(e: 'next'): void
 }>()
 
 const group = ref(null)

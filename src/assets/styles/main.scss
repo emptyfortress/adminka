@@ -234,6 +234,10 @@ fieldset {
 		border-left: 2px dotted $secondary;
 	}
 }
+.all900 {
+	width: clamp(350px, calc(100% - 1rem), 800px);
+	margin: 0 auto;
+}
 .arch {
 	background: var(--bg-grey);
 	padding: 1rem;

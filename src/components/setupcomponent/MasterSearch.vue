@@ -86,11 +86,9 @@ q-dialog(v-model="modelValue" position="bottom" full-width persistent)
 					:title="titles[step]"
 					:done="index < currentStep - 1"
 				)
-					.all900
-						.arch
-							component(
-								:is="stepComponents[step]"
-								@select-flow="selectFlow")
+					component(
+						:is="stepComponents[step]"
+						@select-flow="selectFlow")
 
 		.bottom
 			q-separator
@@ -169,9 +167,5 @@ q-dialog(v-model="modelValue" position="bottom" full-width persistent)
 }
 :deep(.q-stepper__header--alternative-labels .q-stepper__tab) {
 	min-height: 10px;
-}
-.all900 {
-	width: clamp(350px, calc(100% - 1rem), 800px);
-	margin: 0 auto;
 }
 </style>
