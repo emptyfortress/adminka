@@ -8,11 +8,13 @@ interface Props {
 	disable?: boolean
 	readonly?: boolean
 	prependIcon?: string
+	clearable?: boolean
 }
 const props = withDefaults(defineProps<Props>(), {
 	filled: false,
 	bg: 'white',
 	type: 'text',
+	clearable: false,
 })
 
 const modelValue = defineModel<string | number | null | undefined>()
@@ -32,6 +34,7 @@ q-input(ref="input"
 	:type="props.type"
 	:disable="props.disable"
 	:readonly="props.readonly"
+	:clearable="props.clearable"
 	hide-bottom-space
 	lazy-rules :rules="req" @blur="input.validate()")
 	template(v-if="props.prependIcon" v-slot:prepend)
