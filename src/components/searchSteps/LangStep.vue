@@ -72,6 +72,12 @@ const pagination = ref({
 				bg-color="white",
 				hide-bottom-space
 			)
+				template(v-slot:option="scope")
+					q-item(v-bind="scope.itemProps")
+						q-item-section
+							q-item-label {{ scope.opt.label }}
+						q-item-section(side)
+							q-item-label(caption) {{ scope.opt.code }}
 			q-btn(unelevated color="secondary" label="Добавить" @click="action" size='sm')
 </template>
 
