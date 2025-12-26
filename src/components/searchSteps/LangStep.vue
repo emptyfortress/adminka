@@ -146,4 +146,12 @@ const pagination = ref({
 		color: red;
 	}
 }
+:deep(tr) {
+	&:hover {
+		.rem {
+			opacity: 1;
+			color: red;
+		}
+	}
+}
 </style>
