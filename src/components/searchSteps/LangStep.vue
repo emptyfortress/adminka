@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import type { QTableColumn } from 'quasar'
 import { useStepperStore } from '@/stores/useStepperStore'
 
@@ -30,7 +30,7 @@ const columns: QTableColumn[] = [
 
 const adding = ref()
 
-const options = [
+const allOptions = [
 	{ label: 'Английский', value: 'Английский', code: 1033 },
 	{ label: 'Казахский', value: 'Казахский', code: 1087 },
 	{ label: 'Китайский', value: 'Китайский', code: 2052 },
@@ -43,6 +43,12 @@ const options = [
 	{ label: 'Французский', value: 'Французский', code: 1036 },
 	{ label: 'Японский', value: 'Японский', code: 1041 },
 ]
+
+const options = computed(() => {
+	return allOptions.filter(option => {
+		return !stepper.step3.lang.some(lang => lang.code === option.code)
+	})
+})
 
 const action = () => {
 	if (adding.value) {
