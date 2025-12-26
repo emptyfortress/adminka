@@ -20,6 +20,12 @@ const columns: QTableColumn[] = [
 		align: 'right',
 		sortable: true,
 	},
+	{
+		name: 'actions',
+		label: 'Действия',
+		field: 'actions',
+		align: 'center',
+	},
 ]
 
 const adding = ref()
@@ -44,6 +50,10 @@ const action = () => {
 	}
 }
 
+const removeLanguage = (index: number) => {
+	stepper.step3.lang.splice(index, 1)
+}
+
 const pagination = ref({
 	sortBy: 'psevdo',
 	descending: false,
@@ -63,6 +73,16 @@ const pagination = ref({
 			hide-pagination
 			v-model:pagination="pagination"
 		)
+			template(v-slot:body-cell-actions="props")
+				q-td(:props="props")
+					q-btn(
+						flat
+						round
+						dense
+						icon="mdi-delete"
+						color="negative"
+						@click="removeLanguage(props.rowIndex)"
+					)
 		.grid
 			q-select(
 				v-model="adding",
