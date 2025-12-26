@@ -67,6 +67,14 @@ export const useStepperStore = defineStore('stepper', () => {
 		database: '',
 	})
 
+	const step3 = ref({
+		lang: [
+			{ code: '0', label: 'Нейтральный' },
+			{ code: '1049', label: 'Русский' },
+			{ code: '1033', label: 'English' },
+		],
+	})
+
 	// final payload
 	const payload = computed(() => {
 		return {
@@ -185,6 +193,7 @@ export const useStepperStore = defineStore('stepper', () => {
 		steps,
 		step1,
 		step2,
+		step3,
 		currentStepName,
 		selectFlow,
 		next,
