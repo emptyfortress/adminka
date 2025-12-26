@@ -22,7 +22,7 @@ const columns: QTableColumn[] = [
 	},
 	{
 		name: 'actions',
-		label: 'Действия',
+		label: '',
 		field: 'actions',
 		align: 'center',
 	},
@@ -74,13 +74,13 @@ const pagination = ref({
 			v-model:pagination="pagination"
 		)
 			template(v-slot:body-cell-actions="props")
-				q-td(:props="props")
+				q-td(:props="props" auto-width)
 					q-btn(
 						flat
 						round
 						dense
-						icon="mdi-delete"
-						color="negative"
+						icon="mdi-delete-outline"
+						color="secondary"
 						@click="removeLanguage(props.rowIndex)"
 					)
 		.grid
