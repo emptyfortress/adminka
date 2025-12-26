@@ -69,7 +69,8 @@ const pagination = ref({
 				outlined,
 				dense,
 				:options='options',
-				bg-color="white" hide-bottom-space
+				bg-color="white",
+				hide-bottom-space
 			)
 			q-btn(unelevated color="secondary" label="Добавить" @click="action" size='sm')
 </template>
@@ -84,12 +85,6 @@ const pagination = ref({
 	grid-template-columns: 1fr auto;
 	align-items: center;
 	column-gap: 0.5rem;
-}
-:deep(
-		.q-field--auto-height.q-field--dense .q-field__control,
-		.q-field--auto-height.q-field--dense .q-field__native
-	) {
-	min-height: 28px;
 }
 :deep(.q-field__control) {
 	height: 28px;
@@ -108,5 +103,11 @@ const pagination = ref({
 }
 :deep(.q-field__messages) {
 	font-size: 0.65rem;
+}
+:deep(.q-field--auto-height.q-field--dense .q-field__native) {
+	min-height: 28px;
+}
+:deep(.q-field--auto-height.q-field--dense .q-field__control) {
+	min-height: 28px;
 }
 </style>
