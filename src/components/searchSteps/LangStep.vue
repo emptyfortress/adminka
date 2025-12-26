@@ -139,18 +139,13 @@ const pagination = ref({
 .rem {
 	font-size: 14px;
 	cursor: pointer;
-	color: grey;
+	color: red;
 	opacity: 0;
-	&:hover {
-		opacity: 1;
-		color: red;
-	}
 }
 :deep(tr) {
 	&:hover {
 		.rem {
 			opacity: 1;
-			color: red;
 		}
 	}
 }

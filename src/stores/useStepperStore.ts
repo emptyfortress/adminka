@@ -69,9 +69,9 @@ export const useStepperStore = defineStore('stepper', () => {
 
 	const step3 = ref({
 		lang: [
-			{ code: '0', label: 'Нейтральный' },
-			{ code: '1049', label: 'Русский' },
-			{ code: '1033', label: 'English' },
+			{ code: 0, label: 'Нейтральный' },
+			{ code: 1049, label: 'Русский' },
+			{ code: 1033, label: 'Английский' },
 		],
 	})
 
