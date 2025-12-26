@@ -21,7 +21,6 @@ const options = [
 	{ label: 'Использовать локальную базу данных', value: 'A' },
 ]
 
-const group1 = ref(null)
 const options1 = [
 	{
 		label: 'Создавать внешнюю базу по умолчанию',
