@@ -53,6 +53,7 @@ const options = computed(() => {
 const action = () => {
 	if (adding.value) {
 		stepper.step3.lang.push(adding.value)
+		adding.value = null // Clear the adding value after adding
 	}
 }
 
