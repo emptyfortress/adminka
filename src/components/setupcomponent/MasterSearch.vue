@@ -15,7 +15,7 @@ import Summary from '@/components/searchSteps/Summary.vue'
 
 const store = useStepperStore()
 const { currentStep, steps, branch } = storeToRefs(store)
-const { next, prev, selectFlow, guards } = store
+const { next, prev, selectFlow, guards, reset } = store
 
 const stepComponents: Record<string, any> = {
 	'step-1': Step1,
@@ -49,6 +49,7 @@ const titles: Record<string, string> = {
 const modelValue = defineModel<boolean>()
 
 const close = () => {
+	reset()
 	modelValue.value = false
 }
 

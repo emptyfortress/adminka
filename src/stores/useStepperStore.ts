@@ -81,6 +81,30 @@ export const useStepperStore = defineStore('stepper', () => {
 		}
 	})
 
+	// Reset function
+	function reset() {
+		currentStep.value = 1
+		branch.value = 'A'
+		step1.value = {
+			psevdo: '',
+			server: '',
+		}
+		step2.value = {
+			flow: '',
+			elasticurl: '',
+			extcards: false,
+			extfiles: false,
+			extcatalogs: false,
+			externaldb: '',
+			servertype: '',
+			servername: '',
+			checkvalid: '',
+			login: '',
+			pass: '',
+			database: '',
+		}
+	}
+
 	// guards
 	function guardStep1() {
 		if (!step1.value.psevdo) {
@@ -167,5 +191,6 @@ export const useStepperStore = defineStore('stepper', () => {
 		prev,
 		guards,
 		payload,
+		reset,
 	}
 })
