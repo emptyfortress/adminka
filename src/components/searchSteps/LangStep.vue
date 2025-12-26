@@ -140,7 +140,9 @@ const pagination = ref({
 	font-size: 14px;
 	cursor: pointer;
 	color: grey;
+	opacity: 0;
 	&:hover {
+		opacity: 1;
 		color: red;
 	}
 }
