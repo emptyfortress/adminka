@@ -26,17 +26,17 @@ const columns: QTableColumn[] = [
 const adding = ref()
 
 const options = [
-	{ label: 'Английский', code: 1033 },
-	{ label: 'Казахский', code: 1087 },
-	{ label: 'Китайский', code: 2052 },
-	{ label: 'Латышский', code: 1062 },
-	{ label: 'Немецкий', code: 1031 },
-	{ label: 'Польский', code: 1045 },
-	{ label: 'Русский', code: 1049 },
-	{ label: 'Турецкий', code: 1055 },
-	{ label: 'Украинский', code: 1058 },
-	{ label: 'Французский', code: 1036 },
-	{ label: 'Японский', code: 1041 },
+	{ label: 'Английский', value: 'Английский', code: 1033 },
+	{ label: 'Казахский', value: 'Казахский', code: 1087 },
+	{ label: 'Китайский', value: 'Китайский', code: 2052 },
+	{ label: 'Латышский', value: 'Латышский', code: 1062 },
+	{ label: 'Немецкий', value: 'Немецкий', code: 1031 },
+	{ label: 'Польский', value: 'Польский', code: 1045 },
+	{ label: 'Русский', value: 'Русский', code: 1049 },
+	{ label: 'Турецкий', value: 'Турецкий', code: 1055 },
+	{ label: 'Украинский', value: 'Украинский', code: 1058 },
+	{ label: 'Французский', value: 'Французский', code: 1036 },
+	{ label: 'Японский', value: 'Японский', code: 1041 },
 ]
 
 const action = () => {
