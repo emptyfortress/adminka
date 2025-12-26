@@ -9,12 +9,14 @@ interface Props {
 	readonly?: boolean
 	prependIcon?: string
 	clearable?: boolean
+	noValidation?: boolean
 }
 const props = withDefaults(defineProps<Props>(), {
 	filled: false,
 	bg: 'white',
 	type: 'text',
 	clearable: false,
+	noValidation: false,
 })
 
 const modelValue = defineModel<string | number | null | undefined>()
@@ -36,7 +38,9 @@ q-input(ref="input"
 	:readonly="props.readonly"
 	:clearable="props.clearable"
 	hide-bottom-space
-	lazy-rules :rules="req" @blur="input.validate()")
+	:lazy-rules="!props.noValidation"
+	:rules="props.noValidation ? [] : req"
+	@blur="props.noValidation ? null : input.validate()")
 	template(v-if="props.prependIcon" v-slot:prepend)
 		q-icon(:name="props.prependIcon")
 </template>
