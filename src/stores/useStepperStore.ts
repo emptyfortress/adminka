@@ -59,6 +59,12 @@ export const useStepperStore = defineStore('stepper', () => {
 		extfiles: false,
 		extcatalogs: false,
 		externaldb: '',
+		servertype: '',
+		servername: '',
+		checkvalid: '',
+		login: '',
+		pass: '',
+		database: '',
 	})
 
 	// final payload
