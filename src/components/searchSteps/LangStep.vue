@@ -38,6 +38,12 @@ const options = [
 	{ label: 'Французский', code: 1036 },
 	{ label: 'Японский', code: 1041 },
 ]
+
+const action = () => {
+	if (adding.value) {
+		stepper.step3.lang.push(adding.value)
+	}
+}
 </script>
 
 <template lang="pug">
@@ -53,9 +59,9 @@ const options = [
 			v-model:pagination="pagination"
 		)
 		.grid
-			MySelect(v-model="adding")
-			q-btn(unelevated color="secondary" label="Добавить" @click="action" size='sm') 
-	</template>
+			MySelect(v-model="adding" :options="options")
+			q-btn(unelevated color="secondary" label="Добавить" @click="action" size='sm')
+</template>
 
 <style scoped lang="scss">
 .all900 {
