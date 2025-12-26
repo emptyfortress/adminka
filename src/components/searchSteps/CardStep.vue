@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import { cards } from '@/stores/cardsTree'
 import MyInput from '@/components/common/MyInput.vue'
 import { useStepperStore } from '@/stores/useStepperStore'
@@ -10,6 +10,26 @@ const ticked = ref([])
 const expanded = ref([])
 const filterRef = ref()
 const filter = ref()
+
+// Get the labels of all checked items
+const checkedItems = computed(() => {
+	return stepper.step4.cards.map(cardId => {
+		// Find the card in the tree by its key
+		const findCardInTree = (nodes: any[]): string | null => {
+			for (const node of nodes) {
+				if (node.key === cardId) {
+					return node.label
+				}
+				if (node.children) {
+					const found = findCardInTree(node.children)
+					if (found) return found
+				}
+			}
+			return null
+		}
+		return findCardInTree(cards)
+	}).filter(Boolean) // Filter out any null values
+})
 </script>
 
 <template lang="pug">
@@ -35,6 +55,9 @@ const filter = ref()
 	.arch
 		.text-bold Индексируемые типы карточек
 		q-list
+			q-item(v-for="(item, index) in checkedItems" :key="index")
+				q-item-section
+					q-item-label {{ item }}
 </template>
 
 <style scoped lang="scss">
