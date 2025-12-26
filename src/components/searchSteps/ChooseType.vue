@@ -62,15 +62,15 @@ watch(group, newValue => {
 			.grid1
 				.text-bold Адрес сервиса Elasticsearch:
 				MyInput(v-model="stepper.payload.elasticurl")
-				q-btn(unelevated color="secondary" label="Тест" size='sm') 
+				q-btn(unelevated color="secondary" label="Тест" size='sm')
 	transition(name='slide-top')
-		.arch(v-if='stepper.payload.flow == "A" && stepper.payload.extcards || stepper.payload.extfiles || stepper.payload.extcatalogs')
+		.arch(v-if='stepper.payload.flow == "A" && (stepper.payload.extcards || stepper.payload.extfiles || stepper.payload.extcatalogs)')
 			.grid
 				.text-bold.q-mt-sm Настройки внешней базы:
 				q-option-group(
 					:options="options1"
 					type="radio"
-					v-model="stepper.payload.externaldb")
+					v-model="stepper.step2.externaldb")
 			// template(v-if='stepper.payload.externaldb == "create"')
 			// 	q-separator
 			// 	.grid.q-mt-md
