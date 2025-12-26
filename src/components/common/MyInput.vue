@@ -7,6 +7,7 @@ interface Props {
 	type?: any
 	disable?: boolean
 	readonly?: boolean
+	prependIcon?: string
 }
 const props = withDefaults(defineProps<Props>(), {
 	filled: false,
@@ -33,6 +34,8 @@ q-input(ref="input"
 	:readonly="props.readonly"
 	hide-bottom-space
 	lazy-rules :rules="req" @blur="input.validate()")
+	template(v-if="props.prependIcon" v-slot:prepend)
+		q-icon(:name="props.prependIcon")
 </template>
 
 <style scoped lang="scss">
