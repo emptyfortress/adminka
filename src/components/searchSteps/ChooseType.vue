@@ -79,19 +79,21 @@ watch(group, newValue => {
 
 			template(v-if='stepper.payload.externaldb == "use"')
 				q-separator
-				.grid2.q-mt-md
-					label Тип сервера
-					MySelect(v-model="stepper.step2.servertype")
-					label Имя сервера
-					MyInput(v-model="stepper.step2.servername")
-					label Проверка подлинности
-					MySelect(v-model="stepper.step2.checkvalid")
-					label Логин
-					MyInput(v-model="stepper.step2.login")
-					label Пароль
-					MyInput(v-model="stepper.step2.pass")
-					label База данных
-					MyInput(v-model="stepper.step2.database")
+				.grid.q-mt-md
+					div
+					.grid2.q-ml-sm
+						label Тип сервера:
+						MySelect(v-model="stepper.step2.servertype")
+						label Имя сервера:
+						MyInput(v-model="stepper.step2.servername")
+						label Проверка подлинности:
+						MySelect(v-model="stepper.step2.checkvalid")
+						label Логин:
+						MyInput(v-model="stepper.step2.login")
+						label Пароль:
+						MyInput(v-model="stepper.step2.pass")
+						label База данных:
+						MyInput(v-model="stepper.step2.database")
 </template>
 
 <style lang="scss" scoped>
@@ -109,7 +111,7 @@ watch(group, newValue => {
 }
 .grid2 {
 	display: grid;
-	grid-template-columns: 214px 1fr;
+	grid-template-columns: auto 1fr;
 	align-items: center;
 	column-gap: 0.5rem;
 	row-gap: 0.25rem;

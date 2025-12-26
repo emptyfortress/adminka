@@ -86,6 +86,7 @@ export const useStepperStore = defineStore('stepper', () => {
 			extfiles: step2.value.extfiles,
 			extcatalogs: step2.value.extcatalogs,
 			externaldb: step2.value.externaldb,
+			lang: step3.value.lang,
 		}
 	})
 
