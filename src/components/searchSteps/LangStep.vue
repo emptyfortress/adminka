@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import type { QTableColumn } from 'quasar'
-import MySelect from '@/components/common/MySelect.vue'
 import { useStepperStore } from '@/stores/useStepperStore'
 
 const stepper = useStepperStore()
@@ -44,6 +43,12 @@ const action = () => {
 		stepper.step3.lang.push(adding.value)
 	}
 }
+
+const pagination = ref({
+	sortBy: 'psevdo',
+	descending: false,
+	rowsPerPage: 10,
+})
 </script>
 
 <template lang="pug">
@@ -59,7 +64,13 @@ const action = () => {
 			v-model:pagination="pagination"
 		)
 		.grid
-			MySelect(v-model="adding" :options="options")
+			q-select(
+				v-model="adding",
+				outlined,
+				dense,
+				:options='options',
+				bg-color="white" hide-bottom-space
+			)
 			q-btn(unelevated color="secondary" label="Добавить" @click="action" size='sm')
 </template>
 
@@ -73,5 +84,29 @@ const action = () => {
 	grid-template-columns: 1fr auto;
 	align-items: center;
 	column-gap: 0.5rem;
+}
+:deep(
+		.q-field--auto-height.q-field--dense .q-field__control,
+		.q-field--auto-height.q-field--dense .q-field__native
+	) {
+	min-height: 28px;
+}
+:deep(.q-field__control) {
+	height: 28px;
+	min-height: 28px;
+	font-size: 0.9rem;
+}
+:deep(.q-field__native) {
+	min-height: 28px;
+}
+:deep(.q-field__marginal) {
+	height: inherit;
+}
+:deep(.q-icon) {
+	width: 0.4rem;
+	font-size: 20px;
+}
+:deep(.q-field__messages) {
+	font-size: 0.65rem;
 }
 </style>
