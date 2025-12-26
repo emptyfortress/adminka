@@ -60,10 +60,6 @@ const handleCheckboxClick = (row: any) => {
 const selectedDatabase = computed(() => {
 	return localDatabases.value.find(db => db.active && !db.dis)
 })
-
-const calcColor = (row: any) => {
-	return row.dis ? 'secondary' : 'primary'
-}
 </script>
 
 <template lang="pug">

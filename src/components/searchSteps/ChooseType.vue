@@ -1,9 +1,8 @@
 <script setup lang="ts">
 import { ref, watch } from 'vue'
-// import type { FlowType } from '@/stores/useStepperStore'
 import { useStepperStore } from '@/stores/useStepperStore'
 import MyInput from '@/components/common/MyInput.vue'
-import MyField from '@/components/common/MyField.vue'
+import MySelect from '@/components/common/MySelect.vue'
 
 const stepper = useStepperStore()
 
@@ -71,11 +70,28 @@ watch(group, newValue => {
 					:options="options1"
 					type="radio"
 					v-model="stepper.step2.externaldb")
-			// template(v-if='stepper.payload.externaldb == "create"')
-			// 	q-separator
-			// 	.grid.q-mt-md
-			// 		div Строка подключения внешней базы
-			// 		MyInput(v-model="stepper.payload.elasticurl")
+			template(v-if='stepper.payload.externaldb == "create"')
+				q-separator
+				.grid1.q-mt-md
+					div Строка подключения БД
+					MyInput(v-model="stepper.payload.elasticurl")
+					q-btn(unelevated color="secondary" label="Тест" size='sm')
+
+			template(v-if='stepper.payload.externaldb == "use"')
+				q-separator
+				.grid2.q-mt-md
+					label Тип сервера
+					MySelect(v-model="stepper.step2.servertype")
+					label Имя сервера
+					MyInput(v-model="stepper.step2.servername")
+					label Проверка подлинности
+					MySelect(v-model="stepper.step2.checkvalid")
+					label Логин
+					MyInput(v-model="stepper.step2.login")
+					label Пароль
+					MyInput(v-model="stepper.step2.pass")
+					label База данных
+					MyInput(v-model="stepper.step2.database")
 </template>
 
 <style lang="scss" scoped>
@@ -90,5 +106,12 @@ watch(group, newValue => {
 	grid-template-columns: 200px 1fr auto;
 	align-items: center;
 	column-gap: 0.5rem;
+}
+.grid2 {
+	display: grid;
+	grid-template-columns: 214px 1fr;
+	align-items: center;
+	column-gap: 0.5rem;
+	row-gap: 0.25rem;
 }
 </style>
