@@ -54,6 +54,11 @@ export const useStepperStore = defineStore('stepper', () => {
 	})
 	const step2 = ref({
 		flow: '',
+		elasticurl: '',
+		extcards: false,
+		extfiles: false,
+		extcatalogs: false,
+		externaldb: '',
 	})
 
 	// final payload
@@ -62,6 +67,11 @@ export const useStepperStore = defineStore('stepper', () => {
 			psevdo: step1.value.psevdo,
 			server: step1.value.server,
 			flow: step2.value.flow,
+			elasticurl: step2.value.elasticurl,
+			extcards: step2.value.extcards,
+			extfiles: step2.value.extfiles,
+			extcatalogs: step2.value.extcatalogs,
+			externaldb: step2.value.externaldb,
 		}
 	})
 
@@ -150,5 +160,6 @@ export const useStepperStore = defineStore('stepper', () => {
 		next,
 		prev,
 		guards,
+		payload,
 	}
 })

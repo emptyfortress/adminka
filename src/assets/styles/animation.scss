@@ -43,12 +43,12 @@
 .slide-bottom-enter-active,
 .slide-bottom-leave-active {
 	transition: all 0.5s ease;
-	position: absolute;
 }
 .slide-bottom-enter-from,
 .slide-bottom-leave-to {
 	transform: translateY(30px);
 	opacity: 0;
+	// position: absolute;
 }
 // tree page transition
 
