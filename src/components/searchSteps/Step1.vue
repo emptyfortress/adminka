@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, computed } from 'vue'
+import { ref, computed, watch } from 'vue'
 import { useStore } from '@/stores/store'
 import type { QTableColumn } from 'quasar'
 import { useStepperStore } from '@/stores/useStepperStore'
@@ -40,6 +40,32 @@ const pagination = ref({
 	descending: false,
 	rowsPerPage: 10,
 })
+
+// Load data from payload when component is mounted or when going back
+const loadFromPayload = () => {
+	if (stepper.payload.psevdo && stepper.payload.server) {
+		// Find the database in localDatabases that matches the payload
+		const selectedDb = localDatabases.value.find(db =>
+			db.psevdo === stepper.payload.psevdo &&
+			db.server === stepper.payload.server
+		)
+
+		if (selectedDb) {
+			// Uncheck all rows first
+			localDatabases.value.forEach(db => {
+				if (!db.dis) {
+					db.active = false
+				}
+			})
+
+			// Check the matching row
+			selectedDb.active = true
+		}
+	}
+}
+
+// Watch for changes in payload to reload data when going back
+watch(() => stepper.payload, loadFromPayload, { immediate: true })
 
 const handleCheckboxClick = (row: any) => {
 	if (row.dis) return
