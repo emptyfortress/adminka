@@ -82,7 +82,7 @@ const pagination = ref({
 		)
 			template(v-slot:body-cell-actions="props")
 				q-td(:props="props" auto-width)
-					q-icon.rem(name="mdi-close" @click='removeLanguage(props.rowIndex)')
+					q-icon.rem(name="mdi-delete-outline" @click='removeLanguage(props.rowIndex)')
 		.grid
 			q-select(
 				v-model="adding",
@@ -137,9 +137,9 @@ const pagination = ref({
 	min-height: 28px;
 }
 .rem {
-	font-size: 14px;
+	font-size: 16px;
 	cursor: pointer;
-	color: red;
+	color: $secondary;
 	opacity: 0;
 }
 :deep(tr) {
