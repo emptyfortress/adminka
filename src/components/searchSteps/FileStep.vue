@@ -19,7 +19,7 @@ const options = [
 	{ label: 'Индексировать оперативные и архивные файлы', value: 'use1' },
 ]
 
-// Get the labels of all checked file types
+// Get the labels of all checked file types with branches on new lines
 const checkedItems = computed(() => {
 	return stepper.step5.filetypes
 		.map(fileId => {
@@ -40,6 +40,7 @@ const checkedItems = computed(() => {
 		})
 		.filter(Boolean) // Filter out any null values
 		.join(', ') // Join with commas
+		.replace(/, ([А-ЯA-Z][а-яa-z]+:)/g, '\n$1') // Add new line before each branch
 })
 </script>
 
