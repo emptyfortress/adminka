@@ -81,6 +81,7 @@ export const useStepperStore = defineStore('stepper', () => {
 
 	const step5 = ref({
 		fileregim: null,
+		filetypes: [],
 	})
 
 	// final payload
@@ -97,6 +98,7 @@ export const useStepperStore = defineStore('stepper', () => {
 			lang: step3.value.lang,
 			cards: step4.value.cards,
 			fileregim: step5.value.fileregim,
+			filetypes: step5.value.filetypes,
 		}
 	})
 
