@@ -30,6 +30,7 @@ const checkedItems = computed(() => {
 			return findCardInTree(cards)
 		})
 		.filter(Boolean) // Filter out any null values
+		.join(', ') // Join with commas
 })
 </script>
 
@@ -55,12 +56,7 @@ const checkedItems = computed(() => {
 		)
 	.arch
 		.text-bold Индексируемые типы карточек
-		q-list
-			q-item(v-for="(item, index) in checkedItems" :key="index" dense)
-				q-item-section(side)
-					q-icon(name="mdi-check" color="secondary" size='12px')
-				q-item-section
-					q-item-label {{ item }}
+		.text-body2 {{ checkedItems || 'Нет выбранных элементов' }}
 </template>
 
 <style scoped lang="scss">
