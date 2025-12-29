@@ -1,7 +1,8 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import { files } from '@/stores/fileTree'
 import { useStepperStore } from '@/stores/useStepperStore'
+import MyInput from '@/components/common/MyInput.vue'
 
 const stepper = useStepperStore()
 
@@ -17,6 +18,28 @@ const options = [
 	{ label: 'Индексировать оперативные файлы', value: 'use' },
 	{ label: 'Индексировать оперативные и архивные файлы', value: 'use1' },
 ]
+
+// Get the labels of all checked file types
+const checkedItems = computed(() => {
+	return stepper.step5.filetypes
+		.map(fileId => {
+			// Find the file in the tree by its key
+			const findFileInTree = (nodes: any[]): string | null => {
+				for (const node of nodes) {
+					if (node.key === fileId) {
+						return node.label
+					}
+					if (node.children) {
+						const found = findFileInTree(node.children)
+						if (found) return found
+					}
+				}
+				return null
+			}
+			return findFileInTree(files)
+		})
+		.filter(Boolean) // Filter out any null values
+})
 </script>
 
 <template lang="pug">
@@ -45,12 +68,17 @@ const options = [
 					node-key='key'
 					:filter="filter"
 					tick-strategy="leaf"
-					v-model:ticked="stepper.step4.cards"
+					v-model:ticked="stepper.step5.filetypes"
 					v-model:expanded="expanded"
 				)
 			.arch
 				.text-bold Индексируемые файлы:
 				q-list
+					q-item(v-for="(item, index) in checkedItems" :key="index" dense)
+						q-item-section(side)
+							q-icon(name="mdi-check" color="secondary" size='12px')
+						q-item-section
+							q-item-label {{ item }}
 </template>
 
 <style scoped lang="scss">
