@@ -6,7 +6,6 @@ import { useStepperStore } from '@/stores/useStepperStore'
 
 const stepper = useStepperStore()
 
-const ticked = ref([])
 const expanded = ref([])
 const filterRef = ref()
 const filter = ref()

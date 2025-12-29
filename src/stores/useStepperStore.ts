@@ -79,6 +79,10 @@ export const useStepperStore = defineStore('stepper', () => {
 		cards: [],
 	})
 
+	const step5 = ref({
+		fileregim: null,
+	})
+
 	// final payload
 	const payload = computed(() => {
 		return {
@@ -92,6 +96,7 @@ export const useStepperStore = defineStore('stepper', () => {
 			externaldb: step2.value.externaldb,
 			lang: step3.value.lang,
 			cards: step4.value.cards,
+			fileregim: step5.value.fileregim,
 		}
 	})
 
@@ -118,6 +123,8 @@ export const useStepperStore = defineStore('stepper', () => {
 			database: '',
 		}
 		step3.value.lang = []
+		step4.value.cards = []
+		step5.value.fileregim = null
 	}
 
 	// guards
@@ -146,7 +153,7 @@ export const useStepperStore = defineStore('stepper', () => {
 		return true
 	}
 	function guardStep5() {
-		if (!step2.value.flow) {
+		if (!step5.value.fileregim) {
 			return false
 		}
 		return true
@@ -202,6 +209,7 @@ export const useStepperStore = defineStore('stepper', () => {
 		step2,
 		step3,
 		step4,
+		step5,
 		currentStepName,
 		selectFlow,
 		next,
