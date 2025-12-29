@@ -56,7 +56,7 @@ const checkedItems = computed(() => {
 		)
 	.arch
 		.text-bold Индексируемые типы карточек
-		.text-body2 {{ checkedItems || 'Нет выбранных элементов' }}
+		.text-body2.q-mt-sm(:class="checkedItems ? '' : 'text-grey'") {{ checkedItems || 'Нет выбранных элементов' }}
 </template>
 
 <style scoped lang="scss">
