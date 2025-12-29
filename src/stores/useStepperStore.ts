@@ -75,6 +75,10 @@ export const useStepperStore = defineStore('stepper', () => {
 		],
 	})
 
+	const step4 = ref({
+		cards: [],
+	})
+
 	// final payload
 	const payload = computed(() => {
 		return {
@@ -87,6 +91,7 @@ export const useStepperStore = defineStore('stepper', () => {
 			extcatalogs: step2.value.extcatalogs,
 			externaldb: step2.value.externaldb,
 			lang: step3.value.lang,
+			cards: step4.value.cards,
 		}
 	})
 
@@ -112,6 +117,7 @@ export const useStepperStore = defineStore('stepper', () => {
 			pass: '',
 			database: '',
 		}
+		step3.value.lang = []
 	}
 
 	// guards
@@ -128,13 +134,13 @@ export const useStepperStore = defineStore('stepper', () => {
 		return true
 	}
 	function guardStep3() {
-		if (!step2.value.flow) {
+		if (step3.value.lang.length == 0) {
 			return false
 		}
 		return true
 	}
 	function guardStep4() {
-		if (!step2.value.flow) {
+		if (step4.value.cards.length == 0) {
 			return false
 		}
 		return true
@@ -195,6 +201,7 @@ export const useStepperStore = defineStore('stepper', () => {
 		step1,
 		step2,
 		step3,
+		step4,
 		currentStepName,
 		selectFlow,
 		next,

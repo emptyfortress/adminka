@@ -13,22 +13,24 @@ const filter = ref()
 
 // Get the labels of all checked items
 const checkedItems = computed(() => {
-	return stepper.step4.cards.map(cardId => {
-		// Find the card in the tree by its key
-		const findCardInTree = (nodes: any[]): string | null => {
-			for (const node of nodes) {
-				if (node.key === cardId) {
-					return node.label
+	return stepper.step4.cards
+		.map(cardId => {
+			// Find the card in the tree by its key
+			const findCardInTree = (nodes: any[]): string | null => {
+				for (const node of nodes) {
+					if (node.key === cardId) {
+						return node.label
+					}
+					if (node.children) {
+						const found = findCardInTree(node.children)
+						if (found) return found
+					}
 				}
-				if (node.children) {
-					const found = findCardInTree(node.children)
-					if (found) return found
-				}
+				return null
 			}
-			return null
-		}
-		return findCardInTree(cards)
-	}).filter(Boolean) // Filter out any null values
+			return findCardInTree(cards)
+		})
+		.filter(Boolean) // Filter out any null values
 })
 </script>
 
@@ -55,7 +57,9 @@ const checkedItems = computed(() => {
 	.arch
 		.text-bold Индексируемые типы карточек
 		q-list
-			q-item(v-for="(item, index) in checkedItems" :key="index")
+			q-item(v-for="(item, index) in checkedItems" :key="index" dense)
+				q-item-section(side)
+					q-icon(name="mdi-check" color="secondary" size='12px')
 				q-item-section
 					q-item-label {{ item }}
 </template>
@@ -64,7 +68,7 @@ const checkedItems = computed(() => {
 .sid {
 	width: 920px;
 	display: grid;
-	grid-template-columns: 600px 300px;
+	grid-template-columns: 600px 400px;
 	align-items: start;
 	column-gap: 1rem;
 	margin: 0 auto;
