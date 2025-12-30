@@ -70,6 +70,8 @@ const checkedItems = computed(() => {
 		})
 		.filter(Boolean) // Filter out any null values
 })
+
+const ticked = ref([])
 </script>
 
 <template lang="pug">

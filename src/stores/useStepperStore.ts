@@ -82,6 +82,7 @@ export const useStepperStore = defineStore('stepper', () => {
 	const step5 = ref({
 		fileregim: null,
 		filetypes: [],
+		facets: [],
 	})
 
 	// final payload
