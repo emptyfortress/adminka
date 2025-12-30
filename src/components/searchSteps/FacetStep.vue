@@ -12,41 +12,41 @@ const filter = ref()
 
 // Filter the cards tree to show only ticked nodes from CardStep
 const filteredCards = computed(() => {
-  // Get the ticked card IDs from CardStep
-  const tickedIds = stepper.step4.cards
+	// Get the ticked card IDs from CardStep
+	const tickedIds = stepper.step4.cards
 
-  // Function to filter tree nodes and create independent copies
-  const filterTree = (nodes: any[]): any[] => {
-    return nodes
-      .map(node => {
-        // If this node is ticked, create an independent copy without the tick
-        if (tickedIds.includes(node.key)) {
-          return {
-            ...node,
-            tick: false, // Ensure it's unticked
-            children: node.children ? filterTree(node.children) : undefined
-          }
-        }
+	// Function to filter tree nodes and create independent copies
+	const filterTree = (nodes: any[]): any[] => {
+		return nodes
+			.map(node => {
+				// If this node is ticked, create an independent copy without the tick
+				if (tickedIds.includes(node.key)) {
+					return {
+						...node,
+						tick: false, // Ensure it's unticked
+						children: node.children ? filterTree(node.children) : undefined,
+					}
+				}
 
-        // If this node has children, filter them
-        if (node.children) {
-          const filteredChildren = filterTree(node.children)
-          // If any children are ticked, include this node with filtered children
-          if (filteredChildren.length > 0) {
-            return {
-              ...node,
-              children: filteredChildren,
-              tick: false // Ensure it's unticked
-            }
-          }
-        }
+				// If this node has children, filter them
+				if (node.children) {
+					const filteredChildren = filterTree(node.children)
+					// If any children are ticked, include this node with filtered children
+					if (filteredChildren.length > 0) {
+						return {
+							...node,
+							children: filteredChildren,
+							tick: false, // Ensure it's unticked
+						}
+					}
+				}
 
-        return null
-      })
-      .filter(Boolean) // Remove null entries
-  }
+				return null
+			})
+			.filter(Boolean) // Remove null entries
+	}
 
-  return filterTree(cards)
+	return filterTree(cards)
 })
 
 // Get the labels of all checked items for FacetStep (independent from CardStep)
@@ -89,7 +89,7 @@ const checkedItems = computed(() => {
 			node-key='key'
 			:filter="filter"
 			tick-strategy="leaf"
-			v-model:ticked="stepper.step4.cards"
+			v-model:ticked="stepper.step5.facets"
 			v-model:expanded="expanded"
 		)
 	.arch
