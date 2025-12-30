@@ -21,7 +21,10 @@ const filteredCards = computed(() => {
       .map(node => {
         // If this node is ticked, include it and its children
         if (tickedIds.includes(node.key)) {
-          return node
+          return {
+            ...node,
+            tick: false // Remove tick from the node
+          }
         }
 
         // If this node has children, filter them
@@ -31,7 +34,8 @@ const filteredCards = computed(() => {
           if (filteredChildren.length > 0) {
             return {
               ...node,
-              children: filteredChildren
+              children: filteredChildren,
+              tick: false // Remove tick from the node
             }
           }
         }
@@ -44,7 +48,7 @@ const filteredCards = computed(() => {
   return filterTree(cards)
 })
 
-// Get the labels of all checked items
+// Get the labels of all checked items for FacetStep (independent from CardStep)
 const checkedItems = computed(() => {
 	return stepper.step4.cards
 		.map(cardId => {
