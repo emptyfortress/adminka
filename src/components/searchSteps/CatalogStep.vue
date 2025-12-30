@@ -29,7 +29,6 @@ const checkedItems = computed(() => {
 			return findCardInTree(catalog)
 		})
 		.filter(Boolean) // Filter out any null values
-		.join(', ') // Join with commas
 })
 </script>
 
@@ -55,7 +54,13 @@ const checkedItems = computed(() => {
 		)
 	.arch
 		.text-bold Индексируемые поля справочников
-		.text-body2.q-mt-sm(:class="checkedItems ? '' : 'text-grey'") {{ checkedItems || 'Нет выбранных элементов' }}
+		q-list(v-if="checkedItems.length")
+			q-item(v-for="(item, index) in checkedItems" :key="index" dense)
+				q-item-section(side)
+					q-icon(name="mdi-check" color="secondary" size='12px')
+				q-item-section
+					q-item-label {{ item }}
+		.text-body2.q-mt-sm.text-grey(v-else) Нет выбранных элементов
 </template>
 
 <style scoped lang="scss">
