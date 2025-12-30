@@ -15,15 +15,16 @@ const filteredCards = computed(() => {
   // Get the ticked card IDs from CardStep
   const tickedIds = stepper.step4.cards
 
-  // Function to filter tree nodes
+  // Function to filter tree nodes and create independent copies
   const filterTree = (nodes: any[]): any[] => {
     return nodes
       .map(node => {
-        // If this node is ticked, include it and its children
+        // If this node is ticked, create an independent copy without the tick
         if (tickedIds.includes(node.key)) {
           return {
             ...node,
-            tick: false // Remove tick from the node
+            tick: false, // Ensure it's unticked
+            children: node.children ? filterTree(node.children) : undefined
           }
         }
 
@@ -35,7 +36,7 @@ const filteredCards = computed(() => {
             return {
               ...node,
               children: filteredChildren,
-              tick: false // Remove tick from the node
+              tick: false // Ensure it's unticked
             }
           }
         }
