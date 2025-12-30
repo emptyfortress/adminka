@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import MyInput from '@/components/common/MyInput.vue'
 import { useStepperStore } from '@/stores/useStepperStore'
 import { catalog } from '@/stores/catalogTree'
@@ -8,6 +8,29 @@ const stepper = useStepperStore()
 const expanded = ref([])
 const filterRef = ref()
 const filter = ref()
+
+// Get the labels of all checked items
+const checkedItems = computed(() => {
+	return stepper.step4.cards
+		.map(cardId => {
+			// Find the card in the tree by its key
+			const findCardInTree = (nodes: any[]): string | null => {
+				for (const node of nodes) {
+					if (node.key === cardId) {
+						return node.label
+					}
+					if (node.children) {
+						const found = findCardInTree(node.children)
+						if (found) return found
+					}
+				}
+				return null
+			}
+			return findCardInTree(catalog)
+		})
+		.filter(Boolean) // Filter out any null values
+		.join(', ') // Join with commas
+})
 </script>
 
 <template lang="pug">
