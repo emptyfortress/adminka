@@ -76,7 +76,7 @@ export const useStepperStore = defineStore('stepper', () => {
 	})
 
 	const step4 = ref({
-		cards: [],
+		cards: [] as any,
 	})
 
 	const step5 = ref({
@@ -100,6 +100,7 @@ export const useStepperStore = defineStore('stepper', () => {
 			cards: step4.value.cards,
 			fileregim: step5.value.fileregim,
 			filetypes: step5.value.filetypes,
+			facets: step5.value.facets,
 		}
 	})
 

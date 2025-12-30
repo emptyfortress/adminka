@@ -12,7 +12,7 @@ const filter = ref()
 // Get the labels of all checked items
 const checkedItems = computed(() => {
 	return stepper.step4.cards
-		.map(cardId => {
+		.map((cardId: any) => {
 			// Find the card in the tree by its key
 			const findCardInTree = (nodes: any[]): string | null => {
 				for (const node of nodes) {
