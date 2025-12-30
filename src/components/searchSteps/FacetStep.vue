@@ -51,7 +51,7 @@ const filteredCards = computed(() => {
 
 // Get the labels of all checked items for FacetStep (independent from CardStep)
 const checkedItems = computed(() => {
-	return stepper.step4.cards
+	return stepper.step5.facets
 		.map(cardId => {
 			// Find the card in the tree by its key
 			const findCardInTree = (nodes: any[]): string | null => {
@@ -70,15 +70,13 @@ const checkedItems = computed(() => {
 		})
 		.filter(Boolean) // Filter out any null values
 })
-
-const ticked = ref([])
 </script>
 
 <template lang="pug">
 .sid
 	.arch
 		.row.items-center.justify-between
-			.text-bold Дерево видов
+			.text-bold Индексируемые карточки
 			MyInput(
 				ref="filterRef",
 				v-model="filter",
@@ -95,7 +93,7 @@ const ticked = ref([])
 			v-model:expanded="expanded"
 		)
 	.arch
-		.text-bold Индексируемые типы карточек
+		.text-bold Фасеты для группировки
 		q-list(v-if="checkedItems.length")
 			q-item(v-for="(item, index) in checkedItems" :key="index" dense)
 				q-item-section(side)
