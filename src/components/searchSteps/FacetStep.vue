@@ -18,7 +18,7 @@ const filteredCards = computed(() => {
 	// Function to filter tree nodes and create independent copies
 	const filterTree = (nodes: any[]): any[] => {
 		return nodes
-			.map(node => {
+			.map((node: any) => {
 				// If this node is ticked, create an independent copy without the tick
 				if (tickedIds.includes(node.key)) {
 					return {
@@ -52,7 +52,7 @@ const filteredCards = computed(() => {
 // Get the labels of all checked items for FacetStep (independent from CardStep)
 const checkedItems = computed(() => {
 	return stepper.step5.facets
-		.map(cardId => {
+		.map((cardId: any) => {
 			// Find the card in the tree by its key
 			const findCardInTree = (nodes: any[]): string | null => {
 				for (const node of nodes) {
