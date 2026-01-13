@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, computed } from 'vue'
+import { ref, computed, watch } from 'vue'
 import MyInput from '@/components/common/MyInput.vue'
 import { useStepperStore } from '@/stores/useStepperStore'
 import { catalog } from '@/stores/catalogTree'
@@ -11,7 +11,7 @@ const filter = ref()
 
 // Get the labels of all checked items
 const checkedItems = computed(() => {
-	return stepper.step4.cards
+	return stepper.step6.catalogs
 		.map((cardId: any) => {
 			// Find the card in the tree by its key
 			const findCardInTree = (nodes: any[]): string | null => {
@@ -29,6 +29,12 @@ const checkedItems = computed(() => {
 			return findCardInTree(catalog)
 		})
 		.filter(Boolean) // Filter out any null values
+})
+
+watch(checkedItems, (val: any) => {
+	if (val) {
+		stepper.payload.catalogs = checkedItems.value
+	}
 })
 </script>
 
@@ -49,7 +55,7 @@ const checkedItems = computed(() => {
 			node-key='key'
 			:filter="filter"
 			tick-strategy="leaf"
-			v-model:ticked="stepper.step4.cards"
+			v-model:ticked="stepper.step6.catalogs"
 			v-model:expanded="expanded"
 		)
 	.arch
