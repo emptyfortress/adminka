@@ -31,10 +31,8 @@ const checkedItems = computed(() => {
 		.filter(Boolean) // Filter out any null values
 })
 
-watch(checkedItems, (val: any) => {
-	if (val) {
-		stepper.payload.catalogs = checkedItems.value
-	}
+watch(checkedItems, val => {
+	stepper.payload.catalogs = val
 })
 </script>
 

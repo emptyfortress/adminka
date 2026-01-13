@@ -1,5 +1,6 @@
 import { defineStore } from 'pinia'
 import { ref, computed, watch } from 'vue'
+import { catalog } from './catalogTree'
 
 export type FlowType = 'A' | 'B'
 
@@ -84,6 +85,10 @@ export const useStepperStore = defineStore('stepper', () => {
 		facets: [],
 	})
 
+	const step6 = ref({
+		catalogs: [],
+	})
+
 	// final payload
 	const payload = computed(() => {
 		return {
@@ -100,6 +105,7 @@ export const useStepperStore = defineStore('stepper', () => {
 			fileregim: step5.value.fileregim,
 			filetypes: step5.value.filetypes,
 			facets: step5.value.facets,
+			catalogs: step6.value.catalogs as any,
 		}
 	})
 
@@ -128,6 +134,7 @@ export const useStepperStore = defineStore('stepper', () => {
 		step3.value.lang = []
 		step4.value.cards = []
 		step5.value.fileregim = null
+		step6.value.catalogs = []
 	}
 
 	// guards
@@ -220,6 +227,7 @@ export const useStepperStore = defineStore('stepper', () => {
 		step3,
 		step4,
 		step5,
+		step6,
 		currentStepName,
 		selectFlow,
 		next,

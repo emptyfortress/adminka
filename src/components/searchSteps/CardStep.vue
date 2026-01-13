@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, computed } from 'vue'
+import { ref, computed, watch } from 'vue'
 import { cards } from '@/stores/cardsTree'
 import MyInput from '@/components/common/MyInput.vue'
 import { useStepperStore } from '@/stores/useStepperStore'
@@ -30,6 +30,12 @@ const checkedItems = computed(() => {
 			return findCardInTree(cards)
 		})
 		.filter(Boolean) // Filter out any null values
+})
+
+watch(checkedItems, (val: any) => {
+	if (val) {
+		stepper.payload.cards = checkedItems.value
+	}
 })
 </script>
 
