@@ -35,6 +35,31 @@ watch(
 		emit('select-flow', e)
 	}
 )
+
+watch(
+	() => stepper.step2.externaldb,
+	() => {
+		if (stepper.step2.externaldb == 'create') {
+			stepper.step2.servertype = 'MSSQL Server'
+			stepper.step2.servername = 'vega'
+			stepper.step2.checkvalid = 'SQLServer'
+			stepper.step2.login = 'sa'
+			stepper.step2.pass = '***********'
+			stepper.step2.database = 'DvShowCase_Ft'
+		}
+		if (stepper.step2.externaldb == 'use') {
+			stepper.step2.servertype = ''
+			stepper.step2.servername = ''
+			stepper.step2.checkvalid = ''
+			stepper.step2.login = ''
+			stepper.step2.pass = ''
+			stepper.step2.database = ''
+		}
+	}
+)
+
+const ser = ['MSSQL Server', 'PostgreSQL']
+const che = ['SQL Server']
 </script>
 
 <template lang="pug">
@@ -70,30 +95,25 @@ watch(
 					:options="options1"
 					type="radio"
 					v-model="stepper.step2.externaldb")
-			template(v-if='stepper.payload.externaldb == "create"')
-				q-separator
-				.grid1.q-mt-md
-					.q-mt-xs Строка подключения БД
-					MyInput(v-model="stepper.payload.elasticurl")
-					q-btn(unelevated color="secondary" label="Тест" size='sm')
 
-			template(v-if='stepper.payload.externaldb == "use"')
+			template(v-if='stepper.payload.externaldb == "use" || stepper.payload.externaldb == "create"')
 				q-separator
 				.grid.q-mt-md
 					div
 					.grid2.q-ml-sm
 						label Тип сервера:
-						MySelect(v-model="stepper.step2.servertype")
+						MySelect(v-model="stepper.step2.servertype" :options='ser')
 						label Имя сервера:
 						MyInput(v-model="stepper.step2.servername")
 						label Проверка подлинности:
-						MySelect(v-model="stepper.step2.checkvalid")
+						MySelect(v-model="stepper.step2.checkvalid" :options='che')
 						label Логин:
 						MyInput(v-model="stepper.step2.login")
 						label Пароль:
 						MyInput(v-model="stepper.step2.pass")
 						label База данных:
 						MyInput(v-model="stepper.step2.database")
+
 </template>
 
 <style lang="scss" scoped>
