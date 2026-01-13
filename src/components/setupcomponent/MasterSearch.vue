@@ -99,7 +99,8 @@ q-dialog(v-model="modelValue" position="bottom" full-width persistent)
 			q-card-actions(align="center")
 				q-btn(flat color="primary" @click="close").q-mr-xl Отмена
 				q-btn(flat color="primary" @click="prev" :disable="currentStep === 1") Назад
-				q-btn(unelevated color="primary" @click="next" padding="xs xl" :disable="!canNext") Далее
+				q-btn(v-if='currentStep == 7' unelevated color="primary" @click="next" padding="xs xl") Подключить
+				q-btn(v-else unelevated color="primary" @click="next" padding="xs xl" :disable="!canNext") Далее
 
 		q-btn.close(flat round icon="mdi-close" color="primary" @click="close")
 </template>
