@@ -2,7 +2,6 @@ import { defineStore } from 'pinia'
 import { ref, computed, watch } from 'vue'
 
 export type FlowType = 'A' | 'B'
-// export type StepNumber = 1 | 2 | 3 | 4 | 5 | 6 | 7
 
 export const useStepperStore = defineStore('stepper', () => {
 	const currentStep = ref(1)
@@ -139,10 +138,17 @@ export const useStepperStore = defineStore('stepper', () => {
 		return true
 	}
 	function guardStep2() {
-		if (!step2.value.flow) {
-			return false
-		}
-		return true
+		if (step2.value.flow == 'B' && step2.value.elasticurl.length > 0)
+			return true
+		if (
+			step2.value.flow == 'A' &&
+			(step2.value.extcards ||
+				step2.value.extfiles ||
+				step2.value.extcatalogs) &&
+			(step2.value.externaldb || step2.value.elasticurl.length > 0)
+		)
+			return true
+		return false
 	}
 	function guardStep3() {
 		if (step3.value.lang.length == 0) {

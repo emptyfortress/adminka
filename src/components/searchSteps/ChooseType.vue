@@ -12,6 +12,7 @@ const emit = defineEmits<{
 }>()
 
 const group = ref(null)
+
 const options = [
 	{
 		label: 'Использовать внешний полнотекстовый поиск Elasticsearch',
@@ -28,13 +29,12 @@ const options1 = [
 	{ label: 'Использовать существующую базу', value: 'use' },
 ]
 
-watch(group, newValue => {
-	if (newValue === 'A') {
-		emit('select-flow', 'A')
-	} else if (newValue === 'B') {
-		emit('select-flow', 'B')
+watch(
+	() => stepper.step2.flow,
+	(e: any) => {
+		emit('select-flow', e)
 	}
-})
+)
 </script>
 
 <template lang="pug">
@@ -46,7 +46,7 @@ watch(group, newValue => {
 			q-option-group(
 				:options="options"
 				type="radio"
-				v-model="group")
+				v-model="stepper.step2.flow")
 
 	br
 	transition(name='slide-top')
@@ -59,8 +59,8 @@ watch(group, newValue => {
 	transition(name='slide-top')
 		.arch(v-if='stepper.payload.flow == "B"')
 			.grid1
-				.text-bold Адрес сервиса Elasticsearch:
-				MyInput(v-model="stepper.payload.elasticurl")
+				.text-bold.q-mt-xs Адрес сервиса Elasticsearch:
+				MyInput(v-model="stepper.step2.elasticurl")
 				q-btn(unelevated color="secondary" label="Тест" size='sm')
 	transition(name='slide-top')
 		.arch(v-if='stepper.payload.flow == "A" && (stepper.payload.extcards || stepper.payload.extfiles || stepper.payload.extcatalogs)')
@@ -73,7 +73,7 @@ watch(group, newValue => {
 			template(v-if='stepper.payload.externaldb == "create"')
 				q-separator
 				.grid1.q-mt-md
-					div Строка подключения БД
+					.q-mt-xs Строка подключения БД
 					MyInput(v-model="stepper.payload.elasticurl")
 					q-btn(unelevated color="secondary" label="Тест" size='sm')
 
@@ -106,7 +106,7 @@ watch(group, newValue => {
 .grid1 {
 	display: grid;
 	grid-template-columns: 200px 1fr auto;
-	align-items: center;
+	align-items: start;
 	column-gap: 0.5rem;
 }
 .grid2 {
