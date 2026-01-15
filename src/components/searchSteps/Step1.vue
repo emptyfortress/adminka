@@ -80,6 +80,10 @@ const handleCheckboxClick = (row: any) => {
 const selectedDatabase = computed(() => {
 	return localDatabases.value.find(db => db.active && !db.dis)
 })
+
+const filteredDatabases = computed(() => {
+	return localDatabases.value.filter(db => !db.active)
+})
 </script>
 
 <template lang="pug">
@@ -87,7 +91,7 @@ const selectedDatabase = computed(() => {
 	.arch
 		.text-bold Выберите базу данных, для подключения:
 		q-table.q-mt-md(
-			:rows="localDatabases"
+			:rows="filteredDatabases"
 			:columns="columns"
 			row-key="psevdo"
 			flat
