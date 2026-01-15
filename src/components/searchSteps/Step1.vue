@@ -62,14 +62,14 @@ const loadFromPayload = () => {
 watch(() => stepper.payload, loadFromPayload, { immediate: true })
 
 const handleRadioClick = (row: any) => {
-	if (row.dis) return
+	// if (row.dis) return
 
 	// Uncheck all rows first
-	localDatabases.value.forEach(db => {
-		if (!db.dis) {
-			db.active = false
-		}
-	})
+	// localDatabases.value.forEach(db => {
+	// 	if (!db.dis) {
+	// 		db.active = false
+	// 	}
+	// })
 
 	// Check the clicked row
 	row.active = true
@@ -84,6 +84,8 @@ const selectedDatabase = computed(() => {
 const filteredDatabases = computed(() => {
 	return localDatabases.value.filter(db => !db.active)
 })
+
+const item = ref()
 </script>
 
 <template lang="pug">
@@ -100,14 +102,7 @@ const filteredDatabases = computed(() => {
 		)
 			template(v-slot:body-cell-action="props")
 				q-td(:props="props")
-					q-radio(
-						dense
-						v-model="props.row.active"
-						size="sm"
-						:color=`props.row.dis ? "secondary" : "primary"`
-						:disable='props.row.dis'
-						@click="handleRadioClick(props.row)"
-					)
+					q-radio(v-model="item" dense val="props.row.psevdo" size="sm" )
 
 			template(v-slot:body-cell-psevdo="props")
 				q-td(:props="props")
