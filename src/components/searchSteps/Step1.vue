@@ -25,13 +25,6 @@ const columns: QTableColumn[] = [
 		align: 'left',
 		sortable: true,
 	},
-	{
-		name: 'sql',
-		label: 'Сервер SQL',
-		field: 'sql',
-		align: 'left',
-		sortable: true,
-	},
 	{ name: 'action', label: 'Подключено', field: 'action', align: 'center' },
 ]
 
@@ -45,9 +38,10 @@ const pagination = ref({
 const loadFromPayload = () => {
 	if (stepper.payload.psevdo && stepper.payload.server) {
 		// Find the database in localDatabases that matches the payload
-		const selectedDb = localDatabases.value.find(db =>
-			db.psevdo === stepper.payload.psevdo &&
-			db.server === stepper.payload.server
+		const selectedDb = localDatabases.value.find(
+			db =>
+				db.psevdo === stepper.payload.psevdo &&
+				db.server === stepper.payload.server
 		)
 
 		if (selectedDb) {
