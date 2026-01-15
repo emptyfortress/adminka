@@ -85,7 +85,7 @@ const filteredDatabases = computed(() => {
 	return localDatabases.value.filter(db => !db.active)
 })
 
-const item = ref()
+const item = ref([])
 </script>
 
 <template lang="pug">
@@ -102,7 +102,7 @@ const item = ref()
 		)
 			template(v-slot:body-cell-action="props")
 				q-td(:props="props")
-					q-radio(v-model="item" dense val="props.row.psevdo" size="sm" )
+					q-radio(v-model="item" dense size="sm" )
 
 			template(v-slot:body-cell-psevdo="props")
 				q-td(:props="props")
