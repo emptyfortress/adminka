@@ -25,7 +25,7 @@ const columns: QTableColumn[] = [
 		align: 'left',
 		sortable: true,
 	},
-	{ name: 'action', label: 'Подключено', field: 'action', align: 'center' },
+	{ name: 'action', label: '', field: 'action', align: 'center' },
 ]
 
 const pagination = ref({
