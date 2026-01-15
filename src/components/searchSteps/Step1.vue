@@ -61,7 +61,7 @@ const loadFromPayload = () => {
 // Watch for changes in payload to reload data when going back
 watch(() => stepper.payload, loadFromPayload, { immediate: true })
 
-const handleCheckboxClick = (row: any) => {
+const handleRadioClick = (row: any) => {
 	if (row.dis) return
 
 	// Uncheck all rows first
@@ -100,13 +100,13 @@ const filteredDatabases = computed(() => {
 		)
 			template(v-slot:body-cell-action="props")
 				q-td(:props="props")
-					q-checkbox(
+					q-radio(
 						dense
 						v-model="props.row.active"
 						size="sm"
 						:color=`props.row.dis ? "secondary" : "primary"`
 						:disable='props.row.dis'
-						@click="handleCheckboxClick(props.row)"
+						@click="handleRadioClick(props.row)"
 					)
 
 			template(v-slot:body-cell-psevdo="props")
