@@ -82,7 +82,7 @@ const selectedDatabase = computed(() => {
 })
 
 const filteredDatabases = computed(() => {
-	return localDatabases.value.filter(db => !db.active)
+	return localDatabases.value.filter(db => !db.dis)
 })
 
 const item = ref([])
