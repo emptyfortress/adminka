@@ -61,15 +61,15 @@ const loadFromPayload = () => {
 // Watch for changes in payload to reload data when going back
 watch(() => stepper.payload, loadFromPayload, { immediate: true })
 
-const handleRadioClick = (row: any) => {
-	// if (row.dis) return
+const handleRowClick = (row: any) => {
+	if (row.dis) return
 
 	// Uncheck all rows first
-	// localDatabases.value.forEach(db => {
-	// 	if (!db.dis) {
-	// 		db.active = false
-	// 	}
-	// })
+	localDatabases.value.forEach(db => {
+		if (!db.dis) {
+			db.active = false
+		}
+	})
 
 	// Check the clicked row
 	row.active = true
@@ -99,6 +99,7 @@ const item = ref([])
 			flat
 			hide-pagination
 			v-model:pagination="pagination"
+			@row-click="(evt, row) => handleRowClick(row)"
 		)
 			template(v-slot:body-cell-action="props")
 				q-td(:props="props")
