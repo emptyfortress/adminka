@@ -21,14 +21,6 @@ watch(dialog, val => {
 
 const columns: QTableProps['columns'] = [
 	{
-		name: 'active',
-		required: true,
-		label: '',
-		field: 'active',
-		sortable: false,
-		align: 'left',
-	},
-	{
 		name: 'psevdo',
 		required: true,
 		label: 'Псевдоним',
@@ -53,14 +45,14 @@ const columns: QTableProps['columns'] = [
 	{
 		name: 'index',
 		align: 'center',
-		label: 'Индексирование',
+		label: 'Статус индексирования',
 		field: 'index',
 		sortable: true,
 	},
 	{
 		name: 'indexplace',
 		align: 'left',
-		label: 'Расположение индексов',
+		label: 'Тип индексирования',
 		field: 'indexplace',
 		sortable: true,
 	},
@@ -96,6 +88,13 @@ const remove = (item: any) => {
 						q-tooltip Доступна
 					q-icon(name="mdi-circle-slice-8" color="red" v-else)
 						q-tooltip Недоступна
+
+			template(v-slot:body-cell-index='props')
+				q-td.text-center(:props='props')
+					q-toggle(dense, size='sm'
+						color="teal"
+						:label='props.row.index ? "Вкл." : "Откл."'
+						v-model="props.row.index")
 
 			template(v-slot:body-cell-action='props')
 				q-td.text-right
@@ -159,9 +158,6 @@ label {
 	color: #000;
 	font-size: 0.85rem;
 }
-// :deep(.q-table__container) {
-// 	width: 600px;
-// }
 .mywidth {
 	margin-top: 0.5rem;
 	margin-bottom: 0.5rem;
@@ -171,5 +167,8 @@ label {
 }
 .descr {
 	color: #666;
+}
+:deep(.q-toggle__label) {
+	font-size: 0.75rem;
 }
 </style>
