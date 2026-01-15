@@ -55,6 +55,7 @@ export const useStepperStore = defineStore('stepper', () => {
 	const step2 = ref({
 		flow: '',
 		elasticurl: '',
+		db: '',
 		extcards: false,
 		extfiles: false,
 		extcatalogs: false,
@@ -95,6 +96,7 @@ export const useStepperStore = defineStore('stepper', () => {
 			psevdo: step1.value.psevdo,
 			server: step1.value.server,
 			flow: step2.value.flow,
+			db: step2.value.db,
 			elasticurl: step2.value.elasticurl,
 			extcards: step2.value.extcards,
 			extfiles: step2.value.extfiles,
@@ -119,6 +121,7 @@ export const useStepperStore = defineStore('stepper', () => {
 		}
 		step2.value = {
 			flow: '',
+			db: '',
 			elasticurl: '',
 			extcards: false,
 			extfiles: false,
@@ -147,14 +150,7 @@ export const useStepperStore = defineStore('stepper', () => {
 	function guardStep2() {
 		if (step2.value.flow == 'B' && step2.value.elasticurl.length > 0)
 			return true
-		if (
-			step2.value.flow == 'A' &&
-			(step2.value.extcards ||
-				step2.value.extfiles ||
-				step2.value.extcatalogs) &&
-			(step2.value.externaldb || step2.value.elasticurl.length > 0)
-		)
-			return true
+		if (step2.value.flow == 'A' && step2.value.db.length) return true
 		return false
 	}
 	function guardStep3() {

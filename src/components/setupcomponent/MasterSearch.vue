@@ -33,7 +33,7 @@ const stepComponents: Record<string, any> = {
 
 const titles: Record<string, string> = {
 	'step-1': 'База данных',
-	'step-2': 'Хранилище',
+	'step-2': 'Система поиска',
 	'a-1': 'Язык',
 	'a-2': 'Карточки',
 	'a-3': 'Файлы',

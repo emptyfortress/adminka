@@ -15,10 +15,10 @@ const group = ref(null)
 
 const options = [
 	{
-		label: 'Использовать внешний полнотекстовый поиск Elasticsearch',
+		label: 'Elasticsearch',
 		value: 'B',
 	},
-	{ label: 'Использовать локальную базу данных', value: 'A' },
+	{ label: 'MSSQL Server Full-Text Search', value: 'A' },
 ]
 
 const options1 = [
@@ -29,6 +29,14 @@ const options1 = [
 	{ label: 'Использовать существующую базу', value: 'use' },
 ]
 
+const options2 = [
+	{
+		label: 'Локальная БД',
+		value: 'local',
+	},
+	{ label: 'Внешняя БД', value: 'external' },
+]
+
 watch(
 	() => stepper.step2.flow,
 	(e: any) => {
@@ -37,9 +45,9 @@ watch(
 )
 
 watch(
-	() => stepper.step2.externaldb,
+	() => stepper.step2.db,
 	() => {
-		if (stepper.step2.externaldb == 'create') {
+		if (stepper.step2.db == 'local') {
 			stepper.step2.servertype = 'MSSQL Server'
 			stepper.step2.servername = 'vega'
 			stepper.step2.checkvalid = 'SQLServer'
@@ -47,7 +55,7 @@ watch(
 			stepper.step2.pass = '***********'
 			stepper.step2.database = 'DvShowCase_Ft'
 		}
-		if (stepper.step2.externaldb == 'use') {
+		if (stepper.step2.db == 'external') {
 			stepper.step2.servertype = ''
 			stepper.step2.servername = ''
 			stepper.step2.checkvalid = ''
@@ -66,7 +74,7 @@ const che = ['SQL Server']
 .all900
 	.arch
 		.grid
-			.text-bold.q-mt-sm Выберите хранилище:
+			.text-bold.q-mt-sm Выберите систему поиска:
 
 			q-option-group(
 				:options="options"
@@ -76,43 +84,38 @@ const che = ['SQL Server']
 	br
 	transition(name='slide-top')
 		.arch(v-if='stepper.payload.flow == "A"')
-			.row.items-center.q-gutter-x-lg
-				.text-bold Использовать внешнюю базу:
-				q-checkbox(v-model="stepper.step2.extcards" label='Для карточек' dense)
-				q-checkbox(v-model="stepper.step2.extfiles" label='Для файлов' dense)
-				q-checkbox(v-model="stepper.step2.extcatalogs" label='Для справочников' dense)
+			.grid
+				.text-bold.q-mt-sm Использовать базу:
+
+				q-option-group(
+					:options="options2"
+					type="radio"
+					v-model="stepper.step2.db")
+
 	transition(name='slide-top')
 		.arch(v-if='stepper.payload.flow == "B"')
 			.grid1
 				.text-bold.q-mt-xs Адрес сервиса Elasticsearch:
 				MyInput(v-model="stepper.step2.elasticurl")
 				q-btn(unelevated color="secondary" label="Тест" size='sm')
-	transition(name='slide-top')
-		.arch(v-if='stepper.payload.flow == "A" && (stepper.payload.extcards || stepper.payload.extfiles || stepper.payload.extcatalogs)')
-			.grid
-				.text-bold.q-mt-sm Настройки внешней базы:
-				q-option-group(
-					:options="options1"
-					type="radio"
-					v-model="stepper.step2.externaldb")
 
-			template(v-if='stepper.payload.externaldb == "use" || stepper.payload.externaldb == "create"')
-				q-separator
-				.grid.q-mt-md
-					div
-					.grid2.q-ml-sm
-						label Тип сервера:
-						MySelect(v-model="stepper.step2.servertype" :options='ser')
-						label Имя сервера:
-						MyInput(v-model="stepper.step2.servername")
-						label Проверка подлинности:
-						MySelect(v-model="stepper.step2.checkvalid" :options='che')
-						label Логин:
-						MyInput(v-model="stepper.step2.login")
-						label Пароль:
-						MyInput(v-model="stepper.step2.pass")
-						label База данных:
-						MyInput(v-model="stepper.step2.database")
+	transition(name='slide-top')
+		.arch(v-if='stepper.payload.flow == "A" && stepper.payload.db.length')
+			.grid
+				.text-bold Настройки:
+				.grid2.q-ml-sm
+					label Тип сервера:
+					MySelect(v-model="stepper.step2.servertype" :options='ser')
+					label Имя сервера:
+					MyInput(v-model="stepper.step2.servername")
+					label Проверка подлинности:
+					MySelect(v-model="stepper.step2.checkvalid" :options='che')
+					label Логин:
+					MyInput(v-model="stepper.step2.login")
+					label Пароль:
+					MyInput(v-model="stepper.step2.pass")
+					label База данных:
+					MyInput(v-model="stepper.step2.database")
 
 </template>
 
