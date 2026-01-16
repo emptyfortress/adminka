@@ -2,7 +2,7 @@
 import { ref, computed, watch } from 'vue'
 import MyInput from '@/components/common/MyInput.vue'
 import { useStepperStore } from '@/stores/useStepperStore'
-import { catalog } from '@/stores/catalogTree'
+import { newcatalog } from '@/stores/catalogTree'
 
 const stepper = useStepperStore()
 const expanded = ref([])
@@ -26,7 +26,7 @@ const checkedItems = computed(() => {
 				}
 				return null
 			}
-			return findCardInTree(catalog)
+			return findCardInTree(newcatalog)
 		})
 		.filter(Boolean) // Filter out any null values
 })
@@ -49,7 +49,7 @@ watch(checkedItems, val => {
 				noValidation
 			)
 		q-tree(
-			:nodes='catalog'
+			:nodes='newcatalog'
 			node-key='key'
 			:filter="filter"
 			tick-strategy="leaf"

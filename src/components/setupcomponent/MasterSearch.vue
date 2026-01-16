@@ -21,28 +21,28 @@ const stepComponents: Record<string, any> = {
 	'step-1': Step1,
 	'step-2': ChooseType,
 	'a-1': LangStep,
+	'c-4': CatalogStep,
 	'a-2': CardStep,
 	'a-3': FileStep,
 	'a-4': CatalogStep,
 	'c-1': LangStep,
 	'c-2': CardStep,
 	'c-3': FacetStep,
-	'c-4': CatalogStep,
 	summary: Summary,
 }
 
 const titles: Record<string, string> = {
 	'step-1': 'База данных',
-	'step-2': 'Система поиска',
+	'step-2': 'Система индексирования',
 	'a-1': 'Язык',
+	'a-4': 'Справочники',
 	'a-2': 'Карточки',
 	'a-3': 'Файлы',
-	'a-4': 'Справочники',
 
 	'c-1': 'Язык',
+	'c-4': 'Справочники',
 	'c-2': 'Карточки',
 	'c-3': 'Фасеты',
-	'c-4': 'Справочники',
 	summary: 'Итог',
 }
 

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref, computed, watch } from 'vue'
-import { cards } from '@/stores/cardsTree'
+import { newcards } from '@/stores/cardsTree'
 import MyInput from '@/components/common/MyInput.vue'
 import { useStepperStore } from '@/stores/useStepperStore'
 
@@ -27,7 +27,7 @@ const checkedItems = computed(() => {
 				}
 				return null
 			}
-			return findCardInTree(cards)
+			return findCardInTree(newcards.value)
 		})
 		.filter(Boolean) // Filter out any null values
 })
@@ -52,13 +52,14 @@ watch(checkedItems, (val: any) => {
 				noValidation
 			)
 		q-tree(
-			:nodes='cards'
+			:nodes='newcards'
 			node-key='key'
 			:filter="filter"
 			tick-strategy="leaf"
 			v-model:ticked="stepper.step4.cards"
 			v-model:expanded="expanded"
 		)
+
 	.arch
 		.text-bold Индексируемые типы карточек
 		q-list(v-if="checkedItems.length")
@@ -85,5 +86,8 @@ watch(checkedItems, (val: any) => {
 	min-width: 0.4em;
 	height: 0.4em;
 	margin-right: 0.3rem;
+}
+.dis {
+	color: red;
 }
 </style>

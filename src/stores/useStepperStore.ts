@@ -11,8 +11,8 @@ export const useStepperStore = defineStore('stepper', () => {
 	const baseSteps = ['step-1', 'step-2'] // step-2 = fork
 
 	const branchSteps: Record<FlowType, string[]> = {
-		A: ['a-1', 'a-2', 'a-3', 'a-4'],
-		B: ['c-1', 'c-2', 'c-3', 'c-4'],
+		A: ['a-1', 'a-4', 'a-2', 'a-3'],
+		B: ['c-1', 'c-4', 'c-2', 'c-3'],
 	}
 
 	const finalSteps = ['summary']

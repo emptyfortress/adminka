@@ -66,6 +66,11 @@ const pagination = ref({
 	descending: false,
 	rowsPerPage: 10,
 })
+
+const calcRow = computed(() => {
+	if (stepper.payload.flow == 'A') return stepper.step3.lang
+	return [{ code: 0, label: 'Нейтральный' }]
+})
 </script>
 
 <template lang="pug">
@@ -73,7 +78,7 @@ const pagination = ref({
 	.arch
 		.text-bold Индексируемые языки
 		q-table.q-mt-md(
-			:rows="stepper.step3.lang"
+			:rows="calcRow"
 			:columns="columns"
 			row-key="code"
 			flat
@@ -83,7 +88,8 @@ const pagination = ref({
 			template(v-slot:body-cell-actions="props")
 				q-td(:props="props" auto-width)
 					q-icon.rem(name="mdi-delete-outline" @click='removeLanguage(props.rowIndex)')
-		.grid
+
+		.grid(v-if='stepper.payload.flow == "A"')
 			q-select(
 				v-model="adding",
 				outlined,

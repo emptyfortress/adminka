@@ -74,7 +74,7 @@ const che = ['SQL Server']
 .all900
 	.arch
 		.grid
-			.text-bold.q-mt-sm Выберите систему поиска:
+			.text-bold.q-mt-sm Выберите систему индексирования:
 
 			q-option-group(
 				:options="options"
@@ -122,7 +122,7 @@ const che = ['SQL Server']
 <style lang="scss" scoped>
 .grid {
 	display: grid;
-	grid-template-columns: 200px 1fr;
+	grid-template-columns: 250px 1fr;
 	column-gap: 1rem;
 	row-gap: 0.5rem;
 }
