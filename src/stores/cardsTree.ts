@@ -6,27 +6,9 @@ const stepper = useStepperStore()
 const keywords = ['Фамилия', 'Имя', 'Отчество']
 
 const isTextNode = computed(() => {
-	return keywords.some(k => stepper.payload.catalogs.includes(k))
+	if (keywords.some(k => stepper.payload.catalogs.includes(k))) return false
+	else return true
 })
-
-// const isTextNode = computed(() => {
-// 	return false
-// })
-
-// watch(isTextNode, val => {
-// 	newcards.value[3].disabled = !val
-// })
-
-// watch(
-// 	() => stepper.payload.catalogs,
-// 	() => {
-// 		if (keywords.some(k => stepper.payload.catalogs.includes(k))) {
-// 			newcards.value[3].disabled = false
-// 		} else {
-// 			newcards.value[3].disabled = true
-// 		}
-// 	}
-// )
 
 const newcards = computed(() => [
 	{
@@ -87,7 +69,8 @@ const newcards = computed(() => [
 					{
 						label: 'Автор',
 						key: 'indexable.baseObjects.task.task.author',
-						disabled: !isTextNode.value,
+						disabled: isTextNode,
+						// disabled: false,
 						children: [],
 					},
 					{
@@ -238,20 +221,20 @@ const newcards = computed(() => [
 						label: 'Получатели',
 						key: 'indexable.baseObjects.document.recipients',
 						type: 0,
-						disabled: !isTextNode.value,
+						disabled: isTextNode,
 						children: [],
 					},
 					{
 						label: 'Согласующие',
 						key: 'indexable.baseObjects.document.approvers',
 						type: 0,
-						disabled: !isTextNode.value,
+						disabled: isTextNode,
 						children: [],
 					},
 					{
 						label: 'Подписанты',
 						key: 'indexable.baseObjects.document.signatories',
-						disabled: !isTextNode.value,
+						disabled: isTextNode,
 						type: 0,
 						children: [],
 					},
@@ -259,13 +242,13 @@ const newcards = computed(() => [
 						label: 'Отправитель контрагент',
 						key: 'indexable.baseObjects.document.senderContractor',
 						type: 0,
-						disabled: !isTextNode.value,
+						disabled: isTextNode,
 						children: [],
 					},
 					{
 						label: 'Получатели контрагенты',
 						key: 'indexable.baseObjects.document.recipientContractors',
-						disabled: !isTextNode.value,
+						disabled: isTextNode,
 						type: 0,
 						children: [],
 					},
@@ -273,7 +256,7 @@ const newcards = computed(() => [
 						label: 'Ознакомлены',
 						key: 'indexable.baseObjects.document.acquainted',
 						type: 0,
-						disabled: !isTextNode.value,
+						disabled: isTextNode,
 						children: [],
 					},
 					{
@@ -315,7 +298,7 @@ const newcards = computed(() => [
 						label: 'Адресаты',
 						key: 'indexable.baseObjects.document.addressees',
 						type: 0,
-						disabled: !isTextNode.value,
+						disabled: isTextNode,
 						children: [],
 					},
 					{

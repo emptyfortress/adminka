@@ -1,6 +1,5 @@
 import { defineStore } from 'pinia'
 import { ref, computed, watch } from 'vue'
-import { catalog } from './catalogTree'
 
 export type FlowType = 'A' | 'B'
 
@@ -77,17 +76,17 @@ export const useStepperStore = defineStore('stepper', () => {
 	})
 
 	const step4 = ref({
-		cards: [] as any,
+		catalogs: [],
 	})
 
 	const step5 = ref({
-		fileregim: null,
-		filetypes: [],
-		facets: [],
+		cards: [] as any,
 	})
 
 	const step6 = ref({
-		catalogs: [],
+		fileregim: null,
+		filetypes: [],
+		facets: [],
 	})
 
 	// final payload
@@ -103,11 +102,11 @@ export const useStepperStore = defineStore('stepper', () => {
 			extcatalogs: step2.value.extcatalogs,
 			externaldb: step2.value.externaldb,
 			lang: step3.value.lang,
-			cards: step4.value.cards,
-			fileregim: step5.value.fileregim,
-			filetypes: step5.value.filetypes,
-			facets: step5.value.facets,
-			catalogs: step6.value.catalogs as any,
+			catalogs: step4.value.catalogs as any,
+			cards: step5.value.cards,
+			fileregim: step6.value.fileregim,
+			filetypes: step6.value.filetypes,
+			facets: step6.value.facets,
 		}
 	})
 
@@ -135,9 +134,9 @@ export const useStepperStore = defineStore('stepper', () => {
 			database: '',
 		}
 		step3.value.lang = []
-		step4.value.cards = []
-		step5.value.fileregim = null
-		step6.value.catalogs = []
+		step4.value.catalogs = []
+		step5.value.cards = []
+		step6.value.fileregim = null
 	}
 
 	// guards
@@ -159,20 +158,22 @@ export const useStepperStore = defineStore('stepper', () => {
 		}
 		return true
 	}
+
 	function guardStep4() {
-		if (step4.value.cards.length == 0) {
-			return false
-		}
+		// if (!step4.value.catalogs) {
+		// 	return false
+		// }
 		return true
 	}
+
 	function guardStep5() {
-		if (!step5.value.fileregim) {
+		if (step5.value.cards.length == 0) {
 			return false
 		}
 		return true
 	}
 	function guardStep6() {
-		if (!step2.value.flow) {
+		if (!step6.value.fileregim) {
 			return false
 		}
 		return true

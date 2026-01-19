@@ -12,7 +12,7 @@ const filter = ref()
 
 // Get the labels of all checked items
 const checkedItems = computed(() => {
-	return stepper.step4.cards
+	return stepper.step5.cards
 		.map((cardId: any) => {
 			// Find the card in the tree by its key
 			const findCardInTree = (nodes: any[]): string | null => {
@@ -56,7 +56,7 @@ watch(checkedItems, (val: any) => {
 			node-key='key'
 			:filter="filter"
 			tick-strategy="leaf"
-			v-model:ticked="stepper.step4.cards"
+			v-model:ticked="stepper.step5.cards"
 			v-model:expanded="expanded"
 		)
 
