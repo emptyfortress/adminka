@@ -1,26 +1,21 @@
 import { ref, computed, watch, unref } from 'vue'
 import { useStepperStore } from '@/stores/useStepperStore'
-import type { ComputedRef } from 'vue'
+// import type { ComputedRef } from 'vue'
 
 const stepper = useStepperStore()
 
 const keywords = ['Фамилия', 'Имя', 'Отчество']
 
 const isTextNode = computed(() => {
-	if (keywords.some(k => stepper.payload.catalogs.includes(k))) return !!false
-	else return !!true
+	return keywords.some(k => stepper.payload.catalogs.includes(k))
 })
 
-interface TreeNode {
-	label: string
-	key: string
-	disabled: boolean | ComputedRef<boolean | undefined>
-	children: TreeNode[]
-	type?: number
-}
-// const disabled: computed(() => !node.selectable)
+watch(isTextNode, val => {
+	if (val) {
+	}
+})
 
-const newcards = computed<any[]>(() => [
+const newcards = ref([
 	{
 		label: 'Управление процессами',
 		key: 'indexable.processManagement',
@@ -79,8 +74,8 @@ const newcards = computed<any[]>(() => [
 					{
 						label: 'Автор',
 						key: 'indexable.baseObjects.task.task.author',
-						disabled: isTextNode.value,
-						// disabled: false,
+						disabled: true,
+						type: 0,
 						children: [],
 					},
 					{
@@ -230,14 +225,12 @@ const newcards = computed<any[]>(() => [
 					{
 						label: 'Получатели',
 						key: 'indexable.baseObjects.document.recipients',
-						type: 0,
 						disabled: isTextNode,
 						children: [],
 					},
 					{
 						label: 'Согласующие',
 						key: 'indexable.baseObjects.document.approvers',
-						type: 0,
 						disabled: isTextNode,
 						children: [],
 					},
@@ -245,13 +238,11 @@ const newcards = computed<any[]>(() => [
 						label: 'Подписанты',
 						key: 'indexable.baseObjects.document.signatories',
 						disabled: isTextNode,
-						type: 0,
 						children: [],
 					},
 					{
 						label: 'Отправитель контрагент',
 						key: 'indexable.baseObjects.document.senderContractor',
-						type: 0,
 						disabled: isTextNode,
 						children: [],
 					},
@@ -259,13 +250,11 @@ const newcards = computed<any[]>(() => [
 						label: 'Получатели контрагенты',
 						key: 'indexable.baseObjects.document.recipientContractors',
 						disabled: isTextNode,
-						type: 0,
 						children: [],
 					},
 					{
 						label: 'Ознакомлены',
 						key: 'indexable.baseObjects.document.acquainted',
-						type: 0,
 						disabled: isTextNode,
 						children: [],
 					},
@@ -307,7 +296,6 @@ const newcards = computed<any[]>(() => [
 					{
 						label: 'Адресаты',
 						key: 'indexable.baseObjects.document.addressees',
-						type: 0,
 						disabled: isTextNode,
 						children: [],
 					},
