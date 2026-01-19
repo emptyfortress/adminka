@@ -7,6 +7,7 @@ import { useStepperStore } from '@/stores/useStepperStore'
 const stepper = useStepperStore()
 
 const expanded = ref([])
+const ticked = ref(stepper.step5.cards)
 const filterRef = ref()
 const filter = ref()
 
@@ -32,9 +33,10 @@ const checkedItems = computed(() => {
 		.filter(Boolean) // Filter out any null values
 })
 
-watch(checkedItems, (val: any) => {
+watch(ticked, (val: any) => {
 	if (val) {
-		stepper.payload.cards = checkedItems.value
+		stepper.step5.cards = ticked.value
+		stepper.payload.cards = ticked.value
 	}
 })
 </script>
@@ -56,7 +58,7 @@ watch(checkedItems, (val: any) => {
 			node-key='key'
 			:filter="filter"
 			tick-strategy="leaf"
-			v-model:ticked="stepper.step5.cards"
+			v-model:ticked="ticked"
 			v-model:expanded="expanded"
 		)
 

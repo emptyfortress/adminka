@@ -1,4 +1,4 @@
-import { ref, computed, watch } from 'vue'
+import { ref, computed, watch, unref } from 'vue'
 import { useStepperStore } from '@/stores/useStepperStore'
 import type { ComputedRef } from 'vue'
 
@@ -7,19 +7,20 @@ const stepper = useStepperStore()
 const keywords = ['Фамилия', 'Имя', 'Отчество']
 
 const isTextNode = computed(() => {
-	if (keywords.some(k => stepper.payload.catalogs.includes(k))) return false
-	else return true
+	if (keywords.some(k => stepper.payload.catalogs.includes(k))) return !!false
+	else return !!true
 })
 
 interface TreeNode {
 	label: string
 	key: string
-	disabled?: boolean | ComputedRef<boolean>
+	disabled: boolean | ComputedRef<boolean | undefined>
 	children: TreeNode[]
 	type?: number
 }
+// const disabled: computed(() => !node.selectable)
 
-const newcards: TreeNode[] = ref([
+const newcards = computed<any[]>(() => [
 	{
 		label: 'Управление процессами',
 		key: 'indexable.processManagement',
@@ -78,7 +79,7 @@ const newcards: TreeNode[] = ref([
 					{
 						label: 'Автор',
 						key: 'indexable.baseObjects.task.task.author',
-						disabled: isTextNode,
+						disabled: isTextNode.value,
 						// disabled: false,
 						children: [],
 					},
