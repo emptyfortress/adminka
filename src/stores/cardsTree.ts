@@ -11,20 +11,18 @@ const isTextNode = computed(() => {
 })
 
 watch(isTextNode, val => {
-	if (val) {
-		// Find all nodes with type: 0 and set disabled to false
-		const updateDisabledStatus = (nodes: any[]) => {
-			for (const node of nodes) {
-				if (node.type === 0) {
-					node.disabled = false
-				}
-				if (node.children) {
-					updateDisabledStatus(node.children)
-				}
+	// Update disabled status for all nodes with type: 0 on every change
+	const updateDisabledStatus = (nodes: any[]) => {
+		for (const node of nodes) {
+			if (node.type === 0) {
+				node.disabled = !val
+			}
+			if (node.children) {
+				updateDisabledStatus(node.children)
 			}
 		}
-		updateDisabledStatus(newcards.value)
 	}
+	updateDisabledStatus(newcards.value)
 })
 
 const newcards = ref([
@@ -237,37 +235,37 @@ const newcards = ref([
 					{
 						label: 'Получатели',
 						key: 'indexable.baseObjects.document.recipients',
-						disabled: isTextNode,
+						disabled: true,
 						children: [],
 					},
 					{
 						label: 'Согласующие',
 						key: 'indexable.baseObjects.document.approvers',
-						disabled: isTextNode,
+						disabled: true,
 						children: [],
 					},
 					{
 						label: 'Подписанты',
 						key: 'indexable.baseObjects.document.signatories',
-						disabled: isTextNode,
+						disabled: true,
 						children: [],
 					},
 					{
 						label: 'Отправитель контрагент',
 						key: 'indexable.baseObjects.document.senderContractor',
-						disabled: isTextNode,
+						disabled: true,
 						children: [],
 					},
 					{
 						label: 'Получатели контрагенты',
 						key: 'indexable.baseObjects.document.recipientContractors',
-						disabled: isTextNode,
+						disabled: true,
 						children: [],
 					},
 					{
 						label: 'Ознакомлены',
 						key: 'indexable.baseObjects.document.acquainted',
-						disabled: isTextNode,
+						disabled: true,
 						children: [],
 					},
 					{
@@ -308,7 +306,7 @@ const newcards = ref([
 					{
 						label: 'Адресаты',
 						key: 'indexable.baseObjects.document.addressees',
-						disabled: isTextNode,
+						disabled: true,
 						children: [],
 					},
 					{
