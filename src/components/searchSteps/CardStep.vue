@@ -1,12 +1,13 @@
 <script setup lang="ts">
 import { ref, computed, watch } from 'vue'
-import { newcards } from '@/stores/cardsTree'
+import { useCardsTree } from '@/stores/cardsTree'
 import MyInput from '@/components/common/MyInput.vue'
 import { useStepperStore } from '@/stores/useStepperStore'
 
 const stepper = useStepperStore()
+const cardsTree = useCardsTree()
 
-const cards = ref(newcards)
+const cards = cardsTree.cards
 
 const expanded = ref([])
 const filterRef = ref()
