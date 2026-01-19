@@ -58,8 +58,8 @@ watch(checkedItems, val => {
 		)
 	.arch
 		.text-bold Индексируемые поля справочников
-		q-list(v-if="checkedItems.length")
-			q-item(v-for="(item, index) in checkedItems" :key="index" dense)
+		q-list(v-if="stepper.payload.catalogs.length")
+			q-item(v-for="(item, index) in stepper.payload.catalogs" :key="index" dense)
 				q-item-section(side)
 					q-icon(name="mdi-check" color="secondary" size='12px')
 				q-item-section

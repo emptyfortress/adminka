@@ -6,10 +6,33 @@ import { useStepperStore } from '@/stores/useStepperStore'
 
 const stepper = useStepperStore()
 
+const cards = ref(newcards)
+
 const expanded = ref([])
-const ticked = ref(stepper.step5.cards)
 const filterRef = ref()
 const filter = ref()
+
+const keywords = ['Фамилия', 'Имя', 'Отчество']
+
+const isTextNode = computed(() => {
+	return keywords.some(k => stepper.payload.catalogs.includes(k))
+})
+
+watch(isTextNode, val => {
+	console.log('fuck')
+	// Update disabled status for all nodes with type: 0 on every change
+	const updateDisabledStatus = (nodes: any[]) => {
+		for (const node of nodes) {
+			if (node.type === 0) {
+				node.disabled = false
+			}
+			if (node.children) {
+				updateDisabledStatus(node.children)
+			}
+		}
+	}
+	updateDisabledStatus(cards.value)
+})
 
 // Get the labels of all checked items
 const checkedItems = computed(() => {
@@ -28,16 +51,13 @@ const checkedItems = computed(() => {
 				}
 				return null
 			}
-			return findCardInTree(newcards.value)
+			return findCardInTree(cards.value)
 		})
 		.filter(Boolean) // Filter out any null values
 })
 
-watch(ticked, (val: any) => {
-	if (val) {
-		stepper.step5.cards = ticked.value
-		stepper.payload.cards = ticked.value
-	}
+watch(checkedItems, val => {
+	stepper.payload.cards = val
 })
 </script>
 
@@ -54,11 +74,11 @@ watch(ticked, (val: any) => {
 				noValidation
 			)
 		q-tree(
-			:nodes='newcards'
+			:nodes='cards'
 			node-key='key'
 			:filter="filter"
 			tick-strategy="leaf"
-			v-model:ticked="ticked"
+			v-model:ticked="stepper.step5.cards"
 			v-model:expanded="expanded"
 		)
 
