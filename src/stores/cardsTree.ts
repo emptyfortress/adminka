@@ -1,5 +1,6 @@
 import { ref, computed, watch } from 'vue'
 import { useStepperStore } from '@/stores/useStepperStore'
+import type { ComputedRef } from 'vue'
 
 const stepper = useStepperStore()
 
@@ -10,7 +11,15 @@ const isTextNode = computed(() => {
 	else return true
 })
 
-const newcards = computed(() => [
+interface TreeNode {
+	label: string
+	key: string
+	disabled?: boolean | ComputedRef<boolean>
+	children: TreeNode[]
+	type?: number
+}
+
+const newcards: TreeNode[] = ref([
 	{
 		label: 'Управление процессами',
 		key: 'indexable.processManagement',
