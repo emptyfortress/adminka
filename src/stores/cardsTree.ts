@@ -12,6 +12,18 @@ const isTextNode = computed(() => {
 
 watch(isTextNode, val => {
 	if (val) {
+		// Find all nodes with type: 0 and set disabled to false
+		const updateDisabledStatus = (nodes: any[]) => {
+			for (const node of nodes) {
+				if (node.type === 0) {
+					node.disabled = false
+				}
+				if (node.children) {
+					updateDisabledStatus(node.children)
+				}
+			}
+		}
+		updateDisabledStatus(newcards.value)
 	}
 })
 
