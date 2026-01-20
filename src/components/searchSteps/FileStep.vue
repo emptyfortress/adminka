@@ -41,11 +41,12 @@ const checkedItems = computed(() => {
 
 // Toggle file type selection when clicking on the item
 const toggleFileType = (fileLabel: string) => {
-	const index = stepper.step6.filetypes.indexOf(fileLabel)
+	const filetypes = stepper.step6.filetypes as string[]
+	const index = filetypes.indexOf(fileLabel)
 	if (index === -1) {
-		stepper.step6.filetypes.push(fileLabel)
+		filetypes.push(fileLabel)
 	} else {
-		stepper.step6.filetypes.splice(index, 1)
+		filetypes.splice(index, 1)
 	}
 }
 </script>
