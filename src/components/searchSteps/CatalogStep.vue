@@ -42,31 +42,31 @@ const checkedItems = computed(() => {
 		.filter(Boolean) // Filter out any null values
 })
 
-// Get all checked nodes but only show 2nd level of path
+// Get all checked nodes but only show 1st level of path
 const checkedSecondLevel = computed(() => {
 	return stepper.step4.catalogs
 		.map((cardId: any) => {
-			// Find the card in the tree by its key and return only 2nd level
-			const findSecondLevel = (
+			// Find the card in the tree by its key and return only 1st level
+			const findFirstLevelNode = (
 				nodes: any[],
 				depth: number = 0,
 				parentLabel: string = ''
 			): string | null => {
 				for (const node of nodes) {
 					if (node.key === cardId) {
-						if (depth === 1) {
-							return `${parentLabel}.${node.label}`
+						if (depth === 0) {
+							return node.label
 						}
 						return node.label
 					}
 					if (node.children) {
-						const found = findSecondLevel(node.children, depth + 1, node.label)
+						const found = findFirstLevelNode(node.children, depth + 1, node.label)
 						if (found) return found
 					}
 				}
 				return null
 			}
-			return findSecondLevel(newcatalog)
+			return findFirstLevelNode(newcatalog)
 		})
 		.filter(Boolean) // Filter out any null values
 })
