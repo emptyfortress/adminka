@@ -21,7 +21,7 @@ const options = [
 
 // Get the labels of all checked file types
 const checkedItems = computed(() => {
-	return stepper.step5.filetypes
+	return stepper.step6.filetypes
 		.map(fileId => {
 			// Find the file in the tree by its key
 			const findFileInTree = (nodes: any[]): string | null => {
@@ -51,7 +51,7 @@ const checkedItems = computed(() => {
 			q-option-group(
 				:options="options"
 				type="radio"
-				v-model="stepper.step5.fileregim")
+				v-model="stepper.step6.fileregim")
 	transition(name='slide-top')
 		.sid(v-if='!!stepper.payload.fileregim && stepper.payload.fileregim !== "notIndex"')
 			.arch
@@ -69,7 +69,7 @@ const checkedItems = computed(() => {
 					node-key='key'
 					:filter="filter"
 					tick-strategy="leaf"
-					v-model:ticked="stepper.step5.filetypes"
+					v-model:ticked="stepper.step6.filetypes"
 					v-model:expanded="expanded"
 				)
 			.arch

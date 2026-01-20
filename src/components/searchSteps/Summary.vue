@@ -12,34 +12,38 @@ const stepper = useStepperStore()
 		.grid
 			label База данных:
 			.val {{stepper.payload.psevdo}}
-			label Хранилище:
-			.val(v-if='stepper.payload.flow == "B"') Использовать Elasticsearch
-			.val(v-else) Использовать локальную БД
-				template(v-if='stepper.payload.flow == "A"')
-					span.q-ml-md(v-if='stepper.payload.extcards') Для карточек 
-					span.q-ml-md(v-if='stepper.payload.extfiles') Для файлов 
-					span.q-ml-md(v-if='stepper.payload.extcatalogs') Для справочников 
-			label Строка подключения:
-			.val {{ stepper.payload.elasticurl }}
+			template(v-if='stepper.payload.flow')
+				label Система индексирования:
+				.val(v-if='stepper.payload.flow == "B"') Использовать Elasticsearch
+				.val(v-else) Использовать локальную БД
+					template(v-if='stepper.payload.flow == "A"')
+						span.q-ml-md(v-if='stepper.payload.extcards') Для карточек 
+						span.q-ml-md(v-if='stepper.payload.extfiles') Для файлов 
+						span.q-ml-md(v-if='stepper.payload.extcatalogs') Для справочников 
 			label Язык индексирования:
 			.val
 				span.q-mr-md(v-for="item in stepper.payload.lang") {{item.label}},
-			label Индексируемые поля карточек:
-			.val
-				span.q-mr-md(v-for="item in stepper.payload.cards") {{item || "не выбрано"}},
-			label Режим индексирования файлов:
-			.val(v-if='stepper.payload.fileregim == "notIndex"') Не индексировать
-			.val(v-if='stepper.payload.fileregim == "use"') Оперативные файлы
-			.val(v-if='stepper.payload.fileregim == "use1"') Оперативные и архивные файлы
-			.val(v-if='stepper.payload.fileregim == null') не выбрано
 
-			label Типы файлов:
-			.val(v-if='stepper.payload.filetypes.length')
-				span.q-mr-md(v-for="item in stepper.payload.filetypes") {{item}},
-			.val(v-else) не выбрано
-			label Индексируемые справочники:
-			.val
-				span.q-mr-md(v-for="item in stepper.payload.catalogs") {{item}},
+			template(v-if='stepper.payload.cards.length')
+				label Индексируемые поля карточек:
+				.val
+					span.q-mr-md(v-for="item in stepper.payload.cards") {{item || "не выбрано"}},
+
+			template(v-if='stepper.payload.fileregim !== null')
+				label Режим индексирования файлов:
+				.val(v-if='stepper.payload.fileregim == "notIndex"') Не индексировать
+				.val(v-if='stepper.payload.fileregim == "use"') Оперативные файлы
+				.val(v-if='stepper.payload.fileregim == "use1"') Оперативные и архивные файлы
+
+			template(v-if='stepper.payload.filetypes.length')
+				label Типы файлов:
+				.val
+					span.q-mr-md(v-for="item in stepper.payload.filetypes") {{item}},
+
+			template(v-if='stepper.payload.catalogs.length')
+				label Индексируемые справочники:
+				.val
+					span.q-mr-md(v-for="item in stepper.payload.catalogs") {{item}},
 </template>
 
 <style scoped lang="scss">
