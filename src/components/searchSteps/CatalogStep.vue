@@ -13,14 +13,15 @@ const filter = ref()
 const checkedItems = computed(() => {
 	return stepper.step4.catalogs
 		.map((cardId: any) => {
-			// Find the card in the tree by its key
-			const findCardInTree = (nodes: any[]): string | null => {
+			// Find the card in the tree by its key and return full path
+			const findCardInTree = (nodes: any[], parentPath: string = ''): string | null => {
 				for (const node of nodes) {
+					const currentPath = parentPath ? `${parentPath}.${node.label}` : node.label
 					if (node.key === cardId) {
-						return node.label
+						return currentPath
 					}
 					if (node.children) {
-						const found = findCardInTree(node.children)
+						const found = findCardInTree(node.children, currentPath)
 						if (found) return found
 					}
 				}
