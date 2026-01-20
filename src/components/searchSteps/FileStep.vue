@@ -38,6 +38,16 @@ const checkedItems = computed(() => {
 		.filter(Boolean) // Filter out any null values
 		.join(', ') // Join with commas
 })
+
+// Toggle file type selection when clicking on the item
+const toggleFileType = (fileLabel: string) => {
+	const index = stepper.step6.filetypes.indexOf(fileLabel)
+	if (index === -1) {
+		stepper.step6.filetypes.push(fileLabel)
+	} else {
+		stepper.step6.filetypes.splice(index, 1)
+	}
+}
 </script>
 
 <template lang="pug">
@@ -68,6 +78,7 @@ const checkedItems = computed(() => {
             clickable
             v-ripple
 						dense
+						@click="toggleFileType(file.label)"
           )
             q-item-section(side)
               q-checkbox(
