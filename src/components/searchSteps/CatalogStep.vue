@@ -99,7 +99,7 @@ watch(checkedItems, val => {
 	.arch
 		.text-bold Индексируемые поля справочников
 		q-list(v-if="checkedItems")
-			q-item(v-for="(item, index) in checkedItems" :key="index" dense)
+			q-item(v-for="(item, index) in checkedSecondLevel" :key="index" dense)
 				q-item-section(side)
 					q-icon(name="mdi-check" color="secondary" size='12px')
 				q-item-section
