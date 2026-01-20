@@ -26,7 +26,7 @@ const stepper = useStepperStore()
 				span.q-mr-md(v-for="item in stepper.payload.lang") {{item.label}},
 			label Индексируемые типы карточек:
 			.val
-				span.q-mr-md(v-for="item in stepper.payload.cards") {{item || "не выбрано"}},
+				span.q-mr-md(v-for="item in stepper.step5.cards") {{item || "не выбрано"}},
 			label Режим индексирования файлов:
 			.val(v-if='stepper.payload.fileregim == "notIndex"') Не индексировать
 			.val(v-if='stepper.payload.fileregim == "use"') Оперативные файлы

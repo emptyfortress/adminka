@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import { ref, computed, watch } from 'vue'
+import { ref, computed, watch, watchEffect } from 'vue'
 
 export type FlowType = 'A' | 'B'
 
@@ -76,7 +76,7 @@ export const useStepperStore = defineStore('stepper', () => {
 	})
 
 	const step4 = ref({
-		catalogs: [],
+		catalogs: [] as any,
 	})
 
 	const step5 = ref({
@@ -87,6 +87,27 @@ export const useStepperStore = defineStore('stepper', () => {
 		fileregim: null,
 		filetypes: [],
 		facets: [],
+	})
+
+	const calcCatalog = computed(() => {
+		return step4.value.catalogs
+			.map((cardId: any) => {
+				// Find the card in the tree by its key
+				const findCardInTree = (nodes: any[]): string | null => {
+					for (const node of nodes) {
+						if (node.key === cardId) {
+							return node.label
+						}
+						if (node.children) {
+							const found = findCardInTree(node.children)
+							if (found) return found
+						}
+					}
+					return null
+				}
+				return findCardInTree(cards.value)
+			})
+			.filter(Boolean) // Filter out any null values
 	})
 
 	// final payload
@@ -102,7 +123,8 @@ export const useStepperStore = defineStore('stepper', () => {
 			extcatalogs: step2.value.extcatalogs,
 			externaldb: step2.value.externaldb,
 			lang: step3.value.lang,
-			catalogs: step4.value.catalogs as any,
+			// catalogs: step4.value.catalogs as any,
+			catalogs: [...step4.value.catalogs] as any,
 			cards: step5.value.cards,
 			fileregim: step6.value.fileregim,
 			filetypes: step6.value.filetypes,
@@ -215,7 +237,34 @@ export const useStepperStore = defineStore('stepper', () => {
 		}
 	}
 
+	const keywords = ['Фамилия', 'Имя', 'Отчество']
+
+	// const checkedCat = computed(() => {
+	// 	return step4.value.catalogs
+	// 		.map((cardId: any) => {
+	// 			// Find the card in the tree by its key
+	// 			const findCardInTree = (nodes: any[]): string | null => {
+	// 				for (const node of nodes) {
+	// 					if (node.key === cardId) {
+	// 						return node.label
+	// 					}
+	// 					if (node.children) {
+	// 						const found = findCardInTree(node.children)
+	// 						if (found) return found
+	// 					}
+	// 				}
+	// 				return null
+	// 			}
+	// 			return findCardInTree(newcatalog)
+	// 		})
+	// 		.filter(Boolean) // Filter out any null values
+	// })
+	const isTextNode = computed(() => {
+		return keywords.some(k => payload.value.catalogs.includes(k))
+	})
+
 	return {
+		isTextNode,
 		currentStep,
 		branch,
 		steps,

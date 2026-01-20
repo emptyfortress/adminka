@@ -7,36 +7,12 @@ import { useStepperStore } from '@/stores/useStepperStore'
 const stepper = useStepperStore()
 const cardsTree = useCardsTree()
 
-const cards = cardsTree.cards
-
 const expanded = ref([])
 const filterRef = ref()
 const filter = ref()
 
-const keywords = ['Фамилия', 'Имя', 'Отчество']
-
-const isTextNode = computed(() => {
-	return keywords.some(k => stepper.payload.catalogs.includes(k))
-})
-
-watch(isTextNode, val => {
-	console.log('fuck')
-	// Update disabled status for all nodes with type: 0 on every change
-	const updateDisabledStatus = (nodes: any[]) => {
-		for (const node of nodes) {
-			if (node.type === 0) {
-				node.disabled = false
-			}
-			if (node.children) {
-				updateDisabledStatus(node.children)
-			}
-		}
-	}
-	updateDisabledStatus(cards.value)
-})
-
 // Get the labels of all checked items
-const checkedItems = computed(() => {
+const checkedCards = computed(() => {
 	return stepper.step5.cards
 		.map((cardId: any) => {
 			// Find the card in the tree by its key
@@ -52,12 +28,12 @@ const checkedItems = computed(() => {
 				}
 				return null
 			}
-			return findCardInTree(cards.value)
+			return findCardInTree(cardsTree.cards)
 		})
 		.filter(Boolean) // Filter out any null values
 })
 
-watch(checkedItems, val => {
+watch(checkedCards, val => {
 	stepper.payload.cards = val
 })
 </script>
@@ -75,7 +51,7 @@ watch(checkedItems, val => {
 				noValidation
 			)
 		q-tree(
-			:nodes='cards'
+			:nodes='cardsTree.cards'
 			node-key='key'
 			:filter="filter"
 			tick-strategy="leaf"
@@ -85,8 +61,8 @@ watch(checkedItems, val => {
 
 	.arch
 		.text-bold Индексируемые типы карточек
-		q-list(v-if="checkedItems.length")
-			q-item(v-for="(item, index) in checkedItems" :key="index" dense)
+		q-list(v-if="checkedCards.length")
+			q-item(v-for="(item, index) in checkedCards" :key="index" dense)
 				q-item-section(side)
 					q-icon(name="mdi-check" color="secondary" size='12px')
 				q-item-section

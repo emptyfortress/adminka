@@ -2,9 +2,10 @@
 import { ref, computed } from 'vue'
 import MyInput from '@/components/common/MyInput.vue'
 import { useStepperStore } from '@/stores/useStepperStore'
-import { cards } from '@/stores/cardsTree'
+import { useCardsTree } from '@/stores/cardsTree'
 
 const stepper = useStepperStore()
+const cardsTree = useCardsTree()
 
 const expanded = ref([])
 const filterRef = ref()
@@ -13,7 +14,7 @@ const filter = ref()
 // Filter the cards tree to show only ticked nodes from CardStep
 const filteredCards = computed(() => {
 	// Get the ticked card IDs from CardStep
-	const tickedIds = stepper.step4.cards
+	const tickedIds = stepper.step5.cards
 
 	// Function to filter tree nodes and create independent copies
 	const filterTree = (nodes: any[]): any[] => {
@@ -46,12 +47,12 @@ const filteredCards = computed(() => {
 			.filter(Boolean) // Remove null entries
 	}
 
-	return filterTree(cards)
+	return filterTree(cardsTree.cards)
 })
 
 // Get the labels of all checked items for FacetStep (independent from CardStep)
 const checkedItems = computed(() => {
-	return stepper.step5.facets
+	return stepper.step6.facets
 		.map((cardId: any) => {
 			// Find the card in the tree by its key
 			const findCardInTree = (nodes: any[]): string | null => {
@@ -66,7 +67,7 @@ const checkedItems = computed(() => {
 				}
 				return null
 			}
-			return findCardInTree(cards)
+			return findCardInTree(cardsTree.cards)
 		})
 		.filter(Boolean) // Filter out any null values
 })
@@ -89,7 +90,7 @@ const checkedItems = computed(() => {
 			node-key='key'
 			:filter="filter"
 			tick-strategy="leaf"
-			v-model:ticked="stepper.step5.facets"
+			v-model:ticked="stepper.step6.facets"
 			v-model:expanded="expanded"
 		)
 	.arch
