@@ -18,6 +18,11 @@ const checkedItems = computed(() => {
 				for (const node of nodes) {
 					const currentPath = parentPath ? `${parentPath}.${node.label}` : node.label
 					if (node.key === cardId) {
+						// Split the path and return only the last two parts
+						const parts = currentPath.split('.')
+						if (parts.length > 1) {
+							return `${parts[parts.length - 2]}.${parts[parts.length - 1]}`
+						}
 						return currentPath
 					}
 					if (node.children) {
