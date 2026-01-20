@@ -44,32 +44,34 @@ const checkedItems = computed(() => {
 
 // Get only parent node labels of checked items (unique)
 const parentNodeLabels = computed(() => {
-	return [...new Set(
-		stepper.step4.catalogs
-			.map((cardId: any) => {
-				// Find the card in the tree by its key and return only parent label
-				const findParentLabel = (
-					nodes: any[],
-					parentLabel: string = ''
-				): string | null => {
-					for (const node of nodes) {
-						if (node.key === cardId) {
-							return parentLabel || node.label
+	return [
+		...new Set(
+			stepper.step4.catalogs
+				.map((cardId: any) => {
+					// Find the card in the tree by its key and return only parent label
+					const findParentLabel = (
+						nodes: any[],
+						parentLabel: string = ''
+					): string | null => {
+						for (const node of nodes) {
+							if (node.key === cardId) {
+								return parentLabel || node.label
+							}
+							if (node.children) {
+								const found = findParentLabel(node.children, node.label)
+								if (found) return found
+							}
 						}
-						if (node.children) {
-							const found = findParentLabel(node.children, node.label)
-							if (found) return found
-						}
+						return null
 					}
-					return null
-				}
-				return findParentLabel(newcatalog)
-			})
-			.filter(Boolean) // Filter out any null values
-	)]
+					return findParentLabel(newcatalog)
+				})
+				.filter(Boolean) // Filter out any null values
+		),
+	]
 })
 
-watch(checkedItems, val => {
+watch(parentNodeLabels, val => {
 	stepper.payload.catalogs = val
 })
 </script>
@@ -97,7 +99,7 @@ watch(checkedItems, val => {
 	.arch
 		.text-bold Индексируемые поля справочников
 		q-list(v-if="checkedItems")
-			q-item(v-for="(item, index) in parentNodeLabels" :key="index" dense)
+			q-item(v-for="(item, index) in checkedItems" :key="index" dense)
 				q-item-section(side)
 					q-icon(name="mdi-check" color="secondary" size='12px')
 				q-item-section

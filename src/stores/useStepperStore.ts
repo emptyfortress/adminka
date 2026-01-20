@@ -89,27 +89,6 @@ export const useStepperStore = defineStore('stepper', () => {
 		facets: [],
 	})
 
-	const calcCatalog = computed(() => {
-		return step4.value.catalogs
-			.map((cardId: any) => {
-				// Find the card in the tree by its key
-				const findCardInTree = (nodes: any[]): string | null => {
-					for (const node of nodes) {
-						if (node.key === cardId) {
-							return node.label
-						}
-						if (node.children) {
-							const found = findCardInTree(node.children)
-							if (found) return found
-						}
-					}
-					return null
-				}
-				return findCardInTree(cards.value)
-			})
-			.filter(Boolean) // Filter out any null values
-	})
-
 	// final payload
 	const payload = computed(() => {
 		return {
@@ -123,9 +102,8 @@ export const useStepperStore = defineStore('stepper', () => {
 			extcatalogs: step2.value.extcatalogs,
 			externaldb: step2.value.externaldb,
 			lang: step3.value.lang,
-			// catalogs: step4.value.catalogs as any,
-			catalogs: [...step4.value.catalogs] as any,
-			cards: step5.value.cards,
+			catalogs: [] as any,
+			cards: [] as any,
 			fileregim: step6.value.fileregim,
 			filetypes: step6.value.filetypes,
 			facets: step6.value.facets,

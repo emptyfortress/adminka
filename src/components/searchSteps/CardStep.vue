@@ -15,14 +15,25 @@ const filter = ref()
 const checkedCards = computed(() => {
 	return stepper.step5.cards
 		.map((cardId: any) => {
-			// Find the card in the tree by its key
-			const findCardInTree = (nodes: any[]): string | null => {
+			// Find the card in the tree by its key and return full path
+			const findCardInTree = (
+				nodes: any[],
+				parentPath: string = ''
+			): string | null => {
 				for (const node of nodes) {
+					const currentPath = parentPath
+						? `${parentPath}.${node.label}`
+						: node.label
 					if (node.key === cardId) {
-						return node.label
+						// Split the path and return only the last two parts
+						const parts = currentPath.split('.')
+						if (parts.length > 1) {
+							return `${parts[parts.length - 2]}.${parts[parts.length - 1]}`
+						}
+						return currentPath
 					}
 					if (node.children) {
-						const found = findCardInTree(node.children)
+						const found = findCardInTree(node.children, currentPath)
 						if (found) return found
 					}
 				}
@@ -32,6 +43,27 @@ const checkedCards = computed(() => {
 		})
 		.filter(Boolean) // Filter out any null values
 })
+
+// const checkedCards = computed(() => {
+// 	return stepper.step5.cards
+// 		.map((cardId: any) => {
+// 			// Find the card in the tree by its key
+// 			const findCardInTree = (nodes: any[]): string | null => {
+// 				for (const node of nodes) {
+// 					if (node.key === cardId) {
+// 						return node.label
+// 					}
+// 					if (node.children) {
+// 						const found = findCardInTree(node.children)
+// 						if (found) return found
+// 					}
+// 				}
+// 				return null
+// 			}
+// 			return findCardInTree(cardsTree.cards)
+// 		})
+// 		.filter(Boolean) // Filter out any null values
+// })
 
 watch(checkedCards, val => {
 	stepper.payload.cards = val
@@ -60,7 +92,7 @@ watch(checkedCards, val => {
 		)
 
 	.arch
-		.text-bold Индексируемые типы карточек
+		.text-bold Индексируемые поля карточек
 		q-list(v-if="checkedCards.length")
 			q-item(v-for="(item, index) in checkedCards" :key="index" dense)
 				q-item-section(side)
