@@ -14,9 +14,14 @@ const checkedItems = computed(() => {
 	return stepper.step4.catalogs
 		.map((cardId: any) => {
 			// Find the card in the tree by its key and return full path
-			const findCardInTree = (nodes: any[], parentPath: string = ''): string | null => {
+			const findCardInTree = (
+				nodes: any[],
+				parentPath: string = ''
+			): string | null => {
 				for (const node of nodes) {
-					const currentPath = parentPath ? `${parentPath}.${node.label}` : node.label
+					const currentPath = parentPath
+						? `${parentPath}.${node.label}`
+						: node.label
 					if (node.key === cardId) {
 						// Split the path and return only the last two parts
 						const parts = currentPath.split('.')
@@ -75,9 +80,9 @@ watch(checkedItems, val => {
 
 <style scoped lang="scss">
 .sid {
-	width: 920px;
+	width: 1020px;
 	display: grid;
-	grid-template-columns: 600px 400px;
+	grid-template-columns: 500px 500px;
 	align-items: start;
 	column-gap: 1rem;
 	margin: 0 auto;
