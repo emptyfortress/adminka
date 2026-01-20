@@ -42,31 +42,27 @@ const checkedItems = computed(() => {
 		.filter(Boolean) // Filter out any null values
 })
 
-// Get all checked nodes but only show 1st level of path
-const checkedSecondLevel = computed(() => {
+// Get only parent node labels of checked items
+const parentNodeLabels = computed(() => {
 	return stepper.step4.catalogs
 		.map((cardId: any) => {
-			// Find the card in the tree by its key and return only 1st level
-			const findFirstLevelNode = (
+			// Find the card in the tree by its key and return only parent label
+			const findParentLabel = (
 				nodes: any[],
-				depth: number = 0,
 				parentLabel: string = ''
 			): string | null => {
 				for (const node of nodes) {
 					if (node.key === cardId) {
-						if (depth === 0) {
-							return node.label
-						}
-						return node.label
+						return parentLabel || node.label
 					}
 					if (node.children) {
-						const found = findFirstLevelNode(node.children, depth + 1, node.label)
+						const found = findParentLabel(node.children, node.label)
 						if (found) return found
 					}
 				}
 				return null
 			}
-			return findFirstLevelNode(newcatalog)
+			return findParentLabel(newcatalog)
 		})
 		.filter(Boolean) // Filter out any null values
 })
@@ -99,7 +95,7 @@ watch(checkedItems, val => {
 	.arch
 		.text-bold Индексируемые поля справочников
 		q-list(v-if="checkedItems")
-			q-item(v-for="(item, index) in checkedSecondLevel" :key="index" dense)
+			q-item(v-for="(item, index) in checkedItems" :key="index" dense)
 				q-item-section(side)
 					q-icon(name="mdi-check" color="secondary" size='12px')
 				q-item-section
