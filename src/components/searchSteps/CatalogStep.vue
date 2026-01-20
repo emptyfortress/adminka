@@ -52,7 +52,7 @@ const secondLevelNodes = computed(() => {
 				depth: number = 0
 			): string | null => {
 				for (const node of nodes) {
-					if (node.key === cardId && depth === 0) {
+					if (node.key === cardId && depth === 1) {
 						return node.label
 					}
 					if (node.children) {
