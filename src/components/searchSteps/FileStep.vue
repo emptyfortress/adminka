@@ -7,7 +7,7 @@ import MyInput from '@/components/common/MyInput.vue'
 const stepper = useStepperStore()
 
 const filterRef = ref()
-const filter = ref()
+const filter = ref('')
 const expanded = ref([])
 
 const options = [
@@ -18,6 +18,14 @@ const options = [
 	{ label: 'Индексировать оперативные файлы', value: 'use' },
 	{ label: 'Индексировать оперативные и архивные файлы', value: 'use1' },
 ]
+
+// Filter files based on the filter input
+const filteredFiles = computed(() => {
+	if (!filter.value) return files
+	return files.filter(file =>
+		file.label.toLowerCase().includes(filter.value.toLowerCase())
+	)
+})
 
 // Get the labels of all checked file types
 const checkedItems = computed(() => {
@@ -55,7 +63,7 @@ const checkedItems = computed(() => {
           )
         q-list
           q-item(
-            v-for="file in files"
+            v-for="file in filteredFiles"
             :key="file.label"
             clickable
             v-ripple
