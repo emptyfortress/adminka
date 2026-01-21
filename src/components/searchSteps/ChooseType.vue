@@ -47,7 +47,7 @@ watch(
 watch(
 	() => stepper.step2.externaldb,
 	() => {
-		if (stepper.step2.externaldb == 'use') {
+		if (stepper.step2.externaldb == 'create') {
 			stepper.step2.servertype = 'MSSQL Server'
 			stepper.step2.servername = 'vega'
 			stepper.step2.checkvalid = 'SQLServer'
@@ -55,7 +55,7 @@ watch(
 			stepper.step2.pass = '***********'
 			stepper.step2.database = 'DvShowCase_Ft'
 		}
-		if (stepper.step2.externaldb == 'create') {
+		if (stepper.step2.externaldb == 'use') {
 			stepper.step2.servertype = ''
 			stepper.step2.servername = ''
 			stepper.step2.checkvalid = ''
@@ -67,7 +67,7 @@ watch(
 )
 
 const dis = computed(() => {
-	return stepper.step2.externaldb == 'use' ? true : false
+	return stepper.step2.externaldb == 'use' ? false : true
 })
 
 const ser = ['MSSQL Server', 'PostgreSQL']
