@@ -21,9 +21,15 @@ const stepper = useStepperStore()
 						span.q-ml-md(v-if='stepper.payload.extcards') Для карточек 
 						span.q-ml-md(v-if='stepper.payload.extfiles') Для файлов 
 						span.q-ml-md(v-if='stepper.payload.extcatalogs') Для справочников 
-			label Язык индексирования:
-			.val
-				span.q-mr-md(v-for="item in stepper.payload.lang") {{item.label}},
+			template(v-if='stepper.payload.flow == "A"')
+				label Язык индексирования:
+				.val
+					span.q-mr-md(v-for="item in stepper.payload.lang") {{item.label}},
+
+			template(v-if='stepper.payload.catalogs.length')
+				label Индексируемые справочники:
+				.val
+					span.q-mr-md(v-for="item in stepper.payload.catalogs") {{item}},
 
 			template(v-if='stepper.payload.cards.length')
 				label Индексируемые карточки:
@@ -41,10 +47,6 @@ const stepper = useStepperStore()
 				.val
 					span.q-mr-md(v-for="item in stepper.payload.filetypes") {{item}},
 
-			template(v-if='stepper.payload.catalogs.length')
-				label Индексируемые справочники:
-				.val
-					span.q-mr-md(v-for="item in stepper.payload.catalogs") {{item}},
 	.arch.q-mt-sm
 		StartConnection
 </template>

@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue'
-import { useWiz } from '@/stores/wiz'
+import { useIntervalFn } from '@vueuse/core'
+import { rand } from '@vueuse/shared'
 
 const props = defineProps({
 	text: {
@@ -18,27 +19,59 @@ const calcClass = computed(() => {
 	return 'text-' + props.color
 })
 
-const wiz = useWiz()
-
-// const create = ref(0)
+const connect = ref(0)
 const start = () => {
-	wiz.setCreate(1)
+	connect.value = 1
+	setTimeout(() => {
+		connect.value = 2
+	}, 3000)
 }
 const stop = () => {
-	wiz.setCreate(0)
+	connect.value = 0
 }
+const greetings = [
+	'Hello',
+	'Привет',
+	'Здравствуйте',
+	'Наше вам с кисточкой',
+	'Hi',
+	'Yo!',
+	'Hey',
+	'Hola',
+	'こんにちは',
+	'Bonjour',
+	'Salut!',
+	'你好',
+]
+const word = ref('Hello')
+const interval = ref(200)
+
+const { pause, resume, isActive } = useIntervalFn(() => {
+	word.value = greetings[rand(0, greetings.length - 1)]
+}, interval)
 </script>
 
 <template lang="pug">
-.mygrid(v-if='wiz.create !== 2')
-	.text-bold
-		q-icon(name="mdi-alert" :color="props.color" size="md").q-mr-md
-		span(:class="calcClass") Внимание!
-	div {{ props.text }}
+.mygrid
+	template(v-if='connect == 2')
+		.text-bold
+			q-icon(name="mdi-check-bold" color="teal" size="md").q-mr-md
+			span Успешно!
+		div Полнотекстовый поиск подключен к выбранной базе данных и будет доступен после завершения индексирования.
+
+	template(v-if='connect !== 2')
+		.text-bold
+			q-icon(name="mdi-alert" :color="props.color" size="md").q-mr-md
+			span(:class="calcClass") Внимание!
+		div {{ props.text }}
+
 
 .text-center.q-mt-md
-	q-btn(v-if='wiz.create == 0' unelevated color="secondary" label="Подключить" @click="start" size='sm') 
-	q-btn(v-if='wiz.create == 1' unelevated color="primary" label="Отмена" @click="stop") 
+	q-btn(v-if='connect == 0' unelevated color="secondary" label="Подключить" @click="start" size='sm') 
+	q-btn(v-if='connect == 1' unelevated color="secondary" label="Отмена" @click="stop" size='sm') 
+	template(v-if="connect == 1")
+		q-linear-progress.q-mt-lg(indeterminate)
+		.text-center.q-mt-sm {{ word }}
 </template>
 
 <style scoped lang="scss">
