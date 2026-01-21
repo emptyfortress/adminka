@@ -83,19 +83,22 @@ const parentNodeLabels = computed(() => {
 })
 
 function buildTwoLevelList(items: string[]): CheckedTreeItem[] {
-	const map = items.reduce((acc: Record<string, CheckedTreeItem>, item: string) => {
-		const [parent, child] = item.split('.', 2)
+	const map = items.reduce(
+		(acc: Record<string, CheckedTreeItem>, item: string) => {
+			const [parent, child] = item.split('.', 2)
 
-		if (!acc[parent]) {
-			acc[parent] = {
-				label: parent,
-				children: [],
+			if (!acc[parent]) {
+				acc[parent] = {
+					label: parent,
+					children: [],
+				}
 			}
-		}
 
-		acc[parent].children.push(child)
-		return acc
-	}, {})
+			acc[parent].children.push(child)
+			return acc
+		},
+		{}
+	)
 
 	return Object.values(map)
 }
@@ -104,8 +107,8 @@ const checkedTree = computed<CheckedTreeItem[]>(() => {
 	return buildTwoLevelList(checkedItems.value)
 })
 
-watch(parentNodeLabels, val => {
-	stepper.payload.catalogs = val
+watch(checkedItems, val => {
+	stepper.payload.catalogs = parentNodeLabels.value
 })
 </script>
 

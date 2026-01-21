@@ -55,8 +55,40 @@ const checkedCards = computed(() => {
 		.filter(Boolean) // Filter out any null values
 })
 
+// watch(checkedCards, val => {
+// 	stepper.payload.cards = val
+// })
+// Get only parent node labels of checked items (unique)
+const parentNodeLabels = computed(() => {
+	return [
+		...new Set(
+			stepper.step5.cards
+				.map((cardId: string) => {
+					// Find the card in the tree by its key and return only parent label
+					const findParentLabel = (
+						nodes: TreeNode[],
+						parentLabel: string = ''
+					): string | null => {
+						for (const node of nodes) {
+							if (node.key === cardId) {
+								return parentLabel || node.label
+							}
+							if (node.children) {
+								const found = findParentLabel(node.children, node.label)
+								if (found) return found
+							}
+						}
+						return null
+					}
+					return findParentLabel(cardsTree.cards)
+				})
+				.filter(Boolean) // Filter out any null values
+		),
+	]
+})
+
 watch(checkedCards, val => {
-	stepper.payload.cards = val
+	stepper.payload.cards = parentNodeLabels.value
 })
 
 function buildTwoLevelList(items: string[]): CheckedTreeItem[] {

@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { useStepperStore } from '@/stores/useStepperStore'
+import StartConnection from '@/components/searchSteps/StartConnection.vue'
 
 const stepper = useStepperStore()
 </script>
@@ -25,7 +26,7 @@ const stepper = useStepperStore()
 				span.q-mr-md(v-for="item in stepper.payload.lang") {{item.label}},
 
 			template(v-if='stepper.payload.cards.length')
-				label Индексируемые поля карточек:
+				label Индексируемые карточки:
 				.val
 					span.q-mr-md(v-for="item in stepper.payload.cards") {{item || "не выбрано"}},
 
@@ -44,6 +45,8 @@ const stepper = useStepperStore()
 				label Индексируемые справочники:
 				.val
 					span.q-mr-md(v-for="item in stepper.payload.catalogs") {{item}},
+	.arch.q-mt-sm
+		StartConnection
 </template>
 
 <style scoped lang="scss">
