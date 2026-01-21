@@ -4,6 +4,17 @@ import { useCardsTree } from '@/stores/cardsTree'
 import MyInput from '@/components/common/MyInput.vue'
 import { useStepperStore } from '@/stores/useStepperStore'
 
+interface TreeNode {
+	label: string
+	key: string
+	children?: TreeNode[]
+}
+
+interface CheckedTreeItem {
+	label: string
+	children: string[]
+}
+
 const stepper = useStepperStore()
 const cardsTree = useCardsTree()
 
@@ -14,10 +25,10 @@ const filter = ref()
 // Get the labels of all checked items
 const checkedCards = computed(() => {
 	return stepper.step5.cards
-		.map((cardId: any) => {
+		.map((cardId: string) => {
 			// Find the card in the tree by its key and return full path
 			const findCardInTree = (
-				nodes: any[],
+				nodes: TreeNode[],
 				parentPath: string = ''
 			): string | null => {
 				for (const node of nodes) {
@@ -48,8 +59,8 @@ watch(checkedCards, val => {
 	stepper.payload.cards = val
 })
 
-function buildTwoLevelList(items: any) {
-	const map = items.reduce((acc: any, item: any) => {
+function buildTwoLevelList(items: string[]): CheckedTreeItem[] {
+	const map = items.reduce((acc: Record<string, CheckedTreeItem>, item: string) => {
 		const [parent, child] = item.split('.', 2)
 
 		if (!acc[parent]) {
@@ -66,7 +77,7 @@ function buildTwoLevelList(items: any) {
 	return Object.values(map)
 }
 
-const checkedTree = computed(() => {
+const checkedTree = computed<CheckedTreeItem[]>(() => {
 	return buildTwoLevelList(checkedCards.value)
 })
 const shard = ref(0)
