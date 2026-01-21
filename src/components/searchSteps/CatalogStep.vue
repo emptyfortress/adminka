@@ -71,6 +71,33 @@ const parentNodeLabels = computed(() => {
 	]
 })
 
+function buildTwoLevelList(items: any) {
+	const map = items.reduce((acc: any, item: any) => {
+		const [parent, child] = item.split('.', 2)
+
+		if (!acc[parent]) {
+			acc[parent] = {
+				label: parent,
+				children: [],
+			}
+		}
+
+		acc[parent].children.push(child)
+		return acc
+	}, {})
+
+	return Object.values(map)
+}
+
+// interface CheckedTreeItem {
+// 	label: string,
+// 	children: string[]
+// }
+
+const checkedTree = computed(() => {
+	return buildTwoLevelList(checkedItems.value)
+})
+
 watch(parentNodeLabels, val => {
 	stepper.payload.catalogs = val
 })
@@ -98,13 +125,21 @@ watch(parentNodeLabels, val => {
 		)
 	.arch
 		.text-bold Индексируемые поля справочников
-		q-list(v-if="checkedItems")
-			q-item(v-for="(item, index) in checkedItems" :key="index" dense)
-				q-item-section(side)
-					q-icon(name="mdi-check" color="secondary" size='12px')
-				q-item-section
-					q-item-label {{ item }}
+
+		q-list.q-mt-md(v-if="checkedItems.length")
+			template(v-for="group in checkedTree" :key="group.label" )
+				q-item(dense)
+					q-item-section
+						q-item-label.text-bold {{ group.label }}
+				q-list
+					q-item(v-for="child in group.children" :key="child" dense)
+						q-item-section(side)
+							q-icon(name="mdi-check" color="secondary" size='12px')
+						q-item-section
+							q-item-label {{ child }}
+
 		.text-body2.q-mt-sm.text-grey(v-else) Нет выбранных элементов
+
 </template>
 
 <style scoped lang="scss">

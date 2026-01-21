@@ -44,30 +44,34 @@ const checkedCards = computed(() => {
 		.filter(Boolean) // Filter out any null values
 })
 
-// const checkedCards = computed(() => {
-// 	return stepper.step5.cards
-// 		.map((cardId: any) => {
-// 			// Find the card in the tree by its key
-// 			const findCardInTree = (nodes: any[]): string | null => {
-// 				for (const node of nodes) {
-// 					if (node.key === cardId) {
-// 						return node.label
-// 					}
-// 					if (node.children) {
-// 						const found = findCardInTree(node.children)
-// 						if (found) return found
-// 					}
-// 				}
-// 				return null
-// 			}
-// 			return findCardInTree(cardsTree.cards)
-// 		})
-// 		.filter(Boolean) // Filter out any null values
-// })
-
 watch(checkedCards, val => {
 	stepper.payload.cards = val
 })
+
+function buildTwoLevelList(items: any) {
+	const map = items.reduce((acc: any, item: any) => {
+		const [parent, child] = item.split('.', 2)
+
+		if (!acc[parent]) {
+			acc[parent] = {
+				label: parent,
+				children: [],
+			}
+		}
+
+		acc[parent].children.push(child)
+		return acc
+	}, {})
+
+	return Object.values(map)
+}
+
+const checkedTree = computed(() => {
+	return buildTwoLevelList(checkedCards.value)
+})
+const shard = ref(0)
+
+const analyze = ref(true)
 </script>
 
 <template lang="pug">
@@ -93,20 +97,31 @@ watch(checkedCards, val => {
 
 	.arch
 		.text-bold Индексируемые поля карточек
-		q-list(v-if="checkedCards.length")
-			q-item(v-for="(item, index) in checkedCards" :key="index" dense)
-				q-item-section(side)
-					q-icon(name="mdi-check" color="secondary" size='12px')
-				q-item-section
-					q-item-label {{ item }}
+
+		q-list.q-mt-sm(v-if="checkedCards.length")
+			template(v-for="(group, index) in checkedTree" :key="group.label" )
+				q-item(dense clickable)
+					q-item-section
+						q-item-label.text-bold {{ group.label }}
+
+				q-list
+					q-item(v-for="child in group.children" :key="child" dense clickable)
+						q-item-section(side)
+							q-icon(name="mdi-check" color="secondary" size='12px')
+						q-item-section
+							q-item-label {{ child }}
+
 		.text-body2.q-mt-sm.text-grey(v-else) Нет выбранных элементов
+
+	.arch
+		.text-bold Свойства поля
 </template>
 
 <style scoped lang="scss">
 .sid {
-	width: 920px;
+	width: 1020px;
 	display: grid;
-	grid-template-columns: 600px 400px;
+	grid-template-columns: 430px 270px 300px;
 	align-items: start;
 	column-gap: 1rem;
 	margin: 0 auto;
@@ -120,5 +135,19 @@ watch(checkedCards, val => {
 }
 .dis {
 	color: red;
+}
+.lab {
+	font-size: 0.7rem;
+}
+.shard {
+	max-width: 50px;
+	height: 21px;
+	padding-left: 0.5rem;
+	margin-left: 0.5rem;
+	margin-right: 0.5rem;
+}
+.car {
+	padding: 0.5rem;
+	max-width: 190px;
 }
 </style>
