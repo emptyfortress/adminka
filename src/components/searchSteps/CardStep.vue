@@ -18,7 +18,7 @@ interface CheckedTreeItem {
 const stepper = useStepperStore()
 const cardsTree = useCardsTree()
 
-const expanded = ref([])
+const expanded = ref(['indexable.baseObjects'])
 const filterRef = ref()
 const filter = ref()
 
@@ -87,9 +87,13 @@ const parentNodeLabels = computed(() => {
 	]
 })
 
-watch(checkedCards, val => {
-	stepper.payload.cards = parentNodeLabels.value
-})
+watch(
+	checkedCards,
+	val => {
+		stepper.payload.cards = parentNodeLabels.value
+	},
+	{ immediate: true }
+)
 
 function buildTwoLevelList(items: string[]): CheckedTreeItem[] {
 	const map = items.reduce(

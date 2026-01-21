@@ -16,7 +16,7 @@ interface CheckedTreeItem {
 }
 
 const stepper = useStepperStore()
-const expanded = ref([])
+const expanded = ref(['basics', 'basics.employees', 'cardTypes'])
 const filterRef = ref()
 const filter = ref()
 
@@ -107,9 +107,13 @@ const checkedTree = computed<CheckedTreeItem[]>(() => {
 	return buildTwoLevelList(checkedItems.value)
 })
 
-watch(checkedItems, val => {
-	stepper.payload.catalogs = parentNodeLabels.value
-})
+watch(
+	checkedItems,
+	val => {
+		stepper.payload.catalogs = parentNodeLabels.value
+	},
+	{ immediate: true }
+)
 </script>
 
 <template lang="pug">
