@@ -60,19 +60,22 @@ watch(checkedCards, val => {
 })
 
 function buildTwoLevelList(items: string[]): CheckedTreeItem[] {
-	const map = items.reduce((acc: Record<string, CheckedTreeItem>, item: string) => {
-		const [parent, child] = item.split('.', 2)
+	const map = items.reduce(
+		(acc: Record<string, CheckedTreeItem>, item: string) => {
+			const [parent, child] = item.split('.', 2)
 
-		if (!acc[parent]) {
-			acc[parent] = {
-				label: parent,
-				children: [],
+			if (!acc[parent]) {
+				acc[parent] = {
+					label: parent,
+					children: [],
+				}
 			}
-		}
 
-		acc[parent].children.push(child)
-		return acc
-	}, {})
+			acc[parent].children.push(child)
+			return acc
+		},
+		{}
+	)
 
 	return Object.values(map)
 }
@@ -81,13 +84,21 @@ const checkedTree = computed<CheckedTreeItem[]>(() => {
 	return buildTwoLevelList(checkedCards.value)
 })
 
-const shard = ref(0)
-const analyze = ref(true)
 const selectedItem = ref<string | null>(null)
 
 const selectItem = (item: string) => {
 	selectedItem.value = selectedItem.value === item ? null : item
 }
+
+const morf = ref(true)
+
+const parentSelection = computed(() => {
+	if (selectedItem.value == 'Задание' || selectedItem.value == 'Документ')
+		return true
+	return false
+})
+
+const shard = ref(0)
 </script>
 
 <template lang="pug">
@@ -112,11 +123,16 @@ const selectItem = (item: string) => {
 		)
 
 	.arch
-		.text-bold Индексируемые поля карточек
+		.text-bold Индексируемые карточки и поля
 
 		q-list.q-mt-sm(v-if="checkedCards.length")
-			template(v-for="(group, index) in checkedTree" :key="group.label" )
-				q-item(dense clickable)
+			template(v-for="(group) in checkedTree" :key="group.label" )
+				q-item(
+					dense,
+					clickable,
+					:class="{ 'selection': selectedItem === group.label }"
+					@click="selectItem(group.label)"
+				)
 					q-item-section
 						q-item-label.text-bold {{ group.label }}
 
@@ -137,14 +153,35 @@ const selectItem = (item: string) => {
 		.text-body2.q-mt-sm.text-grey(v-else) Нет выбранных элементов
 
 	.arch
-		.text-bold Свойства поля
+		.text-bold Свойства
+		template(v-if='selectedItem && parentSelection')
+			.q-my-md
+				label Настройки индекса
+				.row.items-center.q-mt-sm
+					.q-mr-sm Elasticsearch shards:
+					MyInput(v-model="shard" type='number' style='width: 100px')
+			q-separator
+			.text-caption.text-secondary Шарды - количество фрагментов индекса Elasticsearch
+
+		template(v-if='selectedItem && !parentSelection')
+			.smgrid
+				label Название:
+				div {{ selectedItem }}
+				label Тип:
+				div Строка
+				label Индексирование:
+				div Да
+			.text-bold.q-mb-sm Свойства Elasticsearch
+			q-checkbox(dense v-model="morf" label='Морфологический анализ')
+
+		.text-body2.q-mt-sm.text-grey(v-if='!selectedItem') Нет выбранных элементов
 </template>
 
 <style scoped lang="scss">
 .sid {
 	width: 1020px;
 	display: grid;
-	grid-template-columns: 430px 270px 300px;
+	grid-template-columns: 430px 280px 290px;
 	align-items: start;
 	column-gap: 1rem;
 	margin: 0 auto;
@@ -179,6 +216,17 @@ const selectItem = (item: string) => {
 }
 
 .selection {
-	background-color: #e0e0e0;
+	background-color: var(--bg-selected);
+	outline: 1px solid $primary;
+}
+.smgrid {
+	display: grid;
+	grid-template-columns: auto 1fr;
+	column-gap: 1rem;
+	margin-top: 1rem;
+	margin-bottom: 2rem;
+	label {
+		color: #666;
+	}
 }
 </style>
