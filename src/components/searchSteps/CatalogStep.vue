@@ -4,6 +4,17 @@ import MyInput from '@/components/common/MyInput.vue'
 import { useStepperStore } from '@/stores/useStepperStore'
 import { newcatalog } from '@/stores/catalogTree'
 
+interface TreeNode {
+	label: string
+	key: string
+	children?: TreeNode[]
+}
+
+interface CheckedTreeItem {
+	label: string
+	children: string[]
+}
+
 const stepper = useStepperStore()
 const expanded = ref([])
 const filterRef = ref()
@@ -12,10 +23,10 @@ const filter = ref()
 // Get the labels of all checked items
 const checkedItems = computed(() => {
 	return stepper.step4.catalogs
-		.map((cardId: any) => {
+		.map((cardId: string) => {
 			// Find the card in the tree by its key and return full path
 			const findCardInTree = (
-				nodes: any[],
+				nodes: TreeNode[],
 				parentPath: string = ''
 			): string | null => {
 				for (const node of nodes) {
@@ -47,10 +58,10 @@ const parentNodeLabels = computed(() => {
 	return [
 		...new Set(
 			stepper.step4.catalogs
-				.map((cardId: any) => {
+				.map((cardId: string) => {
 					// Find the card in the tree by its key and return only parent label
 					const findParentLabel = (
-						nodes: any[],
+						nodes: TreeNode[],
 						parentLabel: string = ''
 					): string | null => {
 						for (const node of nodes) {
@@ -71,8 +82,8 @@ const parentNodeLabels = computed(() => {
 	]
 })
 
-function buildTwoLevelList(items: any) {
-	const map = items.reduce((acc: any, item: any) => {
+function buildTwoLevelList(items: string[]): CheckedTreeItem[] {
+	const map = items.reduce((acc: Record<string, CheckedTreeItem>, item: string) => {
 		const [parent, child] = item.split('.', 2)
 
 		if (!acc[parent]) {
@@ -89,12 +100,7 @@ function buildTwoLevelList(items: any) {
 	return Object.values(map)
 }
 
-// interface CheckedTreeItem {
-// 	label: string,
-// 	children: string[]
-// }
-
-const checkedTree = computed(() => {
+const checkedTree = computed<CheckedTreeItem[]>(() => {
 	return buildTwoLevelList(checkedItems.value)
 })
 
