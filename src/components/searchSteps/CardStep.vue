@@ -80,9 +80,14 @@ function buildTwoLevelList(items: string[]): CheckedTreeItem[] {
 const checkedTree = computed<CheckedTreeItem[]>(() => {
 	return buildTwoLevelList(checkedCards.value)
 })
-const shard = ref(0)
 
+const shard = ref(0)
 const analyze = ref(true)
+const selectedItem = ref<string | null>(null)
+
+const selectItem = (item: string) => {
+	selectedItem.value = selectedItem.value === item ? null : item
+}
 </script>
 
 <template lang="pug">
@@ -116,7 +121,14 @@ const analyze = ref(true)
 						q-item-label.text-bold {{ group.label }}
 
 				q-list
-					q-item(v-for="child in group.children" :key="child" dense clickable)
+					q-item(
+						v-for="child in group.children"
+						:key="child"
+						dense
+						clickable
+						:class="{ 'selection': selectedItem === child }"
+						@click="selectItem(child)"
+					)
 						q-item-section(side)
 							q-icon(name="mdi-check" color="secondary" size='12px')
 						q-item-section
@@ -144,12 +156,15 @@ const analyze = ref(true)
 	height: 0.4em;
 	margin-right: 0.3rem;
 }
+
 .dis {
 	color: red;
 }
+
 .lab {
 	font-size: 0.7rem;
 }
+
 .shard {
 	max-width: 50px;
 	height: 21px;
@@ -157,8 +172,13 @@ const analyze = ref(true)
 	margin-left: 0.5rem;
 	margin-right: 0.5rem;
 }
+
 .car {
 	padding: 0.5rem;
 	max-width: 190px;
+}
+
+.selection {
+	background-color: #e0e0e0;
 }
 </style>
