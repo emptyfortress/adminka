@@ -376,6 +376,7 @@ const newcatalog = [
 					{
 						label: 'Пользовательские настройки',
 						key: 'basics.employees.userSettings',
+						disabled: true,
 						children: [
 							{
 								label: 'Идентификатор строки',
