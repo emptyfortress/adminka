@@ -160,9 +160,6 @@ export const useStepperStore = defineStore('stepper', () => {
 	}
 
 	function guardStep4() {
-		// if (!step4.value.catalogs) {
-		// 	return false
-		// }
 		return true
 	}
 
@@ -173,9 +170,12 @@ export const useStepperStore = defineStore('stepper', () => {
 		return true
 	}
 	function guardStep6() {
-		if (!step6.value.fileregim) {
-			return false
-		}
+		// if (!step6.value.fileregim) {
+		// 	return false
+		// }
+		// if (step2.value.flow == 'B') {
+		// 	return true
+		// }
 		return true
 	}
 	function guardStep7() {
@@ -217,26 +217,6 @@ export const useStepperStore = defineStore('stepper', () => {
 
 	const keywords = ['Фамилия', 'Имя', 'Отчество']
 
-	// const checkedCat = computed(() => {
-	// 	return step4.value.catalogs
-	// 		.map((cardId: any) => {
-	// 			// Find the card in the tree by its key
-	// 			const findCardInTree = (nodes: any[]): string | null => {
-	// 				for (const node of nodes) {
-	// 					if (node.key === cardId) {
-	// 						return node.label
-	// 					}
-	// 					if (node.children) {
-	// 						const found = findCardInTree(node.children)
-	// 						if (found) return found
-	// 					}
-	// 				}
-	// 				return null
-	// 			}
-	// 			return findCardInTree(newcatalog)
-	// 		})
-	// 		.filter(Boolean) // Filter out any null values
-	// })
 	const isTextNode = computed(() => {
 		return keywords.some(k => payload.value.catalogs.includes(k))
 	})
