@@ -64,14 +64,9 @@ const rows = computed(() => {
 	return store.activeDatabases
 })
 
-// Применить изменения по кнопке "OK"
-function applyChanges() {
-	// просто заменим все базы на новые (можно доработать диффами, если нужно)
-	store.databases = [...localDatabases.value]
-}
-
 const remove = (item: any) => {
 	item.active = false
+	item.dis = false
 }
 </script>
 
