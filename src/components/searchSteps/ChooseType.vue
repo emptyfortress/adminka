@@ -11,8 +11,6 @@ const emit = defineEmits<{
 	(e: 'next'): void
 }>()
 
-const group = ref(null)
-
 const options = [
 	{
 		label: 'Elasticsearch',
@@ -63,7 +61,8 @@ watch(
 			stepper.step2.pass = ''
 			stepper.step2.database = ''
 		}
-	}
+	},
+	{ immediate: true }
 )
 
 const dis = computed(() => {
@@ -112,9 +111,9 @@ const che = ['SQL Server']
 					:options="options1"
 					type="radio"
 					v-model="stepper.step2.externaldb")
-
-	transition(name='slide-top')
-		.arch(v-if='stepper.payload.flow == "A" && stepper.step2.db == "external" && !!stepper.step2.externaldb')
+			br
+			q-separator
+			br
 			.grid
 				.text-bold Настройки подключения:
 				.grid2.q-ml-sm
