@@ -8,6 +8,7 @@ interface TreeNode {
 	label: string
 	key: string
 	children?: TreeNode[]
+	disabled?: boolean
 }
 
 interface CheckedTreeItem {
@@ -19,6 +20,46 @@ const stepper = useStepperStore()
 const expanded = ref(['basics', 'basics.employees', 'cardTypes'])
 const filterRef = ref()
 const filter = ref()
+const hideDisabled = ref(false)
+
+// Filter function to remove disabled nodes and their children
+function filterDisabledNodes(nodes: TreeNode[]): TreeNode[] {
+	if (!hideDisabled.value) {
+		return nodes
+	}
+
+	return nodes
+		.map(node => {
+			// If node is disabled, don't include it
+			if (node.disabled) {
+				return null
+			}
+
+			// If node has children, filter them recursively
+			if (node.children && node.children.length > 0) {
+				const filteredChildren = filterDisabledNodes(node.children)
+				// Only keep the node if it has children after filtering
+				if (filteredChildren.length > 0) {
+					return {
+						...node,
+						children: filteredChildren
+					}
+				}
+				// If no children remain, return as leaf node
+				return {
+					...node,
+					children: []
+				}
+			}
+
+			return node
+		})
+		.filter(node => node !== null) as TreeNode[]
+}
+
+const filteredCatalog = computed(() => {
+	return filterDisabledNodes(newcatalog)
+})
 
 // Get the labels of all checked items
 const checkedItems = computed(() => {
@@ -48,7 +89,7 @@ const checkedItems = computed(() => {
 				}
 				return null
 			}
-			return findCardInTree(newcatalog)
+			return findCardInTree(filteredCatalog.value)
 		})
 		.filter(Boolean) // Filter out any null values
 })
@@ -75,7 +116,7 @@ const parentNodeLabels = computed(() => {
 						}
 						return null
 					}
-					return findParentLabel(newcatalog)
+					return findParentLabel(filteredCatalog.value)
 				})
 				.filter(Boolean) // Filter out any null values
 		),
@@ -128,8 +169,14 @@ watch(
 				clearable
 				noValidation
 			)
+		.q-mt-sm
+			q-checkbox(
+				v-model="hideDisabled"
+				label="Скрыть отключенные узлы"
+				dense
+			)
 		q-tree(
-			:nodes='newcatalog'
+			:nodes='filteredCatalog'
 			node-key='key'
 			:filter="filter"
 			tick-strategy="leaf"
