@@ -87,7 +87,7 @@ const calcRow = computed(() => {
 		)
 			template(v-slot:body-cell-actions="props")
 				q-td(:props="props" auto-width)
-					q-icon.rem(name="mdi-delete-outline" @click='removeLanguage(props.rowIndex)')
+					q-icon.rem(v-if='props.rowIndex !== 0' name="mdi-delete-outline" @click='removeLanguage(props.rowIndex)')
 
 		.grid(v-if='stepper.payload.flow == "A"')
 			q-select(
