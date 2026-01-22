@@ -8,6 +8,7 @@ interface TreeNode {
 	label: string
 	key: string
 	children?: TreeNode[]
+	disabled?: boolean
 }
 
 interface CheckedTreeItem {
@@ -21,6 +22,46 @@ const cardsTree = useCardsTree()
 const expanded = ref(['indexable.baseObjects'])
 const filterRef = ref()
 const filter = ref()
+const showAll = ref(false)
+
+// Filter function to remove disabled nodes and their children
+function filterDisabledNodes(nodes: TreeNode[]): TreeNode[] {
+	if (showAll.value) {
+		return nodes
+	}
+
+	return nodes
+		.map(node => {
+			// If node is disabled, don't include it
+			if (node.disabled) {
+				return null
+			}
+
+			// If node has children, filter them recursively
+			if (node.children && node.children.length > 0) {
+				const filteredChildren = filterDisabledNodes(node.children)
+				// Only keep the node if it has children after filtering
+				if (filteredChildren.length > 0) {
+					return {
+						...node,
+						children: filteredChildren,
+					}
+				}
+				// If no children remain, return as leaf node
+				return {
+					...node,
+					children: [],
+				}
+			}
+
+			return node
+		})
+		.filter(node => node !== null) as TreeNode[]
+}
+
+const filteredCards = computed(() => {
+	return filterDisabledNodes(cardsTree.cards)
+})
 
 // Get the labels of all checked items
 const checkedCards = computed(() => {
@@ -50,7 +91,7 @@ const checkedCards = computed(() => {
 				}
 				return null
 			}
-			return findCardInTree(cardsTree.cards)
+			return findCardInTree(filteredCards.value)
 		})
 		.filter(Boolean) // Filter out any null values
 })
@@ -80,7 +121,7 @@ const parentNodeLabels = computed(() => {
 						}
 						return null
 					}
-					return findParentLabel(cardsTree.cards)
+					return findParentLabel(filteredCards.value)
 				})
 				.filter(Boolean) // Filter out any null values
 		),
@@ -142,15 +183,22 @@ const shard = ref(0)
 	.arch
 		.row.items-center.justify-between
 			.text-bold Дерево видов
-			MyInput(
-				ref="filterRef",
-				v-model="filter",
-				prependIcon='mdi-magnify'
-				clearable
-				noValidation
-			)
+			div
+				MyInput(
+					ref="filterRef",
+					v-model="filter",
+					prependIcon='mdi-magnify'
+					clearable
+					noValidation
+				)
+				.q-mt-xs
+					q-checkbox(
+						v-model="showAll"
+						label="Показать все"
+						dense
+					)
 		q-tree(
-			:nodes='cardsTree.cards'
+			:nodes='filteredCards'
 			node-key='key'
 			:filter="filter"
 			tick-strategy="leaf"
