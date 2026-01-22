@@ -2,6 +2,8 @@
 import { computed, ref } from 'vue'
 import { useIntervalFn } from '@vueuse/core'
 import { rand } from '@vueuse/shared'
+import { useStepperStore } from '@/stores/useStepperStore'
+import { useStore } from '@/stores/store'
 
 const props = defineProps({
 	text: {
@@ -20,15 +22,27 @@ const calcClass = computed(() => {
 })
 
 const connect = ref(0)
+const stepper = useStepperStore()
+const store = useStore()
+
 const start = () => {
 	connect.value = 1
+
+	// Find database with matching psevdo and set active to true
+	const databaseToActivate = store.databases.find(db => db.psevdo === stepper.payload.psevdo)
+	if (databaseToActivate) {
+		databaseToActivate.active = true
+	}
+
 	setTimeout(() => {
 		connect.value = 2
 	}, 3000)
 }
+
 const stop = () => {
 	connect.value = 0
 }
+
 const greetings = [
 	'Hello',
 	'Привет',
