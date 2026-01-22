@@ -29,8 +29,11 @@ const start = () => {
 	connect.value = 1
 
 	// Find database with matching psevdo and set active to true
-	const databaseToActivate = store.databases.find(db => db.psevdo === stepper.payload.psevdo)
+	const databaseToActivate = store.databases.find(
+		db => db.psevdo === stepper.payload.psevdo
+	)
 	if (databaseToActivate) {
+		databaseToActivate.dis = true
 		databaseToActivate.active = true
 	}
 

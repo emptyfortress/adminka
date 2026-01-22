@@ -163,7 +163,7 @@ label {
 	margin-bottom: 0.5rem;
 	display: inline-block;
 	max-width: unset; // отменяет 100% ширину по умолчанию
-	min-width: 600px;
+	// min-width: 600px;
 }
 .descr {
 	color: #666;
