@@ -20,7 +20,7 @@ const stepper = useStepperStore()
 const expanded = ref(['basics', 'basics.employees', 'cardTypes'])
 const filterRef = ref()
 const filter = ref()
-const showAll = ref(false)
+const showAll = ref(true)
 
 // Filter function to remove disabled nodes and their children
 function filterDisabledNodes(nodes: TreeNode[]): TreeNode[] {
