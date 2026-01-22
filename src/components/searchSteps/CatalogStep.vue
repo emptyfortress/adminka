@@ -24,7 +24,7 @@ const showAll = ref(true)
 
 // Filter function to remove disabled nodes and their children
 function filterDisabledNodes(nodes: TreeNode[]): TreeNode[] {
-	if (showAll.value) {
+	if (!showAll.value) {
 		return nodes
 	}
 
@@ -173,9 +173,10 @@ watch(
 				.q-mt-xs
 					q-checkbox(
 						v-model="showAll"
-						label="Показать все"
+						label="Скрыть недоступные"
 						dense
 					)
+					q-tooltip Скрывать поля, не доступные для индексации
 		q-tree(
 			:nodes='filteredCatalog'
 			node-key='key'
