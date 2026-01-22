@@ -173,7 +173,7 @@ watch(
 				.q-mt-xs
 					q-checkbox(
 						v-model="hideDisabled"
-						label="Скрыть отключенные узлы"
+						label="Показать все"
 						dense
 					)
 		q-tree(
