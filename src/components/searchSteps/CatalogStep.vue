@@ -42,13 +42,13 @@ function filterDisabledNodes(nodes: TreeNode[]): TreeNode[] {
 				if (filteredChildren.length > 0) {
 					return {
 						...node,
-						children: filteredChildren
+						children: filteredChildren,
 					}
 				}
 				// If no children remain, return as leaf node
 				return {
 					...node,
-					children: []
+					children: [],
 				}
 			}
 
@@ -162,19 +162,20 @@ watch(
 	.arch
 		.row.items-center.justify-between
 			.text-bold Справочники
-			MyInput(
-				ref="filterRef",
-				v-model="filter",
-				prependIcon='mdi-magnify'
-				clearable
-				noValidation
-			)
-		.q-mt-sm
-			q-checkbox(
-				v-model="hideDisabled"
-				label="Скрыть отключенные узлы"
-				dense
-			)
+			div
+				MyInput(
+					ref="filterRef",
+					v-model="filter",
+					prependIcon='mdi-magnify'
+					clearable
+					noValidation
+				)
+				.q-mt-xs
+					q-checkbox(
+						v-model="hideDisabled"
+						label="Скрыть отключенные узлы"
+						dense
+					)
 		q-tree(
 			:nodes='filteredCatalog'
 			node-key='key'
