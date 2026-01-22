@@ -67,6 +67,12 @@ const handleRowClick = (row: any) => {
 	stepper.step1.server = row.server
 }
 
+const handleRadioClick = (row: any) => {
+	selection.value = row.psevdo
+	stepper.step1.psevdo = row.psevdo
+	stepper.step1.server = row.server
+}
+
 const selectedDatabase = computed(() => {
 	return localDatabases.value.find(db => db.active && !db.dis)
 })
@@ -93,7 +99,7 @@ const selection = ref('')
 		)
 			template(v-slot:body-cell-action="props")
 				q-td(:props="props")
-					q-radio(v-model="selection" :key='props.row.psevdo' :val="props.row.psevdo" dense size="sm" )
+					q-radio(v-model="selection" :key='props.row.psevdo' :val="props.row.psevdo" dense size="sm" @click="handleRadioClick(props.row)")
 
 			template(v-slot:body-cell-psevdo="props")
 				q-td(:props="props")
