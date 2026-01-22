@@ -62,17 +62,6 @@ const loadFromPayload = () => {
 watch(() => stepper.payload, loadFromPayload, { immediate: true })
 
 const handleRowClick = (row: any) => {
-	// if (row.dis) return
-	//
-	// // Uncheck all rows first
-	// localDatabases.value.forEach(db => {
-	// 	if (!db.dis) {
-	// 		db.active = false
-	// 	}
-	// })
-	//
-	// // Check the clicked row
-	// row.active = true
 	selection.value = row.psevdo
 	stepper.step1.psevdo = row.psevdo
 	stepper.step1.server = row.server
