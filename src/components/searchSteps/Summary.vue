@@ -15,8 +15,8 @@ const stepper = useStepperStore()
 			.val {{stepper.payload.psevdo}}
 			template(v-if='stepper.payload.flow')
 				label Система индексирования:
-				.val(v-if='stepper.payload.flow == "B"') Использовать Elasticsearch
-				.val(v-else) Использовать локальную БД
+				.val(v-if='stepper.payload.flow == "B"') Elasticsearch
+				.val(v-else) Локальная БД
 					template(v-if='stepper.payload.flow == "A"')
 						span.q-ml-md(v-if='stepper.payload.extcards') Для карточек 
 						span.q-ml-md(v-if='stepper.payload.extfiles') Для файлов 
@@ -35,6 +35,11 @@ const stepper = useStepperStore()
 				label Индексируемые карточки:
 				.val
 					span.q-mr-md(v-for="item in stepper.payload.cards") {{item || "не выбрано"}},
+
+			template(v-if='stepper.payload.facets.length')
+				label Фасеты:
+				.val
+					span.q-mr-md(v-for="item in stepper.payload.facets") {{item || "не выбрано"}},
 
 			template(v-if='stepper.payload.fileregim !== null')
 				label Режим индексирования файлов:

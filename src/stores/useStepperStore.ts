@@ -106,7 +106,7 @@ export const useStepperStore = defineStore('stepper', () => {
 			cards: [] as any,
 			fileregim: step6.value.fileregim,
 			filetypes: step6.value.filetypes,
-			facets: step6.value.facets,
+			facets: [] as any,
 		}
 	})
 

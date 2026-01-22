@@ -26,7 +26,7 @@ const showAll = ref(true)
 
 // Filter function to remove disabled nodes and their children
 function filterDisabledNodes(nodes: TreeNode[]): TreeNode[] {
-	if (showAll.value) {
+	if (!showAll.value) {
 		return nodes
 	}
 

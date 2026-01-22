@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, computed } from 'vue'
+import { ref, computed, watch } from 'vue'
 import MyInput from '@/components/common/MyInput.vue'
 import { useStepperStore } from '@/stores/useStepperStore'
 import { useCardsTree } from '@/stores/cardsTree'
@@ -71,6 +71,14 @@ const checkedItems = computed(() => {
 		})
 		.filter(Boolean) // Filter out any null values
 })
+
+watch(
+	checkedItems,
+	val => {
+		stepper.payload.facets = checkedItems.value
+	},
+	{ immediate: true }
+)
 </script>
 
 <template lang="pug">
