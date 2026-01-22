@@ -20,11 +20,11 @@ const stepper = useStepperStore()
 const expanded = ref(['basics', 'basics.employees', 'cardTypes'])
 const filterRef = ref()
 const filter = ref()
-const hideDisabled = ref(false)
+const showAll = ref(false)
 
 // Filter function to remove disabled nodes and their children
 function filterDisabledNodes(nodes: TreeNode[]): TreeNode[] {
-	if (!hideDisabled.value) {
+	if (showAll.value) {
 		return nodes
 	}
 
@@ -172,7 +172,7 @@ watch(
 				)
 				.q-mt-xs
 					q-checkbox(
-						v-model="hideDisabled"
+						v-model="showAll"
 						label="Показать все"
 						dense
 					)
