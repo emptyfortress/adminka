@@ -78,7 +78,7 @@ const selectedDatabase = computed(() => {
 })
 
 const filteredDatabases = computed(() => {
-	return localDatabases.value.filter(db => !db.dis)
+	return store.availableDatabases
 })
 
 const selection = ref('')

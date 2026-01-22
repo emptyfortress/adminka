@@ -5,137 +5,163 @@ import { defineStore } from 'pinia'
 // import { useBp } from '@/stores/bp'
 import { useWebConfig } from '@/stores/webconfig'
 
+interface Database {
+  active: boolean
+  dis: boolean
+  psevdo: string
+  name: string
+  servertype: string
+  server: string
+  sql?: string
+  index: boolean
+  indexplace: string
+  cache: string
+  version: string
+  date: string
+  def: boolean
+  decision: string[]
+  vid: string[]
+  local: string[]
+}
+
 interface Connection {
-	name: string
+  name: string
 }
 
 export const useStore = defineStore({
-	id: 'store',
-	state: () => ({
-		// connections: [{ name: 'SOL2016' }],
-		config: [
-			{ id: 'SOL2016', name: 'SOL2016' },
-			{ id: 'SOL2017', name: 'SOL2017' },
-		],
-		databases: [
-			{
-				active: true,
-				dis: true,
-				psevdo: 'AGSupport',
-				name: 'AGSupport_1',
-				servertype: 'SQL Server',
-				server: 'vega',
-				sql: '109pc0116.digdes.com',
-				index: true,
-				indexplace: 'MSSQL Server',
-				version: '4373',
-				cache: 'InMemory',
-				date: '20.10.2021',
-				def: true,
-				decision: ['Управление документами', 'Базовое решение'],
-				vid: ['На исполнение', 'Исходящий'],
-				local: ['Ru', 'En', 'Kz'],
-			},
-			{
-				active: true,
-				dis: true,
-				psevdo: 'DvTest',
-				name: 'AGSupport_2',
-				servertype: 'SQL Server',
-				server: 'vega',
-				sql: '109pc0116.digdes.com',
-				index: true,
-				indexplace: 'MSSQL Server',
-				cache: 'Redis',
-				version: '4373',
-				date: '04.11.2022',
-				def: false,
-				decision: ['Менеджер решений', 'Базовое решение', 'Согласование'],
-				vid: ['На исполнение', 'Исходящий', 'На согласование'],
-				local: ['Ru', 'En', 'Kz'],
-			},
-			{
-				active: false,
-				dis: false,
-				psevdo: 'DvShowCase',
-				name: 'AGSupport_3',
-				servertype: 'PostgreSQL',
-				server: 'Docsvision 1',
-				cache: 'No cache',
-				index: true,
-				indexplace: 'Elasticsearch',
-				version: '4373',
-				date: '09.07.2021',
-				def: false,
-				decision: ['Базовое решение'],
-				vid: ['Входящий', 'Исходящий', 'Заявка'],
-				local: ['Ru', 'En', 'Kz'],
-			},
-			{
-				active: true,
-				dis: true,
-				psevdo: 'DvWorkflow',
-				name: 'AGSupport_4',
-				servertype: 'SQL Server',
-				server: 'astra',
-				sql: '109pc0058.digdes.com',
-				cache: 'Redis',
-				index: true,
-				indexplace: 'Elasticsearch',
-				version: '4373',
-				date: '15.03.2023',
-				def: false,
-				decision: ['Согласование', 'Управление процессами'],
-				vid: ['На согласование', 'Входящий'],
-				local: ['Ru', 'En', 'Kz'],
-			},
-			{
-				active: false,
-				dis: false,
-				psevdo: 'DvFinance',
-				name: 'AGSupport_5',
-				servertype: 'PostgreSQL',
-				server: 'astra',
-				cache: 'InMemory',
-				index: true,
-				indexplace: 'MSSQL Server',
-				version: '4373',
-				date: '01.08.2022',
-				def: false,
-				decision: ['Финансовый контроль', 'Базовое решение'],
-				vid: ['На оплату', 'Исходящий'],
-				local: ['Ru', 'En', 'Kz'],
-			},
-			{
-				active: false,
-				dis: false,
-				psevdo: 'DvArchive',
-				name: 'AGSupport_6',
-				servertype: 'SQL Server',
-				server: 'vega',
-				cache: 'No cache',
-				index: true,
-				indexplace: 'MSSQL Server',
-				version: '4373',
-				date: '22.12.2020',
-				def: false,
-				decision: ['Архивирование', 'Базовое решение'],
-				vid: ['Архивный', 'Входящий'],
-				local: ['Ru', 'En', 'Kz'],
-			},
-		],
-		wc: useWebConfig(),
-	}),
-	getters: {},
-	actions: {
-		removeDB(e: any) {
-			const index = this.databases.indexOf(e)
-			this.databases.splice(index, 1)
-		},
-		assignDefDB(e: string) {
-			let index = this.databases.findIndex(item => item.psevdo === e)
-			this.databases.map(item => (item.def = false))
-			this.databases[index].def = true
-		},
-	},
+  id: 'store',
+  state: () => ({
+    // connections: [{ name: 'SOL2016' }],
+    config: [
+      { id: 'SOL2016', name: 'SOL2016' },
+      { id: 'SOL2017', name: 'SOL2017' },
+    ],
+    databases: [
+      {
+        active: true,
+        dis: true,
+        psevdo: 'AGSupport',
+        name: 'AGSupport_1',
+        servertype: 'SQL Server',
+        server: 'vega',
+        sql: '109pc0116.digdes.com',
+        index: true,
+        indexplace: 'MSSQL Server',
+        version: '4373',
+        cache: 'InMemory',
+        date: '20.10.2021',
+        def: true,
+        decision: ['Управление документами', 'Базовое решение'],
+        vid: ['На исполнение', 'Исходящий'],
+        local: ['Ru', 'En', 'Kz'],
+      },
+      {
+        active: true,
+        dis: true,
+        psevdo: 'DvTest',
+        name: 'AGSupport_2',
+        servertype: 'SQL Server',
+        server: 'vega',
+        sql: '109pc0116.digdes.com',
+        index: true,
+        indexplace: 'MSSQL Server',
+        cache: 'Redis',
+        version: '4373',
+        date: '04.11.2022',
+        def: false,
+        decision: ['Менеджер решений', 'Базовое решение', 'Согласование'],
+        vid: ['На исполнение', 'Исходящий', 'На согласование'],
+        local: ['Ru', 'En', 'Kz'],
+      },
+      {
+        active: false,
+        dis: false,
+        psevdo: 'DvShowCase',
+        name: 'AGSupport_3',
+        servertype: 'PostgreSQL',
+        server: 'Docsvision 1',
+        cache: 'No cache',
+        index: true,
+        indexplace: 'Elasticsearch',
+        version: '4373',
+        date: '09.07.2021',
+        def: false,
+        decision: ['Базовое решение'],
+        vid: ['Входящий', 'Исходящий', 'Заявка'],
+        local: ['Ru', 'En', 'Kz'],
+      },
+      {
+        active: true,
+        dis: true,
+        psevdo: 'DvWorkflow',
+        name: 'AGSupport_4',
+        servertype: 'SQL Server',
+        server: 'astra',
+        sql: '109pc0058.digdes.com',
+        cache: 'Redis',
+        index: true,
+        indexplace: 'Elasticsearch',
+        version: '4373',
+        date: '15.03.2023',
+        def: false,
+        decision: ['Согласование', 'Управление процессами'],
+        vid: ['На согласование', 'Входящий'],
+        local: ['Ru', 'En', 'Kz'],
+      },
+      {
+        active: false,
+        dis: false,
+        psevdo: 'DvFinance',
+        name: 'AGSupport_5',
+        servertype: 'PostgreSQL',
+        server: 'astra',
+        cache: 'InMemory',
+        index: true,
+        indexplace: 'MSSQL Server',
+        version: '4373',
+        date: '01.08.2022',
+        def: false,
+        decision: ['Финансовый контроль', 'Базовое решение'],
+        vid: ['На оплату', 'Исходящий'],
+        local: ['Ru', 'En', 'Kz'],
+      },
+      {
+        active: false,
+        dis: false,
+        psevdo: 'DvArchive',
+        name: 'AGSupport_6',
+        servertype: 'SQL Server',
+        server: 'vega',
+        cache: 'No cache',
+        index: true,
+        indexplace: 'MSSQL Server',
+        version: '4373',
+        date: '22.12.2020',
+        def: false,
+        decision: ['Архивирование', 'Базовое решение'],
+        vid: ['Архивный', 'Входящий'],
+        local: ['Ru', 'En', 'Kz'],
+      },
+    ] as Database[],
+    wc: useWebConfig(),
+  }),
+  getters: {
+    activeDatabases(state): Database[] {
+      return state.databases.filter(db => db.active)
+    },
+    availableDatabases(state): Database[] {
+      return state.databases.filter(db => !db.dis)
+    },
+  },
+  actions: {
+    removeDB(e: Database) {
+      const index = this.databases.indexOf(e)
+      this.databases.splice(index, 1)
+    },
+    assignDefDB(e: string) {
+      let index = this.databases.findIndex(item => item.psevdo === e)
+      this.databases.map(item => (item.def = false))
+      this.databases[index].def = true
+    },
+  },
 })

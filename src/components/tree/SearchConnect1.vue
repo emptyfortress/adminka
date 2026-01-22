@@ -61,7 +61,7 @@ const columns: QTableProps['columns'] = [
 ]
 
 const rows = computed(() => {
-	return store.databases.filter(item => item.active)
+	return store.activeDatabases
 })
 
 // Применить изменения по кнопке "OK"
@@ -113,13 +113,11 @@ const remove = (item: any) => {
 								q-item(clickable :props="props" @click="remove(props.row)" v-close-popup).pink
 									q-item-section Отключить
 
-
 	q-btn(unelevated color='secondary' @click='dialog = !dialog' size="sm") Подключить
 
 br
 SearchConnect
 MasterSearch(v-model="dialog")
-
 </template>
 
 <style scoped lang="scss">
