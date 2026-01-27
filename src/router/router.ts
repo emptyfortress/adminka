@@ -106,8 +106,6 @@ export const router = createRouter({
 		},
 		{
 			path: '/root/:id/search',
-			component: () => import('@/pages/SearchLayout.vue'),
-			props: true,
 			children: [
 				{
 					path: '',
