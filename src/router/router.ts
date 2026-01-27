@@ -106,6 +106,8 @@ export const router = createRouter({
 		},
 		{
 			path: '/root/:id/search',
+			component: () => import('@/pages/SearchLayout.vue'),
+			props: true,
 			children: [
 				{
 					path: '',
@@ -124,12 +126,12 @@ export const router = createRouter({
 			],
 		},
 
-		{
-			path: '/root/:id/:name',
-			component: () => import('@/pages/Tmp.vue'),
-			name: 'zagl',
-			props: true,
-		},
+		// {
+		// 	path: '/root/:id/:name',
+		// 	component: () => import('@/pages/Tmp.vue'),
+		// 	name: 'zagl',
+		// 	props: true,
+		// },
 
 		{
 			path: '/setup0',

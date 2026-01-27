@@ -74,8 +74,15 @@ const remove = (item: any) => {
 
 const goto = (evt: Event, row: any, index: number) => {
 	if (row.indexplace == 'Elasticsearch')
-		router.push(route.fullPath + '/elastic')
-	else router.push(route.fullPath + '/mssql')
+		router.push(`/root/${route.params.id}/search/elastic`)
+	console.log(route.params.id)
+
+	// if (row.indexplace === 'Elasticsearch') {
+	// 	router.push({
+	// 		name: 'elastic',
+	// 		params: { id: route.params.id },
+	// 	})
+	// }
 }
 </script>
 
