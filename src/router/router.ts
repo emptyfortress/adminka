@@ -40,6 +40,7 @@ export const router = createRouter({
 			name: 'root',
 			component: () => import('@/pages/Root.vue'),
 			meta: {},
+			props: true,
 			children: [
 				{
 					path: ':id',
@@ -121,15 +122,22 @@ export const router = createRouter({
 					props: true,
 					meta: {},
 				},
+				{
+					path: 'sql',
+					name: 'sql',
+					component: () => import('@/components/searchSteps/Msql.vue'),
+					props: true,
+					meta: {},
+				},
 			],
 		},
 
-		// {
-		// 	path: '/root/:id/:name',
-		// 	component: () => import('@/pages/Tmp.vue'),
-		// 	name: 'zagl',
-		// 	props: true,
-		// },
+		{
+			path: '/root/:id/:name',
+			component: () => import('@/pages/Tmp.vue'),
+			name: 'zagl',
+			props: true,
+		},
 
 		{
 			path: '/setup0',

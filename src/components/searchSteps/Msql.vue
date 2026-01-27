@@ -3,7 +3,14 @@ import { ref, computed } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useTabs } from '@/stores/tabs'
 import { useStore } from '@/stores/store'
-import commonProps from '@/components/searchTabs/commonProps.vue'
+import PropertyTab from '@/components/setupcomponent/PropertyTab.vue'
+import ControlTab from '@/components/setupcomponent/ControlTab.vue'
+import Outer from '@/components/setupcomponent/Outer.vue'
+import ArchTab from '@/components/setupcomponent/ArchTab.vue'
+import CacheTab from '@/components/setupcomponent/CacheTab.vue'
+import Logging from '@/components/setupcomponent/Logging.vue'
+import ModuleTab from '@/components/setupcomponent/ModuleTab.vue'
+import Always from '@/components/setupcomponent/Always.vue'
 import BreadCrumbs from '@/components/tree/BreadCrumbs.vue'
 
 const props = defineProps({
@@ -46,26 +53,26 @@ q-page
 
 			q-scroll-area.right
 				.q-ml-lg
-					#prop.confzag(@click="test") Индексирование базы данных
-					#commonProps.zg Общие настройки
-					commonProps(:db='props.id')
-					#directories.zg Справочники
-					.plashka
-						span Изменения в этом разделе приведут к удалению текущих индексов и повторной индексации данных.
-					#cards.zg Карточки
-					.plashka
-						span Изменения в этом разделе приведут к удалению текущих индексов и повторной индексации данных.
-					#facets.zg Фасеты
-					// Outer
+					#prop.zg(@click="test") Свойства базы данных
+					PropertyTab(:bd="currentDB")
+					#control.zg Обслуживание
+					ControlTab
+					#outer.zg Внешние хранилища
+					Outer
+					#arch.zg Архивирование
+					ArchTab
+					#cache.zg Кэширование
+					CacheTab
+					#log.zg Журналирование
+					Logging
+					#always.zg Распределение нагрузки
+					Always
+					#module.zg Дополнительные настройки
+					ModuleTab
 
 </template>
 
 <style scoped lang="scss">
-.big {
-	font-size: 2rem;
-	color: $secondary;
-	font-weight: 300;
-}
 .grid {
 	display: grid;
 	grid-template-columns: auto 1fr;
@@ -103,12 +110,5 @@ q-page
 
 .container {
 	margin: 1rem 2rem;
-}
-.plashka span {
-	background: $primary;
-	color: white;
-	padding: 2px 1rem;
-	margin-left: 2rem;
-	font-weight: 500;
 }
 </style>

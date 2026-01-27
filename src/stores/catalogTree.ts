@@ -1,5 +1,23 @@
 const newcatalog = [
 	{
+		label: 'Делопроизводство',
+		key: 'delo',
+		disabled: true,
+		children: [],
+	},
+	{
+		label: 'WebClientLibrary',
+		key: 'wclib',
+		disabled: true,
+		children: [],
+	},
+	{
+		label: 'Системные карточки',
+		key: 'sys',
+		disabled: true,
+		children: [],
+	},
+	{
 		label: 'Базовые объекты',
 		key: 'basics',
 		children: [
