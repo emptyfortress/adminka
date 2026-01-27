@@ -114,6 +114,14 @@ export const router = createRouter({
 					name: 'search',
 					meta: {},
 				},
+				{
+					path: ':searchbd',
+					name: 'searchdb',
+					component: () =>
+						import('@/components/searchSteps/InsideSearchDB.vue'),
+					props: true,
+					meta: {},
+				},
 			],
 		},
 

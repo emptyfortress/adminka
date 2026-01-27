@@ -4,9 +4,12 @@ import { useStore } from '@/stores/store'
 import type { QTableProps } from 'quasar'
 import SearchConnect from '@/components/tree/SearchConnect.vue'
 import MasterSearch from '@/components/setupcomponent/MasterSearch.vue'
+import { useRouter, useRoute } from 'vue-router'
 
 const store = useStore()
 const dialog = ref(false)
+const router = useRouter()
+const route = useRoute()
 
 // локальная копия для выбора баз данных в диалоге
 const localDatabases = ref([] as typeof store.databases)
@@ -68,6 +71,10 @@ const remove = (item: any) => {
 	item.active = false
 	item.dis = false
 }
+
+const goto = (evt: Event, row: any, index: number) => {
+	router.push(route.fullPath + '/' + row.psevdo)
+}
 </script>
 
 <template lang="pug">
@@ -76,7 +83,12 @@ const remove = (item: any) => {
 	label БД с полнотекстовым поиском
 	.descr Базы данных, использующие сервис полнотекстового поиска
 	div
-		q-table.mywidth(:rows='rows' :columns='columns' row-key='name' hide-bottom)
+		q-table.mywidth(
+			:rows='rows',
+			:columns='columns',
+			row-key='name' hide-bottom,
+			@row-click='goto'
+		)
 			template(v-slot:body-cell-active='props')
 				q-td(key="active" :props="props" auto-width)
 					q-icon(name="mdi-circle-slice-8" color="green" v-if="props.row.active")
@@ -106,7 +118,7 @@ const remove = (item: any) => {
 						q-menu
 							q-list(:props="props")
 								q-item(clickable :props="props" @click="remove(props.row)" v-close-popup).pink
-									q-item-section Отключить
+									q-item-section Удалить
 
 	q-btn(unelevated color='secondary' @click='dialog = !dialog' size="sm") Подключить
 
