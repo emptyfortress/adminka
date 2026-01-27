@@ -47,7 +47,7 @@ q-page
 	.container
 		.grid
 			q-list.left(dense)
-				q-item(clickable v-for="item in tabs.tabs" :key="item.id" :class="{ selected: selected == item.label }" @click="select(item)")
+				q-item(clickable v-for="item in tabs.searchSections" :key="item.id" :class="{ selected: selected == item.label }" @click="select(item)")
 					q-item-section
 						q-item-label {{ item.label }}
 

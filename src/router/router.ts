@@ -115,10 +115,9 @@ export const router = createRouter({
 					meta: {},
 				},
 				{
-					path: ':searchbd',
-					name: 'searchdb',
-					component: () =>
-						import('@/components/searchSteps/InsideSearchDB.vue'),
+					path: 'elastic',
+					name: 'elastic',
+					component: () => import('@/components/searchSteps/Elastic.vue'),
 					props: true,
 					meta: {},
 				},

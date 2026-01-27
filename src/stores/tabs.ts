@@ -69,6 +69,27 @@ export const useTabs = defineStore('tabs', () => {
 			label: 'Общие настройки',
 			modified: false,
 		},
+		{
+			id: 1,
+			field: 'directories',
+			name: 'directories',
+			label: 'Справочники',
+			modified: false,
+		},
+		{
+			id: 2,
+			field: 'cards',
+			name: 'cards',
+			label: 'Карточки',
+			modified: false,
+		},
+		{
+			id: 3,
+			field: 'facets',
+			name: 'facets',
+			label: 'Фасеты',
+			modified: false,
+		},
 	])
 
 	const setTabMod = (n: number) => {
@@ -77,6 +98,7 @@ export const useTabs = defineStore('tabs', () => {
 
 	return {
 		tabs,
+		searchSections,
 		setTabMod,
 	}
 })
