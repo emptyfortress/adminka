@@ -129,7 +129,7 @@ const ticked = ref([
 
 <template lang="pug">
 .grd
-	.leftblock
+	div
 		MyInput(
 			ref="filterRef",
 			v-model="filter",
@@ -153,7 +153,12 @@ const ticked = ref([
 			v-model:ticked="ticked"
 			v-model:expanded="expanded"
 		)
-	.leftblock
+	.sep
+	div
+		br
+		br
+		br
+		br
 		.text-bold Индексируемые поля справочников
 
 		q-list.q-mt-sm(v-if="checkedItems.length")
@@ -170,21 +175,24 @@ const ticked = ref([
 </template>
 
 <style scoped lang="scss">
+.q-tree {
+	margin-left: -1.5rem;
+}
 .grd {
 	display: grid;
-	grid-template-columns: 1.5fr 2fr;
+	grid-template-columns: 1.5fr 1px 2fr;
 	column-gap: 1rem;
 	margin-left: 2rem;
 }
-.leftblock {
-	padding: 1rem;
-	border: 1px solid #ccc;
-	background: #e0e0e0;
+.sep {
+	width: 1px;
+	height: 100%;
+	background: #ccc;
 }
-.fl {
-	margin-left: 2rem;
-	display: flex;
-	flex-wrap: wrap;
-	gap: 1rem;
+:deep(.q-checkbox--dense .q-checkbox__inner) {
+	width: 0.4em;
+	min-width: 0.4em;
+	height: 0.4em;
+	margin-right: 0.3rem;
 }
 </style>
