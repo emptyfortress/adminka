@@ -5,6 +5,7 @@ import { useTabs } from '@/stores/tabs'
 import { useStore } from '@/stores/store'
 import commonProps from '@/components/searchTabs/commonProps.vue'
 import BreadCrumbs from '@/components/tree/BreadCrumbs.vue'
+import CatalogTree from '@/components/searchSteps/CatalogTree.vue'
 
 const props = defineProps({
 	id: {
@@ -52,6 +53,8 @@ q-page
 					#directories.zg Справочники
 					.plashka
 						span Изменения в этом разделе приведут к удалению текущих индексов и повторной индексации данных.
+					CatalogTree
+
 					#cards.zg Карточки
 					.plashka
 						span Изменения в этом разделе приведут к удалению текущих индексов и повторной индексации данных.
