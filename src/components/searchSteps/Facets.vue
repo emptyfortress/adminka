@@ -92,4 +92,10 @@ const reset = () => {
 	height: 100%;
 	background: #ccc;
 }
+:deep(.q-checkbox--dense .q-checkbox__inner) {
+	width: 0.4em;
+	min-width: 0.4em;
+	height: 0.4em;
+	margin-right: 0.3rem;
+}
 </style>
