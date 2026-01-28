@@ -14,6 +14,39 @@ export const useCardsTree = defineStore('cardsTree', () => {
 		return keywords.some(k => stepper.step4.catalogs.includes(k))
 	})
 
+	const facets = ref([
+		{
+			label: 'Базовые объекты',
+			key: 'indexable.baseObjects',
+			disabled: false,
+			children: [
+				{
+					label: 'Задание',
+					key: 'indexable.baseObjects.task',
+					children: [
+						{
+							label: 'Название',
+							key: 'indexable.baseObjects.task.task.name',
+							disabled: false,
+							children: [],
+						},
+						{
+							label: 'Содержание',
+							key: 'indexable.baseObjects.task.task.description',
+							disabled: false,
+							children: [],
+						},
+						{
+							label: 'Автор',
+							key: 'indexable.baseObjects.task.task.author',
+							disabled: false,
+							children: [],
+						},
+					],
+				},
+			],
+		},
+	])
 	const cards = computed(() => {
 		return [
 			{
@@ -389,6 +422,7 @@ export const useCardsTree = defineStore('cardsTree', () => {
 
 	return {
 		cards,
+		facets,
 		isTextNode,
 	}
 })

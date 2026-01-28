@@ -1,11 +1,12 @@
 <script setup lang="ts">
-import { ref, computed } from 'vue'
+import { ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useTabs } from '@/stores/tabs'
-import { useStore } from '@/stores/store'
 import commonProps from '@/components/searchTabs/commonProps.vue'
 import BreadCrumbs from '@/components/tree/BreadCrumbs.vue'
 import CatalogTree from '@/components/searchSteps/CatalogTree.vue'
+import CardTree from '@/components/searchSteps/CardTree.vue'
+import Facets from '@/components/searchSteps/Facets.vue'
 
 const props = defineProps({
 	id: {
@@ -14,7 +15,6 @@ const props = defineProps({
 	},
 })
 
-const store = useStore()
 const tabs = useTabs()
 //
 const route = useRoute()
@@ -27,9 +27,6 @@ const select = (e: any) => {
 	router.replace(path + '#' + e.field)
 	document.getElementById(e.field)?.scrollIntoView({ behavior: 'smooth' })
 }
-const currentDB = computed(() => {
-	return store.databases.find(item => item.psevdo == props.id)
-})
 const test = () => {
 	console.log(route.matched)
 }
@@ -53,13 +50,23 @@ q-page
 					#directories.zg Справочники
 					.plashka
 						span Изменения в этом разделе приведут к удалению текущих индексов и повторной индексации данных.
+					.data
+						label Индексируемые поля справочников
+						.descr Поля справочников, которые будут включены в полнотекстовый поиск.
 					CatalogTree
 
 					#cards.zg Карточки
 					.plashka
 						span Изменения в этом разделе приведут к удалению текущих индексов и повторной индексации данных.
+					.data
+						label Карточки
+						.descr Типы карточек, которые будут включены в полнотекстовый поиск.
+					CardTree
 					#facets.zg Фасеты
-					// Outer
+					.data
+						label Индексируемые поля для фасетов
+						.descr Поля карточек, которые будут использоваться как фасеты в Elasticsearch.
+					Facets
 
 </template>
 

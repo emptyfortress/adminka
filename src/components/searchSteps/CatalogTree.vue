@@ -177,7 +177,6 @@ const ticked = ref([
 	grid-template-columns: 1.5fr 2fr;
 	column-gap: 1rem;
 	margin-left: 2rem;
-	margin-top: 1rem;
 }
 .leftblock {
 	padding: 1rem;

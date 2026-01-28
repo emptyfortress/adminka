@@ -24,6 +24,12 @@ const filterRef = ref()
 const filter = ref()
 const showAll = ref(true)
 
+const ticked = ref([
+	'indexable.baseObjects.task.task.name',
+	'indexable.baseObjects.task.task.description',
+	'indexable.baseObjects.task.task.author',
+])
+
 // Filter function to remove disabled nodes and their children
 function filterDisabledNodes(nodes: TreeNode[]): TreeNode[] {
 	if (!showAll.value) {
@@ -65,7 +71,8 @@ const filteredCards = computed(() => {
 
 // Get the labels of all checked items
 const checkedCards = computed(() => {
-	return stepper.step5.cards
+	// return stepper.step5.cards
+	return ticked.value
 		.map((cardId: string) => {
 			// Find the card in the tree by its key and return full path
 			const findCardInTree = (
@@ -95,46 +102,6 @@ const checkedCards = computed(() => {
 		})
 		.filter(Boolean) // Filter out any null values
 })
-
-// watch(checkedCards, val => {
-// 	stepper.payload.cards = val
-// })
-// Get only parent node labels of checked items (unique)
-const parentNodeLabels = computed(() => {
-	return [
-		...new Set(
-			stepper.step5.cards
-				.map((cardId: string) => {
-					// Find the card in the tree by its key and return only parent label
-					const findParentLabel = (
-						nodes: TreeNode[],
-						parentLabel: string = ''
-					): string | null => {
-						for (const node of nodes) {
-							if (node.key === cardId) {
-								return parentLabel || node.label
-							}
-							if (node.children) {
-								const found = findParentLabel(node.children, node.label)
-								if (found) return found
-							}
-						}
-						return null
-					}
-					return findParentLabel(filteredCards.value)
-				})
-				.filter(Boolean) // Filter out any null values
-		),
-	]
-})
-
-watch(
-	checkedCards,
-	val => {
-		stepper.payload.cards = parentNodeLabels.value
-	},
-	{ immediate: true }
-)
 
 function buildTwoLevelList(items: string[]): CheckedTreeItem[] {
 	const map = items.reduce(
@@ -176,38 +143,37 @@ const parentSelection = computed(() => {
 })
 
 const shard = ref(0)
+const rem = ref(true)
 </script>
 
 <template lang="pug">
-.sid
-	.arch
-		.row.items-center.justify-between
-			.text-bold Дерево видов
-			div
-				MyInput(
-					ref="filterRef",
-					v-model="filter",
-					prependIcon='mdi-magnify'
-					clearable
-					noValidation
-				)
-				.q-mt-xs
-					q-checkbox(
-						v-model="showAll"
-						label="Скрыть недоступные"
-						dense
-					)
-					q-tooltip Скрывать поля, не доступные для индексации
+.grd
+	.leftblock
+		MyInput(
+			ref="filterRef",
+			v-model="filter",
+			prependIcon='mdi-magnify'
+			clearable
+			noValidation
+		)
+		.q-mt-xs
+			q-checkbox(
+				v-model="showAll"
+				label="Скрыть недоступные"
+				dense
+			)
+			q-tooltip Скрывать поля, не доступные для индексации
+		br
 		q-tree(
 			:nodes='filteredCards'
 			node-key='key'
 			:filter="filter"
 			tick-strategy="leaf"
-			v-model:ticked="stepper.step5.cards"
+			v-model:ticked="ticked"
 			v-model:expanded="expanded"
 		)
 
-	.arch
+	.leftblock
 		.text-bold Индексируемые карточки и поля
 
 		q-list.q-mt-sm(v-if="checkedCards.length")
@@ -237,7 +203,7 @@ const shard = ref(0)
 
 		.text-body2.q-mt-sm.text-grey(v-else) Нет выбранных элементов
 
-	.arch
+	.leftblock
 		.text-bold Свойства
 		template(v-if='selectedItem && parentSelection')
 			.q-my-md
@@ -247,6 +213,8 @@ const shard = ref(0)
 					MyInput(v-model="shard" type='number' style='width: 100px')
 			q-separator
 			.text-caption.text-secondary Шарды - количество фрагментов индекса Elasticsearch
+			q-separator
+			q-checkbox.q-mt-md(dense v-model="rem" label='Удалять исходные файлы после индексирования')
 
 		template(v-if='selectedItem && !parentSelection')
 			.smgrid
@@ -254,8 +222,6 @@ const shard = ref(0)
 				div {{ selectedItem }}
 				label Тип:
 				div Строка
-				// label Индексирование:
-				// div Да
 			.text-bold.q-mb-sm Свойства Elasticsearch
 			q-checkbox(dense v-model="morf" label='Морфологический анализ')
 
@@ -263,46 +229,23 @@ const shard = ref(0)
 </template>
 
 <style scoped lang="scss">
-.sid {
-	width: 1020px;
+.grd {
 	display: grid;
-	grid-template-columns: 430px 280px 290px;
-	align-items: start;
+	grid-template-columns: 1fr 1fr 1fr;
 	column-gap: 1rem;
-	margin: 0 auto;
+	margin-left: 2rem;
+	// margin-top: 1rem;
 }
-
-:deep(.q-checkbox--dense .q-checkbox__inner) {
-	width: 0.4em;
-	min-width: 0.4em;
-	height: 0.4em;
-	margin-right: 0.3rem;
+.leftblock {
+	padding: 1rem;
+	border: 1px solid #ccc;
+	background: #e0e0e0;
 }
-
-.dis {
-	color: red;
-}
-
-.lab {
-	font-size: 0.7rem;
-}
-
-.shard {
-	max-width: 50px;
-	height: 21px;
-	padding-left: 0.5rem;
-	margin-left: 0.5rem;
-	margin-right: 0.5rem;
-}
-
-.car {
-	padding: 0.5rem;
-	max-width: 190px;
-}
-
-.selection {
-	background-color: var(--bg-selected);
-	outline: 1px solid $primary;
+.fl {
+	margin-left: 2rem;
+	display: flex;
+	flex-wrap: wrap;
+	gap: 1rem;
 }
 .smgrid {
 	display: grid;
@@ -313,5 +256,9 @@ const shard = ref(0)
 	label {
 		color: #666;
 	}
+}
+.selection {
+	background-color: var(--bg-selected);
+	outline: 1px solid $primary;
 }
 </style>
