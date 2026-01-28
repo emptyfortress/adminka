@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, computed } from 'vue'
+import { ref, computed, watch } from 'vue'
 import { useCardsTree } from '@/stores/cardsTree'
 import MyInput from '@/components/common/MyInput.vue'
 
@@ -142,108 +142,117 @@ const parentSelection = computed(() => {
 
 const shard = ref(0)
 const rem = ref(true)
+
+const changed = ref(false)
+watch(
+	ticked,
+	newVal => {
+		changed.value = true
+	},
+	{ deep: true }
+)
+const reset = () => {
+	changed.value = false
+}
 </script>
 
 <template lang="pug">
-.grd
-	.leftblock
-		MyInput(
-			ref="filterRef",
-			v-model="filter",
-			prependIcon='mdi-magnify'
-			clearable
-			noValidation
-		)
-		.q-mt-xs
-			q-checkbox(
-				v-model="showAll"
-				label="Скрыть недоступные"
-				dense
+.data
+	q-btn.refresh(v-if="changed" flat icon="mdi-restore" color="secondary" dense @click="reset") 
+	.inner(v-if="changed")
+	label Карточки
+	.descr Типы карточек, которые будут включены в полнотекстовый поиск.
+	br
+	.grd
+		div
+			MyInput(
+				ref="filterRef",
+				v-model="filter",
+				prependIcon='mdi-magnify'
+				clearable
+				noValidation
 			)
-			q-tooltip Скрывать поля, не доступные для индексации
-		br
-		q-tree(
-			:nodes='filteredCards'
-			node-key='key'
-			:filter="filter"
-			tick-strategy="leaf"
-			v-model:ticked="ticked"
-			v-model:expanded="expanded"
-		)
-
-	.leftblock
-		.text-bold Индексируемые карточки и поля
-
-		q-list.q-mt-sm(v-if="checkedCards.length")
-			template(v-for="(group) in checkedTree" :key="group.label" )
-				q-item(
-					dense,
-					clickable,
-					:class="{ 'selection': selectedItem === group.label }"
-					@click="selectItem(group.label)"
+			.q-mt-xs
+				q-checkbox(
+					v-model="showAll"
+					label="Скрыть недоступные"
+					dense
 				)
-					q-item-section
-						q-item-label.text-bold {{ group.label }}
+				q-tooltip Скрывать поля, не доступные для индексации
+			br
+			q-tree(
+				:nodes='filteredCards'
+				node-key='key'
+				:filter="filter"
+				tick-strategy="leaf"
+				v-model:ticked="ticked"
+				v-model:expanded="expanded"
+			)
 
-				q-list
+		.sep
+		div
+			.text-bold Индексируемые карточки и поля
+
+			q-list.q-mt-sm(v-if="checkedCards.length")
+				template(v-for="(group) in checkedTree" :key="group.label" )
 					q-item(
-						v-for="child in group.children"
-						:key="child"
-						dense
-						clickable
-						:class="{ 'selection': selectedItem === child }"
-						@click="selectItem(child)"
+						dense,
+						clickable,
+						:class="{ 'selection': selectedItem === group.label }"
+						@click="selectItem(group.label)"
 					)
-						q-item-section(side)
-							q-icon(name="mdi-check" color="secondary" size='12px')
 						q-item-section
-							q-item-label {{ child }}
+							q-item-label.text-bold {{ group.label }}
 
-		.text-body2.q-mt-sm.text-grey(v-else) Нет выбранных элементов
+					q-list
+						q-item(
+							v-for="child in group.children"
+							:key="child"
+							dense
+							clickable
+							:class="{ 'selection': selectedItem === child }"
+							@click="selectItem(child)"
+						)
+							q-item-section(side)
+								q-icon(name="mdi-check" color="secondary" size='12px')
+							q-item-section
+								q-item-label {{ child }}
 
-	.leftblock
-		.text-bold Свойства
-		template(v-if='selectedItem && parentSelection')
-			.q-my-md
-				label Настройки индекса
-				.row.items-center.q-mt-sm
-					.q-mr-sm Elasticsearch shards:
-					MyInput(v-model="shard" type='number' style='width: 100px')
-			q-separator
-			.text-caption.text-secondary Шарды - количество фрагментов индекса Elasticsearch
-			q-separator
-			q-checkbox.q-mt-md(dense v-model="rem" label='Удалять исходные файлы после индексирования')
+			.text-body2.q-mt-sm.text-grey(v-else) Нет выбранных элементов
 
-		template(v-if='selectedItem && !parentSelection')
-			.smgrid
-				label Название:
-				div {{ selectedItem }}
-				label Тип:
-				div Строка
-			.text-bold.q-mb-sm Свойства Elasticsearch
-			q-checkbox(dense v-model="morf" label='Морфологический анализ')
+		.sep
+		div
+			.text-bold Свойства
+			template(v-if='selectedItem && parentSelection')
+				.q-my-md
+					label Настройки индекса
+					.row.items-center.q-mt-sm
+						.q-mr-sm Elasticsearch shards:
+						MyInput(v-model="shard" type='number' style='width: 100px')
+				q-separator
+				.text-caption.text-secondary Шарды - количество фрагментов индекса Elasticsearch
+				q-separator
+				q-checkbox.q-mt-md(dense v-model="rem" label='Удалять исходные файлы после индексирования')
 
-		.text-body2.q-mt-sm.text-grey(v-if='!selectedItem') Нет выбранных элементов
+			template(v-if='selectedItem && !parentSelection')
+				.smgrid
+					.label Название:
+					div {{ selectedItem }}
+					.label Тип:
+					div Строка
+				.text-bold.q-mb-sm Свойства Elasticsearch
+				q-checkbox(dense v-model="morf" label='Морфологический анализ')
+
+			.text-body2.q-mt-sm.text-grey(v-if='!selectedItem') Нет выбранных элементов
 </template>
 
 <style scoped lang="scss">
 .grd {
 	display: grid;
-	grid-template-columns: 1fr 1fr 1fr;
+	grid-template-columns: 1fr 1px 1fr 1px 1fr;
 	column-gap: 1rem;
 	margin-left: 2rem;
 	// margin-top: 1rem;
-}
-.leftblock {
-	padding: 1rem;
-	border: 1px solid #ccc;
-	background: #e0e0e0;
-}
-.fl {
-	margin-left: 2rem;
-	display: flex;
-	flex-wrap: wrap;
-	gap: 1rem;
 }
 .smgrid {
 	display: grid;
@@ -251,12 +260,23 @@ const rem = ref(true)
 	column-gap: 1rem;
 	margin-top: 1rem;
 	margin-bottom: 2rem;
-	label {
+	.label {
 		color: #666;
 	}
 }
 .selection {
 	background-color: var(--bg-selected);
 	outline: 1px solid $primary;
+}
+.sep {
+	width: 1px;
+	height: 100%;
+	background: #ccc;
+}
+:deep(.q-checkbox--dense .q-checkbox__inner) {
+	width: 0.4em;
+	min-width: 0.4em;
+	height: 0.4em;
+	margin-right: 0.3rem;
 }
 </style>

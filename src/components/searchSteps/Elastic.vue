@@ -30,6 +30,10 @@ const select = (e: any) => {
 const test = () => {
 	console.log(route.matched)
 }
+const changed = ref(false)
+const update = () => {
+	changed.value = !changed.value
+}
 </script>
 
 <template lang="pug">
@@ -50,22 +54,13 @@ q-page
 					#directories.zg Справочники
 					.plashka
 						span Изменения в этом разделе приведут к удалению текущих индексов и повторной индексации данных.
-					.data
-						label Индексируемые поля справочников
-						.descr Поля справочников, которые будут включены в полнотекстовый поиск.
 					CatalogTree
 
 					#cards.zg Карточки
 					.plashka
 						span Изменения в этом разделе приведут к удалению текущих индексов и повторной индексации данных.
-					.data
-						label Карточки
-						.descr Типы карточек, которые будут включены в полнотекстовый поиск.
 					CardTree
 					#facets.zg Фасеты
-					.data
-						label Индексируемые поля для фасетов
-						.descr Поля карточек, которые будут использоваться как фасеты в Elasticsearch.
 					Facets
 
 </template>
@@ -120,5 +115,59 @@ q-page
 	padding: 2px 1rem;
 	margin-left: 2rem;
 	font-weight: 500;
+}
+
+.data {
+	padding: 1rem;
+	padding-top: 0.3rem;
+	margin-left: 1rem;
+	border: 1px solid transparent;
+	position: relative;
+
+	&:hover {
+		background: #e0e0e0;
+		border: 1px solid #ccc;
+
+		.q-btn {
+			display: inline-flex;
+		}
+	}
+
+	.q-input,
+	.q-select {
+		max-width: 400px;
+		margin-top: 4px;
+	}
+
+	label {
+		font-size: 1rem;
+		font-weight: 600;
+		color: #666;
+	}
+
+	.descr {
+		color: #666;
+	}
+
+	.inner {
+		width: 1px;
+
+		position: absolute;
+		top: 0.5rem;
+		bottom: 1rem;
+		left: 0.2rem;
+		border-right: 3px solid $primary;
+	}
+
+	.refresh {
+		position: absolute;
+		left: -2rem;
+		top: 0.1rem;
+		display: none;
+	}
+
+	.add {
+		margin-top: 4px;
+	}
 }
 </style>

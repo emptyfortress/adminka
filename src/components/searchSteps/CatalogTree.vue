@@ -1,11 +1,4 @@
 <script setup lang="ts">
-const emit = defineEmits<{
-  (e: 'update:ticked', value: string[]): void
-}>()
-
-watch(ticked, (newVal) => {
-  emit('update:ticked', newVal)
-}, { deep: true })
 import { ref, computed, watch } from 'vue'
 import { newcatalog } from '@/stores/catalogTree'
 import MyInput from '@/components/common/MyInput.vue'
@@ -132,53 +125,71 @@ const ticked = ref([
 	'basics.employees.departments.staff.firstName',
 	'basics.employees.departments.staff.middleName',
 ])
+
+const changed = ref(false)
+watch(
+	ticked,
+	newVal => {
+		changed.value = true
+	},
+	{ deep: true }
+)
+const reset = () => {
+	changed.value = false
+}
 </script>
 
 <template lang="pug">
-.grd
-	div
-		MyInput(
-			ref="filterRef",
-			v-model="filter",
-			prependIcon='mdi-magnify'
-			clearable
-			noValidation
-		)
-		.q-mt-xs
-			q-checkbox(
-				v-model="showAll"
-				label="Скрыть недоступные"
-				dense
+.data
+	q-btn.refresh(v-if="changed" flat icon="mdi-restore" color="secondary" dense @click="reset") 
+	.inner(v-if="changed")
+	label Индексируемые поля справочников
+	.descr Поля справочников, которые будут включены в полнотекстовый поиск.
+	br
+	.grd
+		div
+			MyInput(
+				ref="filterRef",
+				v-model="filter",
+				prependIcon='mdi-magnify'
+				clearable
+				noValidation
 			)
-			q-tooltip Скрывать поля, не доступные для индексации
-		br
-		q-tree(
-			:nodes='filteredCatalog'
-			node-key='key'
-			:filter="filter"
-			tick-strategy="leaf"
-			v-model:ticked="ticked"
-			v-model:expanded="expanded"
-		)
-	.sep
-	div
-		br
-		br
-		br
-		br
-		.text-bold Индексируемые поля справочников
+			.q-mt-xs
+				q-checkbox(
+					v-model="showAll"
+					label="Скрыть недоступные"
+					dense
+				)
+				q-tooltip Скрывать поля, не доступные для индексации
+			br
+			q-tree(
+				:nodes='filteredCatalog'
+				node-key='key'
+				:filter="filter"
+				tick-strategy="leaf"
+				v-model:ticked="ticked"
+				v-model:expanded="expanded"
+			)
+		.sep
+		div
+			br
+			br
+			br
+			br
+			.text-bold Индексируемые поля справочников
 
-		q-list.q-mt-sm(v-if="checkedItems.length")
-			template(v-for="group in checkedTree" :key="group.label" )
-				q-item(dense)
-					q-item-section
-						q-item-label.text-bold {{ group.label }}
-				.q-ml-lg
-					div(v-for="child in group.children" :key="child" dense)
-						q-icon(name="mdi-check")
-						span.q-ml-xs {{ child }}
+			q-list.q-mt-sm(v-if="checkedItems.length")
+				template(v-for="group in checkedTree" :key="group.label" )
+					q-item(dense)
+						q-item-section
+							q-item-label.text-bold {{ group.label }}
+					.q-ml-lg
+						div(v-for="child in group.children" :key="child" dense)
+							q-icon(name="mdi-check")
+							span.q-ml-xs {{ child }}
 
-		.text-body2.q-mt-sm.text-grey(v-else) Нет выбранных элементов
+			.text-body2.q-mt-sm.text-grey(v-else) Нет выбранных элементов
 </template>
 
 <style scoped lang="scss">
