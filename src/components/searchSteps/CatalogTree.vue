@@ -1,5 +1,12 @@
 <script setup lang="ts">
-import { ref, computed } from 'vue'
+const emit = defineEmits<{
+  (e: 'update:ticked', value: string[]): void
+}>()
+
+watch(ticked, (newVal) => {
+  emit('update:ticked', newVal)
+}, { deep: true })
+import { ref, computed, watch } from 'vue'
 import { newcatalog } from '@/stores/catalogTree'
 import MyInput from '@/components/common/MyInput.vue'
 
