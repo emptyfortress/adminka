@@ -198,17 +198,6 @@ watch(
 						q-icon(name="mdi-check")
 						span.q-ml-xs {{ child }}
 
-		// q-list.q-mt-md(v-if="checkedItems.length")
-		// 	template(v-for="group in checkedTree" :key="group.label" )
-		// 		q-item(dense)
-		// 			q-item-section
-		// 				q-item-label.text-bold {{ group.label }}
-		// 		q-list
-		// 			q-item(v-for="child in group.children" :key="child" dense)
-		// 				q-item-section(side)
-		// 					q-icon(name="mdi-check" color="secondary" size='12px')
-		// 				q-item-section
-		// 					q-item-label {{ child }}
 
 		.text-body2.q-mt-sm.text-grey(v-else) Нет выбранных элементов
 
