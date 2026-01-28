@@ -84,7 +84,7 @@ function buildTwoLevelList(items: string[]): CheckedTreeItem[] {
 
 // Get the labels of all checked items
 const checkedItems = computed(() => {
-	return stepper.step4.catalogs
+	return ticked.value
 		.map((cardId: string) => {
 			// Find the card in the tree by its key and return full path
 			const findCardInTree = (
@@ -118,6 +118,15 @@ const checkedItems = computed(() => {
 const checkedTree = computed<CheckedTreeItem[]>(() => {
 	return buildTwoLevelList(checkedItems.value)
 })
+
+const ticked = ref([
+	'basics.employees.departments.name',
+	'basics.employees.departments.fullName',
+	'basics.employees.departments.comment',
+	'basics.employees.departments.staff.lastName',
+	'basics.employees.departments.staff.firstName',
+	'basics.employees.departments.staff.middleName',
+])
 </script>
 
 <template lang="pug">
@@ -143,7 +152,7 @@ const checkedTree = computed<CheckedTreeItem[]>(() => {
 			node-key='key'
 			:filter="filter"
 			tick-strategy="leaf"
-			v-model:ticked="stepper.step4.catalogs"
+			v-model:ticked="ticked"
 			v-model:expanded="expanded"
 		)
 	.leftblock
