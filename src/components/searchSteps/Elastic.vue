@@ -3,6 +3,7 @@ import { ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useTabs } from '@/stores/tabs'
 import commonProps from '@/components/searchTabs/commonProps.vue'
+import CardType from '@/components/searchSteps/CardType.vue'
 import BreadCrumbs from '@/components/tree/BreadCrumbs.vue'
 import CatalogTree from '@/components/searchSteps/CatalogTree.vue'
 import CardTree from '@/components/searchSteps/CardTree.vue'
@@ -62,6 +63,7 @@ q-page
 					CardTree
 					#facets.zg Фасеты
 					Facets
+					CardType
 
 </template>
 
