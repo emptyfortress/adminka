@@ -98,7 +98,7 @@ const checkedCards = computed(() => {
 			}
 			return findCardInTree(filteredCards.value)
 		})
-		.filter(Boolean) // Filter out any null values
+		.filter((item): item is string => item !== null) // Filter out any null values and assert type
 })
 
 function buildTwoLevelList(items: string[]): CheckedTreeItem[] {
