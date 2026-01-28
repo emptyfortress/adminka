@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import { ref, computed, watch } from 'vue'
-import { useStepperStore } from '@/stores/useStepperStore'
+import { ref, computed } from 'vue'
 import { newcatalog } from '@/stores/catalogTree'
 import MyInput from '@/components/common/MyInput.vue'
 
@@ -16,7 +15,6 @@ interface CheckedTreeItem {
 	children: string[]
 }
 
-const stepper = useStepperStore()
 const expanded = ref(['basics', 'basics.employees', 'cardTypes'])
 const filterRef = ref()
 const filter = ref()

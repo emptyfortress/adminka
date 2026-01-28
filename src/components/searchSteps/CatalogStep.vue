@@ -91,7 +91,7 @@ const checkedItems = computed(() => {
 			}
 			return findCardInTree(filteredCatalog.value)
 		})
-		.filter((item): item is string => item !== null) // Filter out any null values with proper type guard
+		.filter(Boolean) // Filter out any null values
 })
 
 // Get only parent node labels of checked items (unique)

@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import { ref, computed, watch } from 'vue'
+import { ref, computed } from 'vue'
 import { useStepperStore } from '@/stores/useStepperStore'
 
 export const useCardsTree = defineStore('cardsTree', () => {

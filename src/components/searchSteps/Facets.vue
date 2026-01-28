@@ -1,18 +1,13 @@
 <script setup lang="ts">
-import { ref, computed, watch } from 'vue'
+import { ref, computed } from 'vue'
 import MyInput from '@/components/common/MyInput.vue'
-// import { useStepperStore } from '@/stores/useStepperStore'
 import { useCardsTree } from '@/stores/cardsTree'
 
-// const stepper = useStepperStore()
 const cardsTree = useCardsTree()
 const ticked = ref([])
 
-const expanded = ref([])
 const filterRef = ref()
 const filter = ref()
-
-// Filter the cards tree to show only ticked nodes from CardStep
 
 // Get the labels of all checked items for FacetStep (independent from CardStep)
 const checkedItems = computed(() => {
