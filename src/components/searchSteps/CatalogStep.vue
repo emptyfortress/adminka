@@ -198,8 +198,6 @@ watch(
 						q-icon(name="mdi-check")
 						span.q-ml-xs {{ child }}
 
-		// fuck
-
 		.text-body2.q-mt-sm.text-grey(v-else) Нет выбранных элементов
 
 </template>
