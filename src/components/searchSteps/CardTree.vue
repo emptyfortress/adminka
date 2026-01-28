@@ -1,8 +1,7 @@
 <script setup lang="ts">
-import { ref, computed, watch } from 'vue'
+import { ref, computed } from 'vue'
 import { useCardsTree } from '@/stores/cardsTree'
 import MyInput from '@/components/common/MyInput.vue'
-import { useStepperStore } from '@/stores/useStepperStore'
 
 interface TreeNode {
 	label: string
@@ -16,7 +15,6 @@ interface CheckedTreeItem {
 	children: string[]
 }
 
-const stepper = useStepperStore()
 const cardsTree = useCardsTree()
 
 const expanded = ref(['indexable.baseObjects'])
