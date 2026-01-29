@@ -37,16 +37,24 @@ const columns: QTableColumn[] = [
 ]
 
 const changed = ref(false)
+const hand = ref(true)
+
 watch(
 	lang,
 	newVal => {
-		changed.value = true
+		if (hand.value) {
+			changed.value = true
+		}
 	},
 	{ deep: true }
 )
 const reset = () => {
+	hand.value = false
+	lang.value = tmp
 	changed.value = false
-	lang.value = [...tmp]
+	setTimeout(() => {
+		hand.value = true
+	}, 200)
 }
 const pagination = ref({
 	sortBy: '',
