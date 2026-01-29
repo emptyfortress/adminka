@@ -60,7 +60,7 @@ q-page
 					#cards.zg Карточки
 					.plashka
 						span Изменения в этом разделе приведут к удалению текущих индексов и повторной индексации данных.
-					CardTree
+					CardTree(elastic)
 					#facets.zg Фасеты
 					Facets
 					CardType

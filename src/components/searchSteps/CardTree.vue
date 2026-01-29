@@ -3,6 +3,12 @@ import { ref, computed, watch } from 'vue'
 import { useCardsTree } from '@/stores/cardsTree'
 import MyInput from '@/components/common/MyInput.vue'
 
+const props = defineProps({
+	elastic: {
+		type: Boolean,
+		default: false,
+	},
+})
 interface TreeNode {
 	label: string
 	key: string
@@ -160,7 +166,7 @@ const reset = () => {
 .data
 	q-btn.refresh(v-if="changed" flat icon="mdi-restore" color="secondary" dense @click="reset") 
 	.inner(v-if="changed")
-	label Карточки
+	label Индексируемы типы карточек
 	.descr Типы карточек, которые будут включены в полнотекстовый поиск.
 	br
 	.grd
@@ -220,30 +226,31 @@ const reset = () => {
 
 			.text-body2.q-mt-sm.text-grey(v-else) Нет выбранных элементов
 
-		.sep
-		div
-			.text-bold Свойства
-			template(v-if='selectedItem && parentSelection')
-				.q-my-md
-					label Настройки индекса
-					.row.items-center.q-mt-sm
-						.q-mr-sm Elasticsearch shards:
-						MyInput(v-model="shard" type='number' style='width: 100px')
-				q-separator
-				.text-caption.text-secondary Шарды - количество фрагментов индекса Elasticsearch
-				q-separator
-				q-checkbox.q-mt-md(dense v-model="rem" label='Удалять исходные файлы после индексирования')
+		template(v-if='props.elastic')
+			.sep
+			div
+				.text-bold Свойства
+				template(v-if='selectedItem && parentSelection')
+					.q-my-md
+						label Настройки индекса
+						.row.items-center.q-mt-sm
+							.q-mr-sm Elasticsearch shards:
+							MyInput(v-model="shard" type='number' style='width: 100px')
+					q-separator
+					.text-caption.text-secondary Шарды - количество фрагментов индекса Elasticsearch
+					q-separator
+					q-checkbox.q-mt-md(dense v-model="rem" label='Удалять исходные файлы после индексирования')
 
-			template(v-if='selectedItem && !parentSelection')
-				.smgrid
-					.label Название:
-					div {{ selectedItem }}
-					.label Тип:
-					div Строка
-				.text-bold.q-mb-sm Свойства Elasticsearch
-				q-checkbox(dense v-model="morf" label='Морфологический анализ')
+				template(v-if='selectedItem && !parentSelection')
+					.smgrid
+						.label Название:
+						div {{ selectedItem }}
+						.label Тип:
+						div Строка
+					.text-bold.q-mb-sm Свойства Elasticsearch
+					q-checkbox(dense v-model="morf" label='Морфологический анализ')
 
-			.text-body2.q-mt-sm.text-grey(v-if='!selectedItem') Нет выбранных элементов
+				.text-body2.q-mt-sm.text-grey(v-if='!selectedItem') Нет выбранных элементов
 </template>
 
 <style scoped lang="scss">

@@ -3,12 +3,12 @@ import { ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useTabs } from '@/stores/tabs'
 import commonSqlProps from '@/components/searchTabs/commonSqlProps.vue'
+import CardIndexRemove from '@/components/searchTabs/CardIndexRemove.vue'
 import Language from '@/components/searchTabs/Language.vue'
-import CardType from '@/components/searchSteps/CardType.vue'
+import Files from '@/components/searchSteps/Files.vue'
 import BreadCrumbs from '@/components/tree/BreadCrumbs.vue'
 import CatalogTree from '@/components/searchSteps/CatalogTree.vue'
 import CardTree from '@/components/searchSteps/CardTree.vue'
-import Facets from '@/components/searchSteps/Facets.vue'
 
 const props = defineProps({
 	id: {
@@ -66,9 +66,11 @@ q-page
 					.plashka
 						span Изменения в этом разделе приведут к удалению текущих индексов и повторной индексации данных.
 					CardTree
-					#facets.zg Фасеты
-					Facets
-					CardType
+					CardIndexRemove
+
+					#files.zg Файлы
+					Files
+					// CardType
 
 </template>
 
