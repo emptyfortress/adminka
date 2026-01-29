@@ -36,9 +36,11 @@ watch(
 	{ deep: true }
 )
 const reset = () => {
+	fileregim.value = 'use'
 	changed.value = false
 }
 const reset1 = () => {
+	selfiletypes.value = ['.doc', '.docx', '.rtf']
 	changed1.value = false
 }
 const filterRef = ref()
