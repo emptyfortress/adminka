@@ -6,6 +6,7 @@ import commonSqlProps from '@/components/searchTabs/commonSqlProps.vue'
 import CardIndexRemove from '@/components/searchTabs/CardIndexRemove.vue'
 import Language from '@/components/searchTabs/Language.vue'
 import Files from '@/components/searchSteps/Files.vue'
+import Indexes from '@/components/searchSteps/Indexes.vue'
 import BreadCrumbs from '@/components/tree/BreadCrumbs.vue'
 import CatalogTree from '@/components/searchSteps/CatalogTree.vue'
 import CardTree from '@/components/searchSteps/CardTree.vue'
@@ -72,6 +73,8 @@ q-page
 					Files
 					// CardType
 
+					#indexes.zg Индексы
+					Indexes
 </template>
 
 <style scoped lang="scss">
