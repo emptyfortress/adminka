@@ -15,6 +15,7 @@ interface Props {
 	checkvalue?: boolean
 	button?: boolean
 	btLabel?: string
+	index?: boolean
 }
 
 const props = withDefaults(defineProps<Props>(), {
@@ -26,6 +27,7 @@ const props = withDefaults(defineProps<Props>(), {
 	button: false,
 	btLabel: 'Добавить',
 	descr: 'This is description',
+	index: true,
 })
 
 // const main = defineModel<string>('main')
@@ -103,20 +105,20 @@ const options = [
 					div в
 					MyInput(v-model="hour2" type="number" style="width: 140px;")
 					div часов
-		q-item
+		q-item(v-if='index')
 			q-item-section(avatar)
 				q-radio(v-model="rasp" val="four" dense)
 			q-item-section
 				.row.justify-start.items-baseline.q-gutter-sm
 					div Не очищать корзину автоматически
-		q-item
+		q-item(v-if='index')
 			q-item-section(avatar)
 				q-radio(v-model="rasp" val="five" dense)
 			q-item-section
 				.row.justify-start.items-baseline.q-gutter-sm
 					div Нестандартное расписание очистки
-	.descr.q-mt-md Запустить очистку немедленно
-	q-btn(unelevated color="secondary" label="Очистить корзину" size="sm") 
+	.descr.q-mt-md(v-if='index') Запустить очистку немедленно
+	q-btn(v-if='index' unelevated color="secondary" label="Очистить корзину" size="sm") 
 	
 </template>
 

@@ -33,7 +33,7 @@ const columns: QTableColumn[] = [
 		name: 'size',
 		label: 'Размер',
 		field: 'size',
-		align: 'left',
+		align: 'right',
 		sortable: true,
 	},
 	{
@@ -181,7 +181,4 @@ const stat = [
 	margin-left: 1rem;
 	text-align: center;
 }
-// :deep(.q-table__container) {
-// 	width: 640px;
-// }
 </style>
