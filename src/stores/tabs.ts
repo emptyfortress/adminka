@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import { ref, computed } from 'vue'
+import { ref } from 'vue'
 
 export const useTabs = defineStore('tabs', () => {
 	const tabs = ref([
@@ -61,6 +61,58 @@ export const useTabs = defineStore('tabs', () => {
 		},
 	])
 
+	const sqlSections = ref([
+		{
+			id: 0,
+			field: 'commonSqlProps',
+			name: 'commonSqlProps',
+			label: 'Общие настройки',
+			modified: false,
+		},
+		{
+			id: 1,
+			field: 'language',
+			name: 'language',
+			label: 'Язык',
+			modified: false,
+		},
+		{
+			id: 2,
+			field: 'dictionaries',
+			name: 'dictionaries',
+			label: 'Справочники',
+			modified: false,
+		},
+		{
+			id: 3,
+			field: 'cards',
+			name: 'cards',
+			label: 'Карточки',
+			modified: false,
+		},
+		{
+			id: 4,
+			field: 'files',
+			name: 'files',
+			label: 'Файлы',
+			modified: false,
+		},
+		{
+			id: 5,
+			field: 'indexes',
+			name: 'indexes',
+			label: 'Индексы',
+			modified: false,
+		},
+		{
+			id: 6,
+			field: 'schedule',
+			name: 'schedule',
+			label: 'Расписание',
+			modified: false,
+		},
+	])
+
 	const searchSections = ref([
 		{
 			id: 0,
@@ -99,6 +151,7 @@ export const useTabs = defineStore('tabs', () => {
 	return {
 		tabs,
 		searchSections,
+		sqlSections,
 		setTabMod,
 	}
 })
